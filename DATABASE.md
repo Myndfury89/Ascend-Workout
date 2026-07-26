@@ -1,9 +1,11 @@
 # Database
 
-Room, offline‑first. Schema version **1**, exported to `app/schemas/` so migrations
+Room, offline‑first. Schema version **2**, exported to `app/schemas/` so migrations
 have a versioned baseline from the start.
 
-## Entities (v1)
+## Entities
+
+**v1**
 
 | Entity | Purpose |
 |---|---|
@@ -16,9 +18,19 @@ have a versioned baseline from the start.
 | `quest_objective` | An objective within a quest (target, current, set sizes, primary attribute) |
 | `quest_progress_entry` | One logged contribution toward an objective |
 
-Foreign keys cascade from `user_profile` → progress/stats/xp/attributes/quests, and
-`quest` → objectives → entries. Timestamps are epoch millis; enums are stored as
-their names and mapped to domain enums in the data layer.
+**v2 (Milestone 2 — Workouts)**
+
+| Entity | Purpose |
+|---|---|
+| `exercise` | Exercise catalog entry (name, category, primary attribute, measurement type, default unit) |
+| `workout` | A logged training session (title, difficulty, status, performedAt, duration) |
+| `workout_set` | One set within a workout (reps / weight / duration / distance, denormalised `volume`) |
+
+Foreign keys cascade from `user_profile` → progress/stats/xp/attributes/quests/workouts,
+`quest` → objectives → entries, and `workout` → sets. A `workout_set` also references
+`exercise` with `ON DELETE RESTRICT` (catalog rows can't be deleted while referenced).
+Timestamps are epoch millis; enums are stored as their names and mapped to domain enums
+in the data layer.
 
 ## Idempotency constraints (the important ones)
 
@@ -40,14 +52,21 @@ completion invoking the progression repository) coalesce into one transaction.
 
 ## DAOs
 
-`PlayerDao`, `XpDao`, `AttributeDao`, `QuestDao`. Inserts that must dedupe use
-`@Insert(onConflict = IGNORE)` and return the row id (`-1` when blocked). Relation
-queries (`@Transaction` + `@Relation`) load a quest with its objectives and entries
-in one shot for the UI.
+`PlayerDao`, `XpDao`, `AttributeDao`, `QuestDao`, `ExerciseDao`, `WorkoutDao`.
+Inserts that must dedupe use `@Insert(onConflict = IGNORE)` and return the row id
+(`-1` when blocked). Relation queries (`@Transaction` + `@Relation`) load a quest
+with its objectives and entries — and a workout with its sets (each joined to its
+exercise) — in one shot for the UI.
 
 ## Migrations
 
-Schema export is enabled (`room.schemaLocation`). While the app is pre‑release we
-keep version 1; once released, each schema change bumps the version and adds a
-`Migration` plus a `MigrationTestHelper` test against the exported JSON. No
-destructive fallback is configured.
+Schema export is enabled (`room.schemaLocation`). Each schema change bumps the
+version and adds a `Migration` (registered via `AscendMigrations.ALL`) plus a
+`MigrationTestHelper` test against the exported JSON. No destructive fallback is
+configured.
+
+- **v1 → v2** (`AscendMigrations.MIGRATION_1_2`): adds `exercise`, `workout`, and
+  `workout_set` with their indices and foreign keys. Validated on the JVM by
+  `AscendMigrationTest` (Robolectric, no emulator). The exported schemas are wired
+  into the debug source set's assets so `MigrationTestHelper` can load them under
+  Robolectric; they never ship in the release APK.

@@ -3,16 +3,21 @@ package com.ascend.core.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.ascend.core.database.dao.AttributeDao
+import com.ascend.core.database.dao.ExerciseDao
 import com.ascend.core.database.dao.PlayerDao
 import com.ascend.core.database.dao.QuestDao
+import com.ascend.core.database.dao.WorkoutDao
 import com.ascend.core.database.dao.XpDao
 import com.ascend.core.database.entity.AttributeTransactionEntity
+import com.ascend.core.database.entity.ExerciseEntity
 import com.ascend.core.database.entity.PlayerProgressEntity
 import com.ascend.core.database.entity.PlayerStatsEntity
 import com.ascend.core.database.entity.QuestEntity
 import com.ascend.core.database.entity.QuestObjectiveEntity
 import com.ascend.core.database.entity.QuestProgressEntryEntity
 import com.ascend.core.database.entity.UserProfileEntity
+import com.ascend.core.database.entity.WorkoutEntity
+import com.ascend.core.database.entity.WorkoutSetEntity
 import com.ascend.core.database.entity.XpTransactionEntity
 
 @Database(
@@ -25,8 +30,11 @@ import com.ascend.core.database.entity.XpTransactionEntity
         QuestEntity::class,
         QuestObjectiveEntity::class,
         QuestProgressEntryEntity::class,
+        ExerciseEntity::class,
+        WorkoutEntity::class,
+        WorkoutSetEntity::class,
     ],
-    version = 1,
+    version = 2,
     exportSchema = true,
 )
 abstract class AscendDatabase : RoomDatabase() {
@@ -37,6 +45,10 @@ abstract class AscendDatabase : RoomDatabase() {
     abstract fun attributeDao(): AttributeDao
 
     abstract fun questDao(): QuestDao
+
+    abstract fun exerciseDao(): ExerciseDao
+
+    abstract fun workoutDao(): WorkoutDao
 
     companion object {
         const val NAME = "ascend.db"

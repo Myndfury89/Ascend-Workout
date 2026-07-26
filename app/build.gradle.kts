@@ -57,6 +57,15 @@ android {
         unitTests.isReturnDefaultValues = true
         unitTests.isIncludeAndroidResources = true
     }
+
+    // Expose the exported Room schemas to Robolectric so MigrationTestHelper can
+    // load them from assets (JVM migration tests, no emulator). Scoped to the debug
+    // build type so the schema JSONs never ship in the release APK.
+    sourceSets {
+        getByName("debug") {
+            assets.srcDir("$projectDir/schemas")
+        }
+    }
 }
 
 // Room: export schemas so migrations have a versioned baseline from v1.

@@ -22,6 +22,7 @@ import com.ascend.feature.dashboard.StatusScreen
 import com.ascend.feature.progress.ProgressScreen
 import com.ascend.feature.quests.ActiveQuestScreen
 import com.ascend.feature.quests.QuestsScreen
+import com.ascend.feature.workouts.LogWorkoutScreen
 import com.ascend.feature.workouts.WorkoutScreen
 
 @Composable
@@ -66,11 +67,16 @@ fun AscendApp() {
             composable<Quests> {
                 QuestsScreen(onQuestClick = { questId -> navController.navigate(ActiveQuest(questId)) })
             }
-            composable<Workout> { WorkoutScreen() }
+            composable<Workout> {
+                WorkoutScreen(onLogWorkout = { navController.navigate(LogWorkout) })
+            }
             composable<Calendar> { CalendarScreen() }
             composable<Progress> { ProgressScreen() }
             composable<ActiveQuest> {
                 ActiveQuestScreen(onBack = { navController.popBackStack() })
+            }
+            composable<LogWorkout> {
+                LogWorkoutScreen(onBack = { navController.popBackStack() })
             }
         }
     }

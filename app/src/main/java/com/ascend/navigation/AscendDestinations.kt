@@ -31,6 +31,10 @@ data object Progress
 @Serializable
 data class ActiveQuest(val questId: String)
 
+// Log-workout flow pushed on top of the Workout tab.
+@Serializable
+data object LogWorkout
+
 /** The five primary destinations shown in the bottom navigation bar. */
 enum class TopLevelDestination(
     val route: Any,

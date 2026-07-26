@@ -14,9 +14,9 @@ discipline, progression.
 
 ---
 
-## Status: Milestone 1 vertical slice (in progress)
+## Status: Milestone 2 — Workouts (in progress)
 
-This repository currently implements a **complete, tested vertical slice** of the
+This repository currently implements **complete, tested vertical slices** of the
 core loop, built in verifiable phases. It is not the full product yet.
 
 **Done and verified (build green, unit + integration tests passing):**
@@ -24,22 +24,28 @@ core loop, built in verifiable phases. It is not the full product yet.
 - **Foundation** — Kotlin, Jetpack Compose, Material 3, Hilt, type‑safe Navigation,
   an original dark design system, a 5‑destination shell (Status, Quests, Workout,
   Calendar, Progress).
-- **Database** — Room (entities, DAOs, v1 schema exported for migrations) with
-  unique‑index idempotency guards for XP and imports.
+- **Database** — Room (entities, DAOs, schema exported for migrations, now at
+  **v2** with a real `MIGRATION_1_2`) with unique‑index idempotency guards for XP
+  and imports.
 - **Progression engine** — pure, configurable calculators (Level, XP, Rank,
   Attribute, Streak, Set‑Suggestion) plus a Room‑backed, transactional,
   **idempotent** XP/attribute ledger with reversal.
 - **200‑push‑up quest flow** — create an accumulation quest, log uneven custom
   sets, edit/delete sets, see remaining reps and safe set suggestions, complete
   the quest, earn XP **exactly once**, level up, and grow Strength + Discipline.
+- **Workout logging (Milestone 2)** — a seeded exercise catalog, log a session of
+  sets across exercises (reps / duration / distance / weighted), then finish to
+  earn XP **exactly once** and grow the exercise's primary attribute (plus a flat
+  Discipline adherence bonus). Backed by the same transactional, idempotent
+  ledger, with a real v1→v2 migration validated on the JVM.
 
 **Not yet implemented:** onboarding ("The Awakening"), the real Status dashboard,
-workouts/active‑workout tracking, scheduling/calendar, Health Connect,
-notifications, expeditions, progress dashboards, achievements/titles, and cloud
-sync. Most screens beyond Quests are placeholders.
+scheduling/calendar, Health Connect, notifications, expeditions, progress
+dashboards, achievements/titles, and cloud sync. Status, Calendar, and Progress
+screens are still placeholders.
 
-See `ARCHITECTURE.md`, `PROGRESSION_SYSTEM.md`, `QUEST_SYSTEM.md`, `DATABASE.md`,
-`TESTING.md`, and `PRIVACY.md` for details.
+See `ARCHITECTURE.md`, `PROGRESSION_SYSTEM.md`, `QUEST_SYSTEM.md`, `WORKOUT_SYSTEM.md`,
+`DATABASE.md`, `TESTING.md`, and `PRIVACY.md` for details.
 
 ---
 
@@ -48,7 +54,8 @@ See `ARCHITECTURE.md`, `PROGRESSION_SYSTEM.md`, `QUEST_SYSTEM.md`, `DATABASE.md`
 | Destination | State |
 |---|---|
 | Quests | Live — seeded 200‑push‑up quest, Active Quest screen with quick‑add, set history, suggestions, completion |
-| Status / Workout / Calendar / Progress | Placeholder |
+| Workout | Live — logged‑session list, log‑workout flow (exercise catalog, sets, difficulty), finish for XP + attributes |
+| Status / Calendar / Progress | Placeholder |
 
 ## Architecture (summary)
 
@@ -108,5 +115,5 @@ are wired yet. No secrets are stored in the repository.
 
 ## Roadmap
 
-Workouts → Scheduling/Calendar → Health Connect → Notifications → Expeditions →
+Workouts ✅ → Scheduling/Calendar → Health Connect → Notifications → Expeditions →
 Progress dashboards → Achievements/Titles → Cloud sync → Release hardening.

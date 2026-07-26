@@ -3,9 +3,12 @@ package com.ascend.core.database.di
 import android.content.Context
 import androidx.room.Room
 import com.ascend.core.database.AscendDatabase
+import com.ascend.core.database.AscendMigrations
 import com.ascend.core.database.dao.AttributeDao
+import com.ascend.core.database.dao.ExerciseDao
 import com.ascend.core.database.dao.PlayerDao
 import com.ascend.core.database.dao.QuestDao
+import com.ascend.core.database.dao.WorkoutDao
 import com.ascend.core.database.dao.XpDao
 import dagger.Module
 import dagger.Provides
@@ -24,6 +27,7 @@ object DatabaseModule {
     ): AscendDatabase =
         Room.databaseBuilder(context, AscendDatabase::class.java, AscendDatabase.NAME)
             // Real, versioned migrations are added per phase; no destructive fallback.
+            .addMigrations(*AscendMigrations.ALL)
             .build()
 
     @Provides
@@ -37,4 +41,10 @@ object DatabaseModule {
 
     @Provides
     fun provideQuestDao(db: AscendDatabase): QuestDao = db.questDao()
+
+    @Provides
+    fun provideExerciseDao(db: AscendDatabase): ExerciseDao = db.exerciseDao()
+
+    @Provides
+    fun provideWorkoutDao(db: AscendDatabase): WorkoutDao = db.workoutDao()
 }

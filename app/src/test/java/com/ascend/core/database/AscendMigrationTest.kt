@@ -1,0 +1,79 @@
+package com.ascend.core.database
+
+import androidx.room.testing.MigrationTestHelper
+import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
+import androidx.test.platform.app.InstrumentationRegistry
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
+
+/**
+ * Validates the v1 -> v2 migration against the exported schemas on the JVM
+ * (Robolectric, no emulator). Proves the workout tables are created correctly and
+ * that pre-existing v1 data survives the upgrade.
+ */
+@RunWith(RobolectricTestRunner::class)
+@Config(sdk = [34], manifest = Config.NONE)
+class AscendMigrationTest {
+    @get:Rule
+    val helper =
+        MigrationTestHelper(
+            InstrumentationRegistry.getInstrumentation(),
+            AscendDatabase::class.java,
+            emptyList(),
+            FrameworkSQLiteOpenHelperFactory(),
+        )
+
+    @Test
+    fun `migrate 1 to 2 creates workout tables and preserves data`() {
+        val dbName = "migration-test.db"
+
+        // Seed a v1 database with a profile + quest.
+        helper.createDatabase(dbName, 1).use { db ->
+            db.execSQL(
+                "INSERT INTO user_profile (id, displayName, createdAt, updatedAt, onboardingCompleted, " +
+                    "measurementSystem, localOnly, cloudSyncEnabled) " +
+                    "VALUES ('u1', 'Tester', 0, 0, 0, 'METRIC', 1, 0)",
+            )
+            db.execSQL(
+                "INSERT INTO quest (id, userId, title, questType, difficulty, status, " +
+                    "baseRewardXp, partialRewardEnabled, overCompletionEnabled, createdAt, updatedAt) " +
+                    "VALUES ('q1', 'u1', '200 Push-Ups', 'ACCUMULATION', 'MODERATE', 'ACTIVE', 350, 1, 1, 0, 0)",
+            )
+        }
+
+        // Run the migration; Room validates the resulting schema against 2.json.
+        val db = helper.runMigrationsAndValidate(dbName, 2, true, AscendMigrations.MIGRATION_1_2)
+
+        // The v1 row survived.
+        db.query("SELECT title FROM quest WHERE id = 'q1'").use { c ->
+            assertTrue(c.moveToFirst())
+            assertEquals("200 Push-Ups", c.getString(0))
+        }
+
+        // The new tables are usable, including the exercise -> workout_set FK chain.
+        db.execSQL(
+            "INSERT INTO exercise (id, name, category, primaryAttribute, measurementType, defaultUnit, " +
+                "isWeighted, isBuiltIn, createdAt, updatedAt) " +
+                "VALUES ('ex-pushup', 'Push-ups', 'Bodyweight', 'STRENGTH', 'REPETITIONS', 'reps', 0, 1, 0, 0)",
+        )
+        db.execSQL(
+            "INSERT INTO workout (id, userId, title, difficulty, status, performedAt, createdAt, updatedAt) " +
+                "VALUES ('w1', 'u1', 'Session', 'MODERATE', 'IN_PROGRESS', 100, 0, 0)",
+        )
+        db.execSQL(
+            "INSERT INTO workout_set (id, workoutId, exerciseId, orderIndex, reps, volume, unit, " +
+                "completedAt, createdAt, updatedAt) " +
+                "VALUES ('s1', 'w1', 'ex-pushup', 0, 20, 20.0, 'reps', 100, 0, 0)",
+        )
+        db.query("SELECT SUM(volume) FROM workout_set WHERE workoutId = 'w1'").use { c ->
+            assertTrue(c.moveToFirst())
+            assertEquals(20.0, c.getDouble(0), 0.0001)
+        }
+        db.close()
+    }
+}

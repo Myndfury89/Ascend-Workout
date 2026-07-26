@@ -66,7 +66,7 @@ fun ActiveQuestScreen(
 
 @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
 @Composable
-private fun ActiveQuestContent(
+internal fun ActiveQuestContent(
     state: ActiveQuestUiState,
     onBack: () -> Unit,
     onAdd: (Int) -> Unit,

@@ -111,6 +111,10 @@ dependencies {
     testImplementation(libs.androidx.test.core)
     testImplementation(libs.androidx.test.core.ktx)
     testImplementation(libs.androidx.test.ext.junit)
+    // Compose UI tests run on the JVM via Robolectric (no device needed).
+    testImplementation(platform(libs.androidx.compose.bom))
+    testImplementation(libs.androidx.compose.ui.test.junit4)
+    testImplementation(libs.androidx.compose.ui.test.manifest)
 
     // Instrumented tests
     androidTestImplementation(platform(libs.androidx.compose.bom))

@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.ascend.core.database.AscendDatabase
 import com.ascend.core.database.AscendMigrations
 import com.ascend.core.database.dao.AttributeDao
+import com.ascend.core.database.dao.ClassDao
 import com.ascend.core.database.dao.ExerciseDao
 import com.ascend.core.database.dao.PlayerDao
 import com.ascend.core.database.dao.ProgressionEventDao
@@ -51,4 +52,7 @@ object DatabaseModule {
 
     @Provides
     fun provideProgressionEventDao(db: AscendDatabase): ProgressionEventDao = db.progressionEventDao()
+
+    @Provides
+    fun provideClassDao(db: AscendDatabase): ClassDao = db.classDao()
 }

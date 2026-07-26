@@ -8,6 +8,7 @@ import com.ascend.core.database.dao.ExerciseDao
 import com.ascend.core.database.dao.WorkoutDao
 import com.ascend.core.database.entity.WorkoutEntity
 import com.ascend.core.database.entity.WorkoutSetEntity
+import com.ascend.core.domain.classes.ClassRewardApplier
 import com.ascend.core.domain.progression.AttributeProgressCalculator
 import com.ascend.core.domain.progression.XpCalculator
 import com.ascend.core.domain.repository.CompleteWorkoutResult
@@ -19,6 +20,7 @@ import com.ascend.core.domain.repository.XpAwardResult
 import com.ascend.core.model.AttributeType
 import com.ascend.core.model.Difficulty
 import com.ascend.core.model.Exercise
+import com.ascend.core.model.RewardBreakdown
 import com.ascend.core.model.Workout
 import com.ascend.core.model.WorkoutStatus
 import com.ascend.core.model.XpSourceType
@@ -38,6 +40,7 @@ class WorkoutRepositoryImpl
         private val progressionRepository: ProgressionRepository,
         private val xpCalculator: XpCalculator,
         private val attributeCalculator: AttributeProgressCalculator,
+        private val classRewardApplier: ClassRewardApplier,
     ) : WorkoutRepository {
         private fun now() = System.currentTimeMillis()
 
@@ -137,19 +140,64 @@ class WorkoutRepositoryImpl
                     return@withTransaction CompleteWorkoutResult.AlreadyCompleted
                 }
 
-                val deltas = LinkedHashMap<AttributeType, Long>()
+                // Base attribute distribution from set volume, before any class shaping.
+                val baseDeltas = LinkedHashMap<AttributeType, Long>()
                 workout.volumeByAttribute.forEach { (attribute, volume) ->
                     val points = attributeCalculator.volumePoints(volume, difficulty)
-                    if (points > 0) deltas[attribute] = (deltas[attribute] ?: 0L) + points
+                    if (points > 0) baseDeltas[attribute] = (baseDeltas[attribute] ?: 0L) + points
                 }
-                deltas[AttributeType.DISCIPLINE] =
-                    (deltas[AttributeType.DISCIPLINE] ?: 0L) + attributeCalculator.disciplinePoints(difficulty)
-
-                progressionRepository.awardAttributes(workout.userId, deltas, XpSourceType.WORKOUT_COMPLETION, workoutId)
+                baseDeltas[AttributeType.DISCIPLINE] =
+                    (baseDeltas[AttributeType.DISCIPLINE] ?: 0L) + attributeCalculator.disciplinePoints(difficulty)
 
                 val awarded = xpOutcome as XpAwardResult.Awarded
-                CompleteWorkoutResult.Completed(awarded.amount, awarded.newLevel, awarded.leveledUp, deltas)
+                val activityTags = resolveTags(workout.sets.map { it.exerciseId })
+
+                val outcome =
+                    classRewardApplier.apply(
+                        userId = workout.userId,
+                        basePlayerXp = awarded.amount,
+                        baseAttributeDistribution = baseDeltas,
+                        activityTags = activityTags,
+                        sourceType = XpSourceType.WORKOUT_COMPLETION,
+                        sourceId = workoutId,
+                    )
+
+                progressionRepository.awardAttributes(
+                    workout.userId,
+                    outcome.awardedAttributeProficiency,
+                    XpSourceType.WORKOUT_COMPLETION,
+                    workoutId,
+                )
+
+                val breakdown =
+                    RewardBreakdown(
+                        basePlayerXp = awarded.amount,
+                        playerLeveledUp = awarded.leveledUp,
+                        newPlayerLevel = awarded.newLevel,
+                        baseAttributeDistribution = baseDeltas,
+                        awardedAttributeProficiency = outcome.awardedAttributeProficiency,
+                        primaryClass = outcome.primaryClass,
+                        secondaryClass = outcome.secondaryClass,
+                    )
+                CompleteWorkoutResult.Completed(
+                    awarded.amount,
+                    awarded.newLevel,
+                    awarded.leveledUp,
+                    outcome.awardedAttributeProficiency,
+                    breakdown,
+                )
             }
+        }
+
+        /** Union of activity tags across the workout's exercises (empty -> neutral affinity). */
+        private suspend fun resolveTags(exerciseIds: List<String>): Set<String> {
+            val out = LinkedHashSet<String>()
+            exerciseIds.distinct().forEach { id ->
+                exerciseDao.getById(id)?.tags
+                    ?.split(",")
+                    ?.forEach { tag -> tag.trim().takeIf { it.isNotEmpty() }?.let(out::add) }
+            }
+            return out
         }
 
         /** Span from the first to the last logged set; 0 when a single instant. */

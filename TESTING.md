@@ -9,7 +9,7 @@ Run everything:
 ./gradlew testDebugUnitTest
 ```
 
-## What's covered today (64 tests, all passing)
+## What's covered today (73 tests, all passing)
 
 **Progression (pure):**
 - `LevelCalculatorTest` — formula, monotonicity, cumulative XP, `resolve`, boundaries
@@ -22,12 +22,16 @@ Run everything:
 **Database (Robolectric, in‑memory Room):**
 - `AscendDatabaseDaoTest` — XP dedup, import dedup, uneven‑set accumulation
 - `WorkoutDaoTest` — workout↔set relation join to the exercise, set ordering, per‑set delete
-- `AscendMigrationTest` — v1→v2 and v2→v3 migrations validated against the exported schema; data survives and the new tables (incl. the unique `(batchId, sequence)` guard) are usable
+- `AscendMigrationTest` — v1→v2, v2→v3, and v3→v4 migrations validated against the exported schema; data survives, tags are backfilled, and the new tables (incl. the exactly‑once guards) are usable
 
 **Repositories (Robolectric integration):**
 - `ProgressionRepositoryTest` — award once → level up, reverse → recompute, attributes once, multi‑level award
 - `QuestFlowIntegrationTest` — **the acceptance‑criteria proof**: create 200‑push‑up quest → log uneven sets → delete a set → finish → complete → XP once → level up → Strength + Discipline rise; re‑completion and imported duplicates don't double‑count
 - `WorkoutFlowIntegrationTest` — seed catalog (idempotent) → log sets across two exercises → finish → XP once → level up → Strength + Discipline rise; re‑finish, empty, and unknown workouts award nothing
+
+**Class system (pure + Robolectric):**
+- `ClassProgressionCalculatorTest` — tag affinity, class‑XP interpolation, attribute reshaping (no invented attributes), unique proficiency (favored vs zero)
+- `ClassRewardFlowTest` — Monk vs Berserker on a real workout: **class‑neutral Player XP**, class‑shaped attributes/Class XP/unique proficiency, secondary‑class 50% allocation, idempotent re‑completion
 
 **Status motion system (pure + Robolectric):**
 - `MotionSpecTest` — full motion preserves durations/stagger; reduced motion collapses them to zero

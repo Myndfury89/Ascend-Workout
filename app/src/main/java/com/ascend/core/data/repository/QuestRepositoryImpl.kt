@@ -4,10 +4,12 @@ import androidx.room.withTransaction
 import com.ascend.core.common.newId
 import com.ascend.core.data.mapper.toDomain
 import com.ascend.core.database.AscendDatabase
+import com.ascend.core.database.dao.ExerciseDao
 import com.ascend.core.database.dao.QuestDao
 import com.ascend.core.database.entity.QuestEntity
 import com.ascend.core.database.entity.QuestObjectiveEntity
 import com.ascend.core.database.entity.QuestProgressEntryEntity
+import com.ascend.core.domain.classes.ClassRewardApplier
 import com.ascend.core.domain.progression.AttributeProgressCalculator
 import com.ascend.core.domain.progression.XpCalculator
 import com.ascend.core.domain.repository.AddProgressResult
@@ -20,6 +22,7 @@ import com.ascend.core.model.AttributeType
 import com.ascend.core.model.Difficulty
 import com.ascend.core.model.Quest
 import com.ascend.core.model.QuestStatus
+import com.ascend.core.model.RewardBreakdown
 import com.ascend.core.model.XpSourceType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -32,9 +35,11 @@ class QuestRepositoryImpl
     constructor(
         private val db: AscendDatabase,
         private val questDao: QuestDao,
+        private val exerciseDao: ExerciseDao,
         private val progressionRepository: ProgressionRepository,
         private val xpCalculator: XpCalculator,
         private val attributeCalculator: AttributeProgressCalculator,
+        private val classRewardApplier: ClassRewardApplier,
     ) : QuestRepository {
         private fun now() = System.currentTimeMillis()
 
@@ -170,24 +175,71 @@ class QuestRepositoryImpl
                     return@withTransaction CompleteQuestResult.AlreadyCompleted
                 }
 
-                val deltas = LinkedHashMap<AttributeType, Long>()
+                // Base attribute distribution the activity trains, before any class shaping.
+                val baseDeltas = LinkedHashMap<AttributeType, Long>()
                 qwo.objectives.forEach { owe ->
                     val attribute =
                         owe.objective.primaryAttribute
                             ?.let { runCatching { AttributeType.valueOf(it) }.getOrNull() }
                     if (attribute != null) {
                         val points = attributeCalculator.volumePoints(owe.objective.currentValue, difficulty)
-                        if (points > 0) deltas[attribute] = (deltas[attribute] ?: 0L) + points
+                        if (points > 0) baseDeltas[attribute] = (baseDeltas[attribute] ?: 0L) + points
                     }
                 }
-                deltas[AttributeType.DISCIPLINE] =
-                    (deltas[AttributeType.DISCIPLINE] ?: 0L) + attributeCalculator.disciplinePoints(difficulty)
-
-                progressionRepository.awardAttributes(quest.userId, deltas, XpSourceType.QUEST_COMPLETION, questId)
+                baseDeltas[AttributeType.DISCIPLINE] =
+                    (baseDeltas[AttributeType.DISCIPLINE] ?: 0L) + attributeCalculator.disciplinePoints(difficulty)
 
                 val awarded = xpOutcome as XpAwardResult.Awarded
-                CompleteQuestResult.Completed(awarded.amount, awarded.newLevel, awarded.leveledUp, deltas)
+                val activityTags = resolveTags(qwo.objectives.mapNotNull { it.objective.exerciseId })
+
+                // Class specialization shapes attributes + Class XP + unique proficiency;
+                // Player XP (above) stays class-neutral. Pass-through when no class is set.
+                val outcome =
+                    classRewardApplier.apply(
+                        userId = quest.userId,
+                        basePlayerXp = awarded.amount,
+                        baseAttributeDistribution = baseDeltas,
+                        activityTags = activityTags,
+                        sourceType = XpSourceType.QUEST_COMPLETION,
+                        sourceId = questId,
+                    )
+
+                progressionRepository.awardAttributes(
+                    quest.userId,
+                    outcome.awardedAttributeProficiency,
+                    XpSourceType.QUEST_COMPLETION,
+                    questId,
+                )
+
+                val breakdown =
+                    RewardBreakdown(
+                        basePlayerXp = awarded.amount,
+                        playerLeveledUp = awarded.leveledUp,
+                        newPlayerLevel = awarded.newLevel,
+                        baseAttributeDistribution = baseDeltas,
+                        awardedAttributeProficiency = outcome.awardedAttributeProficiency,
+                        primaryClass = outcome.primaryClass,
+                        secondaryClass = outcome.secondaryClass,
+                    )
+                CompleteQuestResult.Completed(
+                    awarded.amount,
+                    awarded.newLevel,
+                    awarded.leveledUp,
+                    outcome.awardedAttributeProficiency,
+                    breakdown,
+                )
             }
+        }
+
+        /** Union of activity tags for the linked exercises (empty -> neutral affinity). */
+        private suspend fun resolveTags(exerciseIds: List<String>): Set<String> {
+            val out = LinkedHashSet<String>()
+            exerciseIds.distinct().forEach { id ->
+                exerciseDao.getById(id)?.tags
+                    ?.split(",")
+                    ?.forEach { tag -> tag.trim().takeIf { it.isNotEmpty() }?.let(out::add) }
+            }
+            return out
         }
 
         /** Sum entries -> objective.currentValue + status. The entries are the source of truth. */

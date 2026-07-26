@@ -28,6 +28,8 @@ data class ExerciseEntity(
     // True when the movement is normally loaded with external weight.
     val isWeighted: Boolean = false,
     val preferredSetSize: Int? = null,
+    // Data-driven activity tags (comma-separated), read by the class affinity engine.
+    val tags: String = "",
     val isBuiltIn: Boolean = true,
     val createdAt: Long,
     val updatedAt: Long,

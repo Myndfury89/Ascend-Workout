@@ -25,6 +25,7 @@ fun ExerciseEntity.toDomain(): Exercise =
         defaultUnit = defaultUnit,
         isWeighted = isWeighted,
         preferredSetSize = preferredSetSize,
+        tags = tags.split(",").map { it.trim() }.filter { it.isNotEmpty() }.toSet(),
         isBuiltIn = isBuiltIn,
     )
 

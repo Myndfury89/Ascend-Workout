@@ -6,6 +6,7 @@ import com.ascend.core.model.ObjectiveType
 import com.ascend.core.model.ProgressSource
 import com.ascend.core.model.Quest
 import com.ascend.core.model.QuestType
+import com.ascend.core.model.RewardBreakdown
 import kotlinx.coroutines.flow.Flow
 
 data class NewObjectiveSpec(
@@ -49,6 +50,7 @@ sealed interface CompleteQuestResult {
         val newLevel: Int,
         val leveledUp: Boolean,
         val attributeDeltas: Map<AttributeType, Long>,
+        val rewardBreakdown: RewardBreakdown,
     ) : CompleteQuestResult
 
     data object AlreadyCompleted : CompleteQuestResult

@@ -116,4 +116,49 @@ class AscendMigrationTest {
         }
         db.close()
     }
+
+    @Test
+    fun `migrate 3 to 4 adds tags and the class tables and backfills built-in tags`() {
+        val dbName = "migration-test-3-4.db"
+
+        helper.createDatabase(dbName, 3).use { db ->
+            db.execSQL(
+                "INSERT INTO user_profile (id, displayName, createdAt, updatedAt, onboardingCompleted, " +
+                    "measurementSystem, localOnly, cloudSyncEnabled) " +
+                    "VALUES ('u1', 'Tester', 0, 0, 0, 'METRIC', 1, 0)",
+            )
+            // A v3 exercise row that the migration should tag.
+            db.execSQL(
+                "INSERT INTO exercise (id, name, category, primaryAttribute, measurementType, defaultUnit, " +
+                    "isWeighted, isBuiltIn, createdAt, updatedAt) " +
+                    "VALUES ('ex-pushup', 'Push-ups', 'Bodyweight', 'STRENGTH', 'REPETITIONS', 'reps', 0, 1, 0, 0)",
+            )
+        }
+
+        val db = helper.runMigrationsAndValidate(dbName, 4, true, AscendMigrations.MIGRATION_3_4)
+
+        // Existing exercise row was backfilled with tags.
+        db.query("SELECT tags FROM exercise WHERE id = 'ex-pushup'").use { c ->
+            assertTrue(c.moveToFirst())
+            assertEquals("BODYWEIGHT,MUSCULAR_ENDURANCE", c.getString(0))
+        }
+
+        // Class selection + ledgers are usable, and the exactly-once guard holds.
+        db.execSQL("INSERT INTO player_class (userId, primaryClassId, updatedAt) VALUES ('u1', 'monk', 0)")
+        db.execSQL(
+            "INSERT INTO class_xp_transaction (id, userId, classId, amount, transactionType, sourceType, sourceId, createdAt) " +
+                "VALUES ('c1', 'u1', 'monk', 240, 'AWARD', 'WORKOUT_COMPLETION', 'w1', 0)",
+        )
+        var rejected = false
+        try {
+            db.execSQL(
+                "INSERT INTO class_xp_transaction (id, userId, classId, amount, transactionType, sourceType, sourceId, createdAt) " +
+                    "VALUES ('c2', 'u1', 'monk', 240, 'AWARD', 'WORKOUT_COMPLETION', 'w1', 1)",
+            )
+        } catch (expected: android.database.sqlite.SQLiteConstraintException) {
+            rejected = true
+        }
+        assertTrue("duplicate class XP for the same source is rejected", rejected)
+        db.close()
+    }
 }

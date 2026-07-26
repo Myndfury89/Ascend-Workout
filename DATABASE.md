@@ -1,6 +1,6 @@
 # Database
 
-Room, offline‑first. Schema version **3**, exported to `app/schemas/` so migrations
+Room, offline‑first. Schema version **4**, exported to `app/schemas/` so migrations
 have a versioned baseline from the start.
 
 ## Entities
@@ -32,7 +32,18 @@ have a versioned baseline from the start.
 |---|---|
 | `progression_event` | Persisted presentation event (XP/attribute/level/rank change) drained by the Status animation, exactly‑once per `(batchId, sequence)` |
 
-Foreign keys cascade from `user_profile` → progress/stats/xp/attributes/quests/workouts/events,
+**v4 (Class system)**
+
+| Entity | Purpose |
+|---|---|
+| `player_class` | The player's primary/secondary class selection |
+| `class_xp_transaction` | Immutable Class‑XP ledger (per class), separate from the class‑neutral player XP |
+| `class_proficiency_transaction` | Immutable ledger for class‑unique proficiencies (Force / Body Mastery / Energy Control) |
+
+`exercise` also gains a `tags` column (comma‑separated activity tags) that the class
+affinity engine reads.
+
+Foreign keys cascade from `user_profile` → progress/stats/xp/attributes/quests/workouts/events/class‑selection/class‑ledgers,
 `quest` → objectives → entries, and `workout` → sets. A `workout_set` also references
 `exercise` with `ON DELETE RESTRICT` (catalog rows can't be deleted while referenced).
 Timestamps are epoch millis; enums are stored as their names and mapped to domain enums
@@ -75,8 +86,11 @@ configured.
   `workout_set` with their indices and foreign keys.
 - **v2 → v3** (`AscendMigrations.MIGRATION_2_3`): adds `progression_event` (the
   ProgressionEventQueue) with its FK and the unique `(batchId, sequence)` guard.
+- **v3 → v4** (`AscendMigrations.MIGRATION_3_4`): adds `exercise.tags` (backfilling
+  the built‑in catalog), `player_class`, and the two class ledgers with their
+  exactly‑once guards.
 
-Both are validated on the JVM by `AscendMigrationTest` (Robolectric, no emulator).
+All are validated on the JVM by `AscendMigrationTest` (Robolectric, no emulator).
 The exported schemas are wired into the debug source set's assets so
 `MigrationTestHelper` can load them under Robolectric; they never ship in the
 release APK.

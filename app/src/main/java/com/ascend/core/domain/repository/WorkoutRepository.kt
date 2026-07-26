@@ -3,6 +3,7 @@ package com.ascend.core.domain.repository
 import com.ascend.core.model.AttributeType
 import com.ascend.core.model.Difficulty
 import com.ascend.core.model.Exercise
+import com.ascend.core.model.RewardBreakdown
 import com.ascend.core.model.Workout
 import kotlinx.coroutines.flow.Flow
 
@@ -31,6 +32,7 @@ sealed interface CompleteWorkoutResult {
         val newLevel: Int,
         val leveledUp: Boolean,
         val attributeDeltas: Map<AttributeType, Long>,
+        val rewardBreakdown: RewardBreakdown,
     ) : CompleteWorkoutResult
 
     /** A workout with no logged sets earns nothing; nothing is awarded. */

@@ -17,6 +17,7 @@ data class Exercise(
     val defaultUnit: String,
     val isWeighted: Boolean,
     val preferredSetSize: Int?,
+    val tags: Set<String>,
     val isBuiltIn: Boolean,
 )
 

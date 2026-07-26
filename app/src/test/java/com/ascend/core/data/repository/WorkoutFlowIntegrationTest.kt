@@ -6,6 +6,8 @@ import androidx.test.core.app.ApplicationProvider
 import com.ascend.core.common.LOCAL_USER_ID
 import com.ascend.core.database.AscendDatabase
 import com.ascend.core.database.entity.UserProfileEntity
+import com.ascend.core.domain.classes.ClassProgressionCalculator
+import com.ascend.core.domain.classes.ClassRewardApplier
 import com.ascend.core.domain.progression.AttributeProgressCalculator
 import com.ascend.core.domain.progression.LevelCalculator
 import com.ascend.core.domain.progression.RankCalculator
@@ -50,9 +52,14 @@ class WorkoutFlowIntegrationTest {
             ProgressionRepositoryImpl(
                 db, db.playerDao(), db.xpDao(), db.attributeDao(), LevelCalculator(), RankCalculator(),
             )
+        val classApplier =
+            ClassRewardApplier(
+                ClassRepositoryImpl(db, db.classDao(), LevelCalculator()),
+                ClassProgressionCalculator(),
+            )
         workouts =
             WorkoutRepositoryImpl(
-                db, db.workoutDao(), db.exerciseDao(), progression, XpCalculator(), AttributeProgressCalculator(),
+                db, db.workoutDao(), db.exerciseDao(), progression, XpCalculator(), AttributeProgressCalculator(), classApplier,
             )
         runBlocking {
             db.playerDao().upsertProfile(

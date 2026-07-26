@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Ascend</string>
+
+    <!-- Top-level destinations -->
+    <string name="dest_status">Status</string>
+    <string name="dest_quests">Quests</string>
+    <string name="dest_workout">Workout</string>
+    <string name="dest_calendar">Calendar</string>
+    <string name="dest_progress">Progress</string>
+
+    <!-- Placeholder screen copy (Phase 1 static screens) -->
+    <string name="status_placeholder">Your ascension begins here.</string>
+    <string name="quests_placeholder">Daily quests will appear here.</string>
+    <string name="workout_placeholder">Build and start workouts here.</string>
+    <string name="calendar_placeholder">Your training calendar.</string>
+    <string name="progress_placeholder">Track your growth over time.</string>
+
+    <!-- Quests -->
+    <string name="quests_empty">No quests yet. Your first trial awaits.</string>
+    <string name="quest_remaining">Remaining</string>
+    <string name="quest_suggested">Suggested</string>
+    <string name="quest_reward">Reward</string>
+    <string name="quest_deadline">Deadline</string>
+    <string name="quest_complete">Complete Quest</string>
+    <string name="quest_set_history">Logged sets</string>
+    <string name="quest_quick_add_custom">Custom</string>
+    <string name="quest_add_custom_title">Add reps</string>
+    <string name="quest_add">Add</string>
+    <string name="quest_cancel">Cancel</string>
+    <string name="quest_delete_set">Delete set</string>
+    <string name="quest_level_up_title">Ascension!</string>
+    <string name="quest_completed_title">Quest complete</string>
+    <string name="quest_dismiss">Continue</string>
+    <string name="quest_no_suggestion">Target reached — finish when ready.</string>
+    <string name="cd_back">Back</string>
+</resources>

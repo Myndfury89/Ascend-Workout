@@ -1,0 +1,39 @@
+package com.ascend.core.database.dao
+
+import androidx.room.Dao
+import androidx.room.Query
+import androidx.room.Upsert
+import com.ascend.core.database.entity.PlayerProgressEntity
+import com.ascend.core.database.entity.PlayerStatsEntity
+import com.ascend.core.database.entity.UserProfileEntity
+import kotlinx.coroutines.flow.Flow
+
+@Dao
+interface PlayerDao {
+    @Upsert
+    suspend fun upsertProfile(entity: UserProfileEntity)
+
+    @Query("SELECT * FROM user_profile WHERE id = :userId")
+    suspend fun getProfile(userId: String): UserProfileEntity?
+
+    @Query("SELECT * FROM user_profile WHERE id = :userId")
+    fun observeProfile(userId: String): Flow<UserProfileEntity?>
+
+    @Upsert
+    suspend fun upsertProgress(entity: PlayerProgressEntity)
+
+    @Query("SELECT * FROM player_progress WHERE userId = :userId")
+    suspend fun getProgress(userId: String): PlayerProgressEntity?
+
+    @Query("SELECT * FROM player_progress WHERE userId = :userId")
+    fun observeProgress(userId: String): Flow<PlayerProgressEntity?>
+
+    @Upsert
+    suspend fun upsertStats(entity: PlayerStatsEntity)
+
+    @Query("SELECT * FROM player_stats WHERE userId = :userId")
+    suspend fun getStats(userId: String): PlayerStatsEntity?
+
+    @Query("SELECT * FROM player_stats WHERE userId = :userId")
+    fun observeStats(userId: String): Flow<PlayerStatsEntity?>
+}

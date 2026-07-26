@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application/window theme. Actual UI theming is handled in Compose
+         (AscendTheme). This framework theme only sets the window background so
+         there is no white flash before Compose draws. -->
+    <style name="Theme.Ascend" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/ascend_window_background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>

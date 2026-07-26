@@ -17,7 +17,11 @@
         <error line="12" column="5" source="standard:function-naming" />
     </file>
     <file name="src/main/java/com/ascend/feature/dashboard/StatusScreen.kt">
-        <error line="12" column="5" source="standard:function-naming" />
+        <error line="58" column="5" source="standard:function-naming" />
+        <error line="135" column="13" source="standard:function-naming" />
+        <error line="186" column="13" source="standard:function-naming" />
+        <error line="205" column="13" source="standard:function-naming" />
+        <error line="246" column="13" source="standard:function-naming" />
     </file>
     <file name="src/main/java/com/ascend/feature/progress/ProgressScreen.kt">
         <error line="12" column="5" source="standard:function-naming" />

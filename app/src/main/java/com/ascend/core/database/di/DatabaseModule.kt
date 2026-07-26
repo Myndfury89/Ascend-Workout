@@ -7,6 +7,7 @@ import com.ascend.core.database.AscendMigrations
 import com.ascend.core.database.dao.AttributeDao
 import com.ascend.core.database.dao.ExerciseDao
 import com.ascend.core.database.dao.PlayerDao
+import com.ascend.core.database.dao.ProgressionEventDao
 import com.ascend.core.database.dao.QuestDao
 import com.ascend.core.database.dao.WorkoutDao
 import com.ascend.core.database.dao.XpDao
@@ -47,4 +48,7 @@ object DatabaseModule {
 
     @Provides
     fun provideWorkoutDao(db: AscendDatabase): WorkoutDao = db.workoutDao()
+
+    @Provides
+    fun provideProgressionEventDao(db: AscendDatabase): ProgressionEventDao = db.progressionEventDao()
 }

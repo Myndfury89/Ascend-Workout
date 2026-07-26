@@ -85,6 +85,42 @@ object AscendMigrations {
             }
         }
 
+    /** v2 -> v3: the persisted ProgressionEventQueue (Status motion system). */
+    val MIGRATION_2_3 =
+        object : Migration(2, 3) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `progression_event` (
+                        `id` TEXT NOT NULL,
+                        `userId` TEXT NOT NULL,
+                        `batchId` TEXT NOT NULL,
+                        `sequence` INTEGER NOT NULL,
+                        `type` TEXT NOT NULL,
+                        `sourceType` TEXT NOT NULL,
+                        `sourceId` TEXT NOT NULL,
+                        `attributeType` TEXT,
+                        `fromValue` INTEGER NOT NULL,
+                        `toValue` INTEGER NOT NULL,
+                        `label` TEXT,
+                        `createdAt` INTEGER NOT NULL,
+                        `consumedAt` INTEGER,
+                        PRIMARY KEY(`id`),
+                        FOREIGN KEY(`userId`) REFERENCES `user_profile`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE
+                    )
+                    """.trimIndent(),
+                )
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_progression_event_userId_consumedAt` " +
+                        "ON `progression_event` (`userId`, `consumedAt`)",
+                )
+                db.execSQL(
+                    "CREATE UNIQUE INDEX IF NOT EXISTS `index_progression_event_batchId_sequence` " +
+                        "ON `progression_event` (`batchId`, `sequence`)",
+                )
+            }
+        }
+
     /** All migrations, wired into the Room builder. */
-    val ALL: Array<Migration> = arrayOf(MIGRATION_1_2)
+    val ALL: Array<Migration> = arrayOf(MIGRATION_1_2, MIGRATION_2_3)
 }

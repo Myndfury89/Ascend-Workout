@@ -76,4 +76,44 @@ class AscendMigrationTest {
         }
         db.close()
     }
+
+    @Test
+    fun `migrate 2 to 3 creates the progression event queue and preserves data`() {
+        val dbName = "migration-test-2-3.db"
+
+        helper.createDatabase(dbName, 2).use { db ->
+            db.execSQL(
+                "INSERT INTO user_profile (id, displayName, createdAt, updatedAt, onboardingCompleted, " +
+                    "measurementSystem, localOnly, cloudSyncEnabled) " +
+                    "VALUES ('u1', 'Tester', 0, 0, 0, 'METRIC', 1, 0)",
+            )
+        }
+
+        val db = helper.runMigrationsAndValidate(dbName, 3, true, AscendMigrations.MIGRATION_2_3)
+
+        // The new queue table is usable and the FK to user_profile holds.
+        db.execSQL(
+            "INSERT INTO progression_event (id, userId, batchId, sequence, type, sourceType, sourceId, " +
+                "fromValue, toValue, createdAt) " +
+                "VALUES ('e1', 'u1', 'batch-1', 0, 'XP_GAINED', 'QUEST_COMPLETION', 'q1', 0, 350, 10)",
+        )
+        // The exactly‑once (batchId, sequence) guard is a unique index — a duplicate throws.
+        var duplicateRejected = false
+        try {
+            db.execSQL(
+                "INSERT INTO progression_event (id, userId, batchId, sequence, type, sourceType, sourceId, " +
+                    "fromValue, toValue, createdAt) " +
+                    "VALUES ('e2', 'u1', 'batch-1', 0, 'XP_GAINED', 'QUEST_COMPLETION', 'q1', 0, 350, 11)",
+            )
+        } catch (expected: android.database.sqlite.SQLiteConstraintException) {
+            duplicateRejected = true
+        }
+        assertTrue("duplicate (batchId, sequence) is rejected", duplicateRejected)
+
+        db.query("SELECT toValue FROM progression_event WHERE id = 'e1'").use { c ->
+            assertTrue(c.moveToFirst())
+            assertEquals(350L, c.getLong(0))
+        }
+        db.close()
+    }
 }

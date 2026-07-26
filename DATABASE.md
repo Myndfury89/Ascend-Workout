@@ -1,6 +1,6 @@
 # Database
 
-Room, offline‑first. Schema version **2**, exported to `app/schemas/` so migrations
+Room, offline‑first. Schema version **3**, exported to `app/schemas/` so migrations
 have a versioned baseline from the start.
 
 ## Entities
@@ -26,7 +26,13 @@ have a versioned baseline from the start.
 | `workout` | A logged training session (title, difficulty, status, performedAt, duration) |
 | `workout_set` | One set within a workout (reps / weight / duration / distance, denormalised `volume`) |
 
-Foreign keys cascade from `user_profile` → progress/stats/xp/attributes/quests/workouts,
+**v3 (Status motion system — ProgressionEventQueue)**
+
+| Entity | Purpose |
+|---|---|
+| `progression_event` | Persisted presentation event (XP/attribute/level/rank change) drained by the Status animation, exactly‑once per `(batchId, sequence)` |
+
+Foreign keys cascade from `user_profile` → progress/stats/xp/attributes/quests/workouts/events,
 `quest` → objectives → entries, and `workout` → sets. A `workout_set` also references
 `exercise` with `ON DELETE RESTRICT` (catalog rows can't be deleted while referenced).
 Timestamps are epoch millis; enums are stored as their names and mapped to domain enums
@@ -66,7 +72,11 @@ version and adds a `Migration` (registered via `AscendMigrations.ALL`) plus a
 configured.
 
 - **v1 → v2** (`AscendMigrations.MIGRATION_1_2`): adds `exercise`, `workout`, and
-  `workout_set` with their indices and foreign keys. Validated on the JVM by
-  `AscendMigrationTest` (Robolectric, no emulator). The exported schemas are wired
-  into the debug source set's assets so `MigrationTestHelper` can load them under
-  Robolectric; they never ship in the release APK.
+  `workout_set` with their indices and foreign keys.
+- **v2 → v3** (`AscendMigrations.MIGRATION_2_3`): adds `progression_event` (the
+  ProgressionEventQueue) with its FK and the unique `(batchId, sequence)` guard.
+
+Both are validated on the JVM by `AscendMigrationTest` (Robolectric, no emulator).
+The exported schemas are wired into the debug source set's assets so
+`MigrationTestHelper` can load them under Robolectric; they never ship in the
+release APK.

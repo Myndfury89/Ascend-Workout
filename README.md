@@ -38,6 +38,14 @@ core loop, built in verifiable phases. It is not the full product yet.
   earn XP **exactly once** and grow the exercise's primary attribute (plus a flat
   Discipline adherence bonus). Backed by the same transactional, idempotent
   ledger, with a real v1→v2 migration validated on the JVM.
+- **Status motion system (prototype)** — the animated Status menu: motion design
+  tokens (durations / original easing / stagger + reduced‑motion), a real,
+  **persisted** `ProgressionEventQueue` decoupling presentation from the earning
+  transaction (exactly‑once, replayable), and a three‑layer state architecture
+  (domain / presentation‑event / animation). The interactive prototype (staged
+  entrance, animated XP bar, staggered attribute rows, simulated quest → XP →
+  attribute pulse → level‑up/rank‑up chain, reduced‑motion, replay) runs on **fake
+  data** pending review before wiring to production earnings. See `MOTION_SYSTEM.md`.
 
 **Not yet implemented:** onboarding ("The Awakening"), the real Status dashboard,
 scheduling/calendar, Health Connect, notifications, expeditions, progress
@@ -55,7 +63,8 @@ See `ARCHITECTURE.md`, `PROGRESSION_SYSTEM.md`, `QUEST_SYSTEM.md`, `WORKOUT_SYST
 |---|---|
 | Quests | Live — seeded 200‑push‑up quest, Active Quest screen with quick‑add, set history, suggestions, completion |
 | Workout | Live — logged‑session list, log‑workout flow (exercise catalog, sets, difficulty), finish for XP + attributes |
-| Status / Calendar / Progress | Placeholder |
+| Status | Interactive motion prototype (fake data) — animated dashboard, simulate‑completion chain, reduced‑motion, replay |
+| Calendar / Progress | Placeholder |
 
 ## Architecture (summary)
 

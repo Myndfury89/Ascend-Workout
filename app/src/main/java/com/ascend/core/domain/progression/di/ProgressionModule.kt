@@ -2,6 +2,7 @@ package com.ascend.core.domain.progression.di
 
 import com.ascend.core.domain.progression.AttributeProgressCalculator
 import com.ascend.core.domain.progression.LevelCalculator
+import com.ascend.core.domain.progression.ProgressionEventFactory
 import com.ascend.core.domain.progression.RankCalculator
 import com.ascend.core.domain.progression.SetSuggestionEngine
 import com.ascend.core.domain.progression.StreakCalculator
@@ -33,4 +34,7 @@ object ProgressionModule {
 
     @Provides @Singleton
     fun setSuggestionEngine() = SetSuggestionEngine()
+
+    @Provides @Singleton
+    fun progressionEventFactory() = ProgressionEventFactory()
 }

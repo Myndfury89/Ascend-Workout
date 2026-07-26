@@ -19,7 +19,11 @@
     <ID>FunctionNaming:ProgressScreen.kt$@Composable fun ProgressScreen(modifier: Modifier = Modifier)</ID>
     <ID>FunctionNaming:QuestsScreen.kt$@Composable fun QuestsScreen( onQuestClick: (String) -&gt; Unit, modifier: Modifier = Modifier, viewModel: QuestsViewModel = hiltViewModel(), )</ID>
     <ID>FunctionNaming:QuestsScreen.kt$@Composable private fun QuestListCard( quest: Quest, onClick: () -&gt; Unit, )</ID>
-    <ID>FunctionNaming:StatusScreen.kt$@Composable fun StatusScreen(modifier: Modifier = Modifier)</ID>
+    <ID>FunctionNaming:StatusScreen.kt$@Composable fun StatusScreen( modifier: Modifier = Modifier, viewModel: StatusMotionViewModel = hiltViewModel(), )</ID>
+    <ID>FunctionNaming:StatusScreen.kt$@Composable private fun AttributeRow( attribute: AttributeType, value: Int, reveal: Float, pulse: Float, )</ID>
+    <ID>FunctionNaming:StatusScreen.kt$@Composable private fun HunterHeader( hunterName: String, rankLabel: String, level: Int, headerAlpha: Float, levelFlash: Float, rankFlash: Float, )</ID>
+    <ID>FunctionNaming:StatusScreen.kt$@Composable private fun PrototypeControls( reducedMotion: Boolean, busy: Boolean, onSimulate: (SimulatedCompletion) -&gt; Unit, onReplay: () -&gt; Unit, onReset: () -&gt; Unit, onReducedMotionChange: (Boolean) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:StatusScreen.kt$@Composable private fun XpBar( levelState: LevelState, alpha: Float, )</ID>
     <ID>FunctionNaming:Theme.kt$@Composable fun AscendTheme( darkTheme: Boolean = isSystemInDarkTheme(), // App identity is dark-first; dynamic color is opt-in via settings later. dynamicColor: Boolean = false, content: @Composable () -&gt; Unit, )</ID>
     <ID>FunctionNaming:WorkoutScreen.kt$@Composable fun WorkoutScreen( onLogWorkout: () -&gt; Unit, modifier: Modifier = Modifier, viewModel: WorkoutsViewModel = hiltViewModel(), )</ID>
     <ID>FunctionNaming:WorkoutScreen.kt$@Composable private fun WorkoutListCard(workout: Workout)</ID>
@@ -28,15 +32,31 @@
     <ID>LongMethod:LogWorkoutScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable private fun AddSetSection( exercises: List&lt;Exercise&gt;, onAddSet: (Exercise, Int, Double?) -&gt; Unit, )</ID>
     <ID>LongMethod:LogWorkoutScreen.kt$@OptIn(ExperimentalMaterial3Api::class, androidx.compose.foundation.layout.ExperimentalLayoutApi::class) @Composable internal fun LogWorkoutContent( state: LogWorkoutUiState, onBack: () -&gt; Unit, onTitleChange: (String) -&gt; Unit, onDifficultyChange: (Difficulty) -&gt; Unit, onAddSet: (Exercise, Int, Double?) -&gt; Unit, onDeleteSet: (String) -&gt; Unit, onFinish: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
     <ID>LongMethod:QuestRepositoryImpl.kt$QuestRepositoryImpl$override suspend fun completeQuest(questId: String): CompleteQuestResult</ID>
+    <ID>LongMethod:StatusScreen.kt$@Composable fun StatusScreen( modifier: Modifier = Modifier, viewModel: StatusMotionViewModel = hiltViewModel(), )</ID>
     <ID>LongParameterList:ActiveQuestScreen.kt$( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
     <ID>LongParameterList:LogWorkoutScreen.kt$( state: LogWorkoutUiState, onBack: () -&gt; Unit, onTitleChange: (String) -&gt; Unit, onDifficultyChange: (Difficulty) -&gt; Unit, onAddSet: (Exercise, Int, Double?) -&gt; Unit, onDeleteSet: (String) -&gt; Unit, onFinish: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
+    <ID>LongParameterList:ProgressionEventFactory.kt$ProgressionEventFactory$( userId: String, sourceType: XpSourceType, sourceId: String, before: ProgressionSnapshot, after: ProgressionSnapshot, label: String? = null, now: Long = System.currentTimeMillis(), )</ID>
+    <ID>LongParameterList:ProgressionEventQueueTest.kt$ProgressionEventQueueTest$( batchId: String, sequence: Int, type: ProgressionEventType, attribute: AttributeType? = null, from: Long = 0, to: Long = 0, )</ID>
     <ID>LongParameterList:QuestRepository.kt$QuestRepository$( objectiveId: String, value: Double, source: ProgressSource = ProgressSource.MANUAL, note: String? = null, perceivedEffort: Int? = null, sourceApplication: String? = null, externalRecordId: String? = null, )</ID>
+    <ID>LongParameterList:StatusScreen.kt$( hunterName: String, rankLabel: String, level: Int, headerAlpha: Float, levelFlash: Float, rankFlash: Float, )</ID>
+    <ID>LongParameterList:StatusScreen.kt$( reducedMotion: Boolean, busy: Boolean, onSimulate: (SimulatedCompletion) -&gt; Unit, onReplay: () -&gt; Unit, onReset: () -&gt; Unit, onReducedMotionChange: (Boolean) -&gt; Unit, )</ID>
     <ID>LongParameterList:XpCalculator.kt$XpCalculator$( durationMinutes: Int, intensity: Float = 0f, volumeScore: Float = 0f, isPersonalRecord: Boolean = false, consistencyEligible: Boolean = false, expeditionMultiplier: Double = 1.0, )</ID>
     <ID>MagicNumber:ActiveQuestScreen.kt$10</ID>
     <ID>MagicNumber:ActiveQuestScreen.kt$25</ID>
     <ID>MagicNumber:ActiveQuestScreen.kt$4</ID>
     <ID>MagicNumber:ActiveQuestScreen.kt$40</ID>
     <ID>MagicNumber:ActiveQuestScreen.kt$50</ID>
+    <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$3</ID>
+    <ID>MagicNumber:AscendMotion.kt$AscendEasing$0.16f</ID>
+    <ID>MagicNumber:AscendMotion.kt$AscendEasing$0.18f</ID>
+    <ID>MagicNumber:AscendMotion.kt$AscendEasing$0.24f</ID>
+    <ID>MagicNumber:AscendMotion.kt$AscendEasing$0.30f</ID>
+    <ID>MagicNumber:AscendMotion.kt$AscendEasing$0.35f</ID>
+    <ID>MagicNumber:AscendMotion.kt$AscendEasing$0.36f</ID>
+    <ID>MagicNumber:AscendMotion.kt$AscendEasing$0.45f</ID>
+    <ID>MagicNumber:AscendMotion.kt$AscendEasing$0.84f</ID>
+    <ID>MagicNumber:AscendMotion.kt$AscendEasing$0.85f</ID>
+    <ID>MagicNumber:AscendMotion.kt$AscendEasing$1.12f</ID>
     <ID>MagicNumber:AttributeProgressCalculator.kt$AttributeConfig$0.8</ID>
     <ID>MagicNumber:AttributeProgressCalculator.kt$AttributeConfig$1.3</ID>
     <ID>MagicNumber:AttributeProgressCalculator.kt$AttributeConfig$1.6</ID>
@@ -63,11 +83,25 @@
     <ID>MagicNumber:Color.kt$0xFFEDF1F6</ID>
     <ID>MagicNumber:Color.kt$0xFFF6F8FB</ID>
     <ID>MagicNumber:Color.kt$0xFFFFFFFF</ID>
+    <ID>MagicNumber:FakeStatusData.kt$FakeStatusData$10</ID>
+    <ID>MagicNumber:FakeStatusData.kt$FakeStatusData$12</ID>
+    <ID>MagicNumber:FakeStatusData.kt$FakeStatusData$15</ID>
+    <ID>MagicNumber:FakeStatusData.kt$FakeStatusData$20</ID>
+    <ID>MagicNumber:FakeStatusData.kt$FakeStatusData$350</ID>
+    <ID>MagicNumber:FakeStatusData.kt$FakeStatusData$45</ID>
+    <ID>MagicNumber:FakeStatusData.kt$FakeStatusData$900</ID>
     <ID>MagicNumber:LogWorkoutScreen.kt$5</ID>
     <ID>MagicNumber:LogWorkoutScreen.kt$6</ID>
     <ID>MagicNumber:LogWorkoutViewModel.kt$LogWorkoutViewModel$5_000</ID>
     <ID>MagicNumber:QuestViewModel.kt$QuestViewModel$5_000</ID>
     <ID>MagicNumber:QuestsViewModel.kt$QuestsViewModel$5_000</ID>
+    <ID>MagicNumber:StatusMotionViewModel.kt$StatusMotionViewModel$5_000</ID>
+    <ID>MagicNumber:StatusScreen.kt$0.05f</ID>
+    <ID>MagicNumber:StatusScreen.kt$0xFF3FD9C7</ID>
+    <ID>MagicNumber:StatusScreen.kt$0xFF62B6E8</ID>
+    <ID>MagicNumber:StatusScreen.kt$0xFF7EC46B</ID>
+    <ID>MagicNumber:StatusScreen.kt$0xFF9B8CFF</ID>
+    <ID>MagicNumber:StatusScreen.kt$0xFFE8735A</ID>
     <ID>MagicNumber:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$0.3f</ID>
     <ID>MagicNumber:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$0.5f</ID>
     <ID>MagicNumber:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$0.75f</ID>
@@ -77,8 +111,14 @@
     <ID>MagicNumber:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$60</ID>
     <ID>MagicNumber:WorkoutsViewModel.kt$WorkoutsViewModel$5_000</ID>
     <ID>MatchingDeclarationName:Attributes.kt$AttributeType</ID>
+    <ID>MaxLineLength:FakeStatusDataTest.kt$FakeStatusDataTest$db.playerDao().upsertProfile(UserProfileEntity(id = userId, displayName = "Tester", createdAt = 0, updatedAt = 0))</ID>
     <ID>MaxLineLength:LogWorkoutViewModel.kt$LogWorkoutViewModel$private fun ObjectiveType.isRepBased(): Boolean</ID>
     <ID>MaxLineLength:PlayerRepositoryImpl.kt$PlayerRepositoryImpl$override fun observeStats(userId: String): Flow&lt;PlayerStats?&gt;</ID>
+    <ID>MaxLineLength:ProgressionEventFactoryTest.kt$ProgressionEventFactoryTest$assertEquals(listOf(AttributeType.STRENGTH, AttributeType.ENDURANCE, AttributeType.DISCIPLINE), attrs.map { it.attribute })</ID>
+    <ID>MaxLineLength:ProgressionEventFactoryTest.kt$ProgressionEventFactoryTest$listOf(ProgressionEventType.XP_GAINED, ProgressionEventType.ATTRIBUTE_CHANGED, ProgressionEventType.ATTRIBUTE_CHANGED)</ID>
+    <ID>MaxLineLength:ProgressionEventFactoryTest.kt$ProgressionEventFactoryTest$val events = factory.build("u1", XpSourceType.QUEST_COMPLETION, "quest-1", before, after, label = "Ascension Trial")</ID>
+    <ID>MaxLineLength:ProgressionEventQueueTest.kt$ProgressionEventQueueTest$db.playerDao().upsertProfile(UserProfileEntity(id = userId, displayName = "Tester", createdAt = 0, updatedAt = 0))</ID>
+    <ID>MaxLineLength:ProgressionEventRepositoryImpl.kt$ProgressionEventRepositoryImpl$override suspend fun getPending(userId: String): List&lt;ProgressionEvent&gt;</ID>
     <ID>MaxLineLength:ProgressionRepositoryImpl.kt$ProgressionRepositoryImpl$override fun observeStats(userId: String): Flow&lt;PlayerStats?&gt;</ID>
     <ID>MaxLineLength:ProgressionRepositoryImpl.kt$ProgressionRepositoryImpl$override suspend fun getProgress(userId: String): PlayerProgress?</ID>
     <ID>MaxLineLength:QuestRepository.kt$AddProgressResult$Added : AddProgressResult</ID>
@@ -88,6 +128,12 @@
     <ID>MaxLineLength:SeedExerciseCatalogUseCase.kt$SeedExerciseCatalogUseCase.Companion$Seed("ex-plank", "Plank", "Core", AttributeType.DISCIPLINE, ObjectiveType.DURATION, "seconds", preferredSetSize = 60)</ID>
     <ID>MaxLineLength:SeedExerciseCatalogUseCase.kt$SeedExerciseCatalogUseCase.Companion$Seed("ex-situp", "Sit-ups", "Core", AttributeType.STRENGTH, ObjectiveType.REPETITIONS, "reps", preferredSetSize = 25)</ID>
     <ID>MaxLineLength:SetSuggestionEngineTest.kt$SetSuggestionEngineTest$val s = engine.suggest(SetSuggestionInput(remaining = 137, preferredSetSize = 30, minimumSetSize = 10, maximumSetSize = 50))</ID>
+    <ID>MaxLineLength:StatusMotion.kt$StatusMotion$lifetime.animateTo(domain.lifetimeXp.toFloat(), motion.tween(AscendMotionTokens.DELIBERATE, AscendEasing.settle))</ID>
+    <ID>MaxLineLength:StatusMotion.kt$StatusMotion$lifetime.animateTo(event.toValue.toFloat(), motion.tween(AscendMotionTokens.DELIBERATE, AscendEasing.settle))</ID>
+    <ID>MaxLineLength:StatusMotion.kt$StatusMotion$value.animateTo(event.toValue.toFloat(), motion.tween(AscendMotionTokens.STANDARD, AscendEasing.settle))</ID>
+    <ID>MaxLineLength:StatusScreen.kt$Button</ID>
+    <ID>MaxLineLength:StatusScreen.kt$Text("Level $level", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)</ID>
+    <ID>MaxLineLength:StatusScreen.kt$Text("Prototype controls", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)</ID>
     <ID>MaxLineLength:StreakCalculatorTest.kt$StreakCalculatorTest$val result = calc.onActivity(currentStreak = 4, longestStreak = 4, lastActiveDay = day.minusDays(1), today = day)</ID>
     <ID>MaxLineLength:StreakCalculatorTest.kt$StreakCalculatorTest$val result = calc.onActivity(currentStreak = 9, longestStreak = 12, lastActiveDay = day.minusDays(2), today = day)</ID>
     <ID>MaxLineLength:WorkoutDao.kt$WorkoutDao$@Query("UPDATE workout SET status = :status, durationSeconds = :durationSeconds, updatedAt = :updatedAt WHERE id = :workoutId")</ID>

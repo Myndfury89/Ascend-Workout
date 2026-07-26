@@ -16,7 +16,6 @@ data class StreakResult(
  * treated as failure (spec: "Do not permanently punish users").
  */
 class StreakCalculator {
-
     fun onActivity(
         currentStreak: Int,
         longestStreak: Int,

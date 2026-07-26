@@ -37,7 +37,9 @@ data class NewQuestSpec(
 
 sealed interface AddProgressResult {
     data class Added(val entryId: String, val objectiveCurrent: Double, val objectiveComplete: Boolean) : AddProgressResult
+
     data object Duplicate : AddProgressResult
+
     data object NotFound : AddProgressResult
 }
 
@@ -50,11 +52,11 @@ sealed interface CompleteQuestResult {
     ) : CompleteQuestResult
 
     data object AlreadyCompleted : CompleteQuestResult
+
     data object NotFound : CompleteQuestResult
 }
 
 interface QuestRepository {
-
     fun observeQuestsForUser(userId: String): Flow<List<Quest>>
 
     fun observeQuest(questId: String): Flow<Quest?>
@@ -74,7 +76,10 @@ interface QuestRepository {
         externalRecordId: String? = null,
     ): AddProgressResult
 
-    suspend fun editProgress(entryId: String, newValue: Double): Boolean
+    suspend fun editProgress(
+        entryId: String,
+        newValue: Double,
+    ): Boolean
 
     suspend fun deleteProgress(entryId: String): Boolean
 

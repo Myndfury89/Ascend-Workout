@@ -5,7 +5,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class SetSuggestionEngineTest {
-
     private val engine = SetSuggestionEngine()
 
     @Test
@@ -24,9 +23,10 @@ class SetSuggestionEngineTest {
 
     @Test
     fun `never recommends a set larger than the configured maximum`() {
-        val s = engine.suggest(
-            SetSuggestionInput(remaining = 80, preferredSetSize = 25, minimumSetSize = 10, maximumSetSize = 50),
-        )
+        val s =
+            engine.suggest(
+                SetSuggestionInput(remaining = 80, preferredSetSize = 25, minimumSetSize = 10, maximumSetSize = 50),
+            )
         assertEquals(80, s.primary.total)
         val allPlans = listOf(s.primary) + s.alternatives
         allPlans.forEach { plan ->
@@ -36,12 +36,16 @@ class SetSuggestionEngineTest {
 
     @Test
     fun `unrestricted opt-in may exceed the configured maximum`() {
-        val s = engine.suggest(
-            SetSuggestionInput(
-                remaining = 200, preferredSetSize = 200, minimumSetSize = 10,
-                maximumSetSize = 50, allowUnrestricted = true,
-            ),
-        )
+        val s =
+            engine.suggest(
+                SetSuggestionInput(
+                    remaining = 200,
+                    preferredSetSize = 200,
+                    minimumSetSize = 10,
+                    maximumSetSize = 50,
+                    allowUnrestricted = true,
+                ),
+            )
         assertEquals(listOf(200), s.primary.sets)
     }
 

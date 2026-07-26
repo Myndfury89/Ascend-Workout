@@ -7,7 +7,6 @@ import org.junit.Test
 import java.time.LocalDate
 
 class StreakCalculatorTest {
-
     private val calc = StreakCalculator()
     private val day = LocalDate.of(2026, 7, 25)
 

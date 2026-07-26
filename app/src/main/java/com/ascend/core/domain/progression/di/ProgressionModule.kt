@@ -16,15 +16,21 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object ProgressionModule {
-    @Provides @Singleton fun levelCalculator() = LevelCalculator()
+    @Provides @Singleton
+    fun levelCalculator() = LevelCalculator()
 
-    @Provides @Singleton fun rankCalculator() = RankCalculator()
+    @Provides @Singleton
+    fun rankCalculator() = RankCalculator()
 
-    @Provides @Singleton fun xpCalculator() = XpCalculator()
+    @Provides @Singleton
+    fun xpCalculator() = XpCalculator()
 
-    @Provides @Singleton fun attributeProgressCalculator() = AttributeProgressCalculator()
+    @Provides @Singleton
+    fun attributeProgressCalculator() = AttributeProgressCalculator()
 
-    @Provides @Singleton fun streakCalculator() = StreakCalculator()
+    @Provides @Singleton
+    fun streakCalculator() = StreakCalculator()
 
-    @Provides @Singleton fun setSuggestionEngine() = SetSuggestionEngine()
+    @Provides @Singleton
+    fun setSuggestionEngine() = SetSuggestionEngine()
 }

@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.Flow
 /** Outcome of an XP award attempt. Idempotency is a first-class result, not an error. */
 sealed interface XpAwardResult {
     data class Awarded(val amount: Long, val newLevel: Int, val leveledUp: Boolean) : XpAwardResult
+
     data object Duplicate : XpAwardResult
 }
 
@@ -17,7 +18,6 @@ sealed interface XpAwardResult {
  * mutation is transactional and idempotent on (transactionType, sourceType, sourceId).
  */
 interface ProgressionRepository {
-
     fun observeProgress(userId: String): Flow<PlayerProgress?>
 
     fun observeStats(userId: String): Flow<PlayerStats?>

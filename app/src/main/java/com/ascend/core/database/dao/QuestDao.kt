@@ -67,15 +67,27 @@ interface QuestDao {
     suspend fun deleteProgressEntry(entryId: String)
 
     @Query("UPDATE quest_progress_entry SET value = :value, updatedAt = :updatedAt WHERE id = :entryId")
-    suspend fun updateProgressEntryValue(entryId: String, value: Double, updatedAt: Long)
+    suspend fun updateProgressEntryValue(
+        entryId: String,
+        value: Double,
+        updatedAt: Long,
+    )
 
     /** Authoritative cumulative progress for an objective (sum of its entries). */
     @Query("SELECT COALESCE(SUM(value), 0) FROM quest_progress_entry WHERE objectiveId = :objectiveId")
     suspend fun sumProgress(objectiveId: String): Double
 
     @Query("UPDATE quest_objective SET currentValue = :value, status = :status WHERE id = :objectiveId")
-    suspend fun updateObjectiveProgress(objectiveId: String, value: Double, status: String)
+    suspend fun updateObjectiveProgress(
+        objectiveId: String,
+        value: Double,
+        status: String,
+    )
 
     @Query("UPDATE quest SET status = :status, updatedAt = :updatedAt WHERE id = :questId")
-    suspend fun updateQuestStatus(questId: String, status: String, updatedAt: Long)
+    suspend fun updateQuestStatus(
+        questId: String,
+        status: String,
+        updatedAt: Long,
+    )
 }

@@ -1,0 +1,73 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>CyclomaticComplexMethod:ActiveQuestScreen.kt$@OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class) @Composable internal fun ActiveQuestContent( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
+    <ID>CyclomaticComplexMethod:QuestRepositoryImpl.kt$QuestRepositoryImpl$override suspend fun completeQuest(questId: String): CompleteQuestResult</ID>
+    <ID>FunctionNaming:ActiveQuestScreen.kt$@Composable fun ActiveQuestScreen( onBack: () -&gt; Unit, modifier: Modifier = Modifier, viewModel: QuestViewModel = hiltViewModel(), )</ID>
+    <ID>FunctionNaming:ActiveQuestScreen.kt$@Composable private fun CustomAddDialog( onAdd: (Int) -&gt; Unit, onDismiss: () -&gt; Unit, )</ID>
+    <ID>FunctionNaming:ActiveQuestScreen.kt$@OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class) @Composable internal fun ActiveQuestContent( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:AscendApp.kt$@Composable fun AscendApp()</ID>
+    <ID>FunctionNaming:Buttons.kt$@Composable fun PrimaryActionButton( text: String, onClick: () -&gt; Unit, modifier: Modifier = Modifier, enabled: Boolean = true, )</ID>
+    <ID>FunctionNaming:Buttons.kt$@Composable fun QuickProgressButton( label: String, onClick: () -&gt; Unit, modifier: Modifier = Modifier, enabled: Boolean = true, )</ID>
+    <ID>FunctionNaming:CalendarScreen.kt$@Composable fun CalendarScreen(modifier: Modifier = Modifier)</ID>
+    <ID>FunctionNaming:Placeholder.kt$@Composable fun CenteredPlaceholder( title: String, message: String, icon: ImageVector, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:ProgressScreen.kt$@Composable fun ProgressScreen(modifier: Modifier = Modifier)</ID>
+    <ID>FunctionNaming:QuestsScreen.kt$@Composable fun QuestsScreen( onQuestClick: (String) -&gt; Unit, modifier: Modifier = Modifier, viewModel: QuestsViewModel = hiltViewModel(), )</ID>
+    <ID>FunctionNaming:QuestsScreen.kt$@Composable private fun QuestListCard( quest: Quest, onClick: () -&gt; Unit, )</ID>
+    <ID>FunctionNaming:StatusScreen.kt$@Composable fun StatusScreen(modifier: Modifier = Modifier)</ID>
+    <ID>FunctionNaming:Theme.kt$@Composable fun AscendTheme( darkTheme: Boolean = isSystemInDarkTheme(), // App identity is dark-first; dynamic color is opt-in via settings later. dynamicColor: Boolean = false, content: @Composable () -&gt; Unit, )</ID>
+    <ID>FunctionNaming:WorkoutScreen.kt$@Composable fun WorkoutScreen(modifier: Modifier = Modifier)</ID>
+    <ID>LongMethod:ActiveQuestScreen.kt$@OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class) @Composable internal fun ActiveQuestContent( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
+    <ID>LongMethod:QuestRepositoryImpl.kt$QuestRepositoryImpl$override suspend fun completeQuest(questId: String): CompleteQuestResult</ID>
+    <ID>LongParameterList:ActiveQuestScreen.kt$( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
+    <ID>LongParameterList:QuestRepository.kt$QuestRepository$( objectiveId: String, value: Double, source: ProgressSource = ProgressSource.MANUAL, note: String? = null, perceivedEffort: Int? = null, sourceApplication: String? = null, externalRecordId: String? = null, )</ID>
+    <ID>LongParameterList:XpCalculator.kt$XpCalculator$( durationMinutes: Int, intensity: Float = 0f, volumeScore: Float = 0f, isPersonalRecord: Boolean = false, consistencyEligible: Boolean = false, expeditionMultiplier: Double = 1.0, )</ID>
+    <ID>MagicNumber:ActiveQuestScreen.kt$10</ID>
+    <ID>MagicNumber:ActiveQuestScreen.kt$25</ID>
+    <ID>MagicNumber:ActiveQuestScreen.kt$4</ID>
+    <ID>MagicNumber:ActiveQuestScreen.kt$40</ID>
+    <ID>MagicNumber:ActiveQuestScreen.kt$50</ID>
+    <ID>MagicNumber:AttributeProgressCalculator.kt$AttributeConfig$0.8</ID>
+    <ID>MagicNumber:AttributeProgressCalculator.kt$AttributeConfig$1.3</ID>
+    <ID>MagicNumber:AttributeProgressCalculator.kt$AttributeConfig$1.6</ID>
+    <ID>MagicNumber:Color.kt$0xFF00201C</ID>
+    <ID>MagicNumber:Color.kt$0xFF0B0E14</ID>
+    <ID>MagicNumber:Color.kt$0xFF0E3B37</ID>
+    <ID>MagicNumber:Color.kt$0xFF12161F</ID>
+    <ID>MagicNumber:Color.kt$0xFF12776C</ID>
+    <ID>MagicNumber:Color.kt$0xFF141821</ID>
+    <ID>MagicNumber:Color.kt$0xFF1B2130</ID>
+    <ID>MagicNumber:Color.kt$0xFF243244</ID>
+    <ID>MagicNumber:Color.kt$0xFF2A3242</ID>
+    <ID>MagicNumber:Color.kt$0xFF3A0F11</ID>
+    <ID>MagicNumber:Color.kt$0xFF3FD9C7</ID>
+    <ID>MagicNumber:Color.kt$0xFF43C59E</ID>
+    <ID>MagicNumber:Color.kt$0xFF4A2E07</ID>
+    <ID>MagicNumber:Color.kt$0xFF8AA0B8</ID>
+    <ID>MagicNumber:Color.kt$0xFF9A5E12</ID>
+    <ID>MagicNumber:Color.kt$0xFF9AA6B8</ID>
+    <ID>MagicNumber:Color.kt$0xFFE0A84E</ID>
+    <ID>MagicNumber:Color.kt$0xFFE5484D</ID>
+    <ID>MagicNumber:Color.kt$0xFFE6EAF2</ID>
+    <ID>MagicNumber:Color.kt$0xFFE8A33D</ID>
+    <ID>MagicNumber:Color.kt$0xFFEDF1F6</ID>
+    <ID>MagicNumber:Color.kt$0xFFF6F8FB</ID>
+    <ID>MagicNumber:Color.kt$0xFFFFFFFF</ID>
+    <ID>MagicNumber:QuestViewModel.kt$QuestViewModel$5_000</ID>
+    <ID>MagicNumber:QuestsViewModel.kt$QuestsViewModel$5_000</ID>
+    <ID>MatchingDeclarationName:Attributes.kt$AttributeType</ID>
+    <ID>MaxLineLength:PlayerRepositoryImpl.kt$PlayerRepositoryImpl$override fun observeStats(userId: String): Flow&lt;PlayerStats?&gt;</ID>
+    <ID>MaxLineLength:ProgressionRepositoryImpl.kt$ProgressionRepositoryImpl$override fun observeStats(userId: String): Flow&lt;PlayerStats?&gt;</ID>
+    <ID>MaxLineLength:ProgressionRepositoryImpl.kt$ProgressionRepositoryImpl$override suspend fun getProgress(userId: String): PlayerProgress?</ID>
+    <ID>MaxLineLength:QuestRepository.kt$AddProgressResult$Added : AddProgressResult</ID>
+    <ID>MaxLineLength:QuestRepositoryImpl.kt$QuestRepositoryImpl$completionRule = "ALL_REQUIRED"</ID>
+    <ID>MaxLineLength:QuestRepositoryImpl.kt$QuestRepositoryImpl$override fun observeQuest(questId: String): Flow&lt;Quest?&gt;</ID>
+    <ID>MaxLineLength:QuestRepositoryImpl.kt$QuestRepositoryImpl$val overFraction = if (totalTarget &lt;= 0.0) 0.0 else ((totalCurrent - totalTarget) / totalTarget).coerceAtLeast(0.0)</ID>
+    <ID>MaxLineLength:SetSuggestionEngineTest.kt$SetSuggestionEngineTest$val s = engine.suggest(SetSuggestionInput(remaining = 137, preferredSetSize = 30, minimumSetSize = 10, maximumSetSize = 50))</ID>
+    <ID>MaxLineLength:StreakCalculatorTest.kt$StreakCalculatorTest$val result = calc.onActivity(currentStreak = 4, longestStreak = 4, lastActiveDay = day.minusDays(1), today = day)</ID>
+    <ID>MaxLineLength:StreakCalculatorTest.kt$StreakCalculatorTest$val result = calc.onActivity(currentStreak = 9, longestStreak = 12, lastActiveDay = day.minusDays(2), today = day)</ID>
+    <ID>ReturnCount:QuestViewModel.kt$QuestViewModel$private fun suggestionFor(quest: Quest): SetSuggestion?</ID>
+    <ID>TooManyFunctions:QuestDao.kt$QuestDao</ID>
+  </CurrentIssues>
+</SmellBaseline>

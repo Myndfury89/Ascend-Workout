@@ -34,9 +34,10 @@ fun AscendApp() {
         bottomBar = {
             NavigationBar {
                 TopLevelDestination.entries.forEach { destination ->
-                    val selected = currentDestination?.hierarchy?.any {
-                        it.hasRoute(destination.route::class)
-                    } == true
+                    val selected =
+                        currentDestination?.hierarchy?.any {
+                            it.hasRoute(destination.route::class)
+                        } == true
                     val label = stringResource(destination.labelRes)
                     NavigationBarItem(
                         selected = selected,

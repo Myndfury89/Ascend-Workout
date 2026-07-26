@@ -7,7 +7,6 @@ import kotlin.math.pow
 import kotlin.math.roundToLong
 
 class LevelCalculatorTest {
-
     private val calc = LevelCalculator()
 
     @Test

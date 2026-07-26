@@ -27,13 +27,14 @@ data class PlayerStats(
     val discipline: Long,
     val recovery: Long,
 ) {
-    fun value(attribute: AttributeType): Long = when (attribute) {
-        AttributeType.STRENGTH -> strength
-        AttributeType.ENDURANCE -> endurance
-        AttributeType.AGILITY -> agility
-        AttributeType.DISCIPLINE -> discipline
-        AttributeType.RECOVERY -> recovery
-    }
+    fun value(attribute: AttributeType): Long =
+        when (attribute) {
+            AttributeType.STRENGTH -> strength
+            AttributeType.ENDURANCE -> endurance
+            AttributeType.AGILITY -> agility
+            AttributeType.DISCIPLINE -> discipline
+            AttributeType.RECOVERY -> recovery
+        }
 
     val asMap: Map<AttributeType, Long>
         get() = AttributeType.entries.associateWith(::value)

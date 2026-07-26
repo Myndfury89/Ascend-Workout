@@ -31,8 +31,11 @@ import com.ascend.core.database.entity.XpTransactionEntity
 )
 abstract class AscendDatabase : RoomDatabase() {
     abstract fun playerDao(): PlayerDao
+
     abstract fun xpDao(): XpDao
+
     abstract fun attributeDao(): AttributeDao
+
     abstract fun questDao(): QuestDao
 
     companion object {

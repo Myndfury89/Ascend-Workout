@@ -33,7 +33,6 @@ data class QuestXpResult(
  * normalised inputs in 0f..1f so the caller decides how to derive them.
  */
 class XpCalculator(private val config: XpConfig = XpConfig()) {
-
     fun workoutXp(
         durationMinutes: Int,
         intensity: Float = 0f,
@@ -47,8 +46,9 @@ class XpCalculator(private val config: XpConfig = XpConfig()) {
         val clampedVolume = volumeScore.coerceIn(0f, 1f)
 
         val duration = min(durationMinutes.toLong(), config.perMinuteCap)
-        val intensityXp = config.intensityMin +
-            ((config.intensityMax - config.intensityMin) * clampedIntensity).roundToLong()
+        val intensityXp =
+            config.intensityMin +
+                ((config.intensityMax - config.intensityMin) * clampedIntensity).roundToLong()
         val volumeXp = (config.volumeMax * clampedVolume).roundToLong()
         val consistencyXp = if (consistencyEligible) config.consistencyBonus else 0
         val prXp = if (isPersonalRecord) config.personalRecordBonus else 0
@@ -72,18 +72,20 @@ class XpCalculator(private val config: XpConfig = XpConfig()) {
         require(baseReward >= 0) { "baseReward must be >= 0" }
         val completed = completionFraction >= 1.0
 
-        val base: Long = when {
-            completed -> baseReward
-            partialEnabled -> (baseReward * completionFraction.coerceIn(0.0, 1.0)).roundToLong()
-            else -> 0
-        }
+        val base: Long =
+            when {
+                completed -> baseReward
+                partialEnabled -> (baseReward * completionFraction.coerceIn(0.0, 1.0)).roundToLong()
+                else -> 0
+            }
 
-        val bonus: Long = if (completed && overCompletionEnabled && overCompletionFraction > 0.0) {
-            val countedOver = min(overCompletionFraction, config.overCompletionCapFraction)
-            max(0L, (baseReward * countedOver * config.overCompletionRate).roundToLong())
-        } else {
-            0
-        }
+        val bonus: Long =
+            if (completed && overCompletionEnabled && overCompletionFraction > 0.0) {
+                val countedOver = min(overCompletionFraction, config.overCompletionCapFraction)
+                max(0L, (baseReward * countedOver * config.overCompletionRate).roundToLong())
+            } else {
+                0
+            }
 
         return QuestXpResult(total = base + bonus, base = base, overCompletionBonus = bonus)
     }

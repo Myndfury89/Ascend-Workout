@@ -10,12 +10,13 @@ data class AttributeConfig(
     val volumeCap: Long = 200,
     // Flat discipline granted for completing a planned quest/workout.
     val disciplineBase: Long = 10,
-    val difficultyMultipliers: Map<Difficulty, Double> = mapOf(
-        Difficulty.EASY to 0.8,
-        Difficulty.MODERATE to 1.0,
-        Difficulty.HARD to 1.3,
-        Difficulty.EXTREME to 1.6,
-    ),
+    val difficultyMultipliers: Map<Difficulty, Double> =
+        mapOf(
+            Difficulty.EASY to 0.8,
+            Difficulty.MODERATE to 1.0,
+            Difficulty.HARD to 1.3,
+            Difficulty.EXTREME to 1.6,
+        ),
 )
 
 /**
@@ -24,12 +25,13 @@ data class AttributeConfig(
  * volume. Pure and configurable.
  */
 class AttributeProgressCalculator(private val config: AttributeConfig = AttributeConfig()) {
-
-    fun difficultyMultiplier(difficulty: Difficulty): Double =
-        config.difficultyMultipliers[difficulty] ?: 1.0
+    fun difficultyMultiplier(difficulty: Difficulty): Double = config.difficultyMultipliers[difficulty] ?: 1.0
 
     /** Primary-attribute points earned from accumulated volume (reps/seconds/metres). */
-    fun volumePoints(volume: Double, difficulty: Difficulty = Difficulty.MODERATE): Long {
+    fun volumePoints(
+        volume: Double,
+        difficulty: Difficulty = Difficulty.MODERATE,
+    ): Long {
         require(volume >= 0) { "volume must be >= 0" }
         return (volume * config.volumeRate * difficultyMultiplier(difficulty))
             .roundToLong()
@@ -52,9 +54,10 @@ class AttributeProgressCalculator(private val config: AttributeConfig = Attribut
         require(volume >= 0) { "volume must be >= 0" }
         val mult = difficultyMultiplier(difficulty)
 
-        val primaryPoints = (volume * config.volumeRate * mult)
-            .roundToLong()
-            .coerceIn(0, config.volumeCap)
+        val primaryPoints =
+            (volume * config.volumeRate * mult)
+                .roundToLong()
+                .coerceIn(0, config.volumeCap)
         val disciplinePoints = (config.disciplineBase * mult).roundToLong()
 
         // Merge so a quest whose primary attribute IS discipline still accumulates once.

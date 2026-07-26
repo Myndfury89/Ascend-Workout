@@ -1,6 +1,5 @@
 package com.ascend.core.data.mapper
 
-import com.ascend.core.database.entity.QuestObjectiveEntity
 import com.ascend.core.database.entity.QuestProgressEntryEntity
 import com.ascend.core.database.relation.ObjectiveWithEntries
 import com.ascend.core.database.relation.QuestWithObjectives
@@ -42,8 +41,9 @@ fun ObjectiveWithEntries.toDomain(): QuestObjective =
         preferredSetSize = objective.preferredSetSize,
         minimumSetSize = objective.minimumSetSize,
         maximumSetSize = objective.maximumSetSize,
-        primaryAttribute = objective.primaryAttribute
-            ?.let { runCatching { AttributeType.valueOf(it) }.getOrNull() },
+        primaryAttribute =
+            objective.primaryAttribute
+                ?.let { runCatching { AttributeType.valueOf(it) }.getOrNull() },
         status = objective.status.toEnum(QuestStatus.ACTIVE),
         orderIndex = objective.orderIndex,
         entries = entries.sortedBy { it.completedAt }.map { it.toDomain() },

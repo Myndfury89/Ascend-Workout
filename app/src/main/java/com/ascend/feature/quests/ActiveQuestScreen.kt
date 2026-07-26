@@ -38,7 +38,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ascend.R
 import com.ascend.core.designsystem.component.PrimaryActionButton
 import com.ascend.core.designsystem.component.QuickProgressButton
-import com.ascend.core.model.Quest
 import com.ascend.core.model.QuestStatus
 
 private val QUICK_ADD_VALUES = listOf(10, 25, 40, 50)
@@ -77,10 +76,11 @@ internal fun ActiveQuestContent(
 ) {
     val quest = state.quest
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(16.dp),
+        modifier =
+            modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(16.dp),
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             IconButton(onClick = onBack) {
@@ -126,11 +126,12 @@ internal fun ActiveQuestContent(
 
         // Set suggestion
         Spacer(Modifier.height(8.dp))
-        val suggestionText = state.suggestion?.primary?.sets
-            ?.takeIf { it.isNotEmpty() }
-            ?.joinToString(", ")
-            ?.let { "${stringResource(R.string.quest_suggested)}: $it" }
-            ?: stringResource(R.string.quest_no_suggestion)
+        val suggestionText =
+            state.suggestion?.primary?.sets
+                ?.takeIf { it.isNotEmpty() }
+                ?.joinToString(", ")
+                ?.let { "${stringResource(R.string.quest_suggested)}: $it" }
+                ?: stringResource(R.string.quest_no_suggestion)
         Text(suggestionText, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.primary)
 
         // Quick add
@@ -148,7 +149,10 @@ internal fun ActiveQuestContent(
 
         if (showCustom) {
             CustomAddDialog(
-                onAdd = { onAdd(it); showCustom = false },
+                onAdd = {
+                    onAdd(it)
+                    showCustom = false
+                },
                 onDismiss = { showCustom = false },
             )
         }
@@ -206,7 +210,10 @@ internal fun ActiveQuestContent(
 }
 
 @Composable
-private fun CustomAddDialog(onAdd: (Int) -> Unit, onDismiss: () -> Unit) {
+private fun CustomAddDialog(
+    onAdd: (Int) -> Unit,
+    onDismiss: () -> Unit,
+) {
     var text by remember { mutableStateOf("") }
     val parsed = text.toIntOrNull()
     AlertDialog(

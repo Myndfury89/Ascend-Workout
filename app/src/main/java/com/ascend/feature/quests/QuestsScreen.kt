@@ -56,25 +56,30 @@ fun QuestsScreen(
 }
 
 @Composable
-private fun QuestListCard(quest: Quest, onClick: () -> Unit) {
+private fun QuestListCard(
+    quest: Quest,
+    onClick: () -> Unit,
+) {
     val current = quest.totalCurrent.toInt()
     val target = quest.totalTarget.toInt()
     val unit = quest.primaryObjective?.unit.orEmpty()
 
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(onClick = onClick),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .clickable(onClick = onClick),
     ) {
         Column(Modifier.padding(16.dp)) {
             Text(quest.title, style = MaterialTheme.typography.titleMedium)
             Spacer(Modifier.height(8.dp))
             LinearProgressIndicator(
                 progress = { quest.fraction },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    // Progress is announced by the text below; avoid duplicate reads.
-                    .clearAndSetSemantics { },
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        // Progress is announced by the text below; avoid duplicate reads.
+                        .clearAndSetSemantics { },
             )
             Spacer(Modifier.height(8.dp))
             Text(

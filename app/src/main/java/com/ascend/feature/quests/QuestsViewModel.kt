@@ -24,27 +24,29 @@ data class QuestsUiState(
 )
 
 @HiltViewModel
-class QuestsViewModel @Inject constructor(
-    private val playerRepository: PlayerRepository,
-    private val questRepository: QuestRepository,
-    private val seedDemoData: SeedDemoDataUseCase,
-) : ViewModel() {
+class QuestsViewModel
+    @Inject
+    constructor(
+        private val playerRepository: PlayerRepository,
+        private val questRepository: QuestRepository,
+        private val seedDemoData: SeedDemoDataUseCase,
+    ) : ViewModel() {
+        private val userId = MutableStateFlow<String?>(null)
 
-    private val userId = MutableStateFlow<String?>(null)
+        @OptIn(ExperimentalCoroutinesApi::class)
+        val uiState: StateFlow<QuestsUiState> =
+            userId
+                .filterNotNull()
+                .flatMapLatest { uid ->
+                    questRepository.observeQuestsForUser(uid).map { QuestsUiState(isLoading = false, quests = it) }
+                }
+                .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), QuestsUiState())
 
-    @OptIn(ExperimentalCoroutinesApi::class)
-    val uiState: StateFlow<QuestsUiState> = userId
-        .filterNotNull()
-        .flatMapLatest { uid ->
-            questRepository.observeQuestsForUser(uid).map { QuestsUiState(isLoading = false, quests = it) }
-        }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), QuestsUiState())
-
-    init {
-        viewModelScope.launch {
-            val uid = playerRepository.ensureLocalPlayer()
-            seedDemoData(uid)
-            userId.value = uid
+        init {
+            viewModelScope.launch {
+                val uid = playerRepository.ensureLocalPlayer()
+                seedDemoData(uid)
+                userId.value = uid
+            }
         }
     }
-}

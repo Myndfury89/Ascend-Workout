@@ -10,43 +10,45 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
-private val AscendDarkColors = darkColorScheme(
-    primary = Aqua,
-    onPrimary = AquaOn,
-    primaryContainer = AquaDeep,
-    onPrimaryContainer = Aqua,
-    secondary = Ember,
-    onSecondary = EmberDeep,
-    secondaryContainer = EmberDeep,
-    onSecondaryContainer = Ember,
-    tertiary = Slate,
-    onTertiary = Charcoal,
-    tertiaryContainer = SlateDeep,
-    onTertiaryContainer = Slate,
-    background = Charcoal,
-    onBackground = TextPrimary,
-    surface = CharcoalSurface,
-    onSurface = TextPrimary,
-    surfaceVariant = CharcoalSurfaceHigh,
-    onSurfaceVariant = TextMuted,
-    outline = CharcoalOutline,
-    error = Danger,
-    onError = TextPrimary,
-    errorContainer = DangerDeep,
-    onErrorContainer = Danger,
-)
+private val AscendDarkColors =
+    darkColorScheme(
+        primary = Aqua,
+        onPrimary = AquaOn,
+        primaryContainer = AquaDeep,
+        onPrimaryContainer = Aqua,
+        secondary = Ember,
+        onSecondary = EmberDeep,
+        secondaryContainer = EmberDeep,
+        onSecondaryContainer = Ember,
+        tertiary = Slate,
+        onTertiary = Charcoal,
+        tertiaryContainer = SlateDeep,
+        onTertiaryContainer = Slate,
+        background = Charcoal,
+        onBackground = TextPrimary,
+        surface = CharcoalSurface,
+        onSurface = TextPrimary,
+        surfaceVariant = CharcoalSurfaceHigh,
+        onSurfaceVariant = TextMuted,
+        outline = CharcoalOutline,
+        error = Danger,
+        onError = TextPrimary,
+        errorContainer = DangerDeep,
+        onErrorContainer = Danger,
+    )
 
-private val AscendLightColors = lightColorScheme(
-    primary = LightAqua,
-    secondary = LightEmber,
-    background = LightBackground,
-    onBackground = LightOnSurface,
-    surface = LightSurface,
-    onSurface = LightOnSurface,
-    surfaceVariant = LightSurfaceHigh,
-    onSurfaceVariant = LightOnSurface,
-    error = Danger,
-)
+private val AscendLightColors =
+    lightColorScheme(
+        primary = LightAqua,
+        secondary = LightEmber,
+        background = LightBackground,
+        onBackground = LightOnSurface,
+        surface = LightSurface,
+        onSurface = LightOnSurface,
+        surfaceVariant = LightSurfaceHigh,
+        onSurfaceVariant = LightOnSurface,
+        error = Danger,
+    )
 
 @Composable
 fun AscendTheme(
@@ -55,14 +57,15 @@ fun AscendTheme(
     dynamicColor: Boolean = false,
     content: @Composable () -> Unit,
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+    val colorScheme =
+        when {
+            dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+                val context = LocalContext.current
+                if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+            }
+            darkTheme -> AscendDarkColors
+            else -> AscendLightColors
         }
-        darkTheme -> AscendDarkColors
-        else -> AscendLightColors
-    }
     MaterialTheme(
         colorScheme = colorScheme,
         typography = AscendTypography,

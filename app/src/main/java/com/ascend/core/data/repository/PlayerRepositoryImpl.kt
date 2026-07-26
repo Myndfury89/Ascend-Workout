@@ -18,31 +18,34 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class PlayerRepositoryImpl @Inject constructor(
-    private val db: AscendDatabase,
-    private val playerDao: PlayerDao,
-    private val levelCalculator: LevelCalculator,
-) : PlayerRepository {
-
-    override suspend fun ensureLocalPlayer(displayName: String): String {
-        db.withTransaction {
-            if (playerDao.getProfile(LOCAL_USER_ID) == null) {
-                val now = System.currentTimeMillis()
-                playerDao.upsertProfile(
-                    UserProfileEntity(
-                        id = LOCAL_USER_ID, displayName = displayName, createdAt = now, updatedAt = now,
-                    ),
-                )
-                playerDao.upsertProgress(PlayerProgressEntity(userId = LOCAL_USER_ID, updatedAt = now))
-                playerDao.upsertStats(PlayerStatsEntity(userId = LOCAL_USER_ID, updatedAt = now))
+class PlayerRepositoryImpl
+    @Inject
+    constructor(
+        private val db: AscendDatabase,
+        private val playerDao: PlayerDao,
+        private val levelCalculator: LevelCalculator,
+    ) : PlayerRepository {
+        override suspend fun ensureLocalPlayer(displayName: String): String {
+            db.withTransaction {
+                if (playerDao.getProfile(LOCAL_USER_ID) == null) {
+                    val now = System.currentTimeMillis()
+                    playerDao.upsertProfile(
+                        UserProfileEntity(
+                            id = LOCAL_USER_ID,
+                            displayName = displayName,
+                            createdAt = now,
+                            updatedAt = now,
+                        ),
+                    )
+                    playerDao.upsertProgress(PlayerProgressEntity(userId = LOCAL_USER_ID, updatedAt = now))
+                    playerDao.upsertStats(PlayerStatsEntity(userId = LOCAL_USER_ID, updatedAt = now))
+                }
             }
+            return LOCAL_USER_ID
         }
-        return LOCAL_USER_ID
+
+        override fun observeProgress(userId: String): Flow<PlayerProgress?> =
+            playerDao.observeProgress(userId).map { it?.toDomain(levelCalculator) }
+
+        override fun observeStats(userId: String): Flow<PlayerStats?> = playerDao.observeStats(userId).map { it?.toDomain() }
     }
-
-    override fun observeProgress(userId: String): Flow<PlayerProgress?> =
-        playerDao.observeProgress(userId).map { it?.toDomain(levelCalculator) }
-
-    override fun observeStats(userId: String): Flow<PlayerStats?> =
-        playerDao.observeStats(userId).map { it?.toDomain() }
-}

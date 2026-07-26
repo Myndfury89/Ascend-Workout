@@ -31,30 +31,33 @@ import org.robolectric.annotation.GraphicsMode
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @Config(sdk = [34], manifest = Config.NONE)
 class ActiveQuestScreenTest {
-
     @get:Rule
     val compose = createComposeRule()
 
     private fun state(): ActiveQuestUiState {
-        val objective = QuestObjective(
-            id = "o1", questId = "q1", exerciseId = null, title = "Push-ups",
-            type = ObjectiveType.REPETITIONS, target = 200.0, current = 75.0, unit = "reps",
-            preferredSetSize = 25, minimumSetSize = 10, maximumSetSize = 50,
-            primaryAttribute = AttributeType.STRENGTH, status = QuestStatus.IN_PROGRESS, orderIndex = 0,
-            entries = listOf(
-                QuestProgressEntry("e1", "o1", 25.0, ProgressSource.MANUAL, null, 1),
-                QuestProgressEntry("e2", "o1", 50.0, ProgressSource.MANUAL, null, 2),
-            ),
-        )
-        val quest = Quest(
-            id = "q1", userId = "u", title = "Upper-Body Trial", description = null,
-            type = QuestType.ACCUMULATION, status = QuestStatus.IN_PROGRESS, scheduledDate = null,
-            deadline = null, difficulty = Difficulty.MODERATE, baseRewardXp = 350,
-            partialRewardEnabled = true, overCompletionEnabled = true, objectives = listOf(objective),
-        )
-        val suggestion = SetSuggestionEngine().suggest(
-            SetSuggestionInput(remaining = 125, preferredSetSize = 25, minimumSetSize = 10, maximumSetSize = 50),
-        )
+        val objective =
+            QuestObjective(
+                id = "o1", questId = "q1", exerciseId = null, title = "Push-ups",
+                type = ObjectiveType.REPETITIONS, target = 200.0, current = 75.0, unit = "reps",
+                preferredSetSize = 25, minimumSetSize = 10, maximumSetSize = 50,
+                primaryAttribute = AttributeType.STRENGTH, status = QuestStatus.IN_PROGRESS, orderIndex = 0,
+                entries =
+                    listOf(
+                        QuestProgressEntry("e1", "o1", 25.0, ProgressSource.MANUAL, null, 1),
+                        QuestProgressEntry("e2", "o1", 50.0, ProgressSource.MANUAL, null, 2),
+                    ),
+            )
+        val quest =
+            Quest(
+                id = "q1", userId = "u", title = "Upper-Body Trial", description = null,
+                type = QuestType.ACCUMULATION, status = QuestStatus.IN_PROGRESS, scheduledDate = null,
+                deadline = null, difficulty = Difficulty.MODERATE, baseRewardXp = 350,
+                partialRewardEnabled = true, overCompletionEnabled = true, objectives = listOf(objective),
+            )
+        val suggestion =
+            SetSuggestionEngine().suggest(
+                SetSuggestionInput(remaining = 125, preferredSetSize = 25, minimumSetSize = 10, maximumSetSize = 50),
+            )
         return ActiveQuestUiState(isLoading = false, quest = quest, suggestion = suggestion)
     }
 
@@ -64,8 +67,12 @@ class ActiveQuestScreenTest {
         compose.setContent {
             AscendTheme {
                 ActiveQuestContent(
-                    state = state(), onBack = {}, onAdd = { added = it },
-                    onDelete = {}, onComplete = {}, onDismissCompletion = {},
+                    state = state(),
+                    onBack = {},
+                    onAdd = { added = it },
+                    onDelete = {},
+                    onComplete = {},
+                    onDismissCompletion = {},
                 )
             }
         }
@@ -82,8 +89,12 @@ class ActiveQuestScreenTest {
         compose.setContent {
             AscendTheme {
                 ActiveQuestContent(
-                    state = state(), onBack = {}, onAdd = {},
-                    onDelete = {}, onComplete = { completed = true }, onDismissCompletion = {},
+                    state = state(),
+                    onBack = {},
+                    onAdd = {},
+                    onDelete = {},
+                    onComplete = { completed = true },
+                    onDismissCompletion = {},
                 )
             }
         }
@@ -97,8 +108,12 @@ class ActiveQuestScreenTest {
         compose.setContent {
             AscendTheme {
                 ActiveQuestContent(
-                    state = state(), onBack = {}, onAdd = {},
-                    onDelete = { deletedId = it }, onComplete = {}, onDismissCompletion = {},
+                    state = state(),
+                    onBack = {},
+                    onAdd = {},
+                    onDelete = { deletedId = it },
+                    onComplete = {},
+                    onDismissCompletion = {},
                 )
             }
         }

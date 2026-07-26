@@ -4,7 +4,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class XpCalculatorTest {
-
     private val calc = XpCalculator()
 
     @Test
@@ -22,13 +21,14 @@ class XpCalculatorTest {
     @Test
     fun `full workout stacks all sources`() {
         // 100 + 30 + 50 + 100 + 25 + 50 = 355
-        val xp = calc.workoutXp(
-            durationMinutes = 30,
-            intensity = 1f,
-            volumeScore = 1f,
-            isPersonalRecord = true,
-            consistencyEligible = true,
-        )
+        val xp =
+            calc.workoutXp(
+                durationMinutes = 30,
+                intensity = 1f,
+                volumeScore = 1f,
+                isPersonalRecord = true,
+                consistencyEligible = true,
+            )
         assertEquals(355L, xp)
     }
 

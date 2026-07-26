@@ -17,10 +17,11 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
-
     @Provides
     @Singleton
-    fun provideDatabase(@ApplicationContext context: Context): AscendDatabase =
+    fun provideDatabase(
+        @ApplicationContext context: Context,
+    ): AscendDatabase =
         Room.databaseBuilder(context, AscendDatabase::class.java, AscendDatabase.NAME)
             // Real, versioned migrations are added per phase; no destructive fallback.
             .build()

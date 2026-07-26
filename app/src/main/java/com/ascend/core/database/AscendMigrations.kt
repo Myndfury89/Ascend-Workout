@@ -218,6 +218,14 @@ object AscendMigrations {
             "ex-stretch" to "MOBILITY,RECOVERY",
         )
 
+    /** v4 -> v5: a subject key on progression events (class id / proficiency key). */
+    val MIGRATION_4_5 =
+        object : Migration(4, 5) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE `progression_event` ADD COLUMN `subjectKey` TEXT")
+            }
+        }
+
     /** All migrations, wired into the Room builder. */
-    val ALL: Array<Migration> = arrayOf(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
+    val ALL: Array<Migration> = arrayOf(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
 }

@@ -37,13 +37,14 @@
     <ID>LongParameterList:ActiveQuestScreen.kt$( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
     <ID>LongParameterList:ClassRewardApplier.kt$ClassRewardApplier$( userId: String, basePlayerXp: Long, baseAttributeDistribution: Map&lt;AttributeType, Long&gt;, activityTags: Set&lt;String&gt;, sourceType: XpSourceType, sourceId: String, )</ID>
     <ID>LongParameterList:LogWorkoutScreen.kt$( state: LogWorkoutUiState, onBack: () -&gt; Unit, onTitleChange: (String) -&gt; Unit, onDifficultyChange: (Difficulty) -&gt; Unit, onAddSet: (Exercise, Int, Double?) -&gt; Unit, onDeleteSet: (String) -&gt; Unit, onFinish: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
-    <ID>LongParameterList:ProgressionEventFactory.kt$ProgressionEventFactory$( userId: String, sourceType: XpSourceType, sourceId: String, before: ProgressionSnapshot, after: ProgressionSnapshot, label: String? = null, now: Long = System.currentTimeMillis(), )</ID>
+    <ID>LongParameterList:ProgressionEventFactory.kt$ProgressionEventFactory$( userId: String, sourceType: XpSourceType, sourceId: String, before: ProgressionSnapshot, after: ProgressionSnapshot, classChanges: List&lt;ClassEventInput&gt; = emptyList(), label: String? = null, now: Long = System.currentTimeMillis(), )</ID>
+    <ID>LongParameterList:ProgressionEventPublisher.kt$ProgressionEventPublisher$( userId: String, sourceType: XpSourceType, sourceId: String, label: String?, playerBefore: ProgressionSnapshot, playerAfter: ProgressionSnapshot, breakdown: RewardBreakdown, )</ID>
     <ID>LongParameterList:ProgressionEventQueueTest.kt$ProgressionEventQueueTest$( batchId: String, sequence: Int, type: ProgressionEventType, attribute: AttributeType? = null, from: Long = 0, to: Long = 0, )</ID>
     <ID>LongParameterList:QuestRepository.kt$QuestRepository$( objectiveId: String, value: Double, source: ProgressSource = ProgressSource.MANUAL, note: String? = null, perceivedEffort: Int? = null, sourceApplication: String? = null, externalRecordId: String? = null, )</ID>
-    <ID>LongParameterList:QuestRepositoryImpl.kt$QuestRepositoryImpl$( private val db: AscendDatabase, private val questDao: QuestDao, private val exerciseDao: ExerciseDao, private val progressionRepository: ProgressionRepository, private val xpCalculator: XpCalculator, private val attributeCalculator: AttributeProgressCalculator, private val classRewardApplier: ClassRewardApplier, )</ID>
+    <ID>LongParameterList:QuestRepositoryImpl.kt$QuestRepositoryImpl$( private val db: AscendDatabase, private val questDao: QuestDao, private val exerciseDao: ExerciseDao, private val progressionRepository: ProgressionRepository, private val xpCalculator: XpCalculator, private val attributeCalculator: AttributeProgressCalculator, private val classRewardApplier: ClassRewardApplier, private val eventPublisher: ProgressionEventPublisher, )</ID>
     <ID>LongParameterList:StatusScreen.kt$( hunterName: String, rankLabel: String, level: Int, headerAlpha: Float, levelFlash: Float, rankFlash: Float, )</ID>
     <ID>LongParameterList:StatusScreen.kt$( reducedMotion: Boolean, busy: Boolean, onSimulate: (SimulatedCompletion) -&gt; Unit, onReplay: () -&gt; Unit, onReset: () -&gt; Unit, onReducedMotionChange: (Boolean) -&gt; Unit, )</ID>
-    <ID>LongParameterList:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$( private val db: AscendDatabase, private val workoutDao: WorkoutDao, private val exerciseDao: ExerciseDao, private val progressionRepository: ProgressionRepository, private val xpCalculator: XpCalculator, private val attributeCalculator: AttributeProgressCalculator, private val classRewardApplier: ClassRewardApplier, )</ID>
+    <ID>LongParameterList:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$( private val db: AscendDatabase, private val workoutDao: WorkoutDao, private val exerciseDao: ExerciseDao, private val progressionRepository: ProgressionRepository, private val xpCalculator: XpCalculator, private val attributeCalculator: AttributeProgressCalculator, private val classRewardApplier: ClassRewardApplier, private val eventPublisher: ProgressionEventPublisher, )</ID>
     <ID>LongParameterList:XpCalculator.kt$XpCalculator$( durationMinutes: Int, intensity: Float = 0f, volumeScore: Float = 0f, isPersonalRecord: Boolean = false, consistencyEligible: Boolean = false, expeditionMultiplier: Double = 1.0, )</ID>
     <ID>MagicNumber:ActiveQuestScreen.kt$10</ID>
     <ID>MagicNumber:ActiveQuestScreen.kt$25</ID>
@@ -52,6 +53,7 @@
     <ID>MagicNumber:ActiveQuestScreen.kt$50</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$3</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$4</ID>
+    <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$5</ID>
     <ID>MagicNumber:AscendMotion.kt$AscendEasing$0.16f</ID>
     <ID>MagicNumber:AscendMotion.kt$AscendEasing$0.18f</ID>
     <ID>MagicNumber:AscendMotion.kt$AscendEasing$0.24f</ID>
@@ -132,10 +134,12 @@
     <ID>MaxLineLength:ClassProgressionCalculatorTest.kt$ClassProgressionCalculatorTest$assertEquals(78L, calc.uniqueProficiency(baseMagnitude = 40, affinity = 1.0, ClassCatalog.MONK, allocation = 1.0))</ID>
     <ID>MaxLineLength:ClassRepositoryImpl.kt$ClassRepositoryImpl$override suspend fun getSelection(userId: String): PlayerClassSelection</ID>
     <ID>MaxLineLength:ClassRewardFlowTest.kt$ClassRewardFlowTest$ProgressionRepositoryImpl(db, db.playerDao(), db.xpDao(), db.attributeDao(), LevelCalculator(), RankCalculator())</ID>
-    <ID>MaxLineLength:ClassRewardFlowTest.kt$ClassRewardFlowTest$db</ID>
+    <ID>MaxLineLength:ClassRewardFlowTest.kt$ClassRewardFlowTest$assertTrue(types.none { it == ProgressionEventType.CLASS_XP_GAINED || it == ProgressionEventType.PROFICIENCY_GAINED })</ID>
+    <ID>MaxLineLength:ClassRewardFlowTest.kt$ClassRewardFlowTest$db.playerDao().upsertProfile(UserProfileEntity(id = "u_none", displayName = "None", createdAt = 0, updatedAt = 0))</ID>
     <ID>MaxLineLength:FakeStatusDataTest.kt$FakeStatusDataTest$db.playerDao().upsertProfile(UserProfileEntity(id = userId, displayName = "Tester", createdAt = 0, updatedAt = 0))</ID>
     <ID>MaxLineLength:LogWorkoutViewModel.kt$LogWorkoutViewModel$private fun ObjectiveType.isRepBased(): Boolean</ID>
     <ID>MaxLineLength:PlayerRepositoryImpl.kt$PlayerRepositoryImpl$override fun observeStats(userId: String): Flow&lt;PlayerStats?&gt;</ID>
+    <ID>MaxLineLength:ProgressionEventFactory.kt$ProgressionEventFactory$add(ProgressionEventType.CLASS_XP_GAINED, c.classXpFrom, c.classXpTo, subjectKey = c.classId, labelOverride = c.className)</ID>
     <ID>MaxLineLength:ProgressionEventFactoryTest.kt$ProgressionEventFactoryTest$assertEquals(listOf(AttributeType.STRENGTH, AttributeType.ENDURANCE, AttributeType.DISCIPLINE), attrs.map { it.attribute })</ID>
     <ID>MaxLineLength:ProgressionEventFactoryTest.kt$ProgressionEventFactoryTest$listOf(ProgressionEventType.XP_GAINED, ProgressionEventType.ATTRIBUTE_CHANGED, ProgressionEventType.ATTRIBUTE_CHANGED)</ID>
     <ID>MaxLineLength:ProgressionEventFactoryTest.kt$ProgressionEventFactoryTest$val events = factory.build("u1", XpSourceType.QUEST_COMPLETION, "quest-1", before, after, label = "Ascension Trial")</ID>
@@ -143,7 +147,6 @@
     <ID>MaxLineLength:ProgressionEventRepositoryImpl.kt$ProgressionEventRepositoryImpl$override suspend fun getPending(userId: String): List&lt;ProgressionEvent&gt;</ID>
     <ID>MaxLineLength:ProgressionRepositoryImpl.kt$ProgressionRepositoryImpl$override fun observeStats(userId: String): Flow&lt;PlayerStats?&gt;</ID>
     <ID>MaxLineLength:ProgressionRepositoryImpl.kt$ProgressionRepositoryImpl$override suspend fun getProgress(userId: String): PlayerProgress?</ID>
-    <ID>MaxLineLength:QuestFlowIntegrationTest.kt$QuestFlowIntegrationTest$db</ID>
     <ID>MaxLineLength:QuestRepository.kt$AddProgressResult$Added : AddProgressResult</ID>
     <ID>MaxLineLength:QuestRepositoryImpl.kt$QuestRepositoryImpl$completionRule = "ALL_REQUIRED"</ID>
     <ID>MaxLineLength:QuestRepositoryImpl.kt$QuestRepositoryImpl$override fun observeQuest(questId: String): Flow&lt;Quest?&gt;</ID>
@@ -160,7 +163,6 @@
     <ID>MaxLineLength:StreakCalculatorTest.kt$StreakCalculatorTest$val result = calc.onActivity(currentStreak = 4, longestStreak = 4, lastActiveDay = day.minusDays(1), today = day)</ID>
     <ID>MaxLineLength:StreakCalculatorTest.kt$StreakCalculatorTest$val result = calc.onActivity(currentStreak = 9, longestStreak = 12, lastActiveDay = day.minusDays(2), today = day)</ID>
     <ID>MaxLineLength:WorkoutDao.kt$WorkoutDao$@Query("UPDATE workout SET status = :status, durationSeconds = :durationSeconds, updatedAt = :updatedAt WHERE id = :workoutId")</ID>
-    <ID>MaxLineLength:WorkoutFlowIntegrationTest.kt$WorkoutFlowIntegrationTest$db</ID>
     <ID>MaxLineLength:WorkoutMappers.kt$private inline fun &lt;reified T : Enum&lt;T&gt;&gt; String?.toEnumOrNull(): T?</ID>
     <ID>MaxLineLength:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$override fun observeExercises(): Flow&lt;List&lt;Exercise&gt;&gt;</ID>
     <ID>MaxLineLength:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$override fun observeWorkout(workoutId: String): Flow&lt;Workout?&gt;</ID>

@@ -44,6 +44,8 @@ class ProgressionRepositoryImpl
 
         override suspend fun getProgress(userId: String): PlayerProgress? = playerDao.getProgress(userId)?.toDomain(levelCalculator)
 
+        override suspend fun getStats(userId: String): PlayerStats? = playerDao.getStats(userId)?.toDomain()
+
         override suspend fun awardXp(
             userId: String,
             amount: Long,

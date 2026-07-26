@@ -11,6 +11,7 @@ import com.ascend.core.database.entity.QuestObjectiveEntity
 import com.ascend.core.database.entity.QuestProgressEntryEntity
 import com.ascend.core.domain.classes.ClassRewardApplier
 import com.ascend.core.domain.progression.AttributeProgressCalculator
+import com.ascend.core.domain.progression.ProgressionEventPublisher
 import com.ascend.core.domain.progression.XpCalculator
 import com.ascend.core.domain.repository.AddProgressResult
 import com.ascend.core.domain.repository.CompleteQuestResult
@@ -40,6 +41,7 @@ class QuestRepositoryImpl
         private val xpCalculator: XpCalculator,
         private val attributeCalculator: AttributeProgressCalculator,
         private val classRewardApplier: ClassRewardApplier,
+        private val eventPublisher: ProgressionEventPublisher,
     ) : QuestRepository {
         private fun now() = System.currentTimeMillis()
 
@@ -146,6 +148,14 @@ class QuestRepositoryImpl
                         overCompletionEnabled = quest.overCompletionEnabled,
                     )
 
+                // Snapshot the player state before any award so the animation script
+                // can be built from the exact before -> after deltas.
+                val playerBefore =
+                    ProgressionEventPublisher.snapshot(
+                        progressionRepository.getProgress(quest.userId),
+                        progressionRepository.getStats(quest.userId),
+                    )
+
                 val xpOutcome =
                     progressionRepository.awardXp(
                         userId = quest.userId,
@@ -221,6 +231,23 @@ class QuestRepositoryImpl
                         primaryClass = outcome.primaryClass,
                         secondaryClass = outcome.secondaryClass,
                     )
+
+                // Enqueue the presentation events (player + class) in this same transaction.
+                val playerAfter =
+                    ProgressionEventPublisher.snapshot(
+                        progressionRepository.getProgress(quest.userId),
+                        progressionRepository.getStats(quest.userId),
+                    )
+                eventPublisher.publish(
+                    userId = quest.userId,
+                    sourceType = XpSourceType.QUEST_COMPLETION,
+                    sourceId = questId,
+                    label = quest.title,
+                    playerBefore = playerBefore,
+                    playerAfter = playerAfter,
+                    breakdown = breakdown,
+                )
+
                 CompleteQuestResult.Completed(
                     awarded.amount,
                     awarded.newLevel,

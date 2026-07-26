@@ -10,6 +10,7 @@ import com.ascend.core.database.entity.WorkoutEntity
 import com.ascend.core.database.entity.WorkoutSetEntity
 import com.ascend.core.domain.classes.ClassRewardApplier
 import com.ascend.core.domain.progression.AttributeProgressCalculator
+import com.ascend.core.domain.progression.ProgressionEventPublisher
 import com.ascend.core.domain.progression.XpCalculator
 import com.ascend.core.domain.repository.CompleteWorkoutResult
 import com.ascend.core.domain.repository.NewSetSpec
@@ -41,6 +42,7 @@ class WorkoutRepositoryImpl
         private val xpCalculator: XpCalculator,
         private val attributeCalculator: AttributeProgressCalculator,
         private val classRewardApplier: ClassRewardApplier,
+        private val eventPublisher: ProgressionEventPublisher,
     ) : WorkoutRepository {
         private fun now() = System.currentTimeMillis()
 
@@ -125,6 +127,12 @@ class WorkoutRepositoryImpl
                         volumeScore = volumeScore(workout.totalVolume),
                     )
 
+                val playerBefore =
+                    ProgressionEventPublisher.snapshot(
+                        progressionRepository.getProgress(workout.userId),
+                        progressionRepository.getStats(workout.userId),
+                    )
+
                 val xpOutcome =
                     progressionRepository.awardXp(
                         userId = workout.userId,
@@ -179,6 +187,22 @@ class WorkoutRepositoryImpl
                         primaryClass = outcome.primaryClass,
                         secondaryClass = outcome.secondaryClass,
                     )
+
+                val playerAfter =
+                    ProgressionEventPublisher.snapshot(
+                        progressionRepository.getProgress(workout.userId),
+                        progressionRepository.getStats(workout.userId),
+                    )
+                eventPublisher.publish(
+                    userId = workout.userId,
+                    sourceType = XpSourceType.WORKOUT_COMPLETION,
+                    sourceId = workoutId,
+                    label = workout.title,
+                    playerBefore = playerBefore,
+                    playerAfter = playerAfter,
+                    breakdown = breakdown,
+                )
+
                 CompleteWorkoutResult.Completed(
                     awarded.amount,
                     awarded.newLevel,

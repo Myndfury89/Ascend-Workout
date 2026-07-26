@@ -24,6 +24,8 @@ interface ProgressionRepository {
 
     suspend fun getProgress(userId: String): PlayerProgress?
 
+    suspend fun getStats(userId: String): PlayerStats?
+
     /** Award XP exactly once for [sourceType]+[sourceId]; recomputes level & rank. */
     suspend fun awardXp(
         userId: String,

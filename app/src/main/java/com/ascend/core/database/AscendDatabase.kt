@@ -44,7 +44,7 @@ import com.ascend.core.database.entity.XpTransactionEntity
         ClassXpTransactionEntity::class,
         ClassProficiencyTransactionEntity::class,
     ],
-    version = 4,
+    version = 5,
     exportSchema = true,
 )
 abstract class AscendDatabase : RoomDatabase() {

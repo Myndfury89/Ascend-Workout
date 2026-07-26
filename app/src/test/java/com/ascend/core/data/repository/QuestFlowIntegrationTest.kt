@@ -10,6 +10,8 @@ import com.ascend.core.domain.classes.ClassProgressionCalculator
 import com.ascend.core.domain.classes.ClassRewardApplier
 import com.ascend.core.domain.progression.AttributeProgressCalculator
 import com.ascend.core.domain.progression.LevelCalculator
+import com.ascend.core.domain.progression.ProgressionEventFactory
+import com.ascend.core.domain.progression.ProgressionEventPublisher
 import com.ascend.core.domain.progression.RankCalculator
 import com.ascend.core.domain.progression.XpCalculator
 import com.ascend.core.domain.repository.AddProgressResult
@@ -52,14 +54,20 @@ class QuestFlowIntegrationTest {
             ProgressionRepositoryImpl(
                 db, db.playerDao(), db.xpDao(), db.attributeDao(), LevelCalculator(), RankCalculator(),
             )
-        val classApplier =
-            ClassRewardApplier(
-                ClassRepositoryImpl(db, db.classDao(), LevelCalculator()),
-                ClassProgressionCalculator(),
+        val levelCalc = LevelCalculator()
+        val classRepo = ClassRepositoryImpl(db, db.classDao(), levelCalc)
+        val classApplier = ClassRewardApplier(classRepo, ClassProgressionCalculator())
+        val publisher =
+            ProgressionEventPublisher(
+                ProgressionEventRepositoryImpl(db, db.progressionEventDao()),
+                ProgressionEventFactory(),
+                classRepo,
+                levelCalc,
             )
         quests =
             QuestRepositoryImpl(
-                db, db.questDao(), db.exerciseDao(), progression, XpCalculator(), AttributeProgressCalculator(), classApplier,
+                db, db.questDao(), db.exerciseDao(), progression, XpCalculator(),
+                AttributeProgressCalculator(), classApplier, publisher,
             )
         runBlocking {
             db.playerDao().upsertProfile(

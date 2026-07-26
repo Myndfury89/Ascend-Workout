@@ -12,6 +12,9 @@ enum class ProgressionEventType {
     ATTRIBUTE_CHANGED,
     LEVEL_UP,
     RANK_UP,
+    CLASS_XP_GAINED,
+    CLASS_LEVEL_UP,
+    PROFICIENCY_GAINED,
 }
 
 /**
@@ -29,6 +32,8 @@ data class ProgressionEvent(
     val sourceType: XpSourceType,
     val sourceId: String,
     val attribute: AttributeType? = null,
+    // Class id or proficiency key for class events (null for player events).
+    val subjectKey: String? = null,
     val fromValue: Long = 0,
     val toValue: Long = 0,
     val label: String? = null,

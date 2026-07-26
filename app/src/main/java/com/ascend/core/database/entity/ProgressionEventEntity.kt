@@ -35,6 +35,7 @@ data class ProgressionEventEntity(
     val sourceType: String,
     val sourceId: String,
     val attributeType: String? = null,
+    val subjectKey: String? = null,
     val fromValue: Long,
     val toValue: Long,
     val label: String? = null,

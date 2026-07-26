@@ -161,4 +161,31 @@ class AscendMigrationTest {
         assertTrue("duplicate class XP for the same source is rejected", rejected)
         db.close()
     }
+
+    @Test
+    fun `migrate 4 to 5 adds the progression event subject key`() {
+        val dbName = "migration-test-4-5.db"
+
+        helper.createDatabase(dbName, 4).use { db ->
+            db.execSQL(
+                "INSERT INTO user_profile (id, displayName, createdAt, updatedAt, onboardingCompleted, " +
+                    "measurementSystem, localOnly, cloudSyncEnabled) " +
+                    "VALUES ('u1', 'Tester', 0, 0, 0, 'METRIC', 1, 0)",
+            )
+        }
+
+        val db = helper.runMigrationsAndValidate(dbName, 5, true, AscendMigrations.MIGRATION_4_5)
+
+        // The new nullable subjectKey column carries a class event's class id.
+        db.execSQL(
+            "INSERT INTO progression_event (id, userId, batchId, sequence, type, sourceType, sourceId, " +
+                "subjectKey, fromValue, toValue, createdAt) " +
+                "VALUES ('e1', 'u1', 'b1', 0, 'CLASS_XP_GAINED', 'WORKOUT_COMPLETION', 'w1', 'monk', 0, 240, 0)",
+        )
+        db.query("SELECT subjectKey FROM progression_event WHERE id = 'e1'").use { c ->
+            assertTrue(c.moveToFirst())
+            assertEquals("monk", c.getString(0))
+        }
+        db.close()
+    }
 }

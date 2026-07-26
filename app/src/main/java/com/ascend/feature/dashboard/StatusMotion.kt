@@ -107,6 +107,12 @@ class StatusMotion(private val attributes: List<AttributeType>) {
                     displayedRank = Rank.entries.getOrElse(event.toValue.toInt()) { displayedRank }
                     flash(rankFlash, motion)
                 }
+
+                // Class events are handled by the class block (Slice 2); no-op here.
+                ProgressionEventType.CLASS_XP_GAINED,
+                ProgressionEventType.CLASS_LEVEL_UP,
+                ProgressionEventType.PROFICIENCY_GAINED,
+                -> Unit
             }
         }
     }

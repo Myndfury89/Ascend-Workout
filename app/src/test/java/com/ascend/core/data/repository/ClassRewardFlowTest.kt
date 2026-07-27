@@ -5,8 +5,8 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.ascend.core.database.AscendDatabase
 import com.ascend.core.database.entity.UserProfileEntity
-import com.ascend.core.domain.classes.ClassProgressionCalculator
 import com.ascend.core.domain.classes.ClassRewardApplier
+import com.ascend.core.domain.classes.MulticlassRewardCalculator
 import com.ascend.core.domain.progression.AttributeProgressCalculator
 import com.ascend.core.domain.progression.LevelCalculator
 import com.ascend.core.domain.progression.ProgressionEventFactory
@@ -52,7 +52,7 @@ class ClassRewardFlowTest {
         val levelCalc = LevelCalculator()
         classes = ClassRepositoryImpl(db, db.classDao(), levelCalc)
         events = ProgressionEventRepositoryImpl(db, db.progressionEventDao())
-        val applier = ClassRewardApplier(classes, ClassProgressionCalculator())
+        val applier = ClassRewardApplier(classes, MulticlassRewardCalculator())
         val publisher = ProgressionEventPublisher(events, ProgressionEventFactory(), classes, levelCalc)
         workouts =
             WorkoutRepositoryImpl(
@@ -108,6 +108,25 @@ class ClassRewardFlowTest {
             assertEquals(monkLine.uniqueProficiencyGain, classes.totalProficiency("u_monk", "BODY_MASTERY"))
             assertEquals(0L, zerkLine.uniqueProficiencyGain)
             assertEquals(0L, classes.totalProficiency("u_zerk", "FORCE"))
+        }
+
+    @Test
+    fun `magician cardio activity scales endurance and earns favored class xp`() =
+        runTest {
+            db.playerDao().upsertProfile(UserProfileEntity(id = "u_mage", displayName = "Mage", createdAt = 0, updatedAt = 0))
+            classes.setClasses("u_mage", primaryClassId = "magician", secondaryClassId = null)
+
+            val id = workouts.createWorkout(NewWorkoutSpec(userId = "u_mage", title = "Run"))
+            workouts.addSet(id, NewSetSpec(exerciseId = "ex-run", volume = 300.0, unit = "metres"))
+            val result = workouts.completeWorkout(id) as CompleteWorkoutResult.Completed
+
+            // Running trains Endurance (base 45); Magician Endurance multiplier 1.50 -> 68.
+            assertEquals(68L, result.attributeDeltas[AttributeType.ENDURANCE])
+            val line = result.rewardBreakdown.primaryClass!!
+            assertEquals("magician", line.classId)
+            // Cardio is favored by the Magician -> unique proficiency earned.
+            assertTrue(line.uniqueProficiencyGain > 0)
+            assertEquals(1.0, line.affinity, 1e-9)
         }
 
     @Test

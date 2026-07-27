@@ -188,4 +188,59 @@ class AscendMigrationTest {
         }
         db.close()
     }
+
+    @Test
+    fun `migrate 5 to 6 adds class definitions, history, and the reward-type guard`() {
+        val dbName = "migration-test-5-6.db"
+
+        helper.createDatabase(dbName, 5).use { db ->
+            db.execSQL(
+                "INSERT INTO user_profile (id, displayName, createdAt, updatedAt, onboardingCompleted, " +
+                    "measurementSystem, localOnly, cloudSyncEnabled) " +
+                    "VALUES ('u1', 'Tester', 0, 0, 0, 'METRIC', 1, 0)",
+            )
+            // A v5 class-XP row (pre reward-type column).
+            db.execSQL(
+                "INSERT INTO class_xp_transaction (id, userId, classId, amount, transactionType, sourceType, sourceId, createdAt) " +
+                    "VALUES ('c1', 'u1', 'monk', 240, 'AWARD', 'WORKOUT_COMPLETION', 'w1', 0)",
+            )
+        }
+
+        val db = helper.runMigrationsAndValidate(dbName, 6, true, AscendMigrations.MIGRATION_5_6)
+
+        // Pre-existing ledger row survived and was backfilled with the default reward type.
+        db.query("SELECT rewardType FROM class_xp_transaction WHERE id = 'c1'").use { c ->
+            assertTrue(c.moveToFirst())
+            assertEquals("CLASS_XP", c.getString(0))
+        }
+
+        // New tables are usable + the widened exactly-once guard holds.
+        db.execSQL("INSERT INTO player_class (userId, primaryClassId, changeSource, updatedAt) VALUES ('u1', 'monk', 'MANUAL', 0)")
+        db.execSQL(
+            "INSERT INTO class_history (id, userId, classId, slot, startedAt, createdAt) " +
+                "VALUES ('h1', 'u1', 'monk', 'PRIMARY', 0, 0)",
+        )
+        db.execSQL(
+            "INSERT INTO class_definition (id, name, classTitle, description, fitnessIdentity, favoredWorkoutCategories, " +
+                "favoredTags, primaryAttributes, secondaryAttributes, attributeMultipliers, uniqueProficiencyKey, " +
+                "uniqueProficiencyName, favoredClassXpMultiplier, nonFavoredClassXpMultiplier, statusThemeKey, frameVariantKey, " +
+                "accentTokenKey, proficiencyIconKey, idleEffectKey, progressionEffectKey, classQuestTemplateIds, " +
+                "expeditionTemplateIds, achievementPathIds, titleIds, enabled, createdAt, updatedAt) " +
+                "VALUES ('monk', 'Monk', 't', 'd', 'fi', '', 'BODYWEIGHT', 'DISCIPLINE', '', 'STRENGTH:1.25', 'BODY_MASTERY', " +
+                "'Body Mastery', 1.3, 0.75, 'monk', 'balanced', 'aqua', 'body_mastery', 'i', 'p', '', '', '', '', 1, 0, 0)",
+        )
+
+        var rejected = false
+        try {
+            db.execSQL(
+                "INSERT INTO class_xp_transaction (id, userId, classId, amount, transactionType, sourceType, " +
+                    "sourceId, rewardType, createdAt) " +
+                    "VALUES ('c2', 'u1', 'monk', 240, 'AWARD', 'WORKOUT_COMPLETION', 'w1', 'CLASS_XP', 1)",
+            )
+        } catch (expected: android.database.sqlite.SQLiteConstraintException) {
+            rejected = true
+        }
+        assertTrue("duplicate (classId, ..., rewardType) is rejected", rejected)
+        db.close()
+    }
 }

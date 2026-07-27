@@ -2,6 +2,7 @@ package com.ascend.feature.quests
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ascend.core.domain.repository.ClassRepository
 import com.ascend.core.domain.repository.PlayerRepository
 import com.ascend.core.domain.repository.QuestRepository
 import com.ascend.core.domain.usecase.SeedDemoDataUseCase
@@ -29,6 +30,7 @@ class QuestsViewModel
     constructor(
         private val playerRepository: PlayerRepository,
         private val questRepository: QuestRepository,
+        private val classRepository: ClassRepository,
         private val seedDemoData: SeedDemoDataUseCase,
     ) : ViewModel() {
         private val userId = MutableStateFlow<String?>(null)
@@ -45,6 +47,7 @@ class QuestsViewModel
         init {
             viewModelScope.launch {
                 val uid = playerRepository.ensureLocalPlayer()
+                classRepository.seedDefinitions()
                 seedDemoData(uid)
                 userId.value = uid
             }

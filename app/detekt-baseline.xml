@@ -35,8 +35,10 @@
     <ID>LongMethod:StatusScreen.kt$@Composable fun StatusScreen( modifier: Modifier = Modifier, viewModel: StatusMotionViewModel = hiltViewModel(), )</ID>
     <ID>LongMethod:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$override suspend fun completeWorkout(workoutId: String): CompleteWorkoutResult</ID>
     <ID>LongParameterList:ActiveQuestScreen.kt$( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
+    <ID>LongParameterList:ClassRepositoryImpl.kt$ClassRepositoryImpl$( userId: String, slot: ClassSlot, newClassId: String?, reason: String?, source: ClassChangeSource, ts: Long, )</ID>
     <ID>LongParameterList:ClassRewardApplier.kt$ClassRewardApplier$( userId: String, basePlayerXp: Long, baseAttributeDistribution: Map&lt;AttributeType, Long&gt;, activityTags: Set&lt;String&gt;, sourceType: XpSourceType, sourceId: String, )</ID>
     <ID>LongParameterList:LogWorkoutScreen.kt$( state: LogWorkoutUiState, onBack: () -&gt; Unit, onTitleChange: (String) -&gt; Unit, onDifficultyChange: (Difficulty) -&gt; Unit, onAddSet: (Exercise, Int, Double?) -&gt; Unit, onDeleteSet: (String) -&gt; Unit, onFinish: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
+    <ID>LongParameterList:MulticlassRewardCalculator.kt$MulticlassRewardCalculator$( def: ClassDefinition, slot: ClassSlot, allocation: Double, activityTags: Set&lt;String&gt;, basePlayerXp: Long, baseMagnitude: Long, )</ID>
     <ID>LongParameterList:ProgressionEventFactory.kt$ProgressionEventFactory$( userId: String, sourceType: XpSourceType, sourceId: String, before: ProgressionSnapshot, after: ProgressionSnapshot, classChanges: List&lt;ClassEventInput&gt; = emptyList(), label: String? = null, now: Long = System.currentTimeMillis(), )</ID>
     <ID>LongParameterList:ProgressionEventPublisher.kt$ProgressionEventPublisher$( userId: String, sourceType: XpSourceType, sourceId: String, label: String?, playerBefore: ProgressionSnapshot, playerAfter: ProgressionSnapshot, breakdown: RewardBreakdown, )</ID>
     <ID>LongParameterList:ProgressionEventQueueTest.kt$ProgressionEventQueueTest$( batchId: String, sequence: Int, type: ProgressionEventType, attribute: AttributeType? = null, from: Long = 0, to: Long = 0, )</ID>
@@ -54,6 +56,7 @@
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$3</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$4</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$5</ID>
+    <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$6</ID>
     <ID>MagicNumber:AscendMotion.kt$AscendEasing$0.16f</ID>
     <ID>MagicNumber:AscendMotion.kt$AscendEasing$0.18f</ID>
     <ID>MagicNumber:AscendMotion.kt$AscendEasing$0.24f</ID>
@@ -75,6 +78,8 @@
     <ID>MagicNumber:ClassCatalog.kt$ClassCatalog$1.25</ID>
     <ID>MagicNumber:ClassCatalog.kt$ClassCatalog$1.35</ID>
     <ID>MagicNumber:ClassCatalog.kt$ClassCatalog$1.50</ID>
+    <ID>MagicNumber:ClassModels.kt$ClassRecommendationInput.Companion$3</ID>
+    <ID>MagicNumber:ClassRecommendationEngine.kt$ClassRecommendationEngine$3</ID>
     <ID>MagicNumber:Color.kt$0xFF00201C</ID>
     <ID>MagicNumber:Color.kt$0xFF0B0E14</ID>
     <ID>MagicNumber:Color.kt$0xFF0E3B37</ID>
@@ -126,18 +131,43 @@
     <ID>MagicNumber:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$60</ID>
     <ID>MagicNumber:WorkoutsViewModel.kt$WorkoutsViewModel$5_000</ID>
     <ID>MatchingDeclarationName:Attributes.kt$AttributeType</ID>
+    <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"'Body Mastery', 1.3, 0.75, 'monk', 'balanced', 'aqua', 'body_mastery', 'i', 'p', '', '', '', '', 1, 0, 0)"</ID>
+    <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"INSERT INTO class_definition (id, name, classTitle, description, fitnessIdentity, favoredWorkoutCategories, "</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"INSERT INTO class_xp_transaction (id, userId, classId, amount, transactionType, sourceType, sourceId, createdAt) "</ID>
+    <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"VALUES ('monk', 'Monk', 't', 'd', 'fi', '', 'BODYWEIGHT', 'DISCIPLINE', '', 'STRENGTH:1.25', 'BODY_MASTERY', "</ID>
+    <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"uniqueProficiencyName, favoredClassXpMultiplier, nonFavoredClassXpMultiplier, statusThemeKey, frameVariantKey, "</ID>
+    <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$db.execSQL("INSERT INTO player_class (userId, primaryClassId, changeSource, updatedAt) VALUES ('u1', 'monk', 'MANUAL', 0)")</ID>
+    <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$"ALTER TABLE `class_proficiency_transaction` ADD COLUMN `rewardType` TEXT NOT NULL DEFAULT 'UNIQUE_PROFICIENCY'"</ID>
     <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$"CREATE UNIQUE INDEX IF NOT EXISTS `index_class_xp_transaction_classId_transactionType_sourceType_sourceId` "</ID>
     <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$"ON `class_proficiency_transaction` (`proficiencyKey`, `transactionType`, `sourceType`, `sourceId`)"</ID>
+    <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$"ON `class_proficiency_transaction` (`proficiencyKey`, `transactionType`, `sourceType`, `sourceId`, `rewardType`)"</ID>
+    <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$"ON `class_xp_transaction` (`classId`, `transactionType`, `sourceType`, `sourceId`, `rewardType`)"</ID>
+    <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$"`index_class_proficiency_transaction_proficiencyKey_transactionType_sourceType_sourceId_rewardType` "</ID>
+    <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$db.execSQL("ALTER TABLE `class_xp_transaction` ADD COLUMN `rewardType` TEXT NOT NULL DEFAULT 'CLASS_XP'")</ID>
+    <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$db.execSQL("DROP INDEX IF EXISTS `index_class_proficiency_transaction_proficiencyKey_transactionType_sourceType_sourceId`")</ID>
+    <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$db.execSQL("DROP INDEX IF EXISTS `index_class_xp_transaction_classId_transactionType_sourceType_sourceId`")</ID>
+    <ID>MaxLineLength:ClassAttributeScaler.kt$ClassAttributeScaler$)</ID>
+    <ID>MaxLineLength:ClassCatalog.kt$ClassCatalog$favoredTags = setOf(ActivityTags.BODYWEIGHT, ActivityTags.MUSCULAR_ENDURANCE, ActivityTags.MOBILITY, ActivityTags.BALANCE)</ID>
+    <ID>MaxLineLength:ClassCatalog.kt$ClassCatalog$favoredWorkoutCategories = listOf("Calisthenics", "Bodyweight strength", "Mobility", "Balance", "Core control")</ID>
     <ID>MaxLineLength:ClassDao.kt$ClassDao$@Query("SELECT COALESCE(SUM(amount), 0) FROM class_proficiency_transaction WHERE userId = :userId AND proficiencyKey = :key")</ID>
+    <ID>MaxLineLength:ClassMappers.kt$private fun joinMultipliers(map: Map&lt;AttributeType, Double&gt;): String</ID>
     <ID>MaxLineLength:ClassProgressionCalculatorTest.kt$ClassProgressionCalculatorTest$assertEquals(0L, calc.uniqueProficiency(baseMagnitude = 40, affinity = 0.0, ClassCatalog.BERSERKER, allocation = 1.0))</ID>
     <ID>MaxLineLength:ClassProgressionCalculatorTest.kt$ClassProgressionCalculatorTest$assertEquals(78L, calc.uniqueProficiency(baseMagnitude = 40, affinity = 1.0, ClassCatalog.MONK, allocation = 1.0))</ID>
+    <ID>MaxLineLength:ClassRepositoryImpl.kt$ClassRepositoryImpl$classDao.observeDefinitions().map { list -&gt; list.takeIf { it.isNotEmpty() }?.map { it.toDomain() } ?: ClassCatalog.ALL }</ID>
+    <ID>MaxLineLength:ClassRepositoryImpl.kt$ClassRepositoryImpl$override suspend fun getHistory(userId: String): List&lt;ClassHistory&gt;</ID>
     <ID>MaxLineLength:ClassRepositoryImpl.kt$ClassRepositoryImpl$override suspend fun getSelection(userId: String): PlayerClassSelection</ID>
+    <ID>MaxLineLength:ClassRepositoryImpl.kt$ClassRepositoryImpl$primaryStartedAt = if (changed(current?.primaryClassId, primaryClassId)) ts else current?.primaryStartedAt</ID>
+    <ID>MaxLineLength:ClassRepositoryImpl.kt$ClassRepositoryImpl$secondaryStartedAt = if (changed(current?.secondaryClassId, secondaryClassId)) ts else current?.secondaryStartedAt</ID>
+    <ID>MaxLineLength:ClassRepositoryTest.kt$ClassRepositoryTest$db.playerDao().upsertProfile(UserProfileEntity(id = userId, displayName = "Tester", createdAt = 0, updatedAt = 0))</ID>
+    <ID>MaxLineLength:ClassRewardApplier.kt$ClassRewardApplier$?:</ID>
+    <ID>MaxLineLength:ClassRewardApplier.kt$ClassRewardApplier$classRepository.awardProficiency(userId, def.uniqueProficiencyKey, contribution.uniqueProficiencyGain, sourceType, sourceId)</ID>
     <ID>MaxLineLength:ClassRewardFlowTest.kt$ClassRewardFlowTest$ProgressionRepositoryImpl(db, db.playerDao(), db.xpDao(), db.attributeDao(), LevelCalculator(), RankCalculator())</ID>
     <ID>MaxLineLength:ClassRewardFlowTest.kt$ClassRewardFlowTest$assertTrue(types.none { it == ProgressionEventType.CLASS_XP_GAINED || it == ProgressionEventType.PROFICIENCY_GAINED })</ID>
+    <ID>MaxLineLength:ClassRewardFlowTest.kt$ClassRewardFlowTest$db.playerDao().upsertProfile(UserProfileEntity(id = "u_mage", displayName = "Mage", createdAt = 0, updatedAt = 0))</ID>
     <ID>MaxLineLength:ClassRewardFlowTest.kt$ClassRewardFlowTest$db.playerDao().upsertProfile(UserProfileEntity(id = "u_none", displayName = "None", createdAt = 0, updatedAt = 0))</ID>
     <ID>MaxLineLength:FakeStatusDataTest.kt$FakeStatusDataTest$db.playerDao().upsertProfile(UserProfileEntity(id = userId, displayName = "Tester", createdAt = 0, updatedAt = 0))</ID>
     <ID>MaxLineLength:LogWorkoutViewModel.kt$LogWorkoutViewModel$private fun ObjectiveType.isRepBased(): Boolean</ID>
+    <ID>MaxLineLength:MulticlassRewardCalculator.kt$MulticlassRewardCalculator$val primary = contribution(primaryDef, ClassSlot.PRIMARY, allocation = 1.0, activityTags, basePlayerXp, baseMagnitude)</ID>
     <ID>MaxLineLength:PlayerRepositoryImpl.kt$PlayerRepositoryImpl$override fun observeStats(userId: String): Flow&lt;PlayerStats?&gt;</ID>
     <ID>MaxLineLength:ProgressionEventFactory.kt$ProgressionEventFactory$add(ProgressionEventType.CLASS_XP_GAINED, c.classXpFrom, c.classXpTo, subjectKey = c.classId, labelOverride = c.className)</ID>
     <ID>MaxLineLength:ProgressionEventFactoryTest.kt$ProgressionEventFactoryTest$assertEquals(listOf(AttributeType.STRENGTH, AttributeType.ENDURANCE, AttributeType.DISCIPLINE), attrs.map { it.attribute })</ID>
@@ -171,6 +201,8 @@
     <ID>ReturnCount:QuestViewModel.kt$QuestViewModel$private fun suggestionFor(quest: Quest): SetSuggestion?</ID>
     <ID>ReturnCount:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$override suspend fun completeWorkout(workoutId: String): CompleteWorkoutResult</ID>
     <ID>SpreadOperator:DatabaseModule.kt$DatabaseModule$(*AscendMigrations.ALL)</ID>
+    <ID>TooManyFunctions:ClassDao.kt$ClassDao</ID>
+    <ID>TooManyFunctions:ClassRepository.kt$ClassRepository</ID>
     <ID>TooManyFunctions:ClassRepositoryImpl.kt$ClassRepositoryImpl : ClassRepository</ID>
     <ID>TooManyFunctions:QuestDao.kt$QuestDao</ID>
     <ID>TooManyFunctions:QuestRepositoryImpl.kt$QuestRepositoryImpl : QuestRepository</ID>

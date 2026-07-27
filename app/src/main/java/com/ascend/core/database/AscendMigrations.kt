@@ -226,6 +226,92 @@ object AscendMigrations {
             }
         }
 
+    /** v5 -> v6: DB-backed class definitions, class history, richer selection, reward-type guard. */
+    val MIGRATION_5_6 =
+        object : Migration(5, 6) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `class_definition` (
+                        `id` TEXT NOT NULL,
+                        `name` TEXT NOT NULL,
+                        `classTitle` TEXT NOT NULL,
+                        `description` TEXT NOT NULL,
+                        `fitnessIdentity` TEXT NOT NULL,
+                        `favoredWorkoutCategories` TEXT NOT NULL,
+                        `favoredTags` TEXT NOT NULL,
+                        `primaryAttributes` TEXT NOT NULL,
+                        `secondaryAttributes` TEXT NOT NULL,
+                        `attributeMultipliers` TEXT NOT NULL,
+                        `uniqueProficiencyKey` TEXT NOT NULL,
+                        `uniqueProficiencyName` TEXT NOT NULL,
+                        `favoredClassXpMultiplier` REAL NOT NULL,
+                        `nonFavoredClassXpMultiplier` REAL NOT NULL,
+                        `statusThemeKey` TEXT NOT NULL,
+                        `frameVariantKey` TEXT NOT NULL,
+                        `accentTokenKey` TEXT NOT NULL,
+                        `proficiencyIconKey` TEXT NOT NULL,
+                        `idleEffectKey` TEXT NOT NULL,
+                        `progressionEffectKey` TEXT NOT NULL,
+                        `classQuestTemplateIds` TEXT NOT NULL,
+                        `expeditionTemplateIds` TEXT NOT NULL,
+                        `achievementPathIds` TEXT NOT NULL,
+                        `titleIds` TEXT NOT NULL,
+                        `enabled` INTEGER NOT NULL,
+                        `createdAt` INTEGER NOT NULL,
+                        `updatedAt` INTEGER NOT NULL,
+                        PRIMARY KEY(`id`)
+                    )
+                    """.trimIndent(),
+                )
+
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `class_history` (
+                        `id` TEXT NOT NULL,
+                        `userId` TEXT NOT NULL,
+                        `classId` TEXT NOT NULL,
+                        `slot` TEXT NOT NULL,
+                        `startedAt` INTEGER NOT NULL,
+                        `endedAt` INTEGER,
+                        `selectionReason` TEXT,
+                        `changeSource` TEXT,
+                        `createdAt` INTEGER NOT NULL,
+                        PRIMARY KEY(`id`),
+                        FOREIGN KEY(`userId`) REFERENCES `user_profile`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE
+                    )
+                    """.trimIndent(),
+                )
+                db.execSQL("CREATE INDEX IF NOT EXISTS `index_class_history_userId` ON `class_history` (`userId`)")
+
+                // Richer selection fields.
+                db.execSQL("ALTER TABLE `player_class` ADD COLUMN `primaryStartedAt` INTEGER")
+                db.execSQL("ALTER TABLE `player_class` ADD COLUMN `secondaryStartedAt` INTEGER")
+                db.execSQL("ALTER TABLE `player_class` ADD COLUMN `selectionReason` TEXT")
+                db.execSQL("ALTER TABLE `player_class` ADD COLUMN `changeSource` TEXT")
+                db.execSQL("ALTER TABLE `player_class` ADD COLUMN `cooldownUntil` INTEGER")
+                db.execSQL("ALTER TABLE `player_class` ADD COLUMN `respecQuestId` TEXT")
+
+                // Reward-type on the class ledgers; widen the exactly-once guard to include it.
+                db.execSQL("ALTER TABLE `class_xp_transaction` ADD COLUMN `rewardType` TEXT NOT NULL DEFAULT 'CLASS_XP'")
+                db.execSQL("DROP INDEX IF EXISTS `index_class_xp_transaction_classId_transactionType_sourceType_sourceId`")
+                db.execSQL(
+                    "CREATE UNIQUE INDEX IF NOT EXISTS " +
+                        "`index_class_xp_transaction_classId_transactionType_sourceType_sourceId_rewardType` " +
+                        "ON `class_xp_transaction` (`classId`, `transactionType`, `sourceType`, `sourceId`, `rewardType`)",
+                )
+                db.execSQL(
+                    "ALTER TABLE `class_proficiency_transaction` ADD COLUMN `rewardType` TEXT NOT NULL DEFAULT 'UNIQUE_PROFICIENCY'",
+                )
+                db.execSQL("DROP INDEX IF EXISTS `index_class_proficiency_transaction_proficiencyKey_transactionType_sourceType_sourceId`")
+                db.execSQL(
+                    "CREATE UNIQUE INDEX IF NOT EXISTS " +
+                        "`index_class_proficiency_transaction_proficiencyKey_transactionType_sourceType_sourceId_rewardType` " +
+                        "ON `class_proficiency_transaction` (`proficiencyKey`, `transactionType`, `sourceType`, `sourceId`, `rewardType`)",
+                )
+            }
+        }
+
     /** All migrations, wired into the Room builder. */
-    val ALL: Array<Migration> = arrayOf(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
+    val ALL: Array<Migration> = arrayOf(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6)
 }

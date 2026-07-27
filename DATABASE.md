@@ -1,6 +1,6 @@
 # Database
 
-Room, offline‑first. Schema version **4**, exported to `app/schemas/` so migrations
+Room, offline‑first. Schema version **6**, exported to `app/schemas/` so migrations
 have a versioned baseline from the start.
 
 ## Entities
@@ -36,12 +36,24 @@ have a versioned baseline from the start.
 
 | Entity | Purpose |
 |---|---|
-| `player_class` | The player's primary/secondary class selection |
+| `player_class` | The player's primary/secondary class selection (+ start dates, reason, change source, cooldown/respec schema in v6) |
 | `class_xp_transaction` | Immutable Class‑XP ledger (per class), separate from the class‑neutral player XP |
 | `class_proficiency_transaction` | Immutable ledger for class‑unique proficiencies (Force / Body Mastery / Energy Control) |
 
 `exercise` also gains a `tags` column (comma‑separated activity tags) that the class
 affinity engine reads.
+
+**v5** — `progression_event.subjectKey` (class id / proficiency key for class events).
+
+**v6 (Class system — DB definitions + history)**
+
+| Entity | Purpose |
+|---|---|
+| `class_definition` | Seed‑backed, updateable class definitions (multipliers, favored tags/categories, unique proficiency, presentation metadata, association ids) |
+| `class_history` | Append‑only record of class selections, so a switch preserves history and never deletes earned ledgers |
+
+The class ledgers also gain a `rewardType` column, widening the exactly‑once guard to
+`(subject, transactionType, sourceType, sourceId, rewardType)`.
 
 Foreign keys cascade from `user_profile` → progress/stats/xp/attributes/quests/workouts/events/class‑selection/class‑ledgers,
 `quest` → objectives → entries, and `workout` → sets. A `workout_set` also references
@@ -89,6 +101,10 @@ configured.
 - **v3 → v4** (`AscendMigrations.MIGRATION_3_4`): adds `exercise.tags` (backfilling
   the built‑in catalog), `player_class`, and the two class ledgers with their
   exactly‑once guards.
+- **v4 → v5** (`AscendMigrations.MIGRATION_4_5`): adds `progression_event.subjectKey`.
+- **v5 → v6** (`AscendMigrations.MIGRATION_5_6`): adds `class_definition` and
+  `class_history`, the richer `player_class` columns, and the `rewardType` column +
+  widened unique guard on the class ledgers.
 
 All are validated on the JVM by `AscendMigrationTest` (Robolectric, no emulator).
 The exported schemas are wired into the debug source set's assets so

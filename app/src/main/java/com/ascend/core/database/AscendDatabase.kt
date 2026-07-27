@@ -11,6 +11,8 @@ import com.ascend.core.database.dao.QuestDao
 import com.ascend.core.database.dao.WorkoutDao
 import com.ascend.core.database.dao.XpDao
 import com.ascend.core.database.entity.AttributeTransactionEntity
+import com.ascend.core.database.entity.ClassDefinitionEntity
+import com.ascend.core.database.entity.ClassHistoryEntity
 import com.ascend.core.database.entity.ClassProficiencyTransactionEntity
 import com.ascend.core.database.entity.ClassXpTransactionEntity
 import com.ascend.core.database.entity.ExerciseEntity
@@ -40,11 +42,13 @@ import com.ascend.core.database.entity.XpTransactionEntity
         WorkoutEntity::class,
         WorkoutSetEntity::class,
         ProgressionEventEntity::class,
+        ClassDefinitionEntity::class,
         PlayerClassEntity::class,
+        ClassHistoryEntity::class,
         ClassXpTransactionEntity::class,
         ClassProficiencyTransactionEntity::class,
     ],
-    version = 5,
+    version = 6,
     exportSchema = true,
 )
 abstract class AscendDatabase : RoomDatabase() {

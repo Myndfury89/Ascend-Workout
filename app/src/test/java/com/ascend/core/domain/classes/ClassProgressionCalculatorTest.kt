@@ -54,6 +54,15 @@ class ClassProgressionCalculatorTest {
     }
 
     @Test
+    fun `a zero base attribute stays zero after the multiplier`() {
+        // Base Agility 0, Monk Agility multiplier 1.20 -> still 0 (no proficiency invented).
+        val base = linkedMapOf(AttributeType.STRENGTH to 20L, AttributeType.AGILITY to 0L)
+        val scaled = calc.scaledAttributeProficiency(base, ClassCatalog.MONK)
+        assertEquals(25L, scaled[AttributeType.STRENGTH]) // 20 * 1.25
+        assertEquals(null, scaled[AttributeType.AGILITY]) // 0 * 1.20 = 0, not awarded
+    }
+
+    @Test
     fun `unique proficiency is driven by favored activities and zero when unfavored`() {
         // Favored (affinity 1): 40 * 1.0 * 1.30 * 1.5 = 78.
         assertEquals(78L, calc.uniqueProficiency(baseMagnitude = 40, affinity = 1.0, ClassCatalog.MONK, allocation = 1.0))

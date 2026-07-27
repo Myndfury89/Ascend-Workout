@@ -46,12 +46,15 @@ core loop, built in verifiable phases. It is not the full product yet.
   entrance, animated XP bar, staggered attribute rows, simulated quest → XP →
   attribute pulse → level‑up/rank‑up chain, reduced‑motion, replay) runs on **fake
   data** pending review before wiring to production earnings. See `MOTION_SYSTEM.md`.
-- **Class system — data + engine (Berserker / Monk / Magician)** — a build‑fantasy
-  layer where **Player XP stays class‑neutral** while Class XP, universal attribute
+- **Class & Build system (Berserker / Monk / Magician)** — a build‑fantasy layer
+  where **Player XP stays class‑neutral** while Class XP, universal attribute
   proficiency, and a class‑unique proficiency are shaped by tag‑driven activity
-  affinity. Data‑driven seed catalog, an inspectable `RewardBreakdown`, and separate
-  idempotent class ledgers (schema v4), integrated into quest **and** workout
-  completion. Class Status presentation is deferred pending the composition review.
+  affinity. DB‑seeded, updateable class definitions; single‑responsibility
+  calculators (`ClassXpCalculator`, `MulticlassRewardCalculator`,
+  `UniqueProficiencyCalculator`, …); primary + optional secondary (100% / 50%) with
+  class history that survives switches; an explainable `ClassRecommendationEngine`;
+  and an inspectable `RewardBreakdown` — integrated into quest **and** workout
+  completion (schema v6). Class Status presentation is deferred to a later phase.
   See `CLASS_SYSTEM.md`.
 
 **Not yet implemented:** onboarding ("The Awakening"), the real Status dashboard,

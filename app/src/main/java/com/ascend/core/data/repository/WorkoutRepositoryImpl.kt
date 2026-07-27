@@ -179,10 +179,12 @@ class WorkoutRepositoryImpl
 
                 val breakdown =
                     RewardBreakdown(
+                        sourceId = workoutId,
                         basePlayerXp = awarded.amount,
                         playerLeveledUp = awarded.leveledUp,
                         newPlayerLevel = awarded.newLevel,
                         baseAttributeDistribution = baseDeltas,
+                        attributeModifiers = outcome.attributeModifiers,
                         awardedAttributeProficiency = outcome.awardedAttributeProficiency,
                         primaryClass = outcome.primaryClass,
                         secondaryClass = outcome.secondaryClass,

@@ -20,9 +20,12 @@ behavior (the 200‑push‑up acceptance test still passes unchanged).
 
 ## Data‑driven, seed‑configured
 
-- **Classes** are seed data in `ClassCatalog` (Berserker, Monk, Magician) — the
-  single tunable source of balancing defaults. The engine reads a `ClassDefinition`;
-  it never branches on a class id.
+- **Classes** are seeded from `ClassCatalog` (Berserker, Monk, Magician — the single
+  tunable source of balancing defaults) into a DB `class_definition` table, so they
+  can be updated independently of player progression. The engine reads a
+  `ClassDefinition`; it never branches on a class id. Further classes (Assassin,
+  Fighter, Tidewalker, Ranger, Guardian) can be added as seed rows without touching
+  calculation logic.
 - **Affinity** is computed from **activity tags** (`BODYWEIGHT`, `HEAVY_STRENGTH`,
   `STEADY_STATE_CARDIO`, …) carried on each exercise — tag overlap, not
   class‑specific conditionals. New classes/activities need zero engine changes.
@@ -67,12 +70,44 @@ the base vs. awarded attribute distribution, and a `ClassRewardLine` per class
 (affinity, Class XP, class level, unique proficiency). Nothing about the reward math
 is hidden — the reward screen (later) renders this directly.
 
-## Persistence (schema v4)
+## Components (single‑responsibility calculators)
 
-- `exercise.tags` — comma‑separated activity tags (backfilled for built‑ins by the
-  v3→v4 migration).
-- `player_class` — the primary/secondary selection.
-- `class_xp_transaction`, `class_proficiency_transaction` — idempotent ledgers.
+Pure, injectable, data‑driven — none branch on a class id:
+
+- `ActivityAffinityCalculator` → `ActivityAffinityResult` (tag overlap).
+- `ClassXpCalculator` — class‑specific XP, deliberately separate from the
+  class‑neutral player `XpCalculator` (never touched).
+- `UniqueProficiencyCalculator` — the class‑unique meter.
+- `ClassAttributeScaler` — scales the existing base distribution (zero stays zero).
+- `MulticlassRewardCalculator` — composes the above into a primary + optional
+  secondary reward (no persistence).
+- `ClassRewardApplier` — persists the calculated reward idempotently and returns the
+  `RewardBreakdown`.
+- `ClassRecommendationEngine` — see below.
+
+## Multiclass, history & switching
+
+`player_class` holds the primary + optional secondary selection with start dates,
+selection reason, change source, and **schema support** for a switch cooldown and a
+respecialization‑quest gate (the full flow is a later phase). Every change appends to
+`class_history` (previous selection closed, new one opened). **Switching never deletes
+earned Class XP or unique proficiency** — the ledgers are immutable and keyed by class.
+
+## Class recommendation (`ClassRecommendationEngine`)
+
+Maps plain‑language goals + preferred training style (from the Awakening onboarding,
+passed in as signals) onto a ranked, **explainable** suggestion — scored by tag +
+keyword overlap against the class definitions, never per‑class conditionals. It only
+recommends: it returns the top class, its score and reasons, plus ranked alternatives,
+and the actual selection stays an explicit user action.
+
+## Persistence (schema v6)
+
+- `exercise.tags` — comma‑separated activity tags.
+- `class_definition` — seeded from `ClassCatalog`, updateable without touching progression.
+- `player_class` + `class_history` — selection + append‑only history.
+- `class_xp_transaction`, `class_proficiency_transaction` — idempotent ledgers, keyed
+  by `(subject, transactionType, sourceType, sourceId, rewardType)`.
 
 Class level is derived from cumulative Class XP via the existing level curve.
 

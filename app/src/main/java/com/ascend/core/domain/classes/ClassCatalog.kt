@@ -7,9 +7,11 @@ import com.ascend.core.model.ClassPresentation
 
 /**
  * The initial class definitions as **configurable seed data** — the single tunable
- * source of balancing defaults, kept out of the calculators (which take a
- * [ClassDefinition] as input). Promote to a DB table later without touching the
- * engine. Three starter classes; the system is otherwise data‑driven.
+ * source of balancing defaults, kept out of the calculators. Seeded into the
+ * `class_definition` table on first run; the engine reads definitions from the
+ * repository and never branches on the class id. Three starter classes; further
+ * classes (Assassin, Fighter, Tidewalker, Ranger, Guardian) can be added here (or
+ * as DB rows) without touching calculation logic.
  */
 object ClassCatalog {
     val BERSERKER =
@@ -17,13 +19,12 @@ object ClassCatalog {
             id = "berserker",
             name = "Berserker",
             classTitle = "Breaker of Limits",
-            favoredTags =
-                setOf(
-                    ActivityTags.HEAVY_STRENGTH,
-                    ActivityTags.HYPERTROPHY,
-                    ActivityTags.EXPLOSIVE,
-                    ActivityTags.COMBAT,
-                ),
+            description = "Raw power expressed through heavy load and overload. Trains to move the immovable.",
+            fitnessIdentity = "Powerful and muscular",
+            favoredWorkoutCategories = listOf("Heavy resistance", "Compound strength", "Hypertrophy", "Loaded carries"),
+            favoredTags = setOf(ActivityTags.HEAVY_STRENGTH, ActivityTags.HYPERTROPHY, ActivityTags.EXPLOSIVE),
+            primaryAttributes = listOf(AttributeType.STRENGTH),
+            secondaryAttributes = listOf(AttributeType.RECOVERY),
             attributeMultipliers =
                 mapOf(
                     AttributeType.STRENGTH to 1.50,
@@ -52,13 +53,12 @@ object ClassCatalog {
             id = "monk",
             name = "Monk",
             classTitle = "Master of the Vessel",
-            favoredTags =
-                setOf(
-                    ActivityTags.BODYWEIGHT,
-                    ActivityTags.MUSCULAR_ENDURANCE,
-                    ActivityTags.MOBILITY,
-                    ActivityTags.BALANCE,
-                ),
+            description = "Mastery of the body as the instrument — control, balance, and bodyweight command.",
+            fitnessIdentity = "Skilled with bodyweight movement",
+            favoredWorkoutCategories = listOf("Calisthenics", "Bodyweight strength", "Mobility", "Balance", "Core control"),
+            favoredTags = setOf(ActivityTags.BODYWEIGHT, ActivityTags.MUSCULAR_ENDURANCE, ActivityTags.MOBILITY, ActivityTags.BALANCE),
+            primaryAttributes = listOf(AttributeType.DISCIPLINE, AttributeType.AGILITY),
+            secondaryAttributes = listOf(AttributeType.STRENGTH),
             attributeMultipliers =
                 mapOf(
                     AttributeType.STRENGTH to 1.25,
@@ -87,13 +87,20 @@ object ClassCatalog {
             id = "magician",
             name = "Magician",
             classTitle = "Channeler of Vitality",
+            description = "Endurance and energy systems — sustained output, breath, and recovery.",
+            fitnessIdentity = "High endurance and cardio efficiency",
+            favoredWorkoutCategories =
+                listOf("Running", "Cycling", "Rowing", "Swimming", "Zone training", "Breathwork", "Sustained cardio"),
             favoredTags =
                 setOf(
                     ActivityTags.STEADY_STATE_CARDIO,
                     ActivityTags.HIGH_INTENSITY_CARDIO,
-                    ActivityTags.AQUATIC,
                     ActivityTags.BREATH_CONTROL,
+                    ActivityTags.RECOVERY,
+                    ActivityTags.AQUATIC,
                 ),
+            primaryAttributes = listOf(AttributeType.ENDURANCE),
+            secondaryAttributes = listOf(AttributeType.RECOVERY, AttributeType.DISCIPLINE),
             attributeMultipliers =
                 mapOf(
                     AttributeType.STRENGTH to 0.75,

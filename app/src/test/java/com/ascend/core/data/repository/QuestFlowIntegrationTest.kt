@@ -6,8 +6,8 @@ import androidx.test.core.app.ApplicationProvider
 import com.ascend.core.common.LOCAL_USER_ID
 import com.ascend.core.database.AscendDatabase
 import com.ascend.core.database.entity.UserProfileEntity
-import com.ascend.core.domain.classes.ClassProgressionCalculator
 import com.ascend.core.domain.classes.ClassRewardApplier
+import com.ascend.core.domain.classes.MulticlassRewardCalculator
 import com.ascend.core.domain.progression.AttributeProgressCalculator
 import com.ascend.core.domain.progression.LevelCalculator
 import com.ascend.core.domain.progression.ProgressionEventFactory
@@ -56,7 +56,7 @@ class QuestFlowIntegrationTest {
             )
         val levelCalc = LevelCalculator()
         val classRepo = ClassRepositoryImpl(db, db.classDao(), levelCalc)
-        val classApplier = ClassRewardApplier(classRepo, ClassProgressionCalculator())
+        val classApplier = ClassRewardApplier(classRepo, MulticlassRewardCalculator())
         val publisher =
             ProgressionEventPublisher(
                 ProgressionEventRepositoryImpl(db, db.progressionEventDao()),

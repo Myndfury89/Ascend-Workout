@@ -1,6 +1,7 @@
 package com.ascend.core.domain.progression.di
 
 import com.ascend.core.domain.classes.ClassProgressionCalculator
+import com.ascend.core.domain.classes.ClassRewardConfig
 import com.ascend.core.domain.progression.AttributeProgressCalculator
 import com.ascend.core.domain.progression.LevelCalculator
 import com.ascend.core.domain.progression.ProgressionEventFactory
@@ -41,4 +42,7 @@ object ProgressionModule {
 
     @Provides @Singleton
     fun classProgressionCalculator() = ClassProgressionCalculator()
+
+    @Provides @Singleton
+    fun classRewardConfig() = ClassRewardConfig()
 }

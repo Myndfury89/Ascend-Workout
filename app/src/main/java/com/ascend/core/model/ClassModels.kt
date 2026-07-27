@@ -53,13 +53,26 @@ data class ClassDefinition(
     val id: String,
     val name: String,
     val classTitle: String,
+    val description: String,
+    val fitnessIdentity: String,
+    val favoredWorkoutCategories: List<String>,
     val favoredTags: Set<String>,
+    val primaryAttributes: List<AttributeType>,
+    val secondaryAttributes: List<AttributeType>,
     val attributeMultipliers: Map<AttributeType, Double>,
     val uniqueProficiencyKey: String,
     val uniqueProficiencyName: String,
     val favoredClassXpMultiplier: Double,
     val neutralClassXpMultiplier: Double,
     val presentation: ClassPresentation,
+    // Forward‑looking association hooks; persisted, not yet wired to systems.
+    val classQuestTemplateIds: List<String> = emptyList(),
+    val expeditionTemplateIds: List<String> = emptyList(),
+    val achievementPathIds: List<String> = emptyList(),
+    val titleIds: List<String> = emptyList(),
+    val enabled: Boolean = true,
+    val createdAt: Long = 0,
+    val updatedAt: Long = 0,
 ) {
     fun attributeMultiplier(attribute: AttributeType): Double = attributeMultipliers[attribute] ?: 1.0
 }
@@ -70,14 +83,111 @@ enum class ClassSlot(val allocationKey: String) {
     SECONDARY("secondary"),
 }
 
+/** How well an activity matches a class, from tag overlap alone. */
+data class ActivityAffinityResult(
+    val classId: String,
+    val affinity: Double,
+    val matchedTags: Set<String>,
+    val favored: Boolean,
+)
+
+/** A single class → attribute multiplier, surfaced in the reward breakdown. */
+data class ClassAttributeModifier(
+    val attribute: AttributeType,
+    val multiplier: Double,
+)
+
 /** A player's chosen classes (primary required once chosen; secondary optional). */
 data class PlayerClassSelection(
     val userId: String,
     val primaryClassId: String?,
     val secondaryClassId: String?,
+    val primaryStartedAt: Long? = null,
+    val secondaryStartedAt: Long? = null,
+    val selectionReason: String? = null,
+    val changeSource: String? = null,
+    val cooldownUntil: Long? = null,
+    val respecQuestId: String? = null,
 ) {
     val hasClass: Boolean get() = primaryClassId != null
 }
+
+/** One entry in a player's class‑selection history. */
+data class ClassHistory(
+    val id: String,
+    val userId: String,
+    val classId: String,
+    val slot: ClassSlot,
+    val startedAt: Long,
+    val endedAt: Long?,
+    val selectionReason: String?,
+    val changeSource: String?,
+)
+
+/** Derived per‑class progression state (specialization track, separate from Player Level). */
+data class ClassProgress(
+    val classId: String,
+    val classLevel: Int,
+    val classXp: Long,
+    val currentLevelXp: Long,
+    val xpToNextLevel: Long,
+    val uniqueProficiencyKey: String,
+    val uniqueProficiency: Long,
+) {
+    val progressFraction: Float
+        get() = if (xpToNextLevel <= 0L) 1f else currentLevelXp.toFloat() / xpToNextLevel.toFloat()
+}
+
+/** Why a class was selected (drives history + future respec rules). */
+enum class ClassChangeSource {
+    ONBOARDING,
+    MANUAL,
+    RECOMMENDATION,
+    RESPEC_QUEST,
+    SYSTEM,
+}
+
+/**
+ * Signals derived from the Awakening onboarding answers (goals + preferred training
+ * style). Free of onboarding UI so the engine can be driven from anywhere; the
+ * factory tokenises plain‑language goal phrases into keywords.
+ */
+data class ClassRecommendationInput(
+    val goalTags: Set<String> = emptySet(),
+    val goalKeywords: Set<String> = emptySet(),
+) {
+    companion object {
+        fun fromGoals(
+            goalPhrases: List<String>,
+            goalTags: Set<String> = emptySet(),
+        ): ClassRecommendationInput =
+            ClassRecommendationInput(
+                goalTags = goalTags,
+                goalKeywords =
+                    goalPhrases
+                        .flatMap { it.lowercase().split(Regex("[^a-z]+")) }
+                        .filter { it.length > 3 }
+                        .toSet(),
+            )
+    }
+}
+
+/** One class's recommendation score with the reasons behind it. */
+data class ClassRecommendationOption(
+    val classId: String,
+    val className: String,
+    val score: Double,
+    val reasons: List<String>,
+)
+
+/**
+ * An explainable, **non‑locking** class recommendation: the top suggestion plus
+ * ranked alternatives. Selection remains an explicit user action.
+ */
+data class ClassRecommendation(
+    val recommended: ClassRecommendationOption,
+    val alternatives: List<ClassRecommendationOption>,
+)
 
 /** One class's contribution to a completion reward. */
 data class ClassRewardLine(
@@ -100,10 +210,12 @@ data class ClassRewardLine(
  * exactly why each gain happened.
  */
 data class RewardBreakdown(
+    val sourceId: String,
     val basePlayerXp: Long,
     val playerLeveledUp: Boolean,
     val newPlayerLevel: Int,
     val baseAttributeDistribution: Map<AttributeType, Long>,
+    val attributeModifiers: List<ClassAttributeModifier>,
     val awardedAttributeProficiency: Map<AttributeType, Long>,
     val primaryClass: ClassRewardLine?,
     val secondaryClass: ClassRewardLine?,

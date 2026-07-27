@@ -223,10 +223,12 @@ class QuestRepositoryImpl
 
                 val breakdown =
                     RewardBreakdown(
+                        sourceId = questId,
                         basePlayerXp = awarded.amount,
                         playerLeveledUp = awarded.leveledUp,
                         newPlayerLevel = awarded.newLevel,
                         baseAttributeDistribution = baseDeltas,
+                        attributeModifiers = outcome.attributeModifiers,
                         awardedAttributeProficiency = outcome.awardedAttributeProficiency,
                         primaryClass = outcome.primaryClass,
                         secondaryClass = outcome.secondaryClass,

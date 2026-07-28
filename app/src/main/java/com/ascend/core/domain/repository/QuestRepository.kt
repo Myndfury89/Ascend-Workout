@@ -34,6 +34,7 @@ data class NewQuestSpec(
     val baseRewardXp: Long = 0,
     val partialRewardEnabled: Boolean = true,
     val overCompletionEnabled: Boolean = true,
+    val recurrenceRule: String? = null,
 )
 
 sealed interface AddProgressResult {
@@ -84,6 +85,12 @@ interface QuestRepository {
     ): Boolean
 
     suspend fun deleteProgress(entryId: String): Boolean
+
+    /** Change an objective's target (reduce or increase); progress is preserved. */
+    suspend fun updateTarget(
+        objectiveId: String,
+        newTarget: Double,
+    ): Boolean
 
     /** Complete a quest, awarding XP + attributes exactly once (idempotent). */
     suspend fun completeQuest(questId: String): CompleteQuestResult

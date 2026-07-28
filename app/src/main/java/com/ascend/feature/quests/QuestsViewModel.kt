@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.ascend.core.domain.repository.ClassRepository
 import com.ascend.core.domain.repository.PlayerRepository
 import com.ascend.core.domain.repository.QuestRepository
+import com.ascend.core.domain.repository.QuestTemplateRepository
 import com.ascend.core.domain.usecase.SeedDemoDataUseCase
 import com.ascend.core.model.Quest
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,6 +32,7 @@ class QuestsViewModel
         private val playerRepository: PlayerRepository,
         private val questRepository: QuestRepository,
         private val classRepository: ClassRepository,
+        private val questTemplateRepository: QuestTemplateRepository,
         private val seedDemoData: SeedDemoDataUseCase,
     ) : ViewModel() {
         private val userId = MutableStateFlow<String?>(null)
@@ -48,6 +50,7 @@ class QuestsViewModel
             viewModelScope.launch {
                 val uid = playerRepository.ensureLocalPlayer()
                 classRepository.seedDefinitions()
+                questTemplateRepository.seed()
                 seedDemoData(uid)
                 userId.value = uid
             }

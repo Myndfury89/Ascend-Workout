@@ -84,6 +84,12 @@ interface QuestDao {
         status: String,
     )
 
+    @Query("UPDATE quest_objective SET targetValue = :target WHERE id = :objectiveId")
+    suspend fun updateObjectiveTarget(
+        objectiveId: String,
+        target: Double,
+    )
+
     @Query("UPDATE quest SET status = :status, updatedAt = :updatedAt WHERE id = :questId")
     suspend fun updateQuestStatus(
         questId: String,

@@ -312,6 +312,43 @@ object AscendMigrations {
             }
         }
 
+    /** v6 -> v7: customizable Daily Quest templates (configurable safe ranges). */
+    val MIGRATION_6_7 =
+        object : Migration(6, 7) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `quest_template` (
+                        `id` TEXT NOT NULL,
+                        `name` TEXT NOT NULL,
+                        `objectiveType` TEXT NOT NULL,
+                        `unit` TEXT NOT NULL,
+                        `primaryAttribute` TEXT,
+                        `exerciseId` TEXT,
+                        `minimumTarget` INTEGER NOT NULL,
+                        `maximumTarget` INTEGER NOT NULL,
+                        `defaultTarget` INTEGER NOT NULL,
+                        `targetStep` INTEGER NOT NULL,
+                        `defaultQuickAddValues` TEXT NOT NULL,
+                        `defaultPreferredSetSize` INTEGER NOT NULL,
+                        `minimumAllowedSetSize` INTEGER NOT NULL,
+                        `maximumAllowedSetSize` INTEGER NOT NULL,
+                        `supportsAutomaticProgress` INTEGER NOT NULL,
+                        `supportsManualProgress` INTEGER NOT NULL,
+                        `supportedVariations` TEXT NOT NULL,
+                        `safetyWarningThreshold` INTEGER NOT NULL,
+                        `baseRewardXp` INTEGER NOT NULL,
+                        `isBuiltIn` INTEGER NOT NULL,
+                        `createdAt` INTEGER NOT NULL,
+                        `updatedAt` INTEGER NOT NULL,
+                        PRIMARY KEY(`id`)
+                    )
+                    """.trimIndent(),
+                )
+            }
+        }
+
     /** All migrations, wired into the Room builder. */
-    val ALL: Array<Migration> = arrayOf(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6)
+    val ALL: Array<Migration> =
+        arrayOf(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7)
 }

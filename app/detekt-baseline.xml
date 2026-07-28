@@ -57,6 +57,7 @@
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$4</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$5</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$6</ID>
+    <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$7</ID>
     <ID>MagicNumber:AscendMotion.kt$AscendEasing$0.16f</ID>
     <ID>MagicNumber:AscendMotion.kt$AscendEasing$0.18f</ID>
     <ID>MagicNumber:AscendMotion.kt$AscendEasing$0.24f</ID>
@@ -135,6 +136,8 @@
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"INSERT INTO class_definition (id, name, classTitle, description, fitnessIdentity, favoredWorkoutCategories, "</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"INSERT INTO class_xp_transaction (id, userId, classId, amount, transactionType, sourceType, sourceId, createdAt) "</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"VALUES ('monk', 'Monk', 't', 'd', 'fi', '', 'BODYWEIGHT', 'DISCIPLINE', '', 'STRENGTH:1.25', 'BODY_MASTERY', "</ID>
+    <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"supportsAutomaticProgress, supportsManualProgress, supportedVariations, safetyWarningThreshold, baseRewardXp, "</ID>
+    <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"targetStep, defaultQuickAddValues, defaultPreferredSetSize, minimumAllowedSetSize, maximumAllowedSetSize, "</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"uniqueProficiencyName, favoredClassXpMultiplier, nonFavoredClassXpMultiplier, statusThemeKey, frameVariantKey, "</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$db.execSQL("INSERT INTO player_class (userId, primaryClassId, changeSource, updatedAt) VALUES ('u1', 'monk', 'MANUAL', 0)")</ID>
     <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$"ALTER TABLE `class_proficiency_transaction` ADD COLUMN `rewardType` TEXT NOT NULL DEFAULT 'UNIQUE_PROFICIENCY'"</ID>
@@ -165,6 +168,11 @@
     <ID>MaxLineLength:ClassRewardFlowTest.kt$ClassRewardFlowTest$assertTrue(types.none { it == ProgressionEventType.CLASS_XP_GAINED || it == ProgressionEventType.PROFICIENCY_GAINED })</ID>
     <ID>MaxLineLength:ClassRewardFlowTest.kt$ClassRewardFlowTest$db.playerDao().upsertProfile(UserProfileEntity(id = "u_mage", displayName = "Mage", createdAt = 0, updatedAt = 0))</ID>
     <ID>MaxLineLength:ClassRewardFlowTest.kt$ClassRewardFlowTest$db.playerDao().upsertProfile(UserProfileEntity(id = "u_none", displayName = "None", createdAt = 0, updatedAt = 0))</ID>
+    <ID>MaxLineLength:CreateQuestFromTemplateFlowTest.kt$CreateQuestFromTemplateFlowTest$db.playerDao().upsertProfile(UserProfileEntity(id = LOCAL_USER_ID, displayName = "Tester", createdAt = 0, updatedAt = 0))</ID>
+    <ID>MaxLineLength:CreateQuestFromTemplateFlowTest.kt$CreateQuestFromTemplateFlowTest$id = "tmpl-custom-1"</ID>
+    <ID>MaxLineLength:CreateQuestFromTemplateFlowTest.kt$CreateQuestFromTemplateFlowTest$minimumTarget = 25</ID>
+    <ID>MaxLineLength:CreateQuestFromTemplateFlowTest.kt$CreateQuestFromTemplateFlowTest$unit = "reps"</ID>
+    <ID>MaxLineLength:CreateQuestFromTemplateFlowTest.kt$CreateQuestFromTemplateFlowTest$val progression = ProgressionRepositoryImpl(db, db.playerDao(), db.xpDao(), db.attributeDao(), level, RankCalculator())</ID>
     <ID>MaxLineLength:FakeStatusDataTest.kt$FakeStatusDataTest$db.playerDao().upsertProfile(UserProfileEntity(id = userId, displayName = "Tester", createdAt = 0, updatedAt = 0))</ID>
     <ID>MaxLineLength:LogWorkoutViewModel.kt$LogWorkoutViewModel$private fun ObjectiveType.isRepBased(): Boolean</ID>
     <ID>MaxLineLength:MulticlassRewardCalculator.kt$MulticlassRewardCalculator$val primary = contribution(primaryDef, ClassSlot.PRIMARY, allocation = 1.0, activityTags, basePlayerXp, baseMagnitude)</ID>
@@ -181,8 +189,14 @@
     <ID>MaxLineLength:QuestRepositoryImpl.kt$QuestRepositoryImpl$completionRule = "ALL_REQUIRED"</ID>
     <ID>MaxLineLength:QuestRepositoryImpl.kt$QuestRepositoryImpl$override fun observeQuest(questId: String): Flow&lt;Quest?&gt;</ID>
     <ID>MaxLineLength:QuestRepositoryImpl.kt$QuestRepositoryImpl$val overFraction = if (totalTarget &lt;= 0.0) 0.0 else ((totalCurrent - totalTarget) / totalTarget).coerceAtLeast(0.0)</ID>
+    <ID>MaxLineLength:QuestTemplateRepositoryImpl.kt$QuestTemplateRepositoryImpl$questTemplateDao.getAll().takeIf { it.isNotEmpty() }?.map { it.toDomain() } ?: SeedQuestTemplatesUseCase.CATALOG</ID>
     <ID>MaxLineLength:SeedExerciseCatalogUseCase.kt$SeedExerciseCatalogUseCase.Companion$"ex-benchpress"</ID>
     <ID>MaxLineLength:SeedExerciseCatalogUseCase.kt$SeedExerciseCatalogUseCase.Companion$Seed("ex-run", "Running", "Cardio", AttributeType.ENDURANCE, ObjectiveType.DISTANCE, "metres", "STEADY_STATE_CARDIO")</ID>
+    <ID>MaxLineLength:SeedQuestTemplatesUseCase.kt$SeedQuestTemplatesUseCase.Companion$id = "tmpl-crunches"</ID>
+    <ID>MaxLineLength:SeedQuestTemplatesUseCase.kt$SeedQuestTemplatesUseCase.Companion$id = "tmpl-pullups"</ID>
+    <ID>MaxLineLength:SeedQuestTemplatesUseCase.kt$SeedQuestTemplatesUseCase.Companion$id = "tmpl-pushups"</ID>
+    <ID>MaxLineLength:SeedQuestTemplatesUseCase.kt$SeedQuestTemplatesUseCase.Companion$supportedVariations = listOf("Assisted", "Band-assisted")</ID>
+    <ID>MaxLineLength:SeedQuestTemplatesUseCase.kt$SeedQuestTemplatesUseCase.Companion$supportedVariations = listOf("Bodyweight", "Weighted")</ID>
     <ID>MaxLineLength:SetSuggestionEngineTest.kt$SetSuggestionEngineTest$val s = engine.suggest(SetSuggestionInput(remaining = 137, preferredSetSize = 30, minimumSetSize = 10, maximumSetSize = 50))</ID>
     <ID>MaxLineLength:StatusMotion.kt$StatusMotion$lifetime.animateTo(domain.lifetimeXp.toFloat(), motion.tween(AscendMotionTokens.DELIBERATE, AscendEasing.settle))</ID>
     <ID>MaxLineLength:StatusMotion.kt$StatusMotion$lifetime.animateTo(event.toValue.toFloat(), motion.tween(AscendMotionTokens.DELIBERATE, AscendEasing.settle))</ID>
@@ -198,6 +212,7 @@
     <ID>MaxLineLength:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$override fun observeWorkout(workoutId: String): Flow&lt;Workout?&gt;</ID>
     <ID>MaxLineLength:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$override suspend fun getWorkout(workoutId: String): Workout?</ID>
     <ID>MaxLineLength:WorkoutsViewModel.kt$WorkoutsViewModel$workoutRepository.observeWorkoutsForUser(uid).map { WorkoutsUiState(isLoading = false, workouts = it) }</ID>
+    <ID>ReturnCount:QuestTargetValidator.kt$QuestTargetValidator$fun validate( template: QuestTemplate, target: Int, recentBaseline: Int? = null, ): QuestTargetValidation</ID>
     <ID>ReturnCount:QuestViewModel.kt$QuestViewModel$private fun suggestionFor(quest: Quest): SetSuggestion?</ID>
     <ID>ReturnCount:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$override suspend fun completeWorkout(workoutId: String): CompleteWorkoutResult</ID>
     <ID>SpreadOperator:DatabaseModule.kt$DatabaseModule$(*AscendMigrations.ALL)</ID>

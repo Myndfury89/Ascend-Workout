@@ -5,12 +5,14 @@ import com.ascend.core.data.repository.PlayerRepositoryImpl
 import com.ascend.core.data.repository.ProgressionEventRepositoryImpl
 import com.ascend.core.data.repository.ProgressionRepositoryImpl
 import com.ascend.core.data.repository.QuestRepositoryImpl
+import com.ascend.core.data.repository.QuestTemplateRepositoryImpl
 import com.ascend.core.data.repository.WorkoutRepositoryImpl
 import com.ascend.core.domain.repository.ClassRepository
 import com.ascend.core.domain.repository.PlayerRepository
 import com.ascend.core.domain.repository.ProgressionEventRepository
 import com.ascend.core.domain.repository.ProgressionRepository
 import com.ascend.core.domain.repository.QuestRepository
+import com.ascend.core.domain.repository.QuestTemplateRepository
 import com.ascend.core.domain.repository.WorkoutRepository
 import dagger.Binds
 import dagger.Module
@@ -37,4 +39,7 @@ abstract class DataModule {
 
     @Binds
     abstract fun bindClassRepository(impl: ClassRepositoryImpl): ClassRepository
+
+    @Binds
+    abstract fun bindQuestTemplateRepository(impl: QuestTemplateRepositoryImpl): QuestTemplateRepository
 }

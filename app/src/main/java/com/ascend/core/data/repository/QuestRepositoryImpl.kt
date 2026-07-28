@@ -60,6 +60,7 @@ class QuestRepositoryImpl
                     QuestEntity(
                         id = questId, userId = spec.userId, title = spec.title, description = spec.description,
                         questType = spec.type.name, scheduledDate = spec.scheduledDate, deadline = spec.deadline,
+                        recurrenceRule = spec.recurrenceRule,
                         difficulty = spec.difficulty.name, status = QuestStatus.ACTIVE.name,
                         baseRewardXp = spec.baseRewardXp, partialRewardEnabled = spec.partialRewardEnabled,
                         overCompletionEnabled = spec.overCompletionEnabled, createdAt = ts, updatedAt = ts,
@@ -125,6 +126,19 @@ class QuestRepositoryImpl
             db.withTransaction {
                 questDao.deleteProgressEntry(entryId)
                 recomputeObjective(entry.objectiveId)
+            }
+            return true
+        }
+
+        override suspend fun updateTarget(
+            objectiveId: String,
+            newTarget: Double,
+        ): Boolean {
+            questDao.getObjective(objectiveId) ?: return false
+            db.withTransaction {
+                questDao.updateObjectiveTarget(objectiveId, newTarget.coerceAtLeast(0.0))
+                // Recompute status against the new target; logged progress is preserved.
+                recomputeObjective(objectiveId)
             }
             return true
         }

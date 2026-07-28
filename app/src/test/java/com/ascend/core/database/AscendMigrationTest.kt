@@ -243,4 +243,26 @@ class AscendMigrationTest {
         assertTrue("duplicate (classId, ..., rewardType) is rejected", rejected)
         db.close()
     }
+
+    @Test
+    fun `migrate 6 to 7 adds the quest template table`() {
+        val dbName = "migration-test-6-7.db"
+        helper.createDatabase(dbName, 6).close()
+
+        val db = helper.runMigrationsAndValidate(dbName, 7, true, AscendMigrations.MIGRATION_6_7)
+
+        db.execSQL(
+            "INSERT INTO quest_template (id, name, objectiveType, unit, minimumTarget, maximumTarget, defaultTarget, " +
+                "targetStep, defaultQuickAddValues, defaultPreferredSetSize, minimumAllowedSetSize, maximumAllowedSetSize, " +
+                "supportsAutomaticProgress, supportsManualProgress, supportedVariations, safetyWarningThreshold, baseRewardXp, " +
+                "isBuiltIn, createdAt, updatedAt) " +
+                "VALUES ('tmpl-pushups', 'Push-ups', 'REPETITIONS', 'reps', 25, 500, 100, 5, '10,25,50', 25, 10, 50, " +
+                "0, 1, '', 300, 350, 1, 0, 0)",
+        )
+        db.query("SELECT maximumTarget FROM quest_template WHERE id = 'tmpl-pushups'").use { c ->
+            assertTrue(c.moveToFirst())
+            assertEquals(500L, c.getLong(0))
+        }
+        db.close()
+    }
 }

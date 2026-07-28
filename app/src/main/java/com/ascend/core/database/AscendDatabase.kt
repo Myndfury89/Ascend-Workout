@@ -8,6 +8,7 @@ import com.ascend.core.database.dao.ExerciseDao
 import com.ascend.core.database.dao.PlayerDao
 import com.ascend.core.database.dao.ProgressionEventDao
 import com.ascend.core.database.dao.QuestDao
+import com.ascend.core.database.dao.QuestTemplateDao
 import com.ascend.core.database.dao.WorkoutDao
 import com.ascend.core.database.dao.XpDao
 import com.ascend.core.database.entity.AttributeTransactionEntity
@@ -23,6 +24,7 @@ import com.ascend.core.database.entity.ProgressionEventEntity
 import com.ascend.core.database.entity.QuestEntity
 import com.ascend.core.database.entity.QuestObjectiveEntity
 import com.ascend.core.database.entity.QuestProgressEntryEntity
+import com.ascend.core.database.entity.QuestTemplateEntity
 import com.ascend.core.database.entity.UserProfileEntity
 import com.ascend.core.database.entity.WorkoutEntity
 import com.ascend.core.database.entity.WorkoutSetEntity
@@ -47,8 +49,9 @@ import com.ascend.core.database.entity.XpTransactionEntity
         ClassHistoryEntity::class,
         ClassXpTransactionEntity::class,
         ClassProficiencyTransactionEntity::class,
+        QuestTemplateEntity::class,
     ],
-    version = 6,
+    version = 7,
     exportSchema = true,
 )
 abstract class AscendDatabase : RoomDatabase() {
@@ -67,6 +70,8 @@ abstract class AscendDatabase : RoomDatabase() {
     abstract fun progressionEventDao(): ProgressionEventDao
 
     abstract fun classDao(): ClassDao
+
+    abstract fun questTemplateDao(): QuestTemplateDao
 
     companion object {
         const val NAME = "ascend.db"

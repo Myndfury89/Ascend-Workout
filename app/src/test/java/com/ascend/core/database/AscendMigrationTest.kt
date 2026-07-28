@@ -340,4 +340,40 @@ class AscendMigrationTest {
         assertTrue("duplicate milestoneKey is rejected", rejected)
         db.close()
     }
+
+    @Test
+    fun `migrate 9 to 10 adds the variation graph tables with the edge uniqueness guard`() {
+        val dbName = "migration-test-9-10.db"
+        helper.createDatabase(dbName, 9).close()
+
+        val db = helper.runMigrationsAndValidate(dbName, 10, true, AscendMigrations.MIGRATION_9_10)
+
+        db.execSQL(
+            "INSERT INTO exercise_variation (id, exerciseId, name, description, difficultyTier, variationTags, " +
+                "assistanceType, externalLoadSupported, rangeOfMotionLevel, tempoProfile, enabled, createdAt, updatedAt) " +
+                "VALUES ('v1', 'ex-pushup', 'Standard Push-Up', 'd', 3, 'BODYWEIGHT', 'NONE', 0, 4, '2-0-1', 1, 0, 0)",
+        )
+        db.execSQL(
+            "INSERT INTO exercise_variation (id, exerciseId, name, description, difficultyTier, variationTags, " +
+                "assistanceType, externalLoadSupported, rangeOfMotionLevel, tempoProfile, enabled, createdAt, updatedAt) " +
+                "VALUES ('v2', 'ex-pushup', 'Decline Push-Up', 'd', 4, 'BODYWEIGHT', 'NONE', 1, 4, '2-0-1', 1, 0, 0)",
+        )
+        db.execSQL(
+            "INSERT INTO exercise_variation_edge (id, sourceVariationId, destinationVariationId, progressionType, " +
+                "minimumSuccessfulExposures, minimumCompletedReps, minimumCompletedSets, requiredTempoControl, enabled) " +
+                "VALUES ('e1', 'v1', 'v2', 'ADVANCE', 2, 12, 3, 1, 1)",
+        )
+        var rejected = false
+        try {
+            db.execSQL(
+                "INSERT INTO exercise_variation_edge (id, sourceVariationId, destinationVariationId, progressionType, " +
+                    "minimumSuccessfulExposures, minimumCompletedReps, minimumCompletedSets, requiredTempoControl, enabled) " +
+                    "VALUES ('e2', 'v1', 'v2', 'ADVANCE', 3, 15, 3, 1, 1)",
+            )
+        } catch (expected: android.database.sqlite.SQLiteConstraintException) {
+            rejected = true
+        }
+        assertTrue("duplicate (source, destination, progressionType) edge is rejected", rejected)
+        db.close()
+    }
 }

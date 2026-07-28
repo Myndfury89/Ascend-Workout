@@ -1,5 +1,6 @@
 package com.ascend.core.domain.training.di
 
+import com.ascend.core.domain.training.BodyweightProgressionConfig
 import com.ascend.core.domain.training.ProgressionRewardConfig
 import com.ascend.core.domain.training.ReadinessConfig
 import com.ascend.core.domain.training.WeightIncrementConfig
@@ -21,4 +22,7 @@ object TrainingModule {
 
     @Provides @Singleton
     fun progressionRewardConfig() = ProgressionRewardConfig()
+
+    @Provides @Singleton
+    fun bodyweightProgressionConfig() = BodyweightProgressionConfig()
 }

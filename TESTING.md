@@ -9,7 +9,7 @@ Run everything:
 ./gradlew testDebugUnitTest
 ```
 
-## What's covered today (143 tests, all passing)
+## What's covered today (172 tests, all passing)
 
 **Progression (pure):**
 - `LevelCalculatorTest` — formula, monotonicity, cumulative XP, `resolve`, boundaries
@@ -47,7 +47,9 @@ Run everything:
 - `TrainingReadinessCalculatorTest` — load vs. rep readiness, one‑strong‑set / failed‑rep / high‑RPE / low‑data gating, pain/injury/serious‑symptom safety
 - `ProgressionEnginesTest` — bench double progression (Slice A: smallest load increase after all sets top) and Daily Quest baseline (Slice C: capped increase / maintain / floored reduce)
 - `ProgressionLifecycleTest` — recommendation persists + applies once + supersedes, reject changes nothing, reward‑once (duplicate milestone no double‑award), Player XP class‑neutral
-- `AscendMigrationTest` — v8→v9 migration + the unique `milestoneKey` guard
+- `ExerciseVariationGraphTest` — the bodyweight variation graph + engine: valid/nonexistent/multiple‑path/regression/disabled edges, insufficient exposures, unmet rep threshold, RPE too high, RIR too low, assistance threshold, safety flag blocks, and **class unlock alone never creates readiness**; push‑up and pull‑up graph paths
+- `BodyweightProgressionCalculatorsTest` — rep (raise/hold/reduce), set (added only after several strong sessions, never after one), rest (reduce only when stable, never on decline, heavy strength keeps rest), assistance (reduce/restore), external load (only after mastery), tempo/ROM (offered when controlled, blocked otherwise), and composition (one variable at a time; tempo yields to a variation advance)
+- `AscendMigrationTest` — v8→v9 (`milestoneKey` guard) and v9→v10 (the variation‑edge uniqueness guard)
 
 **Status motion system (pure + Robolectric):**
 - `MotionSpecTest` — full motion preserves durations/stagger; reduced motion collapses them to zero

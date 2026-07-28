@@ -18,7 +18,19 @@ data class ProgressionRewardConfig(
     val loadIncreaseXp: Long = 120,
     val dailyQuestTargetXp: Long = 90,
     val repRecordXp: Long = 60,
+    val setAddedXp: Long = 90,
+    val restEfficiencyXp: Long = 50,
+    val assistanceReducedXp: Long = 90,
+    val tempoProgressedXp: Long = 70,
+    val rangeOfMotionXp: Long = 60,
+    val externalLoadAddedXp: Long = 110,
     val variationAdvancedXp: Long = 100,
+    val cardioDurationXp: Long = 80,
+    val cardioDistanceXp: Long = 90,
+    val paceXp: Long = 90,
+    val cardioResistanceXp: Long = 80,
+    val intervalProgressedXp: Long = 90,
+    val adaptivePlanCompletedXp: Long = 70,
     val deloadReturnXp: Long = 80,
     val defaultXp: Long = 60,
     val attributePoints: Long = 30,
@@ -44,7 +56,19 @@ class ProgressionRewardCalculator
                     ProgressionMilestoneType.LOAD_INCREASE_COMPLETED -> config.loadIncreaseXp
                     ProgressionMilestoneType.DAILY_QUEST_TARGET_PROGRESSED -> config.dailyQuestTargetXp
                     ProgressionMilestoneType.REP_RECORD -> config.repRecordXp
+                    ProgressionMilestoneType.SET_VOLUME_RECORD, ProgressionMilestoneType.SET_ADDED -> config.setAddedXp
+                    ProgressionMilestoneType.REST_EFFICIENCY -> config.restEfficiencyXp
+                    ProgressionMilestoneType.ASSISTANCE_REDUCED -> config.assistanceReducedXp
+                    ProgressionMilestoneType.TEMPO_PROGRESSED -> config.tempoProgressedXp
+                    ProgressionMilestoneType.RANGE_OF_MOTION_IMPROVED -> config.rangeOfMotionXp
+                    ProgressionMilestoneType.EXTERNAL_LOAD_ADDED -> config.externalLoadAddedXp
                     ProgressionMilestoneType.VARIATION_ADVANCED -> config.variationAdvancedXp
+                    ProgressionMilestoneType.CARDIO_DURATION_MILESTONE -> config.cardioDurationXp
+                    ProgressionMilestoneType.DISTANCE_MILESTONE -> config.cardioDistanceXp
+                    ProgressionMilestoneType.PACE_MILESTONE -> config.paceXp
+                    ProgressionMilestoneType.CARDIO_RESISTANCE_MILESTONE -> config.cardioResistanceXp
+                    ProgressionMilestoneType.INTERVAL_PROGRESSED -> config.intervalProgressedXp
+                    ProgressionMilestoneType.ADAPTIVE_PLAN_COMPLETED -> config.adaptivePlanCompletedXp
                     ProgressionMilestoneType.DELOAD_RETURN -> config.deloadReturnXp
                     else -> config.defaultXp
                 }

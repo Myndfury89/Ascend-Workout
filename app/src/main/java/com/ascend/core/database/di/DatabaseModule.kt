@@ -8,6 +8,7 @@ import com.ascend.core.database.dao.AdaptiveTrainingDao
 import com.ascend.core.database.dao.AttributeDao
 import com.ascend.core.database.dao.ClassDao
 import com.ascend.core.database.dao.ExerciseDao
+import com.ascend.core.database.dao.ExerciseVariationDao
 import com.ascend.core.database.dao.PlayerDao
 import com.ascend.core.database.dao.ProgressionEventDao
 import com.ascend.core.database.dao.QuestDao
@@ -67,4 +68,7 @@ object DatabaseModule {
 
     @Provides
     fun provideAdaptiveTrainingDao(db: AscendDatabase): AdaptiveTrainingDao = db.adaptiveTrainingDao()
+
+    @Provides
+    fun provideExerciseVariationDao(db: AscendDatabase): ExerciseVariationDao = db.exerciseVariationDao()
 }

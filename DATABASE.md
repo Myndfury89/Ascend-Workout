@@ -1,6 +1,6 @@
 # Database
 
-Room, offline‑first. Schema version **9**, exported to `app/schemas/` so migrations
+Room, offline‑first. Schema version **10**, exported to `app/schemas/` so migrations
 have a versioned baseline from the start.
 
 ## Entities
@@ -79,6 +79,13 @@ The class ledgers also gain a `rewardType` column, widening the exactly‑once g
 | `progression_recommendation` | A pending/accepted/applied progression recommendation (survives restart) |
 | `progression_milestone` | A proven progression milestone; unique `milestoneKey` makes rewards exactly‑once |
 
+**v10 (Bodyweight variation graph)**
+
+| Entity | Purpose |
+|---|---|
+| `exercise_variation` | A movement in an exercise's variation graph (push-up, pull-up, …): tier, tags, assistance type/value, external-load support, range-of-motion level, tempo profile |
+| `exercise_variation_edge` | A directed advance/regress transition between two variations, carrying its real-performance gate (exposures, reps, sets, RPE/RIR, assistance/ROM/tempo, optional class unlock); unique `(sourceVariationId, destinationVariationId, progressionType)` |
+
 Foreign keys cascade from `user_profile` → progress/stats/xp/attributes/quests/workouts/events/class‑selection/class‑ledgers,
 `quest` → objectives → entries, and `workout` → sets. A `workout_set` also references
 `exercise` with `ON DELETE RESTRICT` (catalog rows can't be deleted while referenced).
@@ -134,6 +141,9 @@ configured.
   tables with their FKs, indices, and the import dedup guard.
 - **v8 → v9** (`AscendMigrations.MIGRATION_8_9`): adds the four adaptive‑training
   tables, including the unique `milestoneKey` reward guard.
+- **v9 → v10** (`AscendMigrations.MIGRATION_9_10`): adds `exercise_variation` and
+  `exercise_variation_edge`, including the unique `(source, destination, progressionType)`
+  edge guard.
 
 All are validated on the JVM by `AscendMigrationTest` (Robolectric, no emulator).
 The exported schemas are wired into the debug source set's assets so

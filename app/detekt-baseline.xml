@@ -2,7 +2,11 @@
 <SmellBaseline>
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
   <CurrentIssues>
+    <ID>ComplexCondition:BodyweightProgressionCalculators.kt$TempoProgressionCalculator$!hasVariationControl || !s.allAtLeastMin || s.anyFailure || !s.effortAcceptable</ID>
     <ID>CyclomaticComplexMethod:ActiveQuestScreen.kt$@OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class) @Composable internal fun ActiveQuestContent( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
+    <ID>CyclomaticComplexMethod:BodyweightProgressionCalculators.kt$BodyweightSignals.Companion$fun from( prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn, config: BodyweightProgressionConfig, ): BodyweightSignals</ID>
+    <ID>CyclomaticComplexMethod:ExerciseVariationProgressionEngine.kt$ExerciseVariationProgressionEngine$private fun evaluateEdge( graph: ExerciseVariationGraph, edge: ExerciseVariationProgressionEdge, input: VariationReadinessInput, ): EdgeEligibility</ID>
+    <ID>CyclomaticComplexMethod:ProgressionRewardService.kt$ProgressionRewardCalculator$fun rewardFor( milestoneType: ProgressionMilestoneType, primaryAttribute: AttributeType?, ): ProgressionRewardSpec</ID>
     <ID>CyclomaticComplexMethod:QuestRepositoryImpl.kt$QuestRepositoryImpl$override suspend fun completeQuest(questId: String): CompleteQuestResult</ID>
     <ID>CyclomaticComplexMethod:TrainingReadinessCalculator.kt$TrainingReadinessCalculator$fun evaluateResistance( sessions: List&lt;SessionPerformance&gt;, prescription: ExercisePrescription, checkIn: ReadinessCheckIn = ReadinessCheckIn(), now: Long = System.currentTimeMillis(), ): TrainingReadiness</ID>
     <ID>FunctionNaming:ActiveQuestScreen.kt$@Composable fun ActiveQuestScreen( onBack: () -&gt; Unit, modifier: Modifier = Modifier, viewModel: QuestViewModel = hiltViewModel(), )</ID>
@@ -36,8 +40,12 @@
     <ID>LongMethod:StatusScreen.kt$@Composable fun StatusScreen( modifier: Modifier = Modifier, viewModel: StatusMotionViewModel = hiltViewModel(), )</ID>
     <ID>LongMethod:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$override suspend fun completeWorkout(workoutId: String): CompleteWorkoutResult</ID>
     <ID>LongParameterList:ActiveQuestScreen.kt$( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
+    <ID>LongParameterList:BodyweightProgressionCalculator.kt$BodyweightProgressionCalculator$( private val repCalculator: RepProgressionCalculator, private val setCalculator: SetProgressionCalculator, private val restCalculator: RestProgressionCalculator, private val assistanceCalculator: AssistanceProgressionCalculator, private val externalLoadCalculator: ExternalLoadProgressionCalculator, private val tempoCalculator: TempoProgressionCalculator, private val variationEngine: ExerciseVariationProgressionEngine, )</ID>
     <ID>LongParameterList:ClassRepositoryImpl.kt$ClassRepositoryImpl$( userId: String, slot: ClassSlot, newClassId: String?, reason: String?, source: ClassChangeSource, ts: Long, )</ID>
     <ID>LongParameterList:ClassRewardApplier.kt$ClassRewardApplier$( userId: String, basePlayerXp: Long, baseAttributeDistribution: Map&lt;AttributeType, Long&gt;, activityTags: Set&lt;String&gt;, sourceType: XpSourceType, sourceId: String, )</ID>
+    <ID>LongParameterList:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$( id: String, exerciseId: String, name: String, tier: Int, description: String, assistanceType: AssistanceType = AssistanceType.NONE, assistanceValue: Double? = null, rom: Int = 4, externalLoad: Boolean = false, )</ID>
+    <ID>LongParameterList:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$( source: String, destination: String, reps: Int, sets: Int, rpe: Double? = null, classUnlock: String? = null, )</ID>
+    <ID>LongParameterList:ExerciseVariationGraphTest.kt$ExerciseVariationGraphTest$( exposures: Int = 2, reps: Int = 12, sets: Int = 3, rpe: Double? = 7.0, rir: Int? = null, assistance: Double? = null, rom: Int? = 5, tempo: Boolean = true, failures: Int = 0, safety: ProgressionSafetyState = ProgressionSafetyState.OK, unlocks: Set&lt;String&gt; = emptySet(), )</ID>
     <ID>LongParameterList:IntervalProgressTest.kt$IntervalProgressTest$( id: String, start: Long, end: Long, target: Double, current: Double, status: QuestIntervalStatus = QuestIntervalStatus.PENDING, )</ID>
     <ID>LongParameterList:LogWorkoutScreen.kt$( state: LogWorkoutUiState, onBack: () -&gt; Unit, onTitleChange: (String) -&gt; Unit, onDifficultyChange: (Difficulty) -&gt; Unit, onAddSet: (Exercise, Int, Double?) -&gt; Unit, onDeleteSet: (String) -&gt; Unit, onFinish: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
     <ID>LongParameterList:MulticlassRewardCalculator.kt$MulticlassRewardCalculator$( def: ClassDefinition, slot: ClassSlot, allocation: Double, activityTags: Set&lt;String&gt;, basePlayerXp: Long, baseMagnitude: Long, )</ID>
@@ -59,6 +67,7 @@
     <ID>MagicNumber:ActiveQuestScreen.kt$4</ID>
     <ID>MagicNumber:ActiveQuestScreen.kt$40</ID>
     <ID>MagicNumber:ActiveQuestScreen.kt$50</ID>
+    <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$10</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$3</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$4</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$5</ID>
@@ -112,6 +121,16 @@
     <ID>MagicNumber:Color.kt$0xFFEDF1F6</ID>
     <ID>MagicNumber:Color.kt$0xFFF6F8FB</ID>
     <ID>MagicNumber:Color.kt$0xFFFFFFFF</ID>
+    <ID>MagicNumber:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$12.0</ID>
+    <ID>MagicNumber:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$20.0</ID>
+    <ID>MagicNumber:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$3</ID>
+    <ID>MagicNumber:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$30.0</ID>
+    <ID>MagicNumber:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$4</ID>
+    <ID>MagicNumber:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$40.0</ID>
+    <ID>MagicNumber:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$45.0</ID>
+    <ID>MagicNumber:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$5</ID>
+    <ID>MagicNumber:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$6</ID>
+    <ID>MagicNumber:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$7</ID>
     <ID>MagicNumber:FakeStatusData.kt$FakeStatusData$10</ID>
     <ID>MagicNumber:FakeStatusData.kt$FakeStatusData$12</ID>
     <ID>MagicNumber:FakeStatusData.kt$FakeStatusData$15</ID>
@@ -159,10 +178,13 @@
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"INSERT INTO class_definition (id, name, classTitle, description, fitnessIdentity, favoredWorkoutCategories, "</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"INSERT INTO class_xp_transaction (id, userId, classId, amount, transactionType, sourceType, sourceId, createdAt) "</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"INSERT INTO exercise_prescription (id, userId, exerciseId, progressionStrategy, targetSets, minimumReps, "</ID>
+    <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"INSERT INTO exercise_variation_edge (id, sourceVariationId, destinationVariationId, progressionType, "</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"INSERT INTO progression_milestone (id, userId, milestoneKey, milestoneType, exerciseId, previousValue, "</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"INSERT INTO quest_interval (id, questId, title, scheduledStart, scheduledEnd, targetValue, currentValue, "</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"INSERT INTO quest_interval_progress_entry (id, questIntervalId, questId, value, source, sourceApplication, "</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"VALUES ('monk', 'Monk', 't', 'd', 'fi', '', 'BODYWEIGHT', 'DISCIPLINE', '', 'STRENGTH:1.25', 'BODY_MASTERY', "</ID>
+    <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"assistanceType, externalLoadSupported, rangeOfMotionLevel, tempoProfile, enabled, createdAt, updatedAt) "</ID>
+    <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"minimumSuccessfulExposures, minimumCompletedReps, minimumCompletedSets, requiredTempoControl, enabled) "</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"newValue, createdAt) VALUES ('m1', 'u1', 'k1', 'LOAD_INCREASE_COMPLETED', 'ex-bench', 135.0, 140.0, 0)"</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"newValue, createdAt) VALUES ('m2', 'u1', 'k1', 'LOAD_INCREASE_COMPLETED', 'ex-bench', 135.0, 140.0, 1)"</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"supportsAutomaticProgress, supportsManualProgress, supportedVariations, safetyWarningThreshold, baseRewardXp, "</ID>
@@ -174,12 +196,34 @@
     <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$"ON `class_proficiency_transaction` (`proficiencyKey`, `transactionType`, `sourceType`, `sourceId`)"</ID>
     <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$"ON `class_proficiency_transaction` (`proficiencyKey`, `transactionType`, `sourceType`, `sourceId`, `rewardType`)"</ID>
     <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$"ON `class_xp_transaction` (`classId`, `transactionType`, `sourceType`, `sourceId`, `rewardType`)"</ID>
+    <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$"ON `exercise_variation_edge` (`sourceVariationId`, `destinationVariationId`, `progressionType`)"</ID>
     <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$"`index_class_proficiency_transaction_proficiencyKey_transactionType_sourceType_sourceId_rewardType` "</ID>
     <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$db.execSQL("ALTER TABLE `class_xp_transaction` ADD COLUMN `rewardType` TEXT NOT NULL DEFAULT 'CLASS_XP'")</ID>
     <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$db.execSQL("CREATE INDEX IF NOT EXISTS `index_progression_milestone_userId` ON `progression_milestone` (`userId`)")</ID>
     <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$db.execSQL("CREATE INDEX IF NOT EXISTS `index_quest_checkpoint_questId` ON `quest_checkpoint` (`questId`)")</ID>
     <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$db.execSQL("DROP INDEX IF EXISTS `index_class_proficiency_transaction_proficiencyKey_transactionType_sourceType_sourceId`")</ID>
     <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$db.execSQL("DROP INDEX IF EXISTS `index_class_xp_transaction_classId_transactionType_sourceType_sourceId`")</ID>
+    <ID>MaxLineLength:BodyweightProgressionCalculator.kt$BodyweightProgressionCalculator$all.filterNot { it.dimension == ProgressionDimension.TEMPO || it.dimension == ProgressionDimension.RANGE_OF_MOTION }</ID>
+    <ID>MaxLineLength:BodyweightProgressionCalculator.kt$BodyweightProgressionCalculator$out += variationEngine.advanceCandidates(context.graph, context.currentVariationId, context.variationInput)</ID>
+    <ID>MaxLineLength:BodyweightProgressionCalculators.kt$AssistanceProgressionCalculator$if (safetyBlocked(checkIn)) return maintain("Keep current assistance — recover first", ProgressionDimension.ASSISTANCE)</ID>
+    <ID>MaxLineLength:BodyweightProgressionCalculators.kt$AssistanceProgressionCalculator$return maintain("No assistance to reduce — progress load or variation instead", ProgressionDimension.ASSISTANCE)</ID>
+    <ID>MaxLineLength:BodyweightProgressionCalculators.kt$BodyweightSignals.Companion$fun SessionPerformance.atLeastMin()</ID>
+    <ID>MaxLineLength:BodyweightProgressionCalculators.kt$BodyweightSignals.Companion$fun SessionPerformance.atTop()</ID>
+    <ID>MaxLineLength:BodyweightProgressionCalculators.kt$ExternalLoadProgressionCalculator$if (!externalLoadSupported) return maintain("This variation doesn't take external load", ProgressionDimension.EXTERNAL_LOAD)</ID>
+    <ID>MaxLineLength:BodyweightProgressionCalculators.kt$ExternalLoadProgressionCalculator$return</ID>
+    <ID>MaxLineLength:BodyweightProgressionCalculators.kt$RestProgressionCalculator$if (safetyBlocked(checkIn)) return maintain("Keep your usual rest — recover fully", ProgressionDimension.REST)</ID>
+    <ID>MaxLineLength:BodyweightProgressionCalculators.kt$RestProgressionCalculator$p.copy(id = com.ascend.core.common.newId(), targetRestSeconds = rest, status = "PROPOSED", effectiveFrom = 0)</ID>
+    <ID>MaxLineLength:BodyweightProgressionCalculators.kt$RestProgressionCalculator$proposed = withRest(prescription, max(config.minimumRestSeconds, currentRest - config.restDecrementSeconds))</ID>
+    <ID>MaxLineLength:BodyweightProgressionCalculators.kt$SetProgressionCalculator$p.copy(id = com.ascend.core.common.newId(), targetSets = max(1, sets), status = "PROPOSED", effectiveFrom = 0)</ID>
+    <ID>MaxLineLength:BodyweightProgressionCalculators.kt$SetProgressionCalculator$return maintain("Hold volume — recovery first", ProgressionDimension.SETS, ProgressionSafetyState.BLOCKED)</ID>
+    <ID>MaxLineLength:BodyweightProgressionCalculators.kt$TempoProgressionCalculator$return listOf(maintain("Hold tempo — recover first", ProgressionDimension.TEMPO, ProgressionSafetyState.BLOCKED))</ID>
+    <ID>MaxLineLength:BodyweightProgressionCalculatorsTest.kt$BodyweightProgressionCalculatorsTest$BodyweightProgressionCalculator(rep, set, rest, assistance, externalLoad, tempo, ExerciseVariationProgressionEngine())</ID>
+    <ID>MaxLineLength:BodyweightProgressionCalculatorsTest.kt$BodyweightProgressionCalculatorsTest$assertEquals(ProgressionRecommendationType.INCREASE_ASSISTANCE, assistance.evaluate(bandPullUp, weak).recommendationType)</ID>
+    <ID>MaxLineLength:BodyweightProgressionCalculatorsTest.kt$BodyweightProgressionCalculatorsTest$id = "p-pull"</ID>
+    <ID>MaxLineLength:BodyweightProgressionCalculatorsTest.kt$BodyweightProgressionCalculatorsTest$id = "p-push"</ID>
+    <ID>MaxLineLength:BodyweightProgressionCalculatorsTest.kt$BodyweightProgressionCalculatorsTest$targetSets = 3</ID>
+    <ID>MaxLineLength:BodyweightProgressionCalculatorsTest.kt$BodyweightProgressionCalculatorsTest$val c = rest.evaluate(pushUp, listOf(session(listOf(10, 10, 10), 0), session(listOf(10, 10, 10), 1)), isHeavyStrength = true)</ID>
+    <ID>MaxLineLength:BodyweightProgressionCalculatorsTest.kt$BodyweightProgressionCalculatorsTest$val strong = listOf(session(listOf(12, 12, 12), 0), session(listOf(12, 12, 12), 1), session(listOf(12, 12, 12), 2))</ID>
     <ID>MaxLineLength:ClassAttributeScaler.kt$ClassAttributeScaler$)</ID>
     <ID>MaxLineLength:ClassCatalog.kt$ClassCatalog$favoredTags = setOf(ActivityTags.BODYWEIGHT, ActivityTags.MUSCULAR_ENDURANCE, ActivityTags.MOBILITY, ActivityTags.BALANCE)</ID>
     <ID>MaxLineLength:ClassCatalog.kt$ClassCatalog$favoredWorkoutCategories = listOf("Calisthenics", "Bodyweight strength", "Mobility", "Balance", "Core control")</ID>
@@ -204,6 +248,23 @@
     <ID>MaxLineLength:CreateQuestFromTemplateFlowTest.kt$CreateQuestFromTemplateFlowTest$minimumTarget = 25</ID>
     <ID>MaxLineLength:CreateQuestFromTemplateFlowTest.kt$CreateQuestFromTemplateFlowTest$unit = "reps"</ID>
     <ID>MaxLineLength:CreateQuestFromTemplateFlowTest.kt$CreateQuestFromTemplateFlowTest$val progression = ProgressionRepositoryImpl(db, db.playerDao(), db.xpDao(), db.attributeDao(), level, RankCalculator())</ID>
+    <ID>MaxLineLength:DataModule.kt$DataModule$abstract</ID>
+    <ID>MaxLineLength:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$variation("var-pullup-weighted", "ex-pullup", "Weighted Pull-Up", 6, "Added external load.", rom = 4, externalLoad = true)</ID>
+    <ID>MaxLineLength:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$variation("var-pushup-diamond", "ex-pushup", "Diamond Push-Up", 4, "Hands together under the chest.", rom = 4)</ID>
+    <ID>MaxLineLength:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$variation("var-pushup-knee", "ex-pushup", "Knee Push-Up", 2, "From the knees.", AssistanceType.KNEE, 40.0, rom = 3)</ID>
+    <ID>MaxLineLength:ExerciseVariationGraphTest.kt$ExerciseVariationGraphTest$ExerciseVariation(id, "ex-x", id, "", 1, emptyList(), com.ascend.core.model.AssistanceType.NONE, null, false, 5, "", true)</ID>
+    <ID>MaxLineLength:ExerciseVariationGraphTest.kt$ExerciseVariationGraphTest$assertTrue(engine.advanceCandidates(pushUps, "var-pushup-standard", strong(safety = ProgressionSafetyState.BLOCKED)).isEmpty())</ID>
+    <ID>MaxLineLength:ExerciseVariationGraphTest.kt$ExerciseVariationGraphTest$val destinations = engine.advanceCandidates(pushUps, "var-pushup-standard", strong()).map { it.proposedVariationId }</ID>
+    <ID>MaxLineLength:ExerciseVariationGraphTest.kt$ExerciseVariationGraphTest$val graph = ExerciseVariationGraph("ex-x", listOf(variation("a"), variation("b")), listOf(edge("a", "b", maxAssist = 10.0)))</ID>
+    <ID>MaxLineLength:ExerciseVariationGraphTest.kt$ExerciseVariationGraphTest$val graph = ExerciseVariationGraph("ex-x", listOf(variation("a"), variation("b")), listOf(edge("a", "b", minRir = 2)))</ID>
+    <ID>MaxLineLength:ExerciseVariationMappers.kt$externalLoadSupported = externalLoadSupported</ID>
+    <ID>MaxLineLength:ExerciseVariationMappers.kt$minimumCompletedReps = minimumCompletedReps</ID>
+    <ID>MaxLineLength:ExerciseVariationMappers.kt$minimumRir = minimumRir</ID>
+    <ID>MaxLineLength:ExerciseVariationMappers.kt$progressionType = runCatching { VariationProgressionType.valueOf(progressionType) }.getOrDefault(VariationProgressionType.ADVANCE)</ID>
+    <ID>MaxLineLength:ExerciseVariationMappers.kt$requiredTempoControl = requiredTempoControl</ID>
+    <ID>MaxLineLength:ExerciseVariationMappers.kt$variationTags = encodeTags(variationTags)</ID>
+    <ID>MaxLineLength:ExerciseVariationModels.kt$ExerciseVariationGraph$fun advanceEdges(variationId: String): List&lt;ExerciseVariationProgressionEdge&gt;</ID>
+    <ID>MaxLineLength:ExerciseVariationModels.kt$ExerciseVariationGraph$fun regressEdges(variationId: String): List&lt;ExerciseVariationProgressionEdge&gt;</ID>
     <ID>MaxLineLength:FakeStatusDataTest.kt$FakeStatusDataTest$db.playerDao().upsertProfile(UserProfileEntity(id = userId, displayName = "Tester", createdAt = 0, updatedAt = 0))</ID>
     <ID>MaxLineLength:IntervalGenerationTest.kt$IntervalGenerationTest$assertEquals(List(8) { 25 }, distribution.distribute(200, 0, IntervalDistributionStrategy.PREFERRED_SET_SIZE, 25))</ID>
     <ID>MaxLineLength:IntervalGenerationTest.kt$IntervalGenerationTest$assertEquals(listOf(50, 50, 25), distribution.distribute(125, 0, IntervalDistributionStrategy.PREFERRED_SET_SIZE, 50))</ID>
@@ -276,6 +337,13 @@
     <ID>MaxLineLength:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$override fun observeWorkout(workoutId: String): Flow&lt;Workout?&gt;</ID>
     <ID>MaxLineLength:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$override suspend fun getWorkout(workoutId: String): Workout?</ID>
     <ID>MaxLineLength:WorkoutsViewModel.kt$WorkoutsViewModel$workoutRepository.observeWorkoutsForUser(uid).map { WorkoutsUiState(isLoading = false, workouts = it) }</ID>
+    <ID>ReturnCount:BodyweightProgressionCalculators.kt$AssistanceProgressionCalculator$fun evaluate( prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), ): ProgressionCandidate</ID>
+    <ID>ReturnCount:BodyweightProgressionCalculators.kt$ExternalLoadProgressionCalculator$fun evaluate( prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), externalLoadSupported: Boolean = false, ): ProgressionCandidate</ID>
+    <ID>ReturnCount:BodyweightProgressionCalculators.kt$RepProgressionCalculator$fun evaluate( prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), ): ProgressionCandidate</ID>
+    <ID>ReturnCount:BodyweightProgressionCalculators.kt$RestProgressionCalculator$fun evaluate( prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), isHeavyStrength: Boolean = false, ): ProgressionCandidate</ID>
+    <ID>ReturnCount:BodyweightProgressionCalculators.kt$SetProgressionCalculator$fun evaluate( prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), ): ProgressionCandidate</ID>
+    <ID>ReturnCount:BodyweightProgressionCalculators.kt$TempoProgressionCalculator$fun candidates( prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), hasVariationControl: Boolean = true, ): List&lt;ProgressionCandidate&gt;</ID>
+    <ID>ReturnCount:ExerciseVariationProgressionEngine.kt$ExerciseVariationProgressionEngine$fun regressionCandidate( graph: ExerciseVariationGraph, currentVariationId: String, input: VariationReadinessInput, minFailures: Int = 2, ): ProgressionCandidate?</ID>
     <ID>ReturnCount:ProgressionRecommendationRepositoryImpl.kt$ProgressionRecommendationRepositoryImpl$override suspend fun accept(id: String): Boolean</ID>
     <ID>ReturnCount:ProgressionRecommendationRepositoryImpl.kt$ProgressionRecommendationRepositoryImpl$override suspend fun reject(id: String): Boolean</ID>
     <ID>ReturnCount:QuestIntervalDistributionCalculator.kt$QuestIntervalDistributionCalculator$private fun weighted( total: Int, count: Int, frontLoaded: Boolean, ): List&lt;Int&gt;</ID>

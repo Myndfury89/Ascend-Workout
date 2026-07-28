@@ -578,6 +578,70 @@ object AscendMigrations {
             }
         }
 
+    /** v9 -> v10: the bodyweight exercise‑variation graph (variations + directed edges). */
+    val MIGRATION_9_10 =
+        object : Migration(9, 10) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `exercise_variation` (
+                        `id` TEXT NOT NULL,
+                        `exerciseId` TEXT NOT NULL,
+                        `name` TEXT NOT NULL,
+                        `description` TEXT NOT NULL,
+                        `difficultyTier` INTEGER NOT NULL,
+                        `variationTags` TEXT NOT NULL,
+                        `assistanceType` TEXT NOT NULL,
+                        `assistanceValue` REAL,
+                        `externalLoadSupported` INTEGER NOT NULL,
+                        `rangeOfMotionLevel` INTEGER NOT NULL,
+                        `tempoProfile` TEXT NOT NULL,
+                        `enabled` INTEGER NOT NULL,
+                        `createdAt` INTEGER NOT NULL,
+                        `updatedAt` INTEGER NOT NULL,
+                        PRIMARY KEY(`id`)
+                    )
+                    """.trimIndent(),
+                )
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_exercise_variation_exerciseId` " +
+                        "ON `exercise_variation` (`exerciseId`)",
+                )
+
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `exercise_variation_edge` (
+                        `id` TEXT NOT NULL,
+                        `sourceVariationId` TEXT NOT NULL,
+                        `destinationVariationId` TEXT NOT NULL,
+                        `progressionType` TEXT NOT NULL,
+                        `minimumSuccessfulExposures` INTEGER NOT NULL,
+                        `minimumCompletedReps` INTEGER NOT NULL,
+                        `minimumCompletedSets` INTEGER NOT NULL,
+                        `maximumRpe` REAL,
+                        `minimumRir` INTEGER,
+                        `maximumAssistanceValue` REAL,
+                        `requiredRangeOfMotion` INTEGER,
+                        `requiredTempoControl` INTEGER NOT NULL,
+                        `classUnlockRequirement` TEXT,
+                        `safetyNotes` TEXT,
+                        `enabled` INTEGER NOT NULL,
+                        PRIMARY KEY(`id`)
+                    )
+                    """.trimIndent(),
+                )
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_exercise_variation_edge_sourceVariationId` " +
+                        "ON `exercise_variation_edge` (`sourceVariationId`)",
+                )
+                db.execSQL(
+                    "CREATE UNIQUE INDEX IF NOT EXISTS " +
+                        "`index_exercise_variation_edge_sourceVariationId_destinationVariationId_progressionType` " +
+                        "ON `exercise_variation_edge` (`sourceVariationId`, `destinationVariationId`, `progressionType`)",
+                )
+            }
+        }
+
     /** All migrations, wired into the Room builder. */
     val ALL: Array<Migration> =
         arrayOf(
@@ -589,5 +653,6 @@ object AscendMigrations {
             MIGRATION_6_7,
             MIGRATION_7_8,
             MIGRATION_8_9,
+            MIGRATION_9_10,
         )
 }

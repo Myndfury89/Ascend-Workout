@@ -68,9 +68,12 @@ core loop, built in verifiable phases. It is not the full product yet.
   grants rewards. Double‑progression resistance loop, Daily Quest baseline
   progression, an explainable readiness + safety model, a persisted
   accept/reject/apply recommendation lifecycle, and proof‑gated, exactly‑once,
-  class‑neutral rewards (schema v9). First slice covers bench (Slice A) + Daily Quest
-  (Slice C); bodyweight graph, cardio, class‑priority, and adaptive redistribution
-  follow. UI deferred. See `ADAPTIVE_TRAINING.md`.
+  class‑neutral rewards. Covers bench double progression (Slice A), Daily Quest baseline
+  (Slice C), and a **data‑driven bodyweight variation graph** (Slice B — seeded push‑up
+  and pull‑up graphs with real‑performance gates and first‑class regression) plus
+  single‑variable rep / set / rest / assistance / external‑load / tempo calculators that
+  never stack aggressive changes (schema v10). Cardio, class‑priority ranking, and
+  adaptive interval redistribution follow. UI deferred. See `ADAPTIVE_TRAINING.md`.
 
 **Not yet implemented:** onboarding ("The Awakening"), the real Status dashboard,
 scheduling/calendar, Health Connect, notifications, expeditions, progress

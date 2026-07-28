@@ -51,6 +51,41 @@ diagnosis, and it suggests stopping/seeking guidance for serious warnings.
 `ProgressionRecommendation` (with the proposed prescription or target); a change
 always requires confirmation unless the user enables automatic safe adaptation.
 
+## Bodyweight & calisthenics (variation graph)
+
+Bodyweight progression is **data-driven** — never inferred from an exercise's name. Each
+exercise owns a directed `ExerciseVariationGraph` of `ExerciseVariation` nodes and
+`ExerciseVariationProgressionEdge` transitions (seeded push-up and pull-up graphs, both
+branching and both regressable). An edge carries its **real-performance gate**: minimum
+successful exposures, reps, sets, optional max RPE / min RIR, assistance/ROM/tempo
+requirements, and an optional `classUnlockRequirement`. `ExerciseVariationProgressionEngine`
+only advances when *every* gate is met; a satisfied class unlock is one extra AND-gate,
+**never** a substitute for performance (a class unlock alone can never create readiness).
+Missing optional signals only ever block, never fabricate readiness. Regression is
+first-class — repeated real failure surfaces a safe way back down the graph.
+
+The single-variable calculators each move exactly one dimension:
+
+- `RepProgressionCalculator` — raise the target range once its top is owned, hold while
+  climbing, reduce (floored) after real decline; configurable rep increment.
+- `SetProgressionCalculator` — adding a set needs **more** evidence than a rep (several
+  consecutive strong sessions, headroom, acceptable fatigue); one easy session never adds a
+  set; removes a set on decline.
+- `RestProgressionCalculator` — rest is not a punishment metric: a reduction counts as
+  progression only while output stays stable, heavy strength work keeps its rest, and
+  declining output earns *more* rest (never framed as failure).
+- `AssistanceProgressionCalculator` — lowers band/machine assistance after enough strong
+  exposures; restores it (a safe regression) on decline.
+- `ExternalLoadProgressionCalculator` — adds light load only once a load-capable variation
+  is mastered unassisted.
+- `TempoProgressionCalculator` — slower eccentric / pause / greater ROM, offered only with
+  consistent controlled completion and no safety flags; never to make a movement
+  arbitrarily harder.
+
+`BodyweightProgressionCalculator` composes these into **safe candidates, one per
+dimension** — it never fuses several aggressive changes into one recommendation, and tempo
+work yields to a variation advance by default.
+
 ## Lifecycle & rewards
 
 `ProgressionRecommendationRepository` persists recommendations and prescriptions
@@ -65,22 +100,25 @@ milestone never awards twice. Player XP stays class‑neutral; class shaping flo
 through the existing `ClassRewardApplier`, reusing the class‑XP / attribute /
 unique‑proficiency ledgers, and returns an inspectable `ProgressionRewardBreakdown`.
 
-## Persistence (schema v9)
+## Persistence (schema v10)
 
 `exercise_prescription`, `training_readiness_snapshot`, `progression_recommendation`,
-`progression_milestone` (unique `milestoneKey`). Migration `MIGRATION_8_9`,
-non‑destructive, validated on the JVM.
+`progression_milestone` (unique `milestoneKey`), and the bodyweight graph
+`exercise_variation` / `exercise_variation_edge` (unique
+`(source, destination, progressionType)`). Migrations `MIGRATION_8_9` and
+`MIGRATION_9_10`, non‑destructive, validated on the JVM.
 
-## This slice vs. deferred
+## Implemented vs. deferred
 
 **Implemented:** Slice A (bench double progression → smallest load increase → accept →
-apply‑once → reward‑once) and Slice C (Daily Quest baseline → capped increase /
-maintain / floored reduce), the readiness + safety model, recommendation lifecycle,
-and class‑neutral rewards. **Deferred to the next slice:** the bodyweight variation
-graph + `ExerciseVariationProgressionEngine` (Slice B), cardio calculators, set/rest
-progression detail, class‑priority ranking of safe options, adaptive interval
-redistribution wiring, training blocks, and Health‑Connect / HR signals. UI is
-deferred throughout (stable use cases exposed for future screens).
+apply‑once → reward‑once), Slice C (Daily Quest baseline → capped increase / maintain /
+floored reduce), the readiness + safety model, recommendation lifecycle, class‑neutral
+rewards, and **Slice B** — the bodyweight variation graph +
+`ExerciseVariationProgressionEngine`, and the rep / set / rest / assistance / external‑load
+/ tempo calculators with single‑variable composition. **Deferred to the next checkpoints:**
+cardio calculators and interval progression, class‑priority ranking of safe options,
+adaptive Daily‑Quest interval redistribution wiring, training blocks, and Health‑Connect /
+HR signals. UI is deferred throughout (stable use cases exposed for future screens).
 
 ## Balancing assumptions & safety limitations
 

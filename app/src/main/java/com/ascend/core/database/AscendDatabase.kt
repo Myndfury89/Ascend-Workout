@@ -6,6 +6,7 @@ import com.ascend.core.database.dao.AdaptiveTrainingDao
 import com.ascend.core.database.dao.AttributeDao
 import com.ascend.core.database.dao.ClassDao
 import com.ascend.core.database.dao.ExerciseDao
+import com.ascend.core.database.dao.ExerciseVariationDao
 import com.ascend.core.database.dao.PlayerDao
 import com.ascend.core.database.dao.ProgressionEventDao
 import com.ascend.core.database.dao.QuestDao
@@ -20,6 +21,8 @@ import com.ascend.core.database.entity.ClassProficiencyTransactionEntity
 import com.ascend.core.database.entity.ClassXpTransactionEntity
 import com.ascend.core.database.entity.ExerciseEntity
 import com.ascend.core.database.entity.ExercisePrescriptionEntity
+import com.ascend.core.database.entity.ExerciseVariationEdgeEntity
+import com.ascend.core.database.entity.ExerciseVariationEntity
 import com.ascend.core.database.entity.PlayerClassEntity
 import com.ascend.core.database.entity.PlayerProgressEntity
 import com.ascend.core.database.entity.PlayerStatsEntity
@@ -68,8 +71,10 @@ import com.ascend.core.database.entity.XpTransactionEntity
         TrainingReadinessSnapshotEntity::class,
         ProgressionRecommendationEntity::class,
         ProgressionMilestoneEntity::class,
+        ExerciseVariationEntity::class,
+        ExerciseVariationEdgeEntity::class,
     ],
-    version = 9,
+    version = 10,
     exportSchema = true,
 )
 abstract class AscendDatabase : RoomDatabase() {
@@ -94,6 +99,8 @@ abstract class AscendDatabase : RoomDatabase() {
     abstract fun questIntervalDao(): QuestIntervalDao
 
     abstract fun adaptiveTrainingDao(): AdaptiveTrainingDao
+
+    abstract fun exerciseVariationDao(): ExerciseVariationDao
 
     companion object {
         const val NAME = "ascend.db"

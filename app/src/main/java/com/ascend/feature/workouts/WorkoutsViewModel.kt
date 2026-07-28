@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.ascend.core.domain.repository.PlayerRepository
 import com.ascend.core.domain.repository.WorkoutRepository
 import com.ascend.core.domain.usecase.SeedExerciseCatalogUseCase
+import com.ascend.core.domain.usecase.SeedExerciseVariationsUseCase
 import com.ascend.core.model.Workout
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -30,6 +31,7 @@ class WorkoutsViewModel
         private val playerRepository: PlayerRepository,
         private val workoutRepository: WorkoutRepository,
         private val seedExerciseCatalog: SeedExerciseCatalogUseCase,
+        private val seedExerciseVariations: SeedExerciseVariationsUseCase,
     ) : ViewModel() {
         private val userId = MutableStateFlow<String?>(null)
 
@@ -46,6 +48,7 @@ class WorkoutsViewModel
             viewModelScope.launch {
                 val uid = playerRepository.ensureLocalPlayer()
                 seedExerciseCatalog()
+                seedExerciseVariations()
                 userId.value = uid
             }
         }

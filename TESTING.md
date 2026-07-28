@@ -9,7 +9,7 @@ Run everything:
 ./gradlew testDebugUnitTest
 ```
 
-## What's covered today (85 tests, all passing)
+## What's covered today (120 tests, all passing)
 
 **Progression (pure):**
 - `LevelCalculatorTest` — formula, monotonicity, cumulative XP, `resolve`, boundaries
@@ -34,6 +34,13 @@ Run everything:
 - `ClassRecommendationEngineTest` — plain‑language goals → explainable, non‑locking recommendation (Berserker / Monk / Magician)
 - `ClassRepositoryTest` — DB seed loads + round‑trips, class switch records history and **preserves earned Class XP**, class progress derivation
 - `ClassRewardFlowTest` — Monk vs Berserker vs Magician on real workouts: **class‑neutral Player XP**, class‑shaped attributes/Class XP/unique proficiency, secondary 50% allocation, non‑favored nonzero Class XP, idempotency, and event enqueue
+
+**Daily Quests — customizable targets + interval scheduling (pure + Robolectric):**
+- `QuestTargetValidatorTest` / `CreateQuestFromTemplateFlowTest` — range validation, high‑target confirmation, create‑from‑template, recurring, save‑custom, reduce/increase target after progress, seed loads
+- `IntervalGenerationTest` — distribution strategies (equal/preferred/front/back), suggested tiling, fixed custom times, overlap/window/unassigned validation
+- `IntervalProgressTest` — interval status, daily‑met‑before‑expiry, redistribution (even/heavier‑final/lighter‑next/preserve/max‑cap), reminder suppression
+- `CheckpointAndStepTest` — cumulative checkpoints (met/overdue), step→interval resolution, duplicate‑import guard, epoch/timezone/DST‑safe boundaries
+- `QuestIntervalDaoTest` / `AscendMigrationTest` — multi‑set interval sums, import dedup, v6→v7 and v7→v8 migrations
 
 **Status motion system (pure + Robolectric):**
 - `MotionSpecTest` — full motion preserves durations/stagger; reduced motion collapses them to zero

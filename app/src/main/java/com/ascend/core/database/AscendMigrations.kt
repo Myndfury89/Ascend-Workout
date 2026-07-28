@@ -348,7 +348,123 @@ object AscendMigrations {
             }
         }
 
+    /** v7 -> v8: Daily Quest interval scheduling (schedule, intervals, checkpoints, entries). */
+    val MIGRATION_7_8 =
+        object : Migration(7, 8) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `quest_interval_schedule` (
+                        `id` TEXT NOT NULL,
+                        `questId` TEXT NOT NULL,
+                        `scheduleMode` TEXT NOT NULL,
+                        `activeWindowStart` INTEGER NOT NULL,
+                        `activeWindowEnd` INTEGER NOT NULL,
+                        `intervalCount` INTEGER NOT NULL,
+                        `distributionStrategy` TEXT NOT NULL,
+                        `adaptiveRedistributionEnabled` INTEGER NOT NULL,
+                        `redistributionPreference` TEXT NOT NULL,
+                        `createdAt` INTEGER NOT NULL,
+                        `updatedAt` INTEGER NOT NULL,
+                        PRIMARY KEY(`id`),
+                        FOREIGN KEY(`questId`) REFERENCES `quest`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE
+                    )
+                    """.trimIndent(),
+                )
+                db.execSQL(
+                    "CREATE UNIQUE INDEX IF NOT EXISTS `index_quest_interval_schedule_questId` " +
+                        "ON `quest_interval_schedule` (`questId`)",
+                )
+
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `quest_interval` (
+                        `id` TEXT NOT NULL,
+                        `questId` TEXT NOT NULL,
+                        `title` TEXT NOT NULL,
+                        `scheduledStart` INTEGER NOT NULL,
+                        `scheduledEnd` INTEGER NOT NULL,
+                        `targetValue` REAL NOT NULL,
+                        `currentValue` REAL NOT NULL,
+                        `isCumulative` INTEGER NOT NULL,
+                        `status` TEXT NOT NULL,
+                        `orderIndex` INTEGER NOT NULL,
+                        `reminderEnabled` INTEGER NOT NULL,
+                        `completedAt` INTEGER,
+                        `createdAt` INTEGER NOT NULL,
+                        `updatedAt` INTEGER NOT NULL,
+                        PRIMARY KEY(`id`),
+                        FOREIGN KEY(`questId`) REFERENCES `quest`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE
+                    )
+                    """.trimIndent(),
+                )
+                db.execSQL("CREATE INDEX IF NOT EXISTS `index_quest_interval_questId` ON `quest_interval` (`questId`)")
+
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `quest_checkpoint` (
+                        `id` TEXT NOT NULL,
+                        `questId` TEXT NOT NULL,
+                        `title` TEXT NOT NULL,
+                        `targetValue` REAL NOT NULL,
+                        `dueAt` INTEGER NOT NULL,
+                        `isCumulative` INTEGER NOT NULL,
+                        `status` TEXT NOT NULL,
+                        `orderIndex` INTEGER NOT NULL,
+                        `completedAt` INTEGER,
+                        `createdAt` INTEGER NOT NULL,
+                        `updatedAt` INTEGER NOT NULL,
+                        PRIMARY KEY(`id`),
+                        FOREIGN KEY(`questId`) REFERENCES `quest`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE
+                    )
+                    """.trimIndent(),
+                )
+                db.execSQL("CREATE INDEX IF NOT EXISTS `index_quest_checkpoint_questId` ON `quest_checkpoint` (`questId`)")
+
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `quest_interval_progress_entry` (
+                        `id` TEXT NOT NULL,
+                        `questIntervalId` TEXT NOT NULL,
+                        `questId` TEXT NOT NULL,
+                        `value` REAL NOT NULL,
+                        `source` TEXT NOT NULL,
+                        `sourceApplication` TEXT,
+                        `externalRecordId` TEXT,
+                        `completedAt` INTEGER NOT NULL,
+                        `note` TEXT,
+                        `createdAt` INTEGER NOT NULL,
+                        `updatedAt` INTEGER NOT NULL,
+                        PRIMARY KEY(`id`),
+                        FOREIGN KEY(`questIntervalId`) REFERENCES `quest_interval`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE
+                    )
+                    """.trimIndent(),
+                )
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_quest_interval_progress_entry_questIntervalId` " +
+                        "ON `quest_interval_progress_entry` (`questIntervalId`)",
+                )
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_quest_interval_progress_entry_questId` " +
+                        "ON `quest_interval_progress_entry` (`questId`)",
+                )
+                db.execSQL(
+                    "CREATE UNIQUE INDEX IF NOT EXISTS " +
+                        "`index_quest_interval_progress_entry_sourceApplication_externalRecordId` " +
+                        "ON `quest_interval_progress_entry` (`sourceApplication`, `externalRecordId`)",
+                )
+            }
+        }
+
     /** All migrations, wired into the Room builder. */
     val ALL: Array<Migration> =
-        arrayOf(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7)
+        arrayOf(
+            MIGRATION_1_2,
+            MIGRATION_2_3,
+            MIGRATION_3_4,
+            MIGRATION_4_5,
+            MIGRATION_5_6,
+            MIGRATION_6_7,
+            MIGRATION_7_8,
+        )
 }

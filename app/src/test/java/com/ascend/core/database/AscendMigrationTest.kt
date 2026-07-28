@@ -265,4 +265,45 @@ class AscendMigrationTest {
         }
         db.close()
     }
+
+    @Test
+    fun `migrate 7 to 8 adds the interval scheduling tables with the import guard`() {
+        val dbName = "migration-test-7-8.db"
+        helper.createDatabase(dbName, 7).use { db ->
+            db.execSQL(
+                "INSERT INTO user_profile (id, displayName, createdAt, updatedAt, onboardingCompleted, " +
+                    "measurementSystem, localOnly, cloudSyncEnabled) VALUES ('u1', 'T', 0, 0, 0, 'METRIC', 1, 0)",
+            )
+            db.execSQL(
+                "INSERT INTO quest (id, userId, title, questType, difficulty, status, baseRewardXp, " +
+                    "partialRewardEnabled, overCompletionEnabled, createdAt, updatedAt) " +
+                    "VALUES ('q1', 'u1', 'Q', 'ACCUMULATION', 'MODERATE', 'ACTIVE', 0, 1, 1, 0, 0)",
+            )
+        }
+
+        val db = helper.runMigrationsAndValidate(dbName, 8, true, AscendMigrations.MIGRATION_7_8)
+
+        db.execSQL(
+            "INSERT INTO quest_interval (id, questId, title, scheduledStart, scheduledEnd, targetValue, currentValue, " +
+                "isCumulative, status, orderIndex, reminderEnabled, createdAt, updatedAt) " +
+                "VALUES ('i1', 'q1', 'Noon', 10, 20, 50.0, 0.0, 0, 'PENDING', 0, 1, 0, 0)",
+        )
+        db.execSQL(
+            "INSERT INTO quest_interval_progress_entry (id, questIntervalId, questId, value, source, sourceApplication, " +
+                "externalRecordId, completedAt, createdAt, updatedAt) " +
+                "VALUES ('e1', 'i1', 'q1', 2000.0, 'HEALTH_CONNECT', 'com.health', 'rec-1', 0, 0, 0)",
+        )
+        var rejected = false
+        try {
+            db.execSQL(
+                "INSERT INTO quest_interval_progress_entry (id, questIntervalId, questId, value, source, sourceApplication, " +
+                    "externalRecordId, completedAt, createdAt, updatedAt) " +
+                    "VALUES ('e2', 'i1', 'q1', 2000.0, 'HEALTH_CONNECT', 'com.health', 'rec-1', 1, 0, 0)",
+            )
+        } catch (expected: android.database.sqlite.SQLiteConstraintException) {
+            rejected = true
+        }
+        assertTrue("duplicate imported interval record is rejected", rejected)
+        db.close()
+    }
 }

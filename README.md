@@ -56,6 +56,13 @@ core loop, built in verifiable phases. It is not the full product yet.
   and an inspectable `RewardBreakdown` — integrated into quest **and** workout
   completion (schema v6). Class Status presentation is deferred to a later phase.
   See `CLASS_SYSTEM.md`.
+- **Daily Quests — customizable targets + interval scheduling (data + engines)** —
+  seed‑backed quest templates with configurable safe ranges + high‑target
+  confirmation; and a full interval‑execution layer (flexible / fixed / suggested /
+  time‑window / checkpoints) with pure distribution, generation, redistribution,
+  checkpoint, and step‑resolution engines (timezone/DST‑safe, import‑deduped),
+  schema v7–v8. Create/active‑quest UI for these flows is a later phase.
+  See `QUEST_SYSTEM.md`.
 
 **Not yet implemented:** onboarding ("The Awakening"), the real Status dashboard,
 scheduling/calendar, Health Connect, notifications, expeditions, progress

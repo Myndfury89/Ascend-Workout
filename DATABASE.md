@@ -1,6 +1,6 @@
 # Database
 
-Room, offline‑first. Schema version **6**, exported to `app/schemas/` so migrations
+Room, offline‑first. Schema version **8**, exported to `app/schemas/` so migrations
 have a versioned baseline from the start.
 
 ## Entities
@@ -55,6 +55,21 @@ affinity engine reads.
 The class ledgers also gain a `rewardType` column, widening the exactly‑once guard to
 `(subject, transactionType, sourceType, sourceId, rewardType)`.
 
+**v7 (Customizable Daily Quest targets)**
+
+| Entity | Purpose |
+|---|---|
+| `quest_template` | Seed‑backed Daily Quest blueprints with configurable safe ranges (min/max/default/step, quick‑add, set‑size limits, variations, safety threshold) |
+
+**v8 (Daily Quest interval scheduling)**
+
+| Entity | Purpose |
+|---|---|
+| `quest_interval_schedule` | The execution plan attached to a quest (mode, active window, count, distribution + redistribution settings) |
+| `quest_interval` | A scheduled portion of the daily target within a time slot |
+| `quest_checkpoint` | A cumulative "by this time" milestone |
+| `quest_interval_progress_entry` | One logged contribution toward an interval (unique `(sourceApplication, externalRecordId)` blocks double‑counted imports) |
+
 Foreign keys cascade from `user_profile` → progress/stats/xp/attributes/quests/workouts/events/class‑selection/class‑ledgers,
 `quest` → objectives → entries, and `workout` → sets. A `workout_set` also references
 `exercise` with `ON DELETE RESTRICT` (catalog rows can't be deleted while referenced).
@@ -105,6 +120,9 @@ configured.
 - **v5 → v6** (`AscendMigrations.MIGRATION_5_6`): adds `class_definition` and
   `class_history`, the richer `player_class` columns, and the `rewardType` column +
   widened unique guard on the class ledgers.
+- **v6 → v7** (`AscendMigrations.MIGRATION_6_7`): adds `quest_template`.
+- **v7 → v8** (`AscendMigrations.MIGRATION_7_8`): adds the four interval‑scheduling
+  tables with their FKs, indices, and the import dedup guard.
 
 All are validated on the JVM by `AscendMigrationTest` (Robolectric, no emulator).
 The exported schemas are wired into the debug source set's assets so

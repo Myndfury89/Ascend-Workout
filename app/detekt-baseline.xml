@@ -6,9 +6,10 @@
     <ID>CyclomaticComplexMethod:ActiveQuestScreen.kt$@OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class) @Composable internal fun ActiveQuestContent( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
     <ID>CyclomaticComplexMethod:BodyweightProgressionCalculators.kt$BodyweightSignals.Companion$fun from( prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn, config: BodyweightProgressionConfig, ): BodyweightSignals</ID>
     <ID>CyclomaticComplexMethod:ExerciseVariationProgressionEngine.kt$ExerciseVariationProgressionEngine$private fun evaluateEdge( graph: ExerciseVariationGraph, edge: ExerciseVariationProgressionEdge, input: VariationReadinessInput, ): EdgeEligibility</ID>
-    <ID>CyclomaticComplexMethod:FakeStatusPrototype.kt$FakeStatusPrototype$fun dataFor( stateId: StatusPrototypeStateId, variant: StatusClassVariant, reducedMotion: Boolean, ): StatusPrototypeData</ID>
+    <ID>CyclomaticComplexMethod:FakeStatusPrototype.kt$FakeStatusPrototype$fun dataFor( stateId: StatusPrototypeStateId, variant: StatusClassVariant, reducedMotion: Boolean, forceSecondary: Boolean = false, ): StatusPrototypeData</ID>
     <ID>CyclomaticComplexMethod:ProgressionRewardService.kt$ProgressionRewardCalculator$fun rewardFor( milestoneType: ProgressionMilestoneType, primaryAttribute: AttributeType?, ): ProgressionRewardSpec</ID>
     <ID>CyclomaticComplexMethod:QuestRepositoryImpl.kt$QuestRepositoryImpl$override suspend fun completeQuest(questId: String): CompleteQuestResult</ID>
+    <ID>CyclomaticComplexMethod:RevisedStatusPrototypeScreen.kt$@Composable fun RevisedStatusPrototypeScreen( modifier: Modifier = Modifier, controller: PrototypeReviewController = rememberPrototypeReviewController(), )</ID>
     <ID>CyclomaticComplexMethod:TrainingReadinessCalculator.kt$TrainingReadinessCalculator$fun evaluateResistance( sessions: List&lt;SessionPerformance&gt;, prescription: ExercisePrescription, checkIn: ReadinessCheckIn = ReadinessCheckIn(), now: Long = System.currentTimeMillis(), ): TrainingReadiness</ID>
     <ID>FunctionNaming:ActiveQuestScreen.kt$@Composable fun ActiveQuestScreen( onBack: () -&gt; Unit, modifier: Modifier = Modifier, viewModel: QuestViewModel = hiltViewModel(), )</ID>
     <ID>FunctionNaming:ActiveQuestScreen.kt$@Composable private fun CustomAddDialog( onAdd: (Int) -&gt; Unit, onDismiss: () -&gt; Unit, )</ID>
@@ -26,14 +27,19 @@
     <ID>FunctionNaming:ProgressScreen.kt$@Composable fun ProgressScreen(modifier: Modifier = Modifier)</ID>
     <ID>FunctionNaming:QuestsScreen.kt$@Composable fun QuestsScreen( onQuestClick: (String) -&gt; Unit, modifier: Modifier = Modifier, viewModel: QuestsViewModel = hiltViewModel(), )</ID>
     <ID>FunctionNaming:QuestsScreen.kt$@Composable private fun QuestListCard( quest: Quest, onClick: () -&gt; Unit, )</ID>
-    <ID>FunctionNaming:RevisedStatusPrototypeScreen.kt$@Composable fun RevisedStatusPrototypeScreen( modifier: Modifier = Modifier, initialState: StatusPrototypeStateId = StatusPrototypeStateId.STANDARD, initialVariant: StatusClassVariant = StatusClassVariant.BERSERKER, )</ID>
-    <ID>FunctionNaming:RevisedStatusPrototypeScreen.kt$@Composable private fun PanelContent( data: StatusPrototypeData, accent: Color, sigil: StatusSigilVariant, motion: StatusPrototypeMotion, rotation: Float, glowPulse: Float, )</ID>
+    <ID>FunctionNaming:RevisedStatusPrototypeScreen.kt$@Composable fun RevisedStatusPrototypeScreen( modifier: Modifier = Modifier, controller: PrototypeReviewController = rememberPrototypeReviewController(), )</ID>
+    <ID>FunctionNaming:RevisedStatusPrototypeScreen.kt$@Composable private fun PanelContent( data: StatusPrototypeData, accent: Color, sigil: StatusSigilVariant, motion: StatusPrototypeMotion, rotation: Float, glowPulse: Float, zone: (String) -&gt; Modifier, )</ID>
     <ID>FunctionNaming:RevisedStatusPrototypeScreen.kt$@Composable private fun SigilBlock( data: StatusPrototypeData, sigil: StatusSigilVariant, motion: StatusPrototypeMotion, rotation: Float, glowPulse: Float, )</ID>
     <ID>FunctionNaming:StatusAtmosphere.kt$@Composable fun StatusAtmosphere( accent: Color, modifier: Modifier = Modifier, )</ID>
     <ID>FunctionNaming:StatusAtmosphere.kt$@Composable fun StatusParticleField( accent: Color, running: Boolean, modifier: Modifier = Modifier, effectsQuality: Float = 1f, )</ID>
+    <ID>FunctionNaming:StatusDiagnosticsOverlay.kt$@Composable fun StatusDiagnosticsPanel( info: DiagnosticsInfo, frameMs: Float, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:StatusDiagnosticsOverlay.kt$@Composable private fun Line( key: String, value: String, )</ID>
     <ID>FunctionNaming:StatusPrototypeControls.kt$@Composable internal fun EventOverlayChip( overlay: StatusEventOverlay, accent: Color, reveal: Float, flash: Float, )</ID>
-    <ID>FunctionNaming:StatusPrototypeControls.kt$@Composable private fun Label(text: String)</ID>
-    <ID>FunctionNaming:StatusPrototypeControls.kt$@OptIn(ExperimentalLayoutApi::class) @Composable internal fun StatusPrototypeControls( stateId: StatusPrototypeStateId, variant: StatusClassVariant, reducedMotion: Boolean, simplifiedEffects: Boolean, onState: (StatusPrototypeStateId) -&gt; Unit, onVariant: (StatusClassVariant) -&gt; Unit, onReplay: () -&gt; Unit, onReducedMotion: (Boolean) -&gt; Unit, onSimplifiedEffects: (Boolean) -&gt; Unit, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:StatusPrototypeControls.kt$@Composable private fun Action( label: String, modifier: Modifier = Modifier, onClick: () -&gt; Unit, )</ID>
+    <ID>FunctionNaming:StatusPrototypeControls.kt$@Composable private fun Section( title: String, content: @Composable () -&gt; Unit, )</ID>
+    <ID>FunctionNaming:StatusPrototypeControls.kt$@Composable private fun ToggleRow( label: String, checked: Boolean, onChange: (Boolean) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:StatusPrototypeControls.kt$@OptIn(ExperimentalLayoutApi::class) @Composable internal fun StatusPrototypeControls( controller: PrototypeReviewController, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:StatusPrototypeControls.kt$@OptIn(ExperimentalLayoutApi::class) @Composable private fun &lt;T&gt; Chips( options: List&lt;T&gt;, selected: T, label: (T) -&gt; String, onSelect: (T) -&gt; Unit, )</ID>
     <ID>FunctionNaming:StatusPrototypePanelContent.kt$@Composable internal fun AttributeMeters( data: StatusPrototypeData, reveals: List&lt;Float&gt;, values: List&lt;Float&gt;, pulses: List&lt;Float&gt;, )</ID>
     <ID>FunctionNaming:StatusPrototypePanelContent.kt$@Composable internal fun IdentityBlock( data: StatusPrototypeData, accent: Color, reveal: Float, )</ID>
     <ID>FunctionNaming:StatusPrototypePanelContent.kt$@Composable internal fun LuminBar( fraction: Float, accent: Color, modifier: Modifier = Modifier, height: Int = 8, )</ID>
@@ -44,14 +50,21 @@
     <ID>FunctionNaming:StatusPrototypePanelContent.kt$@Composable private fun InfoLine( label: String, value: String, accent: Color, highlight: Boolean = false, )</ID>
     <ID>FunctionNaming:StatusPrototypePanelContent.kt$@Composable private fun SectionLabel(text: String)</ID>
     <ID>FunctionNaming:StatusPrototypePreviews.kt$@Composable internal fun StaticStatusPanel( data: StatusPrototypeData, modifier: Modifier = Modifier, )</ID>
-    <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "Neutral (no class)", backgroundColor = 0xFF06080D, showBackground = true, heightDp = 900) @Composable private fun PreviewNeutral()</ID>
-    <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "Personal record", backgroundColor = 0xFF06080D, showBackground = true, heightDp = 900) @Composable private fun PreviewPersonalRecord()</ID>
-    <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "Player level-up", backgroundColor = 0xFF06080D, showBackground = true, heightDp = 900) @Composable private fun PreviewLevelUp()</ID>
-    <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "Rank promotion", backgroundColor = 0xFF06080D, showBackground = true, heightDp = 900) @Composable private fun PreviewRankPromotion()</ID>
-    <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "Recommendation", backgroundColor = 0xFF06080D, showBackground = true, heightDp = 900) @Composable private fun PreviewRecommendation()</ID>
-    <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "Standard · Berserker", backgroundColor = 0xFF06080D, showBackground = true, heightDp = 900) @Composable private fun PreviewStandardBerserker()</ID>
-    <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "Standard · Magician", backgroundColor = 0xFF06080D, showBackground = true, heightDp = 940) @Composable private fun PreviewStandardMagician()</ID>
-    <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "Standard · Monk", backgroundColor = 0xFF06080D, showBackground = true, heightDp = 900) @Composable private fun PreviewStandardMonk()</ID>
+    <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "1 · Neutral standard", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewNeutralStandard()</ID>
+    <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "10 · Text-stress scenario", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 1040) @Composable private fun PreviewTextStress()</ID>
+    <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "11 · Small phone", showBackground = true, backgroundColor = 0xFF06080D, widthDp = 340, heightDp = 960) @Composable private fun PreviewSmallPhone()</ID>
+    <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "12 · Normal phone", showBackground = true, backgroundColor = 0xFF06080D, widthDp = 400, heightDp = 960) @Composable private fun PreviewNormalPhone()</ID>
+    <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "13 · Large phone", showBackground = true, backgroundColor = 0xFF06080D, widthDp = 520, heightDp = 960) @Composable private fun PreviewLargePhone()</ID>
+    <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "14 · Secondary-class layout", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 960) @Composable private fun PreviewSecondaryClass()</ID>
+    <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "2 · Berserker quest completion", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewBerserkerQuestComplete()</ID>
+    <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "3 · Monk class level-up", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewMonkClassLevelUp()</ID>
+    <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "4 · Magician cardio progression", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 980) @Composable private fun PreviewMagicianCardio()</ID>
+    <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "5 · Player level-up", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewPlayerLevelUp()</ID>
+    <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "6 · Rank promotion", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewRankPromotion()</ID>
+    <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "7 · Personal record", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewPersonalRecord()</ID>
+    <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "8 · Progression recommendation", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewRecommendation()</ID>
+    <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "9 · Reduced motion", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewReducedMotion()</ID>
+    <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "Font scale 1.5×", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 1040, fontScale = 1.5f) @Composable private fun PreviewLargeFontScale()</ID>
     <ID>FunctionNaming:StatusScreen.kt$@Composable fun StatusScreen( modifier: Modifier = Modifier, viewModel: StatusMotionViewModel = hiltViewModel(), )</ID>
     <ID>FunctionNaming:StatusScreen.kt$@Composable private fun AttributeRow( attribute: AttributeType, value: Int, reveal: Float, pulse: Float, )</ID>
     <ID>FunctionNaming:StatusScreen.kt$@Composable private fun HunterHeader( hunterName: String, rankLabel: String, level: Int, headerAlpha: Float, levelFlash: Float, rankFlash: Float, )</ID>
@@ -63,11 +76,11 @@
     <ID>FunctionNaming:WorkoutScreen.kt$@Composable private fun WorkoutListCard(workout: Workout)</ID>
     <ID>LongMethod:ActiveQuestScreen.kt$@OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class) @Composable internal fun ActiveQuestContent( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
     <ID>LongMethod:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$override fun migrate(db: SupportSQLiteDatabase)</ID>
-    <ID>LongMethod:FakeStatusPrototype.kt$FakeStatusPrototype$fun dataFor( stateId: StatusPrototypeStateId, variant: StatusClassVariant, reducedMotion: Boolean, ): StatusPrototypeData</ID>
+    <ID>LongMethod:FakeStatusPrototype.kt$FakeStatusPrototype$fun dataFor( stateId: StatusPrototypeStateId, variant: StatusClassVariant, reducedMotion: Boolean, forceSecondary: Boolean = false, ): StatusPrototypeData</ID>
     <ID>LongMethod:LogWorkoutScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable private fun AddSetSection( exercises: List&lt;Exercise&gt;, onAddSet: (Exercise, Int, Double?) -&gt; Unit, )</ID>
     <ID>LongMethod:LogWorkoutScreen.kt$@OptIn(ExperimentalMaterial3Api::class, androidx.compose.foundation.layout.ExperimentalLayoutApi::class) @Composable internal fun LogWorkoutContent( state: LogWorkoutUiState, onBack: () -&gt; Unit, onTitleChange: (String) -&gt; Unit, onDifficultyChange: (Difficulty) -&gt; Unit, onAddSet: (Exercise, Int, Double?) -&gt; Unit, onDeleteSet: (String) -&gt; Unit, onFinish: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
     <ID>LongMethod:QuestRepositoryImpl.kt$QuestRepositoryImpl$override suspend fun completeQuest(questId: String): CompleteQuestResult</ID>
-    <ID>LongMethod:RevisedStatusPrototypeScreen.kt$@Composable fun RevisedStatusPrototypeScreen( modifier: Modifier = Modifier, initialState: StatusPrototypeStateId = StatusPrototypeStateId.STANDARD, initialVariant: StatusClassVariant = StatusClassVariant.BERSERKER, )</ID>
+    <ID>LongMethod:RevisedStatusPrototypeScreen.kt$@Composable fun RevisedStatusPrototypeScreen( modifier: Modifier = Modifier, controller: PrototypeReviewController = rememberPrototypeReviewController(), )</ID>
     <ID>LongMethod:StatusScreen.kt$@Composable fun StatusScreen( modifier: Modifier = Modifier, viewModel: StatusMotionViewModel = hiltViewModel(), )</ID>
     <ID>LongMethod:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$override suspend fun completeWorkout(workoutId: String): CompleteWorkoutResult</ID>
     <ID>LongParameterList:ActiveQuestScreen.kt$( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
@@ -91,8 +104,7 @@
     <ID>LongParameterList:QuestIntervalRedistributionEngine.kt$QuestIntervalRedistributionEngine$( action: AdaptiveIntervalAction, summary: String, reasons: List&lt;String&gt;, leftoverFlexible: Int = 0, requiresConfirmation: Boolean = true, safety: ProgressionSafetyState = ProgressionSafetyState.OK, )</ID>
     <ID>LongParameterList:QuestRepository.kt$QuestRepository$( objectiveId: String, value: Double, source: ProgressSource = ProgressSource.MANUAL, note: String? = null, perceivedEffort: Int? = null, sourceApplication: String? = null, externalRecordId: String? = null, )</ID>
     <ID>LongParameterList:QuestRepositoryImpl.kt$QuestRepositoryImpl$( private val db: AscendDatabase, private val questDao: QuestDao, private val exerciseDao: ExerciseDao, private val progressionRepository: ProgressionRepository, private val xpCalculator: XpCalculator, private val attributeCalculator: AttributeProgressCalculator, private val classRewardApplier: ClassRewardApplier, private val eventPublisher: ProgressionEventPublisher, )</ID>
-    <ID>LongParameterList:RevisedStatusPrototypeScreen.kt$( data: StatusPrototypeData, accent: Color, sigil: StatusSigilVariant, motion: StatusPrototypeMotion, rotation: Float, glowPulse: Float, )</ID>
-    <ID>LongParameterList:StatusPrototypeControls.kt$( stateId: StatusPrototypeStateId, variant: StatusClassVariant, reducedMotion: Boolean, simplifiedEffects: Boolean, onState: (StatusPrototypeStateId) -&gt; Unit, onVariant: (StatusClassVariant) -&gt; Unit, onReplay: () -&gt; Unit, onReducedMotion: (Boolean) -&gt; Unit, onSimplifiedEffects: (Boolean) -&gt; Unit, modifier: Modifier = Modifier, )</ID>
+    <ID>LongParameterList:RevisedStatusPrototypeScreen.kt$( data: StatusPrototypeData, accent: Color, sigil: StatusSigilVariant, motion: StatusPrototypeMotion, rotation: Float, glowPulse: Float, zone: (String) -&gt; Modifier, )</ID>
     <ID>LongParameterList:StatusScreen.kt$( hunterName: String, rankLabel: String, level: Int, headerAlpha: Float, levelFlash: Float, rankFlash: Float, )</ID>
     <ID>LongParameterList:StatusScreen.kt$( reducedMotion: Boolean, busy: Boolean, onSimulate: (SimulatedCompletion) -&gt; Unit, onReplay: () -&gt; Unit, onReset: () -&gt; Unit, onReducedMotionChange: (Boolean) -&gt; Unit, )</ID>
     <ID>LongParameterList:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$( private val db: AscendDatabase, private val workoutDao: WorkoutDao, private val exerciseDao: ExerciseDao, private val progressionRepository: ProgressionRepository, private val xpCalculator: XpCalculator, private val attributeCalculator: AttributeProgressCalculator, private val classRewardApplier: ClassRewardApplier, private val eventPublisher: ProgressionEventPublisher, )</ID>
@@ -182,6 +194,11 @@
     <ID>MagicNumber:FakeStatusData.kt$FakeStatusData$350</ID>
     <ID>MagicNumber:FakeStatusData.kt$FakeStatusData$45</ID>
     <ID>MagicNumber:FakeStatusData.kt$FakeStatusData$900</ID>
+    <ID>MagicNumber:FakeStatusPrototype.kt$FakeStatusPrototype$176</ID>
+    <ID>MagicNumber:FakeStatusPrototype.kt$FakeStatusPrototype$188</ID>
+    <ID>MagicNumber:FakeStatusPrototype.kt$FakeStatusPrototype$198</ID>
+    <ID>MagicNumber:FakeStatusPrototype.kt$FakeStatusPrototype$205</ID>
+    <ID>MagicNumber:FakeStatusPrototype.kt$FakeStatusPrototype$214</ID>
     <ID>MagicNumber:FakeStatusPrototype.kt$FakeStatusPrototype$38</ID>
     <ID>MagicNumber:FakeStatusPrototype.kt$FakeStatusPrototype$40</ID>
     <ID>MagicNumber:FakeStatusPrototype.kt$FakeStatusPrototype$41</ID>
@@ -206,17 +223,23 @@
     <ID>MagicNumber:LogWorkoutScreen.kt$6</ID>
     <ID>MagicNumber:LogWorkoutViewModel.kt$LogWorkoutViewModel$5_000</ID>
     <ID>MagicNumber:ProgressionOptionRanker.kt$ProgressionOptionRanker$3</ID>
+    <ID>MagicNumber:PrototypeReviewModels.kt$DeviceWidth.COMPACT$340</ID>
+    <ID>MagicNumber:PrototypeReviewModels.kt$DeviceWidth.EXPANDED$520</ID>
+    <ID>MagicNumber:PrototypeReviewModels.kt$DeviceWidth.MEDIUM$400</ID>
+    <ID>MagicNumber:PrototypeReviewModels.kt$MotionSpeed.CINEMATIC$1.35f</ID>
+    <ID>MagicNumber:PrototypeReviewModels.kt$MotionSpeed.FAST$0.65f</ID>
     <ID>MagicNumber:QuestViewModel.kt$QuestViewModel$5_000</ID>
     <ID>MagicNumber:QuestsViewModel.kt$QuestsViewModel$5_000</ID>
-    <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$0.35f</ID>
     <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$0.4f</ID>
     <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$0.55f</ID>
     <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$0.5f</ID>
     <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$0.6f</ID>
     <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$0xFF05070B</ID>
+    <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$0xFF7E8CA0</ID>
     <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$24_000</ID>
     <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$2600</ID>
     <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$360f</ID>
+    <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$4</ID>
     <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$5200</ID>
     <ID>MagicNumber:StatusAtmosphere.kt$0.28f</ID>
     <ID>MagicNumber:StatusAtmosphere.kt$0.5f</ID>
@@ -226,6 +249,14 @@
     <ID>MagicNumber:StatusAtmosphere.kt$14_000</ID>
     <ID>MagicNumber:StatusAtmosphere.kt$42</ID>
     <ID>MagicNumber:StatusAtmosphere.kt$6.28f</ID>
+    <ID>MagicNumber:StatusDiagnosticsOverlay.kt$0.1f</ID>
+    <ID>MagicNumber:StatusDiagnosticsOverlay.kt$0.9f</ID>
+    <ID>MagicNumber:StatusDiagnosticsOverlay.kt$0xFF0B0F16</ID>
+    <ID>MagicNumber:StatusDiagnosticsOverlay.kt$0xFF9AE6DA</ID>
+    <ID>MagicNumber:StatusDiagnosticsOverlay.kt$1_000_000f</ID>
+    <ID>MagicNumber:StatusHierarchyOverlay.kt$0xFF04070C</ID>
+    <ID>MagicNumber:StatusHierarchyOverlay.kt$0xFF3FD9C7</ID>
+    <ID>MagicNumber:StatusHierarchyOverlay.kt$3f</ID>
     <ID>MagicNumber:StatusMotionViewModel.kt$StatusMotionViewModel$5_000</ID>
     <ID>MagicNumber:StatusPrototypeControls.kt$0.01f</ID>
     <ID>MagicNumber:StatusPrototypeControls.kt$0.04f</ID>
@@ -237,6 +268,7 @@
     <ID>MagicNumber:StatusPrototypeControls.kt$0xFF6E7C90</ID>
     <ID>MagicNumber:StatusPrototypeControls.kt$0xFF9AA6B8</ID>
     <ID>MagicNumber:StatusPrototypeControls.kt$0xFFCAD4E2</ID>
+    <ID>MagicNumber:StatusPrototypeMotion.kt$StatusPrototypeMotion$0.7f</ID>
     <ID>MagicNumber:StatusPrototypePanelContent.kt$0xFF3FD9C7</ID>
     <ID>MagicNumber:StatusPrototypePanelContent.kt$0xFF62B6E8</ID>
     <ID>MagicNumber:StatusPrototypePanelContent.kt$0xFF6E7C90</ID>
@@ -296,6 +328,7 @@
     <ID>MagicNumber:WorkoutsViewModel.kt$WorkoutsViewModel$5_000</ID>
     <ID>MatchingDeclarationName:Attributes.kt$AttributeType</ID>
     <ID>MatchingDeclarationName:EdgeLitStatusPanel.kt$EdgeLightSegment</ID>
+    <ID>MatchingDeclarationName:StatusDiagnosticsOverlay.kt$DiagnosticsInfo</ID>
     <ID>MaxLineLength:AdaptiveIntervalRedistributionTest.kt$AdaptiveIntervalRedistributionTest$context(dailyTarget = 100, progress = 80, leftover = 0, futures = listOf(future("a", 30, 10), future("b", 30, 20)))</ID>
     <ID>MaxLineLength:AdaptiveIntervalRedistributionUseCase.kt$AdaptiveIntervalRedistributionUseCase$.</ID>
     <ID>MaxLineLength:AdaptiveIntervalRedistributionUseCaseTest.kt$AdaptiveIntervalRedistributionUseCaseTest$"INSERT INTO quest_interval (id, questId, title, scheduledStart, scheduledEnd, targetValue, currentValue, "</ID>
@@ -420,7 +453,8 @@
     <ID>MaxLineLength:FakeStatusPrototype.kt$FakeStatusPrototype$overlay = StatusEventOverlay(StatusOverlayKind.PROGRESSION_COMPLETE, "Progression completed", "Load increase proven")</ID>
     <ID>MaxLineLength:FakeStatusPrototype.kt$FakeStatusPrototype$overlay = StatusEventOverlay(StatusOverlayKind.QUEST_COMPLETE, "Quest complete", "Hundredfold Discipline")</ID>
     <ID>MaxLineLength:FakeStatusPrototype.kt$FakeStatusPrototype$overlay = StatusEventOverlay(StatusOverlayKind.QUEST_PROGRESS, "+25 reps", "Hundredfold Discipline")</ID>
-    <ID>MaxLineLength:FakeStatusPrototype.kt$FakeStatusPrototype$overlay = StatusEventOverlay(StatusOverlayKind.RECOMMENDATION, "New recommendation", "Increase load to 65 kg")</ID>
+    <ID>MaxLineLength:FakeStatusPrototype.kt$FakeStatusPrototype$overlay = StatusEventOverlay(StatusOverlayKind.RECOMMENDATION, "New recommendation", recommendationFor(variant))</ID>
+    <ID>MaxLineLength:FakeStatusPrototype.kt$FakeStatusPrototype$trainingFocus = "Concurrent heavy pressing, calisthenic variation laddering, and Zone-2 aerobic base building"</ID>
     <ID>MaxLineLength:IntervalGenerationTest.kt$IntervalGenerationTest$assertEquals(List(8) { 25 }, distribution.distribute(200, 0, IntervalDistributionStrategy.PREFERRED_SET_SIZE, 25))</ID>
     <ID>MaxLineLength:IntervalGenerationTest.kt$IntervalGenerationTest$assertEquals(listOf(50, 50, 25), distribution.distribute(125, 0, IntervalDistributionStrategy.PREFERRED_SET_SIZE, 50))</ID>
     <ID>MaxLineLength:IntervalProgressTest.kt$IntervalProgressTest$reminders.shouldRemind(active, now = 50, questComplete = false, notificationsEnabled = true, quietHours = listOf(40L to 60L))</ID>
@@ -456,6 +490,12 @@
     <ID>MaxLineLength:ProgressionRecommendationRepositoryImpl.kt$ProgressionRecommendationRepositoryImpl$val status = if (successful) RecommendationStatus.COMPLETED_SUCCESSFULLY else RecommendationStatus.COMPLETED_UNSUCCESSFULLY</ID>
     <ID>MaxLineLength:ProgressionRepositoryImpl.kt$ProgressionRepositoryImpl$override fun observeStats(userId: String): Flow&lt;PlayerStats?&gt;</ID>
     <ID>MaxLineLength:ProgressionRepositoryImpl.kt$ProgressionRepositoryImpl$override suspend fun getProgress(userId: String): PlayerProgress?</ID>
+    <ID>MaxLineLength:PrototypeReviewLogicTest.kt$PrototypeReviewLogicTest$assertEquals(0, MotionSpec(reducedMotion = true, speedScale = MotionSpeed.FAST.scale).duration(AscendMotionTokens.STANDARD))</ID>
+    <ID>MaxLineLength:PrototypeReviewLogicTest.kt$PrototypeReviewLogicTest$assertTrue("cinematic is slower than standard", cinematic.duration(AscendMotionTokens.STANDARD) &gt; AscendMotionTokens.STANDARD)</ID>
+    <ID>MaxLineLength:PrototypeReviewLogicTest.kt$PrototypeReviewLogicTest$assertTrue("fast is quicker than standard", fast.duration(AscendMotionTokens.STANDARD) &lt; AscendMotionTokens.STANDARD)</ID>
+    <ID>MaxLineLength:PrototypeReviewModels.kt$EffectsQuality$FULL -&gt; EffectsConfig(particleQuality = 1f, sigilIdle = true, scan = true, glowPulses = true, scanQuality = 1f)</ID>
+    <ID>MaxLineLength:PrototypeReviewModels.kt$EffectsQuality$MINIMAL -&gt; EffectsConfig(particleQuality = 0f, sigilIdle = false, scan = false, glowPulses = false, scanQuality = 0f)</ID>
+    <ID>MaxLineLength:PrototypeReviewModels.kt$EffectsQuality$SIMPLIFIED -&gt; EffectsConfig(particleQuality = 0.4f, sigilIdle = true, scan = true, glowPulses = true, scanQuality = 0.5f)</ID>
     <ID>MaxLineLength:QuestDao.kt$QuestDao$"SELECT q.id AS questId, q.status AS status, o.targetValue AS target, o.currentValue AS current, q.createdAt AS createdAt "</ID>
     <ID>MaxLineLength:QuestIntervalDao.kt$QuestIntervalDao$@Query("UPDATE quest_interval SET currentValue = :value, status = :status, completedAt = :completedAt WHERE id = :intervalId")</ID>
     <ID>MaxLineLength:QuestIntervalDaoTest.kt$QuestIntervalDaoTest$QuestEntity(id = "q1", userId = "u1", title = "200 Push-Ups", questType = "ACCUMULATION", createdAt = 0, updatedAt = 0)</ID>
@@ -470,6 +510,10 @@
     <ID>MaxLineLength:QuestRepositoryImpl.kt$QuestRepositoryImpl$override fun observeQuest(questId: String): Flow&lt;Quest?&gt;</ID>
     <ID>MaxLineLength:QuestRepositoryImpl.kt$QuestRepositoryImpl$val overFraction = if (totalTarget &lt;= 0.0) 0.0 else ((totalCurrent - totalTarget) / totalTarget).coerceAtLeast(0.0)</ID>
     <ID>MaxLineLength:QuestTemplateRepositoryImpl.kt$QuestTemplateRepositoryImpl$questTemplateDao.getAll().takeIf { it.isNotEmpty() }?.map { it.toDomain() } ?: SeedQuestTemplatesUseCase.CATALOG</ID>
+    <ID>MaxLineLength:RevisedStatusPrototypeScreen.kt$Box(zone("Unique proficiency")) { ProficiencyBlock(data, accent, motion.proficiencyReveal.value, motion.proficiencyPulse.value) }</ID>
+    <ID>MaxLineLength:RevisedStatusPrototypeScreen.kt$FakeStatusPrototype.dataFor(controller.stateId, controller.variant, controller.reducedMotion, controller.forceSecondary)</ID>
+    <ID>MaxLineLength:RevisedStatusPrototypeScreen.kt$val majorActive = controller.entranceMode == EntranceMode.MAJOR_EVENT &amp;&amp; data.overlay.kind != StatusOverlayKind.NONE</ID>
+    <ID>MaxLineLength:RevisedStatusPrototypeScreen.kt$val zone: (String) -&gt; Modifier = { label -&gt; Modifier.hierarchyZone(label, controller.hierarchyOverlay, measurer, accent) }</ID>
     <ID>MaxLineLength:SeedExerciseCatalogUseCase.kt$SeedExerciseCatalogUseCase.Companion$"ex-benchpress"</ID>
     <ID>MaxLineLength:SeedExerciseCatalogUseCase.kt$SeedExerciseCatalogUseCase.Companion$Seed("ex-run", "Running", "Cardio", AttributeType.ENDURANCE, ObjectiveType.DISTANCE, "metres", "STEADY_STATE_CARDIO")</ID>
     <ID>MaxLineLength:SeedQuestTemplatesUseCase.kt$SeedQuestTemplatesUseCase.Companion$id = "tmpl-crunches"</ID>
@@ -478,20 +522,28 @@
     <ID>MaxLineLength:SeedQuestTemplatesUseCase.kt$SeedQuestTemplatesUseCase.Companion$supportedVariations = listOf("Assisted", "Band-assisted")</ID>
     <ID>MaxLineLength:SeedQuestTemplatesUseCase.kt$SeedQuestTemplatesUseCase.Companion$supportedVariations = listOf("Bodyweight", "Weighted")</ID>
     <ID>MaxLineLength:SetSuggestionEngineTest.kt$SetSuggestionEngineTest$val s = engine.suggest(SetSuggestionInput(remaining = 137, preferredSetSize = 30, minimumSetSize = 10, maximumSetSize = 50))</ID>
+    <ID>MaxLineLength:StatusHierarchyOverlay.kt$drawRect(color = color.copy(alpha = 0.55f), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 1f))</ID>
     <ID>MaxLineLength:StatusMotion.kt$StatusMotion$lifetime.animateTo(domain.lifetimeXp.toFloat(), motion.tween(AscendMotionTokens.DELIBERATE, AscendEasing.settle))</ID>
     <ID>MaxLineLength:StatusMotion.kt$StatusMotion$lifetime.animateTo(event.toValue.toFloat(), motion.tween(AscendMotionTokens.DELIBERATE, AscendEasing.settle))</ID>
     <ID>MaxLineLength:StatusMotion.kt$StatusMotion$value.animateTo(event.toValue.toFloat(), motion.tween(AscendMotionTokens.STANDARD, AscendEasing.settle))</ID>
+    <ID>MaxLineLength:StatusPrototypeControls.kt$Chips(EffectsQuality.entries, controller.effectsQuality, { it.label }) { controller.effectsQuality = it }</ID>
+    <ID>MaxLineLength:StatusPrototypeControls.kt$Text(title.uppercase(), color = Color(0xFF6E7C90), fontSize = 11.sp, modifier = Modifier.padding(top = 12.dp, bottom = 8.dp))</ID>
     <ID>MaxLineLength:StatusPrototypeMotion.kt$StatusPrototypeMotion$attrValue[i].animateTo(line.value.toFloat(), motion.tween(AscendMotionTokens.STANDARD, AscendEasing.settle))</ID>
-    <ID>MaxLineLength:StatusPrototypeMotion.kt$StatusPrototypeMotion$launch { classXpFill.animateTo(data.classXpFraction, motion.tween(AscendMotionTokens.DELIBERATE, AscendEasing.settle)) }</ID>
-    <ID>MaxLineLength:StatusPrototypeMotion.kt$StatusPrototypeMotion$launch { secondaryXpFill.animateTo(frac, motion.tween(AscendMotionTokens.DELIBERATE, AscendEasing.settle)) }</ID>
-    <ID>MaxLineLength:StatusPrototypeMotion.kt$StatusPrototypeMotion$launch { xpFill.animateTo(data.playerXpFraction, motion.tween(AscendMotionTokens.DELIBERATE, AscendEasing.settle)) }</ID>
+    <ID>MaxLineLength:StatusPrototypePanelContent.kt$Text("${data.questProgress} / ${data.questTarget}", color = Color(0xFF8A97AC), fontSize = 12.sp, maxLines = 1)</ID>
     <ID>MaxLineLength:StatusPrototypePanelContent.kt$Text("LEVEL ${data.level}", color = Color(0xFFB6C2D4), fontSize = 14.sp, fontWeight = FontWeight.Medium, letterSpacing = 1.sp)</ID>
     <ID>MaxLineLength:StatusPrototypePanelContent.kt$Text(text.uppercase(), color = Color(0xFF6E7C90), fontSize = 11.sp, letterSpacing = 2.sp, textAlign = TextAlign.Start)</ID>
+    <ID>MaxLineLength:StatusPrototypePreviews.kt$@Preview(name = "Font scale 1.5×", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 1040, fontScale = 1.5f)</ID>
+    <ID>MaxLineLength:StatusPrototypePreviews.kt$AscendTheme(darkTheme = true) { StaticStatusPanel(FakeStatusPrototype.stressData(StatusClassVariant.BERSERKER, reducedMotion = false)) }</ID>
     <ID>MaxLineLength:StatusPrototypePreviews.kt$ProgressionBars(data, accent, data.playerXpFraction, data.classXpFraction, data.secondaryClassXpFraction ?: 0f)</ID>
+    <ID>MaxLineLength:StatusPrototypePreviews.kt$StaticStatusPanel(FakeStatusPrototype.dataFor(state, variant, reducedMotion = false, forceSecondary = forceSecondary))</ID>
+    <ID>MaxLineLength:StatusPrototypePreviews.kt$private</ID>
     <ID>MaxLineLength:StatusPrototypeRenderTest.kt$StatusPrototypeRenderTest$val data = FakeStatusPrototype.dataFor(StatusPrototypeStateId.QUEST_COMPLETE, StatusClassVariant.MAGICIAN, reducedMotion = false)</ID>
+    <ID>MaxLineLength:StatusPrototypeRenderTest.kt$StatusPrototypeRenderTest$val data = FakeStatusPrototype.dataFor(StatusPrototypeStateId.QUEST_COMPLETE, StatusClassVariant.MONK, reducedMotion = false)</ID>
     <ID>MaxLineLength:StatusPrototypeRenderTest.kt$StatusPrototypeRenderTest$val data = FakeStatusPrototype.dataFor(StatusPrototypeStateId.RECOMMENDATION, StatusClassVariant.BERSERKER, reducedMotion = false)</ID>
+    <ID>MaxLineLength:StatusPrototypeRenderTest.kt$StatusPrototypeRenderTest$val data = FakeStatusPrototype.dataFor(StatusPrototypeStateId.RECOMMENDATION, StatusClassVariant.MONK, reducedMotion = false)</ID>
     <ID>MaxLineLength:StatusPrototypeRenderTest.kt$StatusPrototypeRenderTest$val data = FakeStatusPrototype.dataFor(StatusPrototypeStateId.REDUCED_MOTION, StatusClassVariant.MONK, reducedMotion = false)</ID>
     <ID>MaxLineLength:StatusPrototypeRenderTest.kt$StatusPrototypeRenderTest$val data = FakeStatusPrototype.dataFor(StatusPrototypeStateId.STANDARD, StatusClassVariant.BERSERKER, reducedMotion = false)</ID>
+    <ID>MaxLineLength:StatusPrototypeRenderTest.kt$StatusPrototypeRenderTest$val data = FakeStatusPrototype.dataFor(StatusPrototypeStateId.STANDARD, StatusClassVariant.MONK, reducedMotion = false)</ID>
     <ID>MaxLineLength:StatusScreen.kt$Button</ID>
     <ID>MaxLineLength:StatusScreen.kt$Text("Level $level", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)</ID>
     <ID>MaxLineLength:StatusScreen.kt$Text("Prototype controls", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)</ID>
@@ -552,15 +604,23 @@
     <ID>TooManyFunctions:QuestIntervalDao.kt$QuestIntervalDao</ID>
     <ID>TooManyFunctions:QuestIntervalRedistributionEngine.kt$QuestIntervalRedistributionEngine</ID>
     <ID>TooManyFunctions:QuestRepositoryImpl.kt$QuestRepositoryImpl : QuestRepository</ID>
+    <ID>TooManyFunctions:StatusPrototypePreviews.kt$com.ascend.feature.dashboard.prototype.StatusPrototypePreviews.kt</ID>
     <ID>TooManyFunctions:WorkoutDao.kt$WorkoutDao</ID>
     <ID>TooManyFunctions:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl : WorkoutRepository</ID>
-    <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "Neutral (no class)", backgroundColor = 0xFF06080D, showBackground = true, heightDp = 900) @Composable private fun PreviewNeutral()</ID>
-    <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "Personal record", backgroundColor = 0xFF06080D, showBackground = true, heightDp = 900) @Composable private fun PreviewPersonalRecord()</ID>
-    <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "Player level-up", backgroundColor = 0xFF06080D, showBackground = true, heightDp = 900) @Composable private fun PreviewLevelUp()</ID>
-    <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "Rank promotion", backgroundColor = 0xFF06080D, showBackground = true, heightDp = 900) @Composable private fun PreviewRankPromotion()</ID>
-    <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "Recommendation", backgroundColor = 0xFF06080D, showBackground = true, heightDp = 900) @Composable private fun PreviewRecommendation()</ID>
-    <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "Standard · Berserker", backgroundColor = 0xFF06080D, showBackground = true, heightDp = 900) @Composable private fun PreviewStandardBerserker()</ID>
-    <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "Standard · Magician", backgroundColor = 0xFF06080D, showBackground = true, heightDp = 940) @Composable private fun PreviewStandardMagician()</ID>
-    <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "Standard · Monk", backgroundColor = 0xFF06080D, showBackground = true, heightDp = 900) @Composable private fun PreviewStandardMonk()</ID>
+    <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "1 · Neutral standard", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewNeutralStandard()</ID>
+    <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "10 · Text-stress scenario", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 1040) @Composable private fun PreviewTextStress()</ID>
+    <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "11 · Small phone", showBackground = true, backgroundColor = 0xFF06080D, widthDp = 340, heightDp = 960) @Composable private fun PreviewSmallPhone()</ID>
+    <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "12 · Normal phone", showBackground = true, backgroundColor = 0xFF06080D, widthDp = 400, heightDp = 960) @Composable private fun PreviewNormalPhone()</ID>
+    <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "13 · Large phone", showBackground = true, backgroundColor = 0xFF06080D, widthDp = 520, heightDp = 960) @Composable private fun PreviewLargePhone()</ID>
+    <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "14 · Secondary-class layout", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 960) @Composable private fun PreviewSecondaryClass()</ID>
+    <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "2 · Berserker quest completion", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewBerserkerQuestComplete()</ID>
+    <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "3 · Monk class level-up", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewMonkClassLevelUp()</ID>
+    <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "4 · Magician cardio progression", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 980) @Composable private fun PreviewMagicianCardio()</ID>
+    <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "5 · Player level-up", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewPlayerLevelUp()</ID>
+    <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "6 · Rank promotion", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewRankPromotion()</ID>
+    <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "7 · Personal record", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewPersonalRecord()</ID>
+    <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "8 · Progression recommendation", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewRecommendation()</ID>
+    <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "9 · Reduced motion", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewReducedMotion()</ID>
+    <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "Font scale 1.5×", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 1040, fontScale = 1.5f) @Composable private fun PreviewLargeFontScale()</ID>
   </CurrentIssues>
 </SmellBaseline>

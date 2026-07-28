@@ -36,6 +36,9 @@ private data class Particle(
 
 private const val MAX_PARTICLES = 26
 
+/** The particle count for a given effects quality (0..1), capped — shared with diagnostics. */
+fun particleCountFor(effectsQuality: Float): Int = (MAX_PARTICLES * effectsQuality).toInt().coerceIn(0, MAX_PARTICLES)
+
 /** The dark holographic ground + a subtle upper haze. Cheap, no animation. */
 @Composable
 fun StatusAtmosphere(
@@ -75,7 +78,7 @@ fun StatusParticleField(
     effectsQuality: Float = 1f,
 ) {
     if (effectsQuality <= 0f) return
-    val count = (MAX_PARTICLES * effectsQuality).toInt().coerceIn(0, MAX_PARTICLES)
+    val count = particleCountFor(effectsQuality)
     if (count == 0) return
 
     val particles =

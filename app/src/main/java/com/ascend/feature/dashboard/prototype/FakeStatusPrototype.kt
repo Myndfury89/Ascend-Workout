@@ -28,9 +28,22 @@ object FakeStatusPrototype {
         variant: StatusClassVariant,
         reducedMotion: Boolean,
         stateId: StatusPrototypeStateId,
+        forceSecondary: Boolean,
         overlay: StatusEventOverlay = StatusEventOverlay(StatusOverlayKind.NONE, "", ""),
-    ): StatusPrototypeData =
-        StatusPrototypeData(
+    ): StatusPrototypeData {
+        val hasSecondary = forceSecondary || variant == StatusClassVariant.MAGICIAN
+        val secondary =
+            if (!hasSecondary) {
+                null
+            } else {
+                when (variant) {
+                    StatusClassVariant.MAGICIAN -> StatusClassVariant.MONK
+                    StatusClassVariant.BERSERKER -> StatusClassVariant.MAGICIAN
+                    StatusClassVariant.MONK -> StatusClassVariant.MAGICIAN
+                    StatusClassVariant.NEUTRAL -> StatusClassVariant.BERSERKER
+                }
+            }
+        return StatusPrototypeData(
             stateId = stateId,
             variant = variant,
             hunterName = "Kaiden Voss",
@@ -38,14 +51,14 @@ object FakeStatusPrototype {
             rankLabel = "Ascendant III",
             trainingTier = 4,
             title = variant.classTitle,
-            secondaryVariant = if (variant == StatusClassVariant.MAGICIAN) StatusClassVariant.MONK else null,
+            secondaryVariant = secondary,
             playerXpInLevel = 4148,
             playerXpForLevel = 6200,
             classLevel = 12,
             classXpInLevel = 720,
             classXpForLevel = 1500,
-            secondaryClassXpInLevel = if (variant == StatusClassVariant.MAGICIAN) 340 else null,
-            secondaryClassXpForLevel = if (variant == StatusClassVariant.MAGICIAN) 1200 else null,
+            secondaryClassXpInLevel = if (hasSecondary) 340 else null,
+            secondaryClassXpForLevel = if (hasSecondary) 1200 else null,
             uniqueProficiency = 58,
             attributes = baseAttributes(variant),
             trainingFocus = focusFor(variant),
@@ -61,6 +74,16 @@ object FakeStatusPrototype {
             reducedMotion = reducedMotion,
             majorUnlock = false,
         )
+    }
+
+    /** The class-appropriate recommendation headline (cardio for Magician, etc.). */
+    private fun recommendationFor(variant: StatusClassVariant): String =
+        when (variant) {
+            StatusClassVariant.BERSERKER -> "Increase load to 65 kg (double progression met)"
+            StatusClassVariant.MONK -> "Advance to decline push-ups (variation ready)"
+            StatusClassVariant.MAGICIAN -> "Extend Zone-2 to 40 min (pace held, effort easy)"
+            StatusClassVariant.NEUTRAL -> "Add a working set (three strong sessions logged)"
+        }
 
     private fun focusFor(variant: StatusClassVariant): String =
         when (variant) {
@@ -74,9 +97,10 @@ object FakeStatusPrototype {
         stateId: StatusPrototypeStateId,
         variant: StatusClassVariant,
         reducedMotion: Boolean,
+        forceSecondary: Boolean = false,
     ): StatusPrototypeData {
         val effectiveReduced = reducedMotion || stateId == StatusPrototypeStateId.REDUCED_MOTION
-        val base = baseline(variant, effectiveReduced, stateId)
+        val base = baseline(variant, effectiveReduced, stateId, forceSecondary)
         return when (stateId) {
             StatusPrototypeStateId.STANDARD, StatusPrototypeStateId.REDUCED_MOTION -> base
             StatusPrototypeStateId.QUEST_PROGRESS ->
@@ -141,8 +165,8 @@ object FakeStatusPrototype {
                 )
             StatusPrototypeStateId.RECOMMENDATION ->
                 base.copy(
-                    pendingRecommendation = "Increase load to 65 kg (double progression met)",
-                    overlay = StatusEventOverlay(StatusOverlayKind.RECOMMENDATION, "New recommendation", "Increase load to 65 kg"),
+                    pendingRecommendation = recommendationFor(variant),
+                    overlay = StatusEventOverlay(StatusOverlayKind.RECOMMENDATION, "New recommendation", recommendationFor(variant)),
                 )
             StatusPrototypeStateId.PROGRESSION_COMPLETE ->
                 base.copy(
@@ -157,4 +181,47 @@ object FakeStatusPrototype {
                 )
         }
     }
+
+    /**
+     * A deliberately punishing snapshot for the legibility stress test: long name, title, class
+     * names, a secondary class, huge XP/level numbers, three-digit attributes, and long
+     * recommendation / quest / event strings. Used to reveal clipping, overlap, and overflow.
+     */
+    fun stressData(
+        variant: StatusClassVariant,
+        reducedMotion: Boolean,
+    ): StatusPrototypeData =
+        baseline(variant, reducedMotion, StatusPrototypeStateId.RECOMMENDATION, forceSecondary = true).copy(
+            hunterName = "Aleksanderina Montgomery-Whitfield III",
+            level = 148,
+            rankLabel = "Transcendent Paragon of the Ninefold Path",
+            title = "Warden of the Unbroken Meridian and Keeper of Dawn",
+            classLevel = 97,
+            playerXpInLevel = 987_654,
+            playerXpForLevel = 1_000_000,
+            classXpInLevel = 148_900,
+            classXpForLevel = 150_000,
+            secondaryClassXpInLevel = 118_400,
+            secondaryClassXpForLevel = 120_000,
+            uniqueProficiency = 999,
+            attributes =
+                listOf(
+                    AttributeLine("Strength", 214),
+                    AttributeLine("Endurance", 198, emphasized = true),
+                    AttributeLine("Agility", 176),
+                    AttributeLine("Discipline", 205),
+                    AttributeLine("Recovery", 188),
+                ),
+            trainingFocus = "Concurrent heavy pressing, calisthenic variation laddering, and Zone-2 aerobic base building",
+            pendingRecommendation =
+                "Increase working load to 82.5 kg across all sets — double progression met on the last three " +
+                    "consecutive sessions with reps in reserve at or above two and no reported joint discomfort",
+            recentProgressionEvent =
+                "Weighted chest-to-bar pull-up ladder advanced two tiers with a proven +7.5 kg external load milestone",
+            recentPersonalRecord = "Barbell back squat — previous 180 kg × 3, new 187.5 kg × 3",
+            questName = "The Interminable Hundredfold Discipline of Relentless Daily Ascension",
+            questProgress = 1985,
+            questTarget = 2000,
+            questIntervalState = "Interval 11 of 12 · 15 repetitions remaining before the daily objective is satisfied",
+        )
 }

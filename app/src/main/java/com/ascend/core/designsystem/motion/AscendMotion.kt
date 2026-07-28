@@ -47,18 +47,24 @@ object AscendEasing {
  * The resolved motion configuration for a subtree. When [reducedMotion] is set,
  * every derived duration and stagger collapses to zero, so animations become
  * instant cuts while the exact same code path runs — no branching at call sites.
+ *
+ * [speedScale] is a single multiplier over every token duration (and stagger), so a whole
+ * speed profile (e.g. a faster "everyday" feel vs. a slower "cinematic" one) is expressed
+ * without duplicating any timing constant. It defaults to 1.0, leaving the base language
+ * unchanged, and is orthogonal to [reducedMotion] — reduced motion always wins and returns 0.
  */
 data class MotionSpec(
     val reducedMotion: Boolean = false,
+    val speedScale: Float = 1f,
 ) {
-    /** Scale a token duration; 0 under reduced motion. */
-    fun duration(tokenMs: Int): Int = if (reducedMotion) 0 else tokenMs
+    /** Scale a token duration by [speedScale]; 0 under reduced motion. */
+    fun duration(tokenMs: Int): Int = if (reducedMotion) 0 else (tokenMs * speedScale).toInt()
 
-    /** Stagger delay for [index]; 0 under reduced motion. */
+    /** Stagger delay for [index], scaled by [speedScale]; 0 under reduced motion. */
     fun stagger(
         index: Int,
         stepMs: Int = AscendMotionTokens.STAGGER,
-    ): Int = if (reducedMotion) 0 else index * stepMs
+    ): Int = if (reducedMotion) 0 else (index * stepMs * speedScale).toInt()
 
     /** A tween built from a token + easing, respecting reduced motion. */
     fun <T> tween(

@@ -35,24 +35,36 @@ class StatusPrototypeMotion(attributeCount: Int) {
     val attrValue = List(attributeCount) { Animatable(0f) }
     val attrPulse = List(attributeCount) { Animatable(1f) }
 
-    /** The full entrance + event beat for one fake snapshot. */
+    /**
+     * The staged entrance + event beat for one fake snapshot. [entranceMode] selects the timing
+     * profile: [EntranceMode.EVERYDAY_OPEN] is a fast, low-ceremony open (short tokens, minimal
+     * sigil assembly, critical content readable quickly); [EntranceMode.MAJOR_EVENT] uses the
+     * fuller cinematic beat. Both read every duration from the shared [MotionSpec].
+     */
     suspend fun play(
         data: StatusPrototypeData,
         motion: MotionSpec,
+        entranceMode: EntranceMode = EntranceMode.MAJOR_EVENT,
     ) {
         reset()
+        val everyday = entranceMode == EntranceMode.EVERYDAY_OPEN
+        val panelToken = if (everyday) AscendMotionTokens.QUICK else AscendMotionTokens.STANDARD
+        val sigilToken = if (everyday) AscendMotionTokens.QUICK else AscendMotionTokens.DELIBERATE
+        val sigilEasing = if (everyday) AscendEasing.settle else AscendEasing.emphasize
+        val fillToken = if (everyday) AscendMotionTokens.STANDARD else AscendMotionTokens.DELIBERATE
 
-        // 1. Panel materialises, then the sigil assembles from the centre.
-        panelMaterialize.animateTo(1f, motion.tween(AscendMotionTokens.STANDARD, AscendEasing.settle))
-        sigilAssembly.animateTo(1f, motion.tween(AscendMotionTokens.DELIBERATE, AscendEasing.emphasize))
+        // 1. Panel materialises; in everyday open the sigil barely assembles (no reconstruction).
+        panelMaterialize.animateTo(1f, motion.tween(panelToken, AscendEasing.settle))
+        if (everyday) sigilAssembly.snapTo(0.7f)
+        sigilAssembly.animateTo(1f, motion.tween(sigilToken, sigilEasing))
 
-        // 2. Identity + progression bars fill.
+        // 2. Identity + progression bars fill (parallel so critical content is quick).
         levelReveal.animateTo(1f, motion.tween(AscendMotionTokens.QUICK))
         coroutineScope {
-            launch { xpFill.animateTo(data.playerXpFraction, motion.tween(AscendMotionTokens.DELIBERATE, AscendEasing.settle)) }
-            launch { classXpFill.animateTo(data.classXpFraction, motion.tween(AscendMotionTokens.DELIBERATE, AscendEasing.settle)) }
+            launch { xpFill.animateTo(data.playerXpFraction, motion.tween(fillToken, AscendEasing.settle)) }
+            launch { classXpFill.animateTo(data.classXpFraction, motion.tween(fillToken, AscendEasing.settle)) }
             data.secondaryClassXpFraction?.let { frac ->
-                launch { secondaryXpFill.animateTo(frac, motion.tween(AscendMotionTokens.DELIBERATE, AscendEasing.settle)) }
+                launch { secondaryXpFill.animateTo(frac, motion.tween(fillToken, AscendEasing.settle)) }
             }
         }
 
@@ -72,16 +84,19 @@ class StatusPrototypeMotion(attributeCount: Int) {
         proficiencyReveal.animateTo(1f, motion.tween(AscendMotionTokens.QUICK))
         questFill.animateTo(data.questFraction, motion.tween(AscendMotionTokens.STANDARD, AscendEasing.settle))
 
-        // 5. The event beat for this state (fake — no reward logic).
-        playEventBeat(data, motion)
+        // 5. The event beat (fake — no reward logic). The overlay always reveals (quick in
+        // everyday open); the celebratory pulses/flashes are reserved for major events.
+        if (data.overlay.kind != StatusOverlayKind.NONE) {
+            val overlayToken = if (everyday) AscendMotionTokens.QUICK else AscendMotionTokens.STANDARD
+            overlayReveal.animateTo(1f, motion.tween(overlayToken, AscendEasing.emphasize))
+        }
+        if (!everyday) playEventEmphasis(data, motion)
     }
 
-    private suspend fun playEventBeat(
+    private suspend fun playEventEmphasis(
         data: StatusPrototypeData,
         motion: MotionSpec,
     ) {
-        if (data.overlay.kind == StatusOverlayKind.NONE) return
-        overlayReveal.animateTo(1f, motion.tween(AscendMotionTokens.STANDARD, AscendEasing.emphasize))
         when (data.overlay.kind) {
             StatusOverlayKind.ATTRIBUTE -> {
                 val idx = data.attributes.indexOfFirst { it.emphasized }.coerceAtLeast(0)

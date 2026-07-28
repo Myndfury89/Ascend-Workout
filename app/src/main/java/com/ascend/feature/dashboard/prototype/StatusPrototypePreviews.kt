@@ -3,6 +3,7 @@ package com.ascend.feature.dashboard.prototype
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -14,10 +15,10 @@ import androidx.compose.ui.unit.dp
 import com.ascend.core.designsystem.theme.AscendTheme
 
 /*
- * Static previews of the revised composition for Android Studio. They render each state fully
- * "settled" (all reveals at 1, bars at their target) so the layout, sigil, edge-lit panel, and
- * hierarchy can be reviewed without running the entrance animation. Live motion is exercised in
- * the debug StatusPrototypeActivity.
+ * Static, settled previews of the revised composition for Android Studio — screenshot-friendly:
+ * they render each state fully settled (reveals at 1, bars at target) rather than relying on the
+ * entrance animation finishing inside Preview. Live motion is exercised in the debug
+ * StatusPrototypeActivity.
  */
 
 /** A non-animated render of the panel at its final values — preview + smoke-test friendly. */
@@ -33,7 +34,7 @@ internal fun StaticStatusPanel(
             EdgeLitStatusPanel(accent = accent, materialize = 1f, scan = 0f, modifier = Modifier.fillMaxWidth()) {
                 Column(Modifier.fillMaxWidth().padding(24.dp)) {
                     IdentityBlock(data, accent, 1f)
-                    androidx.compose.foundation.layout.Spacer(Modifier.padding(8.dp))
+                    Spacer(Modifier.padding(8.dp))
                     Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                         StatusSigil(
                             state =
@@ -45,12 +46,12 @@ internal fun StaticStatusPanel(
                                     progressionActive = data.pendingRecommendation != null,
                                 ),
                             animation = StatusSigilAnimation(1f, 18f, 1f),
-                            modifier = Modifier.fillMaxWidth(0.5f).then(Modifier.padding(4.dp)),
+                            modifier = Modifier.fillMaxWidth(0.5f).padding(4.dp),
                         )
                     }
-                    androidx.compose.foundation.layout.Spacer(Modifier.padding(10.dp))
+                    Spacer(Modifier.padding(10.dp))
                     ProgressionBars(data, accent, data.playerXpFraction, data.classXpFraction, data.secondaryClassXpFraction ?: 0f)
-                    androidx.compose.foundation.layout.Spacer(Modifier.padding(12.dp))
+                    Spacer(Modifier.padding(12.dp))
                     AttributeMeters(
                         data,
                         reveals = List(data.attributes.size) { 1f },
@@ -58,7 +59,7 @@ internal fun StaticStatusPanel(
                         pulses = List(data.attributes.size) { 1f },
                     )
                     ProficiencyBlock(data, accent, 1f, 1f)
-                    androidx.compose.foundation.layout.Spacer(Modifier.padding(10.dp))
+                    Spacer(Modifier.padding(10.dp))
                     ProgressionInfo(data, accent, 1f)
                 }
             }
@@ -73,40 +74,71 @@ internal fun StaticStatusPanel(
 private fun preview(
     state: StatusPrototypeStateId,
     variant: StatusClassVariant,
+    forceSecondary: Boolean = false,
 ) {
     AscendTheme(darkTheme = true) {
-        StaticStatusPanel(FakeStatusPrototype.dataFor(state, variant, reducedMotion = false))
+        StaticStatusPanel(FakeStatusPrototype.dataFor(state, variant, reducedMotion = false, forceSecondary = forceSecondary))
     }
 }
 
-@Preview(name = "Standard · Berserker", backgroundColor = 0xFF06080D, showBackground = true, heightDp = 900)
+@Preview(name = "1 · Neutral standard", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940)
 @Composable
-private fun PreviewStandardBerserker() = preview(StatusPrototypeStateId.STANDARD, StatusClassVariant.BERSERKER)
+private fun PreviewNeutralStandard() = preview(StatusPrototypeStateId.STANDARD, StatusClassVariant.NEUTRAL)
 
-@Preview(name = "Standard · Monk", backgroundColor = 0xFF06080D, showBackground = true, heightDp = 900)
+@Preview(name = "2 · Berserker quest completion", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940)
 @Composable
-private fun PreviewStandardMonk() = preview(StatusPrototypeStateId.STANDARD, StatusClassVariant.MONK)
+private fun PreviewBerserkerQuestComplete() = preview(StatusPrototypeStateId.QUEST_COMPLETE, StatusClassVariant.BERSERKER)
 
-@Preview(name = "Standard · Magician", backgroundColor = 0xFF06080D, showBackground = true, heightDp = 940)
+@Preview(name = "3 · Monk class level-up", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940)
 @Composable
-private fun PreviewStandardMagician() = preview(StatusPrototypeStateId.STANDARD, StatusClassVariant.MAGICIAN)
+private fun PreviewMonkClassLevelUp() = preview(StatusPrototypeStateId.CLASS_LEVEL_UP, StatusClassVariant.MONK)
 
-@Preview(name = "Player level-up", backgroundColor = 0xFF06080D, showBackground = true, heightDp = 900)
+@Preview(name = "4 · Magician cardio progression", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 980)
 @Composable
-private fun PreviewLevelUp() = preview(StatusPrototypeStateId.PLAYER_LEVEL_UP, StatusClassVariant.MONK)
+private fun PreviewMagicianCardio() = preview(StatusPrototypeStateId.RECOMMENDATION, StatusClassVariant.MAGICIAN)
 
-@Preview(name = "Rank promotion", backgroundColor = 0xFF06080D, showBackground = true, heightDp = 900)
+@Preview(name = "5 · Player level-up", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940)
+@Composable
+private fun PreviewPlayerLevelUp() = preview(StatusPrototypeStateId.PLAYER_LEVEL_UP, StatusClassVariant.MONK)
+
+@Preview(name = "6 · Rank promotion", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940)
 @Composable
 private fun PreviewRankPromotion() = preview(StatusPrototypeStateId.RANK_PROMOTION, StatusClassVariant.MAGICIAN)
 
-@Preview(name = "Personal record", backgroundColor = 0xFF06080D, showBackground = true, heightDp = 900)
+@Preview(name = "7 · Personal record", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940)
 @Composable
 private fun PreviewPersonalRecord() = preview(StatusPrototypeStateId.PERSONAL_RECORD, StatusClassVariant.BERSERKER)
 
-@Preview(name = "Recommendation", backgroundColor = 0xFF06080D, showBackground = true, heightDp = 900)
+@Preview(name = "8 · Progression recommendation", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940)
 @Composable
 private fun PreviewRecommendation() = preview(StatusPrototypeStateId.RECOMMENDATION, StatusClassVariant.BERSERKER)
 
-@Preview(name = "Neutral (no class)", backgroundColor = 0xFF06080D, showBackground = true, heightDp = 900)
+@Preview(name = "9 · Reduced motion", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940)
 @Composable
-private fun PreviewNeutral() = preview(StatusPrototypeStateId.STANDARD, StatusClassVariant.NEUTRAL)
+private fun PreviewReducedMotion() = preview(StatusPrototypeStateId.REDUCED_MOTION, StatusClassVariant.MONK)
+
+@Preview(name = "10 · Text-stress scenario", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 1040)
+@Composable
+private fun PreviewTextStress() {
+    AscendTheme(darkTheme = true) { StaticStatusPanel(FakeStatusPrototype.stressData(StatusClassVariant.BERSERKER, reducedMotion = false)) }
+}
+
+@Preview(name = "11 · Small phone", showBackground = true, backgroundColor = 0xFF06080D, widthDp = 340, heightDp = 960)
+@Composable
+private fun PreviewSmallPhone() = preview(StatusPrototypeStateId.STANDARD, StatusClassVariant.MONK)
+
+@Preview(name = "12 · Normal phone", showBackground = true, backgroundColor = 0xFF06080D, widthDp = 400, heightDp = 960)
+@Composable
+private fun PreviewNormalPhone() = preview(StatusPrototypeStateId.STANDARD, StatusClassVariant.BERSERKER)
+
+@Preview(name = "13 · Large phone", showBackground = true, backgroundColor = 0xFF06080D, widthDp = 520, heightDp = 960)
+@Composable
+private fun PreviewLargePhone() = preview(StatusPrototypeStateId.STANDARD, StatusClassVariant.MAGICIAN)
+
+@Preview(name = "14 · Secondary-class layout", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 960)
+@Composable
+private fun PreviewSecondaryClass() = preview(StatusPrototypeStateId.STANDARD, StatusClassVariant.BERSERKER, forceSecondary = true)
+
+@Preview(name = "Font scale 1.5×", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 1040, fontScale = 1.5f)
+@Composable
+private fun PreviewLargeFontScale() = preview(StatusPrototypeStateId.RECOMMENDATION, StatusClassVariant.MONK, forceSecondary = true)

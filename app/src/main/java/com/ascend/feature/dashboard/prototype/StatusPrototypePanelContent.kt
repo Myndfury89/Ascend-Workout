@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlin.math.roundToInt
@@ -82,9 +83,18 @@ internal fun IdentityBlock(
             fontWeight = FontWeight.Medium,
             fontSize = 12.sp,
             letterSpacing = 3.sp,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
         )
         Spacer(Modifier.height(6.dp))
-        Text(data.hunterName, color = Color(0xFFEAEEF6), fontSize = 30.sp, fontWeight = FontWeight.SemiBold)
+        Text(
+            data.hunterName,
+            color = Color(0xFFEAEEF6),
+            fontSize = 30.sp,
+            fontWeight = FontWeight.SemiBold,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
+        )
         Spacer(Modifier.height(2.dp))
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text("LEVEL ${data.level}", color = Color(0xFFB6C2D4), fontSize = 14.sp, fontWeight = FontWeight.Medium, letterSpacing = 1.sp)
@@ -94,7 +104,7 @@ internal fun IdentityBlock(
             }
         }
         Spacer(Modifier.height(2.dp))
-        Text(data.title, color = Color(0xFF7E8CA0), fontSize = 12.sp)
+        Text(data.title, color = Color(0xFF7E8CA0), fontSize = 12.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
     }
 }
 
@@ -136,9 +146,17 @@ private fun BarRow(
     accent: Color,
 ) {
     Column(Modifier.fillMaxWidth()) {
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            Text(label, color = Color(0xFFB6C2D4), fontSize = 12.sp, fontWeight = FontWeight.Medium)
-            Text(value, color = Color(0xFF8A97AC), fontSize = 11.sp)
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text(
+                label,
+                color = Color(0xFFB6C2D4),
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Medium,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.weight(1f),
+            )
+            Text(value, color = Color(0xFF8A97AC), fontSize = 11.sp, maxLines = 1)
         }
         Spacer(Modifier.height(5.dp))
         LuminBar(fraction, accent)
@@ -238,9 +256,17 @@ internal fun ProgressionInfo(
         Spacer(Modifier.height(14.dp))
         SectionLabel("Daily quest")
         Spacer(Modifier.height(8.dp))
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            Text(data.questName, color = Color(0xFFCAD4E2), fontSize = 13.sp, fontWeight = FontWeight.Medium)
-            Text("${data.questProgress} / ${data.questTarget}", color = Color(0xFF8A97AC), fontSize = 12.sp)
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text(
+                data.questName,
+                color = Color(0xFFCAD4E2),
+                fontSize = 13.sp,
+                fontWeight = FontWeight.Medium,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.weight(1f),
+            )
+            Text("${data.questProgress} / ${data.questTarget}", color = Color(0xFF8A97AC), fontSize = 12.sp, maxLines = 1)
         }
         Spacer(Modifier.height(6.dp))
         LuminBar(data.questFraction, accent, height = 6)

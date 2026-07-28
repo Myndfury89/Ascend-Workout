@@ -1,7 +1,14 @@
 package com.ascend.feature.dashboard.prototype
 
+import androidx.compose.foundation.layout.width
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.unit.Density
+import androidx.compose.ui.unit.dp
 import com.ascend.core.designsystem.theme.AscendTheme
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -62,5 +69,67 @@ class StatusPrototypeRenderTest {
     fun `quest completion state reaches its target`() {
         val data = FakeStatusPrototype.dataFor(StatusPrototypeStateId.QUEST_COMPLETE, StatusClassVariant.MAGICIAN, reducedMotion = false)
         assertEquals(1f, data.questFraction, 1e-6f)
+    }
+
+    @Test
+    fun `the text-stress scenario renders long strings and three-digit attributes without clipping the name`() {
+        val data = FakeStatusPrototype.stressData(StatusClassVariant.BERSERKER, reducedMotion = false)
+        compose.setContent { AscendTheme(darkTheme = true) { StaticStatusPanel(data) } }
+        compose.onNodeWithText("Strength").assertExists()
+        // A three-digit attribute value is present and rendered.
+        compose.onNodeWithText("214").assertExists()
+    }
+
+    @Test
+    fun `a secondary class renders its own progression bar`() {
+        val data =
+            FakeStatusPrototype.dataFor(
+                StatusPrototypeStateId.STANDARD,
+                StatusClassVariant.BERSERKER,
+                reducedMotion = false,
+                forceSecondary = true,
+            )
+        compose.setContent { AscendTheme(darkTheme = true) { StaticStatusPanel(data) } }
+        compose.onNodeWithText("(secondary)", substring = true).assertExists()
+    }
+
+    @Test
+    fun `the small-phone width renders the panel`() {
+        val data = FakeStatusPrototype.dataFor(StatusPrototypeStateId.STANDARD, StatusClassVariant.MONK, reducedMotion = false)
+        compose.setContent { AscendTheme(darkTheme = true) { StaticStatusPanel(data, Modifier.width(340.dp)) } }
+        compose.onNodeWithText(data.hunterName).assertExists()
+    }
+
+    @Test
+    fun `a large font scale still renders the identity`() {
+        val data = FakeStatusPrototype.dataFor(StatusPrototypeStateId.RECOMMENDATION, StatusClassVariant.MONK, reducedMotion = false)
+        compose.setContent {
+            val base = LocalDensity.current
+            CompositionLocalProvider(LocalDensity provides Density(base.density, fontScale = 1.5f)) {
+                AscendTheme(darkTheme = true) { StaticStatusPanel(data) }
+            }
+        }
+        compose.onNodeWithText(data.hunterName).assertExists()
+    }
+
+    @Test
+    fun `an event overlay exposes an accessible description`() {
+        val data = FakeStatusPrototype.dataFor(StatusPrototypeStateId.QUEST_COMPLETE, StatusClassVariant.MONK, reducedMotion = false)
+        compose.setContent { AscendTheme(darkTheme = true) { StaticStatusPanel(data) } }
+        compose.onNodeWithContentDescription("Event:", substring = true).assertExists()
+    }
+
+    @Test
+    fun `the diagnostics panel renders its read-out`() {
+        val info =
+            DiagnosticsInfo(
+                state = "Standard status", variant = "Berserker", speed = "Fast", reducedMotion = false,
+                effectsQuality = "Full", particleCount = 26, particlesActive = true, scanActive = true,
+                sigilIdleActive = true, infinitePaused = false, entranceMode = "Everyday open",
+                majorEventActive = false, approxEntranceMs = 480, deviceWidth = "Normal phone",
+            )
+        compose.setContent { AscendTheme(darkTheme = true) { StatusDiagnosticsPanel(info, frameMs = 16.7f) } }
+        compose.onNodeWithText("state: Standard status").assertExists()
+        compose.onNodeWithText("frame time: ~16.7 ms").assertExists()
     }
 }

@@ -8,20 +8,22 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.FilterChip
-import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -38,16 +40,19 @@ internal fun EventOverlayChip(
         color = Color(0xFF10151F).copy(alpha = 0.92f),
         shape = RoundedCornerShape(10.dp),
         modifier =
-            Modifier
-                .graphicsLayer {
-                    alpha = reveal
-                    translationY = (1f - reveal) * -16.dp.toPx()
-                    val s = 0.96f + 0.04f * reveal + 0.04f * flash
-                    scaleX = s
-                    scaleY = s
-                },
+            Modifier.graphicsLayer {
+                alpha = reveal
+                translationY = (1f - reveal) * -16.dp.toPx()
+                val s = 0.96f + 0.04f * reveal + 0.04f * flash
+                scaleX = s
+                scaleY = s
+            },
     ) {
-        Column(Modifier.padding(horizontal = 16.dp, vertical = 10.dp)) {
+        Column(
+            Modifier.padding(horizontal = 16.dp, vertical = 10.dp).semantics {
+                contentDescription = "Event: ${overlay.title}. ${overlay.detail}"
+            },
+        ) {
             Text(overlay.title, color = accent, fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
             if (overlay.detail.isNotEmpty()) {
                 Text(overlay.detail, color = Color(0xFF9AA6B8), fontSize = 12.sp)
@@ -57,87 +62,126 @@ internal fun EventOverlayChip(
 }
 
 /**
- * Debug-only controls: a state selector (each fake event), a class selector, the
- * reduced-motion and simplified-effects toggles, and replay. Selecting a state re-triggers its
- * animation, so these double as the fake-event trigger buttons.
+ * Debug-only review controls, grouped by concern. All state lives in [PrototypeReviewController];
+ * these are never placed inside production Status components. Selecting a state re-triggers its
+ * animation, so the state chips double as fake-event triggers.
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun StatusPrototypeControls(
-    stateId: StatusPrototypeStateId,
-    variant: StatusClassVariant,
-    reducedMotion: Boolean,
-    simplifiedEffects: Boolean,
-    onState: (StatusPrototypeStateId) -> Unit,
-    onVariant: (StatusClassVariant) -> Unit,
-    onReplay: () -> Unit,
-    onReducedMotion: (Boolean) -> Unit,
-    onSimplifiedEffects: (Boolean) -> Unit,
+    controller: PrototypeReviewController,
     modifier: Modifier = Modifier,
 ) {
-    Surface(
-        color = Color(0xFF10141C),
-        shape = RoundedCornerShape(14.dp),
-        modifier = modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp)),
-    ) {
+    Surface(color = Color(0xFF10141C), shape = RoundedCornerShape(14.dp), modifier = modifier.fillMaxWidth()) {
         Column(Modifier.padding(16.dp)) {
-            Label("Class")
-            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                StatusClassVariant.entries.forEach { v ->
-                    FilterChip(
-                        selected = v == variant,
-                        onClick = { onVariant(v) },
-                        label = { Text(v.displayName, fontSize = 12.sp) },
-                        colors = FilterChipDefaults.filterChipColors(),
-                    )
+            Section("State / fake event") {
+                Chips(StatusPrototypeStateId.entries, controller.stateId, { it.label }) { controller.selectState(it) }
+                Spacer(Modifier.height(8.dp))
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Action("‹ Prev", Modifier.weight(1f)) { controller.previousState() }
+                    Action("Replay", Modifier.weight(1f)) { controller.replay() }
+                    Action("Next ›", Modifier.weight(1f)) { controller.nextState() }
                 }
             }
-            Spacer(Modifier.height(12.dp))
-            Label("State / fake event")
-            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                StatusPrototypeStateId.entries.forEach { s ->
-                    FilterChip(
-                        selected = s == stateId,
-                        onClick = { onState(s) },
-                        label = { Text(s.label, fontSize = 11.sp) },
-                    )
+            Section("Class") {
+                Chips(StatusClassVariant.entries, controller.variant, { it.displayName }) { controller.variant = it }
+                ToggleRow("Force secondary class", controller.forceSecondary) { controller.forceSecondary = it }
+            }
+            Section("Entrance mode") {
+                Chips(EntranceMode.entries, controller.entranceMode, { it.label }) { controller.entranceMode = it }
+            }
+            Section("Motion speed") {
+                Chips(MotionSpeed.entries, controller.motionSpeed, { it.label }) { controller.motionSpeed = it }
+            }
+            Section("Effects quality") {
+                Chips(EffectsQuality.entries, controller.effectsQuality, { it.label }) { controller.effectsQuality = it }
+            }
+            Section("Device width") {
+                Chips(DeviceWidth.entries, controller.deviceWidth, { it.label }) { controller.deviceWidth = it }
+            }
+            Section("Display") {
+                ToggleRow("Reduced motion", controller.reducedMotion) { controller.reducedMotion = it }
+                ToggleRow("Text-stress data", controller.textStress) { controller.textStress = it }
+                ToggleRow("Hierarchy overlay", controller.hierarchyOverlay) { controller.hierarchyOverlay = it }
+                ToggleRow("Diagnostics overlay", controller.diagnosticsOverlay) { controller.diagnosticsOverlay = it }
+            }
+            Section("Looped review") {
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Action(if (controller.loopRunning) "Stop" else "Start", Modifier.weight(1f)) {
+                        if (controller.loopRunning) controller.stopLoop() else controller.startLoop()
+                    }
+                    Action(if (controller.loopPaused) "Resume" else "Pause", Modifier.weight(1f)) {
+                        if (controller.loopPaused) controller.resumeLoop() else controller.pauseLoop()
+                    }
+                    Action("Restart", Modifier.weight(1f)) { controller.restartSequence() }
                 }
-            }
-            Spacer(Modifier.height(12.dp))
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Switch(checked = reducedMotion, onCheckedChange = onReducedMotion)
-                Text("  Reduced motion", color = Color(0xFFCAD4E2), fontSize = 13.sp)
-            }
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Switch(checked = simplifiedEffects, onCheckedChange = onSimplifiedEffects)
-                Text("  Simplified effects", color = Color(0xFFCAD4E2), fontSize = 13.sp)
-            }
-            Spacer(Modifier.height(10.dp))
-            Surface(
-                color = Color(0xFF1B2130),
-                shape = RoundedCornerShape(10.dp),
-                onClick = onReplay,
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                Text(
-                    "Replay animation",
-                    color = Color(0xFF3FD9C7),
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium,
-                    modifier = Modifier.padding(vertical = 12.dp).fillMaxWidth(),
-                    textAlign = androidx.compose.ui.text.style.TextAlign.Center,
-                )
             }
         }
     }
 }
 
 @Composable
-private fun Label(text: String) {
-    Text(
-        text.uppercase(),
-        color = Color(0xFF6E7C90),
-        fontSize = 11.sp,
-        modifier = Modifier.padding(bottom = 8.dp),
-    )
+private fun Section(
+    title: String,
+    content: @Composable () -> Unit,
+) {
+    Text(title.uppercase(), color = Color(0xFF6E7C90), fontSize = 11.sp, modifier = Modifier.padding(top = 12.dp, bottom = 8.dp))
+    content()
+}
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun <T> Chips(
+    options: List<T>,
+    selected: T,
+    label: (T) -> String,
+    onSelect: (T) -> Unit,
+) {
+    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        options.forEach { option ->
+            FilterChip(
+                selected = option == selected,
+                onClick = { onSelect(option) },
+                label = { Text(label(option), fontSize = 11.sp) },
+            )
+        }
+    }
+}
+
+@Composable
+private fun ToggleRow(
+    label: String,
+    checked: Boolean,
+    onChange: (Boolean) -> Unit,
+) {
+    Row(
+        Modifier.fillMaxWidth().semantics { contentDescription = "$label ${if (checked) "on" else "off"}" },
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Switch(checked = checked, onCheckedChange = onChange)
+        Text("  $label", color = Color(0xFFCAD4E2), fontSize = 13.sp)
+    }
+}
+
+@Composable
+private fun Action(
+    label: String,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+) {
+    Surface(
+        color = Color(0xFF1B2130),
+        shape = RoundedCornerShape(10.dp),
+        onClick = onClick,
+        modifier = modifier.heightIn(min = 44.dp),
+    ) {
+        Text(
+            label,
+            color = Color(0xFF3FD9C7),
+            fontSize = 13.sp,
+            fontWeight = FontWeight.Medium,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(vertical = 12.dp).fillMaxWidth(),
+        )
+    }
 }

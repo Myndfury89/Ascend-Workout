@@ -119,18 +119,42 @@ class ExerciseVariationGraphTest {
 
     @Test
     fun `a class unlock alone never creates readiness`() {
-        // assisted-one-arm -> one-arm requires the 'monk' unlock AND reps>=5, sets>=3.
+        // A (custom) class-gated edge: requires the 'monk' unlock AND reps>=8, sets>=3.
+        val gated =
+            edge("a", "b", enabled = true).copy(
+                minimumCompletedReps = 8,
+                minimumCompletedSets = 3,
+                classUnlockRequirement = "monk",
+            )
+        val graph = ExerciseVariationGraph("ex-x", listOf(variation("a"), variation("b")), listOf(gated))
+
         // Unlock satisfied but performance not met -> still ineligible.
-        val onlyUnlock = strong(reps = 2, sets = 1, unlocks = setOf("monk"))
-        assertTrue(engine.advanceCandidates(pushUps, "var-pushup-assisted-onearm", onlyUnlock).isEmpty())
-
+        assertTrue(engine.advanceCandidates(graph, "a", strong(reps = 2, sets = 1, unlocks = setOf("monk"))).isEmpty())
         // Performance met but the unlock missing -> ineligible (the class gate holds).
-        val onlyPerformance = strong(reps = 8, sets = 3, unlocks = emptySet())
-        assertTrue(engine.advanceCandidates(pushUps, "var-pushup-assisted-onearm", onlyPerformance).isEmpty())
-
+        assertTrue(engine.advanceCandidates(graph, "a", strong(reps = 8, sets = 3, unlocks = emptySet())).isEmpty())
         // Both together -> eligible.
         val both = strong(reps = 8, sets = 3, unlocks = setOf("monk"))
-        assertTrue(engine.advanceCandidates(pushUps, "var-pushup-assisted-onearm", both).isNotEmpty())
+        assertTrue(engine.advanceCandidates(graph, "a", both).isNotEmpty())
+    }
+
+    @Test
+    fun `every seeded push-up and pull-up edge is unrestricted by class`() {
+        val baseEdges =
+            ExerciseVariationCatalog.graphFor("ex-pushup").edges +
+                ExerciseVariationCatalog.graphFor("ex-pullup").edges
+        assertTrue("base graphs must have edges", baseEdges.isNotEmpty())
+        assertTrue(
+            "no base push-up/pull-up edge may carry a class unlock requirement",
+            baseEdges.all { it.classUnlockRequirement == null },
+        )
+    }
+
+    @Test
+    fun `a classless user can still reach the top of the push-up graph on performance alone`() {
+        // The final push-up edge (assisted one-arm -> one-arm) must be reachable with no class.
+        val ready = strong(reps = 8, sets = 3, unlocks = emptySet())
+        val advances = engine.advanceCandidates(pushUps, "var-pushup-assisted-onearm", ready)
+        assertTrue(advances.any { it.proposedVariationId == "var-pushup-onearm" })
     }
 
     // ---- pull-up graph paths ----

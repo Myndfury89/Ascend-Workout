@@ -65,14 +65,9 @@ object ExerciseVariationCatalog {
             advance("var-pushup-standard", "var-pushup-diamond", reps = 12, sets = 3, rpe = 8.0),
             advance("var-pushup-decline", "var-pushup-archer", reps = 10, sets = 3, rpe = 8.0),
             advance("var-pushup-archer", "var-pushup-assisted-onearm", reps = 8, sets = 3, rpe = 8.0),
-            advance(
-                "var-pushup-assisted-onearm",
-                "var-pushup-onearm",
-                reps = 5,
-                sets = 3,
-                rpe = 8.0,
-                classUnlock = "monk",
-            ),
+            // Base graph edges carry no class restriction — any class (or none) can progress
+            // through them on performance readiness + safety alone.
+            advance("var-pushup-assisted-onearm", "var-pushup-onearm", reps = 5, sets = 3, rpe = 8.0),
         )
 
     // ---- Pull-up graph (ex-pullup) ----

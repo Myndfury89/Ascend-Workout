@@ -9,7 +9,7 @@ Run everything:
 ./gradlew testDebugUnitTest
 ```
 
-## What's covered today (193 tests, all passing)
+## What's covered today (211 tests, all passing)
 
 **Progression (pure):**
 - `LevelCalculatorTest` — formula, monotonicity, cumulative XP, `resolve`, boundaries
@@ -40,6 +40,8 @@ Run everything:
 - `IntervalGenerationTest` — distribution strategies (equal/preferred/front/back), suggested tiling, fixed custom times, overlap/window/unassigned validation
 - `IntervalProgressTest` — interval status, daily‑met‑before‑expiry, redistribution (even/heavier‑final/lighter‑next/preserve/max‑cap), reminder suppression
 - `CheckpointAndStepTest` — cumulative checkpoints (met/overdue), step→interval resolution, duplicate‑import guard, epoch/timezone/DST‑safe boundaries
+- `AdaptiveIntervalRedistributionTest` — even / lighter‑next / heavier‑final redistribution, preserve‑and‑leave‑flexible, add‑new‑interval, convert‑to‑flexible, reduce‑interval‑sizes, reduce‑daily‑total (time considered), quiet hours respected, max set size + max interval target respected, **high fatigue blocks aggressive redistribution**, **automatic adaptation is opt‑in and never increases the daily total**, and **completing the daily total overrides a missed interval**
+- `AdaptiveIntervalRedistributionUseCaseTest` — reads the persisted plan, auto‑applies a safe redistribution and writes it back, and treats a met daily total as authoritative
 - `QuestIntervalDaoTest` / `AscendMigrationTest` — multi‑set interval sums, import dedup, v6→v7 and v7→v8 migrations
 
 **Adaptive Training & Progressive Overload (pure + Robolectric):**

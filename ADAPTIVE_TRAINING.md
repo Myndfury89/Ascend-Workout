@@ -133,6 +133,26 @@ unique‑proficiency ledgers, and returns an inspectable `ProgressionRewardBreak
 `MIGRATION_8_9`, `MIGRATION_9_10`, and `MIGRATION_10_11`, non‑destructive, validated on the
 JVM.
 
+## Adaptive Daily-Quest interval redistribution
+
+When a day runs off-plan, `QuestIntervalRedistributionEngine.adaptiveRecommend` decides what
+to do with the leftover work, and `AdaptiveIntervalRedistributionUseCase` bridges it to the
+persisted plan. **The daily total is authoritative** — if the day's target is met, a missed
+interval is never treated as failure. Options include redistribute evenly / lighter-next /
+heavier-final, preserve future intervals and leave the rest flexible, add a new interval,
+reduce interval sizes, reduce today's total, convert to flexible completion, maintain, or ask
+the user. Automatic adaptation is **opt-in** and never: exceeds the max interval target or set
+size, schedules into quiet hours, adds to future intervals under high fatigue, overrides a
+safety flag, or increases the daily total. Anything it can't safely place is left flexible.
+
+## Stable UI-facing surface (no UI yet)
+
+`AdaptiveTrainingQueries` is a single delegating entry point for future screens — pending
+recommendations, the active prescription, a variation path (current + next/previous
+movements), option ranking, pending interval redistribution, and the accept / reject / apply /
+redistribute actions — all forwarding to the already-tested repositories and engines. No
+Compose UI is built in this slice.
+
 ## Implemented vs. deferred
 
 **Implemented:** Slice A (bench double progression → smallest load increase → accept →
@@ -141,11 +161,12 @@ floored reduce), the readiness + safety model, recommendation lifecycle, class�
 rewards, **Slice B** (the bodyweight variation graph + `ExerciseVariationProgressionEngine`
 and the rep / set / rest / assistance / external‑load / tempo calculators with
 single‑variable composition), **cardio** (`CardioProgressionCalculator` +
-`IntervalProgressionCalculator`, working without wearables) and **class‑priority ranking**
-of safe options (`ProgressionOptionRanker` + `ClassProgressionPreferenceResolver`).
-**Deferred to the next checkpoint:** adaptive Daily‑Quest interval redistribution wiring;
-and, beyond this slice, training blocks and Health‑Connect / HR signals. UI is deferred
-throughout (stable use cases exposed for future screens).
+`IntervalProgressionCalculator`, working without wearables), **class‑priority ranking** of
+safe options (`ProgressionOptionRanker` + `ClassProgressionPreferenceResolver`), and
+**adaptive Daily‑Quest interval redistribution** (`QuestIntervalRedistributionEngine` +
+`AdaptiveIntervalRedistributionUseCase`) with a stable `AdaptiveTrainingQueries` surface for
+future UI. **Deferred beyond this slice:** training blocks and Health‑Connect / HR signals.
+UI is deferred throughout (stable use cases exposed for future screens).
 
 ## Balancing assumptions & safety limitations
 

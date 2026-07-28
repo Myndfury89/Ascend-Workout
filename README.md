@@ -74,8 +74,11 @@ core loop, built in verifiable phases. It is not the full product yet.
   single‑variable rep / set / rest / assistance / external‑load / tempo calculators that
   never stack aggressive changes; **cardio** progression that works without a wearable; and
   **class‑priority ranking** of safe options (a class only reorders already‑safe choices —
-  it never changes readiness or safety, and off‑class options stay available) (schema v11).
-  Adaptive interval redistribution follows. UI deferred. See `ADAPTIVE_TRAINING.md`.
+  it never changes readiness or safety, and off‑class options stay available); and
+  **adaptive Daily‑Quest interval redistribution** where the daily total stays authoritative
+  and opt‑in automatic adaptation never breaks a safety, fatigue, quiet‑hours, or max‑size
+  limit or raises the daily total (schema v11). UI deferred, behind a stable
+  `AdaptiveTrainingQueries` surface. See `ADAPTIVE_TRAINING.md`.
 
 **Not yet implemented:** onboarding ("The Awakening"), the real Status dashboard,
 scheduling/calendar, Health Connect, notifications, expeditions, progress

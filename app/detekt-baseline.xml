@@ -40,6 +40,7 @@
     <ID>LongMethod:StatusScreen.kt$@Composable fun StatusScreen( modifier: Modifier = Modifier, viewModel: StatusMotionViewModel = hiltViewModel(), )</ID>
     <ID>LongMethod:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$override suspend fun completeWorkout(workoutId: String): CompleteWorkoutResult</ID>
     <ID>LongParameterList:ActiveQuestScreen.kt$( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
+    <ID>LongParameterList:AdaptiveIntervalRedistributionTest.kt$AdaptiveIntervalRedistributionTest$( dailyTarget: Int = 200, progress: Int = 30, leftover: Int = 20, futures: List&lt;FutureInterval&gt; = listOf(future("a", 50, 10), future("b", 50, 20), future("c", 50, 30)), preference: RedistributionPreference = RedistributionPreference.EVEN, timeRemaining: Long = 1000, quietHours: List&lt;Pair&lt;Long, Long&gt;&gt; = emptyList(), maxSetSize: Int = Int.MAX_VALUE, maxIntervalTarget: Int = Int.MAX_VALUE, fatigue: Int? = null, auto: Boolean = false, safety: ProgressionSafetyState = ProgressionSafetyState.OK, now: Long = 5, )</ID>
     <ID>LongParameterList:BodyweightProgressionCalculator.kt$BodyweightProgressionCalculator$( private val repCalculator: RepProgressionCalculator, private val setCalculator: SetProgressionCalculator, private val restCalculator: RestProgressionCalculator, private val assistanceCalculator: AssistanceProgressionCalculator, private val externalLoadCalculator: ExternalLoadProgressionCalculator, private val tempoCalculator: TempoProgressionCalculator, private val variationEngine: ExerciseVariationProgressionEngine, )</ID>
     <ID>LongParameterList:ClassRepositoryImpl.kt$ClassRepositoryImpl$( userId: String, slot: ClassSlot, newClassId: String?, reason: String?, source: ClassChangeSource, ts: Long, )</ID>
     <ID>LongParameterList:ClassRewardApplier.kt$ClassRewardApplier$( userId: String, basePlayerXp: Long, baseAttributeDistribution: Map&lt;AttributeType, Long&gt;, activityTags: Set&lt;String&gt;, sourceType: XpSourceType, sourceId: String, )</ID>
@@ -55,6 +56,7 @@
     <ID>LongParameterList:ProgressionEventFactory.kt$ProgressionEventFactory$( userId: String, sourceType: XpSourceType, sourceId: String, before: ProgressionSnapshot, after: ProgressionSnapshot, classChanges: List&lt;ClassEventInput&gt; = emptyList(), label: String? = null, now: Long = System.currentTimeMillis(), )</ID>
     <ID>LongParameterList:ProgressionEventPublisher.kt$ProgressionEventPublisher$( userId: String, sourceType: XpSourceType, sourceId: String, label: String?, playerBefore: ProgressionSnapshot, playerAfter: ProgressionSnapshot, breakdown: RewardBreakdown, )</ID>
     <ID>LongParameterList:ProgressionEventQueueTest.kt$ProgressionEventQueueTest$( batchId: String, sequence: Int, type: ProgressionEventType, attribute: AttributeType? = null, from: Long = 0, to: Long = 0, )</ID>
+    <ID>LongParameterList:QuestIntervalRedistributionEngine.kt$QuestIntervalRedistributionEngine$( action: AdaptiveIntervalAction, summary: String, reasons: List&lt;String&gt;, leftoverFlexible: Int = 0, requiresConfirmation: Boolean = true, safety: ProgressionSafetyState = ProgressionSafetyState.OK, )</ID>
     <ID>LongParameterList:QuestRepository.kt$QuestRepository$( objectiveId: String, value: Double, source: ProgressSource = ProgressSource.MANUAL, note: String? = null, perceivedEffort: Int? = null, sourceApplication: String? = null, externalRecordId: String? = null, )</ID>
     <ID>LongParameterList:QuestRepositoryImpl.kt$QuestRepositoryImpl$( private val db: AscendDatabase, private val questDao: QuestDao, private val exerciseDao: ExerciseDao, private val progressionRepository: ProgressionRepository, private val xpCalculator: XpCalculator, private val attributeCalculator: AttributeProgressCalculator, private val classRewardApplier: ClassRewardApplier, private val eventPublisher: ProgressionEventPublisher, )</ID>
     <ID>LongParameterList:StatusScreen.kt$( hunterName: String, rankLabel: String, level: Int, headerAlpha: Float, levelFlash: Float, rankFlash: Float, )</ID>
@@ -166,6 +168,10 @@
     <ID>MagicNumber:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$60</ID>
     <ID>MagicNumber:WorkoutsViewModel.kt$WorkoutsViewModel$5_000</ID>
     <ID>MatchingDeclarationName:Attributes.kt$AttributeType</ID>
+    <ID>MaxLineLength:AdaptiveIntervalRedistributionTest.kt$AdaptiveIntervalRedistributionTest$context(dailyTarget = 100, progress = 80, leftover = 0, futures = listOf(future("a", 30, 10), future("b", 30, 20)))</ID>
+    <ID>MaxLineLength:AdaptiveIntervalRedistributionUseCase.kt$AdaptiveIntervalRedistributionUseCase$.</ID>
+    <ID>MaxLineLength:AdaptiveIntervalRedistributionUseCaseTest.kt$AdaptiveIntervalRedistributionUseCaseTest$"INSERT INTO quest_interval (id, questId, title, scheduledStart, scheduledEnd, targetValue, currentValue, "</ID>
+    <ID>MaxLineLength:AdaptiveIntervalRedistributionUseCaseTest.kt$AdaptiveIntervalRedistributionUseCaseTest$"intervalCount, distributionStrategy, adaptiveRedistributionEnabled, redistributionPreference, createdAt, updatedAt) "</ID>
     <ID>MaxLineLength:AdaptiveTrainingDao.kt$AdaptiveTrainingDao$"SELECT * FROM exercise_prescription WHERE userId = :userId AND exerciseId = :exerciseId AND status = 'ACTIVE' "</ID>
     <ID>MaxLineLength:AdaptiveTrainingDao.kt$AdaptiveTrainingDao$@Query("SELECT * FROM progression_recommendation WHERE userId = :userId AND status = 'PENDING' ORDER BY generatedAt DESC")</ID>
     <ID>MaxLineLength:AdaptiveTrainingMappers.kt$effectiveFrom = if (effectiveFrom == 0L) now else effectiveFrom</ID>
@@ -178,6 +184,10 @@
     <ID>MaxLineLength:AdaptiveTrainingMappers.kt$targetPaceSecondsPerKm = targetPaceSecondsPerKm</ID>
     <ID>MaxLineLength:AdaptiveTrainingMappers.kt$targetRestSeconds = targetRestSeconds</ID>
     <ID>MaxLineLength:AdaptiveTrainingModels.kt$QuestOutcome$val completionPercentage: Double get() = if (target &lt;= 0) 1.0 else (completed.toDouble() / target).coerceIn(0.0, 2.0)</ID>
+    <ID>MaxLineLength:AdaptiveTrainingQueries.kt$AdaptiveTrainingQueries$fun observePendingRecommendations(userId: String): Flow&lt;List&lt;ProgressionRecommendation&gt;&gt;</ID>
+    <ID>MaxLineLength:AdaptiveTrainingQueries.kt$AdaptiveTrainingQueries$nextOptions = graph.advanceEdges(currentVariationId).mapNotNull { graph.variation(it.destinationVariationId) }</ID>
+    <ID>MaxLineLength:AdaptiveTrainingQueries.kt$AdaptiveTrainingQueries$regressionOptions = graph.regressEdges(currentVariationId).mapNotNull { graph.variation(it.destinationVariationId) }</ID>
+    <ID>MaxLineLength:AdaptiveTrainingQueries.kt$AdaptiveTrainingQueries$suspend fun applyRedistribution(recommendation: AdaptiveIntervalRecommendation)</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"'Body Mastery', 1.3, 0.75, 'monk', 'balanced', 'aqua', 'body_mastery', 'i', 'p', '', '', '', '', 1, 0, 0)"</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"INSERT INTO class_definition (id, name, classTitle, description, fitnessIdentity, favoredWorkoutCategories, "</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"INSERT INTO class_xp_transaction (id, userId, classId, amount, transactionType, sourceType, sourceId, createdAt) "</ID>
@@ -315,6 +325,9 @@
     <ID>MaxLineLength:QuestIntervalDaoTest.kt$QuestIntervalDaoTest$QuestEntity(id = "q1", userId = "u1", title = "200 Push-Ups", questType = "ACCUMULATION", createdAt = 0, updatedAt = 0)</ID>
     <ID>MaxLineLength:QuestIntervalDistributionCalculator.kt$QuestIntervalDistributionCalculator$IntervalDistributionStrategy.PREFERRED_SET_SIZE -&gt; bySize(total, (preferredSetSize ?: total).coerceAtLeast(1))</ID>
     <ID>MaxLineLength:QuestIntervalGenerator.kt$QuestIntervalGenerator$distribution.distribute(request.total, request.customTimes.size, request.strategy, request.preferredSetSize)</ID>
+    <ID>MaxLineLength:QuestIntervalRedistributionEngine.kt$QuestIntervalRedistributionEngine$futures.associate { it.intervalId to (it.currentTarget.toLong() * target / currentSum).toInt().coerceAtLeast(0) }</ID>
+    <ID>MaxLineLength:QuestIntervalRedistributionEngine.kt$QuestIntervalRedistributionEngine$if</ID>
+    <ID>MaxLineLength:QuestIntervalRedistributionEngine.kt$QuestIntervalRedistributionEngine$return plan(AdaptiveIntervalAction.MAINTAIN_PLAN, "Nothing to redistribute", emptyList(), requiresConfirmation = false)</ID>
     <ID>MaxLineLength:QuestReminderPolicy.kt$QuestReminderPolicy$if (interval.status == QuestIntervalStatus.SKIPPED || interval.status == QuestIntervalStatus.COMPLETED) return false</ID>
     <ID>MaxLineLength:QuestRepository.kt$AddProgressResult$Added : AddProgressResult</ID>
     <ID>MaxLineLength:QuestRepositoryImpl.kt$QuestRepositoryImpl$completionRule = "ALL_REQUIRED"</ID>
@@ -365,6 +378,7 @@
     <ID>ReturnCount:ProgressionRecommendationRepositoryImpl.kt$ProgressionRecommendationRepositoryImpl$override suspend fun reject(id: String): Boolean</ID>
     <ID>ReturnCount:QuestIntervalDistributionCalculator.kt$QuestIntervalDistributionCalculator$private fun weighted( total: Int, count: Int, frontLoaded: Boolean, ): List&lt;Int&gt;</ID>
     <ID>ReturnCount:QuestIntervalGenerator.kt$QuestIntervalGenerator$fun generate(request: IntervalGenerationRequest): List&lt;GeneratedInterval&gt;</ID>
+    <ID>ReturnCount:QuestIntervalRedistributionEngine.kt$QuestIntervalRedistributionEngine$fun adaptiveRecommend(context: AdaptiveIntervalContext): AdaptiveIntervalRecommendation</ID>
     <ID>ReturnCount:QuestIntervalRedistributionEngine.kt$QuestIntervalRedistributionEngine$fun redistribute( remaining: Int, futureTargets: List&lt;Int&gt;, preference: RedistributionPreference, maxSetSize: Int? = null, ): RedistributionResult</ID>
     <ID>ReturnCount:QuestReminderPolicy.kt$QuestReminderPolicy$fun shouldRemind( interval: QuestInterval, now: Long, questComplete: Boolean, notificationsEnabled: Boolean, quietHours: List&lt;Pair&lt;Long, Long&gt;&gt; = emptyList(), ): Boolean</ID>
     <ID>ReturnCount:QuestTargetValidator.kt$QuestTargetValidator$fun validate( template: QuestTemplate, target: Int, recentBaseline: Int? = null, ): QuestTargetValidation</ID>
@@ -386,6 +400,7 @@
     <ID>TooManyFunctions:ProgressionRecommendationRepositoryImpl.kt$ProgressionRecommendationRepositoryImpl : ProgressionRecommendationRepository</ID>
     <ID>TooManyFunctions:QuestDao.kt$QuestDao</ID>
     <ID>TooManyFunctions:QuestIntervalDao.kt$QuestIntervalDao</ID>
+    <ID>TooManyFunctions:QuestIntervalRedistributionEngine.kt$QuestIntervalRedistributionEngine</ID>
     <ID>TooManyFunctions:QuestRepositoryImpl.kt$QuestRepositoryImpl : QuestRepository</ID>
     <ID>TooManyFunctions:WorkoutDao.kt$WorkoutDao</ID>
     <ID>TooManyFunctions:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl : WorkoutRepository</ID>

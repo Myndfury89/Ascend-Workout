@@ -23,6 +23,48 @@
         <error line="205" column="13" source="standard:function-naming" />
         <error line="246" column="13" source="standard:function-naming" />
     </file>
+    <file name="src/main/java/com/ascend/feature/dashboard/prototype/EdgeLitStatusPanel.kt">
+        <error line="120" column="5" source="standard:function-naming" />
+    </file>
+    <file name="src/main/java/com/ascend/feature/dashboard/prototype/RevisedStatusPrototypeScreen.kt">
+        <error line="46" column="5" source="standard:function-naming" />
+        <error line="133" column="13" source="standard:function-naming" />
+        <error line="163" column="13" source="standard:function-naming" />
+    </file>
+    <file name="src/main/java/com/ascend/feature/dashboard/prototype/StatusAtmosphere.kt">
+        <error line="41" column="5" source="standard:function-naming" />
+        <error line="71" column="5" source="standard:function-naming" />
+    </file>
+    <file name="src/main/java/com/ascend/feature/dashboard/prototype/StatusPrototypeControls.kt">
+        <error line="30" column="14" source="standard:function-naming" />
+        <error line="66" column="14" source="standard:function-naming" />
+        <error line="136" column="13" source="standard:function-naming" />
+    </file>
+    <file name="src/main/java/com/ascend/feature/dashboard/prototype/StatusPrototypePanelContent.kt">
+        <error line="40" column="14" source="standard:function-naming" />
+        <error line="73" column="14" source="standard:function-naming" />
+        <error line="103" column="14" source="standard:function-naming" />
+        <error line="132" column="13" source="standard:function-naming" />
+        <error line="150" column="14" source="standard:function-naming" />
+        <error line="197" column="14" source="standard:function-naming" />
+        <error line="225" column="14" source="standard:function-naming" />
+        <error line="255" column="13" source="standard:function-naming" />
+        <error line="273" column="13" source="standard:function-naming" />
+    </file>
+    <file name="src/main/java/com/ascend/feature/dashboard/prototype/StatusPrototypePreviews.kt">
+        <error line="25" column="14" source="standard:function-naming" />
+        <error line="84" column="13" source="standard:function-naming" />
+        <error line="88" column="13" source="standard:function-naming" />
+        <error line="92" column="13" source="standard:function-naming" />
+        <error line="96" column="13" source="standard:function-naming" />
+        <error line="100" column="13" source="standard:function-naming" />
+        <error line="104" column="13" source="standard:function-naming" />
+        <error line="108" column="13" source="standard:function-naming" />
+        <error line="112" column="13" source="standard:function-naming" />
+    </file>
+    <file name="src/main/java/com/ascend/feature/dashboard/prototype/StatusSigil.kt">
+        <error line="98" column="5" source="standard:function-naming" />
+    </file>
     <file name="src/main/java/com/ascend/feature/progress/ProgressScreen.kt">
         <error line="12" column="5" source="standard:function-naming" />
     </file>

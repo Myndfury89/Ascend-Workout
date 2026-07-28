@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+
+        <!--
+          Debug-only launcher for the revised Status motion prototype. Exported with its own
+          LAUNCHER entry so it installs as a separate icon in debug builds; never present in
+          release. No Hilt / no production wiring.
+        -->
+        <activity
+            android:name="com.ascend.prototype.StatusPrototypeActivity"
+            android:exported="true"
+            android:label="Ascend Status Prototype"
+            android:theme="@style/Theme.Ascend">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+    </application>
+
+</manifest>

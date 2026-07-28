@@ -1,9 +1,12 @@
 package com.ascend.core.data.mapper
 
+import com.ascend.core.database.entity.CardioPrescriptionEntity
 import com.ascend.core.database.entity.ExercisePrescriptionEntity
 import com.ascend.core.database.entity.ProgressionMilestoneEntity
 import com.ascend.core.database.entity.ProgressionRecommendationEntity
 import com.ascend.core.database.entity.TrainingReadinessSnapshotEntity
+import com.ascend.core.model.CardioMode
+import com.ascend.core.model.CardioPrescription
 import com.ascend.core.model.ExercisePrescription
 import com.ascend.core.model.ProgressionMilestone
 import com.ascend.core.model.ProgressionMilestoneType
@@ -81,6 +84,26 @@ fun ProgressionRecommendationEntity.toDomain(proposed: ExercisePrescription?): P
         requiresConfirmation = requiresConfirmation,
         status = runCatching { RecommendationStatus.valueOf(status) }.getOrDefault(RecommendationStatus.PENDING),
         generatedAt = generatedAt, expiresAt = expiresAt, acceptedAt = acceptedAt, rejectedAt = rejectedAt, appliedAt = appliedAt,
+    )
+
+fun CardioPrescription.toEntity(now: Long): CardioPrescriptionEntity =
+    CardioPrescriptionEntity(
+        id = id, userId = userId, exerciseId = exerciseId, mode = mode.name,
+        targetDurationSeconds = targetDurationSeconds, targetDistanceMeters = targetDistanceMeters,
+        targetPaceSecondsPerKm = targetPaceSecondsPerKm, targetSpeed = targetSpeed, incline = incline, resistance = resistance,
+        intervalCount = intervalCount, workIntervalSeconds = workIntervalSeconds, restIntervalSeconds = restIntervalSeconds,
+        targetHrZoneSeconds = targetHrZoneSeconds, effectiveFrom = if (effectiveFrom == 0L) now else effectiveFrom,
+        status = status, createdAt = now, updatedAt = now,
+    )
+
+fun CardioPrescriptionEntity.toDomain(): CardioPrescription =
+    CardioPrescription(
+        id = id, userId = userId, exerciseId = exerciseId,
+        mode = runCatching { CardioMode.valueOf(mode) }.getOrDefault(CardioMode.STEADY_STATE),
+        targetDurationSeconds = targetDurationSeconds, targetDistanceMeters = targetDistanceMeters,
+        targetPaceSecondsPerKm = targetPaceSecondsPerKm, targetSpeed = targetSpeed, incline = incline, resistance = resistance,
+        intervalCount = intervalCount, workIntervalSeconds = workIntervalSeconds, restIntervalSeconds = restIntervalSeconds,
+        targetHrZoneSeconds = targetHrZoneSeconds, effectiveFrom = effectiveFrom, status = status,
     )
 
 fun ProgressionMilestone.toEntity(milestoneKey: String): ProgressionMilestoneEntity =

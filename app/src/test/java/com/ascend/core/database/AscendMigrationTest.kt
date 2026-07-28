@@ -376,4 +376,28 @@ class AscendMigrationTest {
         assertTrue("duplicate (source, destination, progressionType) edge is rejected", rejected)
         db.close()
     }
+
+    @Test
+    fun `migrate 10 to 11 adds the cardio prescription table`() {
+        val dbName = "migration-test-10-11.db"
+        helper.createDatabase(dbName, 10).use { db ->
+            db.execSQL(
+                "INSERT INTO user_profile (id, displayName, createdAt, updatedAt, onboardingCompleted, " +
+                    "measurementSystem, localOnly, cloudSyncEnabled) VALUES ('u1', 'T', 0, 0, 0, 'METRIC', 1, 0)",
+            )
+        }
+
+        val db = helper.runMigrationsAndValidate(dbName, 11, true, AscendMigrations.MIGRATION_10_11)
+
+        db.execSQL(
+            "INSERT INTO cardio_prescription (id, userId, exerciseId, mode, targetDurationSeconds, effectiveFrom, " +
+                "status, createdAt, updatedAt) " +
+                "VALUES ('c1', 'u1', 'ex-run', 'STEADY_STATE', 1800, 0, 'ACTIVE', 0, 0)",
+        )
+        db.query("SELECT targetDurationSeconds FROM cardio_prescription WHERE id = 'c1'").use { c ->
+            assertTrue(c.moveToFirst())
+            assertEquals(1800L, c.getLong(0))
+        }
+        db.close()
+    }
 }

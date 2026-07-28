@@ -142,6 +142,25 @@ class ProgressionLifecycleTest {
         }
 
     @Test
+    fun `a cardio milestone is rewarded once, class-neutral, and never on acceptance alone`() =
+        runTest {
+            val milestone =
+                ProgressionMilestone(
+                    id = newId(), userId = userId, milestoneType = ProgressionMilestoneType.CARDIO_DURATION_MILESTONE,
+                    exerciseId = "ex-run", questTemplateId = null, sourceRecommendationId = "rc1",
+                    previousValue = 1800.0, newValue = 2100.0, createdAt = 0,
+                )
+            val first = rewards.award(milestone, AttributeType.ENDURANCE, activityTags = setOf("STEADY_STATE_CARDIO"))
+            assertTrue(first.playerXp > 0)
+            assertEquals(first.playerXp, progression.getProgress(userId)!!.lifetimeXp)
+
+            // Same proven milestone identity -> no second award.
+            val second = rewards.award(milestone.copy(id = newId()), AttributeType.ENDURANCE)
+            assertTrue(second.alreadyAwarded)
+            assertEquals(first.playerXp, progression.getProgress(userId)!!.lifetimeXp)
+        }
+
+    @Test
     fun `progression reward player xp stays class-neutral`() =
         runTest {
             classes.setClasses(userId, primaryClassId = "monk", secondaryClassId = null)

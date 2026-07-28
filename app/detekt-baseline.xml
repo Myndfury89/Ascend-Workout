@@ -68,6 +68,7 @@
     <ID>MagicNumber:ActiveQuestScreen.kt$40</ID>
     <ID>MagicNumber:ActiveQuestScreen.kt$50</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$10</ID>
+    <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$11</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$3</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$4</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$5</ID>
@@ -141,6 +142,7 @@
     <ID>MagicNumber:LogWorkoutScreen.kt$5</ID>
     <ID>MagicNumber:LogWorkoutScreen.kt$6</ID>
     <ID>MagicNumber:LogWorkoutViewModel.kt$LogWorkoutViewModel$5_000</ID>
+    <ID>MagicNumber:ProgressionOptionRanker.kt$ProgressionOptionRanker$3</ID>
     <ID>MagicNumber:QuestViewModel.kt$QuestViewModel$5_000</ID>
     <ID>MagicNumber:QuestsViewModel.kt$QuestsViewModel$5_000</ID>
     <ID>MagicNumber:StatusMotionViewModel.kt$StatusMotionViewModel$5_000</ID>
@@ -168,10 +170,12 @@
     <ID>MaxLineLength:AdaptiveTrainingDao.kt$AdaptiveTrainingDao$@Query("SELECT * FROM progression_recommendation WHERE userId = :userId AND status = 'PENDING' ORDER BY generatedAt DESC")</ID>
     <ID>MaxLineLength:AdaptiveTrainingMappers.kt$effectiveFrom = if (effectiveFrom == 0L) now else effectiveFrom</ID>
     <ID>MaxLineLength:AdaptiveTrainingMappers.kt$generatedAt = generatedAt</ID>
+    <ID>MaxLineLength:AdaptiveTrainingMappers.kt$intervalCount = intervalCount</ID>
     <ID>MaxLineLength:AdaptiveTrainingMappers.kt$milestoneType = runCatching { ProgressionMilestoneType.valueOf(milestoneType) }.getOrDefault(ProgressionMilestoneType.REP_RECORD)</ID>
     <ID>MaxLineLength:AdaptiveTrainingMappers.kt$readinessState = runCatching { TrainingReadinessState.valueOf(readinessState) }.getOrDefault(TrainingReadinessState.MAINTAIN)</ID>
     <ID>MaxLineLength:AdaptiveTrainingMappers.kt$requiresConfirmation = requiresConfirmation</ID>
     <ID>MaxLineLength:AdaptiveTrainingMappers.kt$safetyState = runCatching { ProgressionSafetyState.valueOf(safetyState) }.getOrDefault(ProgressionSafetyState.OK)</ID>
+    <ID>MaxLineLength:AdaptiveTrainingMappers.kt$targetPaceSecondsPerKm = targetPaceSecondsPerKm</ID>
     <ID>MaxLineLength:AdaptiveTrainingMappers.kt$targetRestSeconds = targetRestSeconds</ID>
     <ID>MaxLineLength:AdaptiveTrainingModels.kt$QuestOutcome$val completionPercentage: Double get() = if (target &lt;= 0) 1.0 else (completed.toDouble() / target).coerceIn(0.0, 2.0)</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"'Body Mastery', 1.3, 0.75, 'monk', 'balanced', 'aqua', 'body_mastery', 'i', 'p', '', '', '', '', 1, 0, 0)"</ID>
@@ -224,6 +228,10 @@
     <ID>MaxLineLength:BodyweightProgressionCalculatorsTest.kt$BodyweightProgressionCalculatorsTest$targetSets = 3</ID>
     <ID>MaxLineLength:BodyweightProgressionCalculatorsTest.kt$BodyweightProgressionCalculatorsTest$val c = rest.evaluate(pushUp, listOf(session(listOf(10, 10, 10), 0), session(listOf(10, 10, 10), 1)), isHeavyStrength = true)</ID>
     <ID>MaxLineLength:BodyweightProgressionCalculatorsTest.kt$BodyweightProgressionCalculatorsTest$val strong = listOf(session(listOf(12, 12, 12), 0), session(listOf(12, 12, 12), 1), session(listOf(12, 12, 12), 2))</ID>
+    <ID>MaxLineLength:CardioProgressionCalculators.kt$CardioProgressionCalculator$p.copy(id = newId(), resistance = (p.resistance ?: 0.0) + config.resistanceIncrement, status = "PROPOSED")</ID>
+    <ID>MaxLineLength:CardioProgressionCalculators.kt$IntervalProgressionCalculator$if (!cardioConsistent(recent, config)) return listOf(maintain("Repeat the current intervals before progressing"))</ID>
+    <ID>MaxLineLength:CardioProgressionCalculators.kt$return window.all { it.completed &amp;&amp; (it.perceivedEffort == null || it.perceivedEffort &lt;= config.maxPerceivedEffortForProgression) }</ID>
+    <ID>MaxLineLength:CardioProgressionTest.kt$CardioProgressionTest$assertEquals(ProgressionRecommendationType.MAINTAIN_PRESCRIPTION, cardio.recommend(steady, listOf(summary(6))).recommendationType)</ID>
     <ID>MaxLineLength:ClassAttributeScaler.kt$ClassAttributeScaler$)</ID>
     <ID>MaxLineLength:ClassCatalog.kt$ClassCatalog$favoredTags = setOf(ActivityTags.BODYWEIGHT, ActivityTags.MUSCULAR_ENDURANCE, ActivityTags.MOBILITY, ActivityTags.BALANCE)</ID>
     <ID>MaxLineLength:ClassCatalog.kt$ClassCatalog$favoredWorkoutCategories = listOf("Calisthenics", "Bodyweight strength", "Mobility", "Balance", "Core control")</ID>
@@ -231,6 +239,7 @@
     <ID>MaxLineLength:ClassMappers.kt$private fun joinMultipliers(map: Map&lt;AttributeType, Double&gt;): String</ID>
     <ID>MaxLineLength:ClassProgressionCalculatorTest.kt$ClassProgressionCalculatorTest$assertEquals(0L, calc.uniqueProficiency(baseMagnitude = 40, affinity = 0.0, ClassCatalog.BERSERKER, allocation = 1.0))</ID>
     <ID>MaxLineLength:ClassProgressionCalculatorTest.kt$ClassProgressionCalculatorTest$assertEquals(78L, calc.uniqueProficiency(baseMagnitude = 40, affinity = 1.0, ClassCatalog.MONK, allocation = 1.0))</ID>
+    <ID>MaxLineLength:ClassProgressionPreferenceResolver.kt$ClassProgressionPreferenceResolver$fun preferenceFor(classId: String?): ClassProgressionPreference?</ID>
     <ID>MaxLineLength:ClassRepositoryImpl.kt$ClassRepositoryImpl$classDao.observeDefinitions().map { list -&gt; list.takeIf { it.isNotEmpty() }?.map { it.toDomain() } ?: ClassCatalog.ALL }</ID>
     <ID>MaxLineLength:ClassRepositoryImpl.kt$ClassRepositoryImpl$override suspend fun getHistory(userId: String): List&lt;ClassHistory&gt;</ID>
     <ID>MaxLineLength:ClassRepositoryImpl.kt$ClassRepositoryImpl$override suspend fun getSelection(userId: String): PlayerClassSelection</ID>
@@ -291,6 +300,12 @@
     <ID>MaxLineLength:ProgressionLifecycleTest.kt$ProgressionLifecycleTest$progression = ProgressionRepositoryImpl(db, db.playerDao(), db.xpDao(), db.attributeDao(), level, RankCalculator())</ID>
     <ID>MaxLineLength:ProgressionLifecycleTest.kt$ProgressionLifecycleTest$requiresConfirmation = true</ID>
     <ID>MaxLineLength:ProgressionLifecycleTest.kt$ProgressionLifecycleTest$targetSets = 3</ID>
+    <ID>MaxLineLength:ProgressionOptionRankerTest.kt$ProgressionOptionRankerTest$assertTrue(ranked.primary!!.candidate.dimension in setOf(ProgressionDimension.REPS, ProgressionDimension.VARIATION))</ID>
+    <ID>MaxLineLength:ProgressionOptionRankerTest.kt$ProgressionOptionRankerTest$candidate(ProgressionRecommendationType.INCREASE_WEIGHT, ProgressionDimension.LOAD, safety = ProgressionSafetyState.BLOCKED)</ID>
+    <ID>MaxLineLength:ProgressionOptionRankerTest.kt$ProgressionOptionRankerTest$private val cardioDuration = candidate(ProgressionRecommendationType.INCREASE_DURATION, ProgressionDimension.CARDIO_DURATION)</ID>
+    <ID>MaxLineLength:ProgressionOptionRankerTest.kt$ProgressionOptionRankerTest$private val variation = candidate(ProgressionRecommendationType.ADVANCE_VARIATION, ProgressionDimension.VARIATION, FatigueCost.HIGH)</ID>
+    <ID>MaxLineLength:ProgressionOptionRankerTest.kt$ProgressionOptionRankerTest$val ranked = ranker.rank(listOf(load, cardioDuration), RankingContext(primaryClassId = "berserker", secondaryClassId = "magician"))</ID>
+    <ID>MaxLineLength:ProgressionOptionRankerTest.kt$ProgressionOptionRankerTest$val swapped = ranker.rank(listOf(load, cardioDuration), RankingContext(primaryClassId = "magician", secondaryClassId = "berserker"))</ID>
     <ID>MaxLineLength:ProgressionRecommendationRepositoryImpl.kt$ProgressionRecommendationRepositoryImpl$override suspend fun getPending(userId: String): List&lt;ProgressionRecommendation&gt;</ID>
     <ID>MaxLineLength:ProgressionRecommendationRepositoryImpl.kt$ProgressionRecommendationRepositoryImpl$val status = if (successful) RecommendationStatus.COMPLETED_SUCCESSFULLY else RecommendationStatus.COMPLETED_UNSUCCESSFULLY</ID>
     <ID>MaxLineLength:ProgressionRepositoryImpl.kt$ProgressionRepositoryImpl$override fun observeStats(userId: String): Flow&lt;PlayerStats?&gt;</ID>
@@ -343,6 +358,8 @@
     <ID>ReturnCount:BodyweightProgressionCalculators.kt$RestProgressionCalculator$fun evaluate( prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), isHeavyStrength: Boolean = false, ): ProgressionCandidate</ID>
     <ID>ReturnCount:BodyweightProgressionCalculators.kt$SetProgressionCalculator$fun evaluate( prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), ): ProgressionCandidate</ID>
     <ID>ReturnCount:BodyweightProgressionCalculators.kt$TempoProgressionCalculator$fun candidates( prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), hasVariationControl: Boolean = true, ): List&lt;ProgressionCandidate&gt;</ID>
+    <ID>ReturnCount:CardioProgressionCalculators.kt$CardioProgressionCalculator$fun candidates( prescription: CardioPrescription, recent: List&lt;CardioPerformanceSummary&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), ): List&lt;ProgressionCandidate&gt;</ID>
+    <ID>ReturnCount:CardioProgressionCalculators.kt$IntervalProgressionCalculator$fun candidates( prescription: CardioPrescription, recent: List&lt;CardioPerformanceSummary&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), ): List&lt;ProgressionCandidate&gt;</ID>
     <ID>ReturnCount:ExerciseVariationProgressionEngine.kt$ExerciseVariationProgressionEngine$fun regressionCandidate( graph: ExerciseVariationGraph, currentVariationId: String, input: VariationReadinessInput, minFailures: Int = 2, ): ProgressionCandidate?</ID>
     <ID>ReturnCount:ProgressionRecommendationRepositoryImpl.kt$ProgressionRecommendationRepositoryImpl$override suspend fun accept(id: String): Boolean</ID>
     <ID>ReturnCount:ProgressionRecommendationRepositoryImpl.kt$ProgressionRecommendationRepositoryImpl$override suspend fun reject(id: String): Boolean</ID>
@@ -358,7 +375,9 @@
     <ID>ReturnCount:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$override suspend fun completeWorkout(workoutId: String): CompleteWorkoutResult</ID>
     <ID>SpreadOperator:DatabaseModule.kt$DatabaseModule$(*AscendMigrations.ALL)</ID>
     <ID>TooManyFunctions:AdaptiveTrainingDao.kt$AdaptiveTrainingDao</ID>
+    <ID>TooManyFunctions:AdaptiveTrainingMappers.kt$com.ascend.core.data.mapper.AdaptiveTrainingMappers.kt</ID>
     <ID>TooManyFunctions:AscendDatabase.kt$AscendDatabase : RoomDatabase</ID>
+    <ID>TooManyFunctions:CardioProgressionCalculators.kt$CardioProgressionCalculator</ID>
     <ID>TooManyFunctions:ClassDao.kt$ClassDao</ID>
     <ID>TooManyFunctions:ClassRepository.kt$ClassRepository</ID>
     <ID>TooManyFunctions:ClassRepositoryImpl.kt$ClassRepositoryImpl : ClassRepository</ID>

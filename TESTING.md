@@ -9,7 +9,7 @@ Run everything:
 ./gradlew testDebugUnitTest
 ```
 
-## What's covered today (172 tests, all passing)
+## What's covered today (193 tests, all passing)
 
 **Progression (pure):**
 - `LevelCalculatorTest` — formula, monotonicity, cumulative XP, `resolve`, boundaries
@@ -46,10 +46,12 @@ Run everything:
 - `RecentBaselineCalculatorTest` — median target (outlier‑proof), consistency, sample handling
 - `TrainingReadinessCalculatorTest` — load vs. rep readiness, one‑strong‑set / failed‑rep / high‑RPE / low‑data gating, pain/injury/serious‑symptom safety
 - `ProgressionEnginesTest` — bench double progression (Slice A: smallest load increase after all sets top) and Daily Quest baseline (Slice C: capped increase / maintain / floored reduce)
-- `ProgressionLifecycleTest` — recommendation persists + applies once + supersedes, reject changes nothing, reward‑once (duplicate milestone no double‑award), Player XP class‑neutral
+- `ProgressionLifecycleTest` — recommendation persists + applies once + supersedes, reject changes nothing, reward‑once (duplicate milestone no double‑award, incl. a cardio milestone), Player XP class‑neutral
 - `ExerciseVariationGraphTest` — the bodyweight variation graph + engine: valid/nonexistent/multiple‑path/regression/disabled edges, insufficient exposures, unmet rep threshold, RPE too high, RIR too low, assistance threshold, safety flag blocks, and **class unlock alone never creates readiness**; push‑up and pull‑up graph paths
 - `BodyweightProgressionCalculatorsTest` — rep (raise/hold/reduce), set (added only after several strong sessions, never after one), rest (reduce only when stable, never on decline, heavy strength keeps rest), assistance (reduce/restore), external load (only after mastery), tempo/ROM (offered when controlled, blocked otherwise), and composition (one variable at a time; tempo yields to a variation advance)
-- `AscendMigrationTest` — v8→v9 (`milestoneKey` guard) and v9→v10 (the variation‑edge uniqueness guard)
+- `CardioProgressionTest` — duration / distance / pace / resistance / incline progression, add‑interval and rest‑trim as **separate** options, maintain when borderline, deload on repeated struggle, a recommendation is made **without heart‑rate data**, and duration and intensity are never escalated together
+- `ProgressionOptionRankerTest` — Berserker ranks load first, Monk rep/variation first, Magician cardio first; secondary class has **lower** influence than primary; a class **cannot promote an unsafe option**; off‑class options remain available; **no class yields a neutral ranking**
+- `AscendMigrationTest` — v8→v9 (`milestoneKey` guard), v9→v10 (variation‑edge uniqueness), v10→v11 (`cardio_prescription`)
 
 **Status motion system (pure + Robolectric):**
 - `MotionSpecTest` — full motion preserves durations/stagger; reduced motion collapses them to zero

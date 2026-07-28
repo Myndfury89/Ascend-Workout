@@ -1,6 +1,6 @@
 # Database
 
-Room, offline‑first. Schema version **10**, exported to `app/schemas/` so migrations
+Room, offline‑first. Schema version **11**, exported to `app/schemas/` so migrations
 have a versioned baseline from the start.
 
 ## Entities
@@ -86,6 +86,12 @@ The class ledgers also gain a `rewardType` column, widening the exactly‑once g
 | `exercise_variation` | A movement in an exercise's variation graph (push-up, pull-up, …): tier, tags, assistance type/value, external-load support, range-of-motion level, tempo profile |
 | `exercise_variation_edge` | A directed advance/regress transition between two variations, carrying its real-performance gate (exposures, reps, sets, RPE/RIR, assistance/ROM/tempo, optional class unlock); unique `(sourceVariationId, destinationVariationId, progressionType)` |
 
+**v11 (Cardio prescription)**
+
+| Entity | Purpose |
+|---|---|
+| `cardio_prescription` | A current/proposed cardio session: mode, duration, distance, pace, speed, incline, resistance, interval count / work / rest, optional HR-zone target |
+
 Foreign keys cascade from `user_profile` → progress/stats/xp/attributes/quests/workouts/events/class‑selection/class‑ledgers,
 `quest` → objectives → entries, and `workout` → sets. A `workout_set` also references
 `exercise` with `ON DELETE RESTRICT` (catalog rows can't be deleted while referenced).
@@ -144,6 +150,7 @@ configured.
 - **v9 → v10** (`AscendMigrations.MIGRATION_9_10`): adds `exercise_variation` and
   `exercise_variation_edge`, including the unique `(source, destination, progressionType)`
   edge guard.
+- **v10 → v11** (`AscendMigrations.MIGRATION_10_11`): adds `cardio_prescription`.
 
 All are validated on the JVM by `AscendMigrationTest` (Robolectric, no emulator).
 The exported schemas are wired into the debug source set's assets so

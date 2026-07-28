@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Upsert
+import com.ascend.core.database.entity.CardioPrescriptionEntity
 import com.ascend.core.database.entity.ExercisePrescriptionEntity
 import com.ascend.core.database.entity.ProgressionMilestoneEntity
 import com.ascend.core.database.entity.ProgressionRecommendationEntity
@@ -31,6 +32,29 @@ interface AdaptiveTrainingDao {
 
     @Query("UPDATE exercise_prescription SET status = :status, updatedAt = :updatedAt WHERE id = :id")
     suspend fun updatePrescriptionStatus(
+        id: String,
+        status: String,
+        updatedAt: Long,
+    )
+
+    // ---- Cardio prescriptions ----
+    @Upsert
+    suspend fun upsertCardioPrescription(entity: CardioPrescriptionEntity)
+
+    @Query("SELECT * FROM cardio_prescription WHERE id = :id")
+    suspend fun getCardioPrescription(id: String): CardioPrescriptionEntity?
+
+    @Query(
+        "SELECT * FROM cardio_prescription WHERE userId = :userId AND exerciseId = :exerciseId AND status = 'ACTIVE' " +
+            "ORDER BY effectiveFrom DESC LIMIT 1",
+    )
+    suspend fun getActiveCardioPrescription(
+        userId: String,
+        exerciseId: String,
+    ): CardioPrescriptionEntity?
+
+    @Query("UPDATE cardio_prescription SET status = :status, updatedAt = :updatedAt WHERE id = :id")
+    suspend fun updateCardioPrescriptionStatus(
         id: String,
         status: String,
         updatedAt: Long,

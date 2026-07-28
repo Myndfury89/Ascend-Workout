@@ -86,6 +86,30 @@ The single-variable calculators each move exactly one dimension:
 dimension** — it never fuses several aggressive changes into one recommendation, and tempo
 work yields to a variation advance by default.
 
+## Cardio
+
+`CardioProgressionCalculator` and `IntervalProgressionCalculator` progress cardio from the
+**minimum viable evidence** — manual duration, distance, pace, and perceived effort — with
+Health-Connect / heart-rate fields optional (a recommendation is always possible without
+them). One primary variable moves per step: duration **or** distance **or** pace **or** a
+single intensity bump; an interval session adds a round **or** trims rest — never both
+aggressively together. Repeated struggle earns a deload or a reduction, never a push.
+Cardio prescriptions persist in `cardio_prescription`.
+
+## Ranking safe options by class
+
+When several options are safe, `ProgressionOptionRanker` orders them into one primary plus
+alternatives. Ranking **never touches readiness or safety** — only already-safe changes are
+ranked, so a class can never promote an unsafe option. `ClassProgressionPreferenceResolver`
+supplies each class's data-driven preference (`ClassProgressionPreferenceCatalog`):
+Berserker favours load → strength reps → compound sets → longer rest (and won't favour
+cutting rest on heavy work); Monk favours reps → variation → reduced assistance → tempo →
+ROM; Magician favours cardio duration → pace → distance → intervals. The **secondary** class
+biases the order at a lower, configurable influence than the primary; **off-class options
+are only pushed down, never removed** (cross-training stays available); and with **no class
+the ranking is neutral** (fatigue + goal only, no class influence attributed). Each ranked
+candidate carries its rank, score, reasons, and the class influence that moved it.
+
 ## Lifecycle & rewards
 
 `ProgressionRecommendationRepository` persists recommendations and prescriptions
@@ -100,25 +124,28 @@ milestone never awards twice. Player XP stays class‑neutral; class shaping flo
 through the existing `ClassRewardApplier`, reusing the class‑XP / attribute /
 unique‑proficiency ledgers, and returns an inspectable `ProgressionRewardBreakdown`.
 
-## Persistence (schema v10)
+## Persistence (schema v11)
 
 `exercise_prescription`, `training_readiness_snapshot`, `progression_recommendation`,
-`progression_milestone` (unique `milestoneKey`), and the bodyweight graph
+`progression_milestone` (unique `milestoneKey`), the bodyweight graph
 `exercise_variation` / `exercise_variation_edge` (unique
-`(source, destination, progressionType)`). Migrations `MIGRATION_8_9` and
-`MIGRATION_9_10`, non‑destructive, validated on the JVM.
+`(source, destination, progressionType)`), and `cardio_prescription`. Migrations
+`MIGRATION_8_9`, `MIGRATION_9_10`, and `MIGRATION_10_11`, non‑destructive, validated on the
+JVM.
 
 ## Implemented vs. deferred
 
 **Implemented:** Slice A (bench double progression → smallest load increase → accept →
 apply‑once → reward‑once), Slice C (Daily Quest baseline → capped increase / maintain /
 floored reduce), the readiness + safety model, recommendation lifecycle, class‑neutral
-rewards, and **Slice B** — the bodyweight variation graph +
-`ExerciseVariationProgressionEngine`, and the rep / set / rest / assistance / external‑load
-/ tempo calculators with single‑variable composition. **Deferred to the next checkpoints:**
-cardio calculators and interval progression, class‑priority ranking of safe options,
-adaptive Daily‑Quest interval redistribution wiring, training blocks, and Health‑Connect /
-HR signals. UI is deferred throughout (stable use cases exposed for future screens).
+rewards, **Slice B** (the bodyweight variation graph + `ExerciseVariationProgressionEngine`
+and the rep / set / rest / assistance / external‑load / tempo calculators with
+single‑variable composition), **cardio** (`CardioProgressionCalculator` +
+`IntervalProgressionCalculator`, working without wearables) and **class‑priority ranking**
+of safe options (`ProgressionOptionRanker` + `ClassProgressionPreferenceResolver`).
+**Deferred to the next checkpoint:** adaptive Daily‑Quest interval redistribution wiring;
+and, beyond this slice, training blocks and Health‑Connect / HR signals. UI is deferred
+throughout (stable use cases exposed for future screens).
 
 ## Balancing assumptions & safety limitations
 

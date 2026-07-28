@@ -15,6 +15,7 @@ import com.ascend.core.database.dao.QuestTemplateDao
 import com.ascend.core.database.dao.WorkoutDao
 import com.ascend.core.database.dao.XpDao
 import com.ascend.core.database.entity.AttributeTransactionEntity
+import com.ascend.core.database.entity.CardioPrescriptionEntity
 import com.ascend.core.database.entity.ClassDefinitionEntity
 import com.ascend.core.database.entity.ClassHistoryEntity
 import com.ascend.core.database.entity.ClassProficiencyTransactionEntity
@@ -73,8 +74,9 @@ import com.ascend.core.database.entity.XpTransactionEntity
         ProgressionMilestoneEntity::class,
         ExerciseVariationEntity::class,
         ExerciseVariationEdgeEntity::class,
+        CardioPrescriptionEntity::class,
     ],
-    version = 10,
+    version = 11,
     exportSchema = true,
 )
 abstract class AscendDatabase : RoomDatabase() {

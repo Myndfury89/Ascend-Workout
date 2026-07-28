@@ -642,6 +642,43 @@ object AscendMigrations {
             }
         }
 
+    /** v10 -> v11: a persisted cardio prescription (duration/distance/pace/incline/resistance/intervals). */
+    val MIGRATION_10_11 =
+        object : Migration(10, 11) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `cardio_prescription` (
+                        `id` TEXT NOT NULL,
+                        `userId` TEXT NOT NULL,
+                        `exerciseId` TEXT NOT NULL,
+                        `mode` TEXT NOT NULL,
+                        `targetDurationSeconds` INTEGER,
+                        `targetDistanceMeters` REAL,
+                        `targetPaceSecondsPerKm` REAL,
+                        `targetSpeed` REAL,
+                        `incline` REAL,
+                        `resistance` REAL,
+                        `intervalCount` INTEGER,
+                        `workIntervalSeconds` INTEGER,
+                        `restIntervalSeconds` INTEGER,
+                        `targetHrZoneSeconds` INTEGER,
+                        `effectiveFrom` INTEGER NOT NULL,
+                        `status` TEXT NOT NULL,
+                        `createdAt` INTEGER NOT NULL,
+                        `updatedAt` INTEGER NOT NULL,
+                        PRIMARY KEY(`id`),
+                        FOREIGN KEY(`userId`) REFERENCES `user_profile`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE
+                    )
+                    """.trimIndent(),
+                )
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_cardio_prescription_userId_exerciseId_status` " +
+                        "ON `cardio_prescription` (`userId`, `exerciseId`, `status`)",
+                )
+            }
+        }
+
     /** All migrations, wired into the Room builder. */
     val ALL: Array<Migration> =
         arrayOf(
@@ -654,5 +691,6 @@ object AscendMigrations {
             MIGRATION_7_8,
             MIGRATION_8_9,
             MIGRATION_9_10,
+            MIGRATION_10_11,
         )
 }

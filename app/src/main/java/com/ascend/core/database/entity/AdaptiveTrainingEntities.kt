@@ -106,6 +106,40 @@ data class ProgressionRecommendationEntity(
     val appliedAt: Long?,
 )
 
+/** A current/proposed cardio prescription. Applying a recommendation supersedes the old row. */
+@Entity(
+    tableName = "cardio_prescription",
+    foreignKeys = [
+        ForeignKey(
+            entity = UserProfileEntity::class,
+            parentColumns = ["id"],
+            childColumns = ["userId"],
+            onDelete = ForeignKey.CASCADE,
+        ),
+    ],
+    indices = [Index(value = ["userId", "exerciseId", "status"])],
+)
+data class CardioPrescriptionEntity(
+    @PrimaryKey val id: String,
+    val userId: String,
+    val exerciseId: String,
+    val mode: String,
+    val targetDurationSeconds: Long?,
+    val targetDistanceMeters: Double?,
+    val targetPaceSecondsPerKm: Double?,
+    val targetSpeed: Double?,
+    val incline: Double?,
+    val resistance: Double?,
+    val intervalCount: Int?,
+    val workIntervalSeconds: Int?,
+    val restIntervalSeconds: Int?,
+    val targetHrZoneSeconds: Long?,
+    val effectiveFrom: Long,
+    val status: String,
+    val createdAt: Long,
+    val updatedAt: Long,
+)
+
 /**
  * A proven progression milestone. The unique [milestoneKey] guarantees the same
  * milestone is never rewarded twice.

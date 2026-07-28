@@ -1,12 +1,17 @@
 package com.ascend.feature.dashboard.prototype
 
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.semantics.SemanticsNode
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import com.ascend.core.designsystem.theme.AscendTheme
@@ -131,5 +136,53 @@ class StatusPrototypeRenderTest {
         compose.setContent { AscendTheme(darkTheme = true) { StatusDiagnosticsPanel(info, frameMs = 16.7f) } }
         compose.onNodeWithText("state: Standard status").assertExists()
         compose.onNodeWithText("frame time: ~16.7 ms").assertExists()
+    }
+
+    // ---- ornate sigil ----
+
+    private fun ornateState(showProficiency: Boolean) =
+        OrnateSigilState(
+            RankTier.GOLD,
+            StatusClassVariant.MONK,
+            playerRing = 0.72f,
+            classRing = 0.44f,
+            activeMedallion = 3,
+            showProficiency = showProficiency,
+        )
+
+    private fun ornateAnim() = OrnateSigilAnimation(1f, 18f, 0f, 0.72f, 0.44f, List(5) { 1f }, 1f)
+
+    @Test
+    fun `the ornate sigil exposes a description and draws no text or pseudo-script`() {
+        compose.setContent {
+            AscendTheme(darkTheme = true) {
+                OrnateSigil(ornateState(true), ornateAnim(), "Gold-rank Monk seal.", Modifier.size(240.dp))
+            }
+        }
+        compose.onNodeWithContentDescription("Gold-rank Monk seal.", substring = true).assertExists()
+
+        // The sigil is pure Canvas geometry — it must contribute zero text nodes.
+        fun collect(node: SemanticsNode): List<SemanticsNode> = listOf(node) + node.children.flatMap(::collect)
+        val all = collect(compose.onRoot(useUnmergedTree = true).fetchSemanticsNode())
+        val textNodes = all.count { it.config.getOrNull(SemanticsProperties.Text) != null }
+        assertEquals("the sigil must draw no text/pseudo-script", 0, textNodes)
+    }
+
+    @Test
+    fun `the ornate sigil renders in minimal effects mode`() {
+        compose.setContent {
+            AscendTheme(darkTheme = true) {
+                OrnateSigil(ornateState(false), ornateAnim(), "seal", Modifier.size(200.dp), minimal = true, frameMotion = false)
+            }
+        }
+        compose.onNodeWithContentDescription("seal", substring = true).assertExists()
+    }
+
+    @Test
+    fun `the low-opacity settled panel keeps the identity readable`() {
+        val data = FakeStatusPrototype.dataFor(StatusPrototypeStateId.LOW_RANK, StatusClassVariant.NEUTRAL, reducedMotion = false)
+        compose.setContent { AscendTheme(darkTheme = true) { StaticStatusPanel(data) } }
+        compose.onNodeWithText(data.hunterName).assertExists()
+        compose.onNodeWithText("Strength").assertExists()
     }
 }

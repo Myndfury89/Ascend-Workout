@@ -18,7 +18,7 @@ enum class StatusClassVariant(
     MAGICIAN("Magician", "Channeler of Vitality", "Energy Control"),
 }
 
-/** The 14 reviewable prototype states from the spec's debug selector. */
+/** The reviewable prototype states from the spec's debug selector. */
 enum class StatusPrototypeStateId(val label: String) {
     STANDARD("Standard status"),
     QUEST_PROGRESS("Quest progress update"),
@@ -33,6 +33,9 @@ enum class StatusPrototypeStateId(val label: String) {
     RECOMMENDATION("Recommendation available"),
     PROGRESSION_COMPLETE("Progression completed"),
     RANK_PROMOTION("Rank promotion"),
+    LOW_RANK("Low-rank seal"),
+    MID_RANK("Mid-rank seal"),
+    HIGH_RANK("High-rank seal"),
     REDUCED_MOTION("Reduced-motion mode"),
 }
 
@@ -108,6 +111,10 @@ data class StatusPrototypeData(
     val overlay: StatusEventOverlay,
     val reducedMotion: Boolean,
     val majorUnlock: Boolean,
+    // Ornate sigil
+    val rankTier: RankTier,
+    val activeMedallionIndex: Int,
+    val showProficiencyMedallion: Boolean,
 ) {
     val questRemaining: Int get() = (questTarget - questProgress).coerceAtLeast(0)
     val playerXpFraction: Float get() = fraction(playerXpInLevel, playerXpForLevel)

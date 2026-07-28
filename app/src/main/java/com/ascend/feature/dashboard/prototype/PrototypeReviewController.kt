@@ -26,6 +26,14 @@ class PrototypeReviewController {
     var hierarchyOverlay by mutableStateOf(false)
     var diagnosticsOverlay by mutableStateOf(false)
 
+    // Ornate sigil knobs (null override = follow the current state's data).
+    var rankTierOverride by mutableStateOf<RankTier?>(null)
+    var playerRingOverride by mutableStateOf<Float?>(null)
+    var classRingOverride by mutableStateOf<Float?>(null)
+    var activeMedallionOverride by mutableStateOf<Int?>(null)
+    var showProficiencyOverride by mutableStateOf<Boolean?>(null)
+    var sigilOpacity by mutableStateOf(OrnateSigilState.DEFAULT_SETTLED_OPACITY)
+
     var loopRunning by mutableStateOf(false)
         private set
     var loopPaused by mutableStateOf(false)

@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -25,10 +26,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ascend.core.designsystem.motion.AscendMotionTokens
@@ -87,7 +86,6 @@ fun RevisedStatusPrototypeScreen(
     val rotationRunning = !reduced && effects.sigilIdle
     val scanRunning = !reduced && effects.scan
     val particlesRunning = !reduced && effects.particleQuality > 0f
-    val glowActive = !reduced && effects.glowPulses
 
     val infinite = rememberInfiniteTransition(label = "ambient")
     val rotation by infinite.animateFloat(
@@ -95,12 +93,6 @@ fun RevisedStatusPrototypeScreen(
         if (rotationRunning) 360f else 0f,
         infiniteRepeatable(tween(24_000, easing = LinearEasing), RepeatMode.Restart),
         label = "rot",
-    )
-    val glowPulse by infinite.animateFloat(
-        if (glowActive) 0.55f else 1f,
-        1f,
-        infiniteRepeatable(tween(2600, easing = LinearEasing), RepeatMode.Reverse),
-        label = "glow",
     )
     val scan by infinite.animateFloat(
         0f,
@@ -142,7 +134,7 @@ fun RevisedStatusPrototypeScreen(
                     effectsQuality = effects.scanQuality,
                     modifier = Modifier.fillMaxWidth(),
                 ) {
-                    PanelContent(data, accent, sigil, motion, rotation, glowPulse, zone)
+                    PanelContent(data, accent, motion, rotation, controller, frameMotion, zone)
                 }
                 Box(Modifier.align(Alignment.TopCenter).padding(top = 8.dp).then(zone("Event overlay"))) {
                     EventOverlayChip(data.overlay, accent, motion.overlayReveal.value, motion.eventFlash.value)
@@ -210,73 +202,82 @@ private fun approxEntranceMs(
 private fun PanelContent(
     data: StatusPrototypeData,
     accent: Color,
-    sigil: StatusSigilVariant,
     motion: StatusPrototypeMotion,
     rotation: Float,
-    glowPulse: Float,
+    controller: PrototypeReviewController,
+    frameMotion: Boolean,
     zone: (String) -> Modifier,
 ) {
-    Column(Modifier.fillMaxWidth().padding(24.dp)) {
-        Box(zone("Identity + rank")) { IdentityBlock(data, accent, motion.levelReveal.value) }
-        Spacer(Modifier.height(16.dp))
-        Box(zone("Sigil"), contentAlignment = Alignment.Center) { SigilBlock(data, sigil, motion, rotation, glowPulse) }
-        Spacer(Modifier.height(20.dp))
-        Box(zone("XP + class XP")) {
-            ProgressionBars(data, accent, motion.xpFill.value, motion.classXpFill.value, motion.secondaryXpFill.value)
-        }
-        Spacer(Modifier.height(22.dp))
-        Box(zone("Attributes")) {
-            AttributeMeters(
-                data,
-                reveals = motion.attrReveal.map { it.value },
-                values = motion.attrValue.map { it.value },
-                pulses = motion.attrPulse.map { it.value },
-            )
-        }
-        Spacer(Modifier.height(6.dp))
-        Box(zone("Unique proficiency")) { ProficiencyBlock(data, accent, motion.proficiencyReveal.value, motion.proficiencyPulse.value) }
-        Spacer(Modifier.height(20.dp))
-        Box(zone("Adaptive training + quest")) { ProgressionInfo(data, accent, motion.proficiencyReveal.value) }
-    }
-}
+    val hasClass = data.variant != StatusClassVariant.NEUTRAL
+    val targetPlayer = controller.playerRingOverride ?: data.playerXpFraction
+    val targetClass = controller.classRingOverride ?: data.classXpFraction
+    val showProficiency = controller.showProficiencyOverride ?: data.showProficiencyMedallion
+    val activeMedallion = controller.activeMedallionOverride ?: data.activeMedallionIndex
+    val rankTier = controller.rankTierOverride ?: data.rankTier
 
-/** The centred, assembling class sigil — hierarchy tier 2, just under identity. */
-@Composable
-private fun SigilBlock(
-    data: StatusPrototypeData,
-    sigil: StatusSigilVariant,
-    motion: StatusPrototypeMotion,
-    rotation: Float,
-    glowPulse: Float,
-) {
-    val state =
-        StatusSigilState(
-            variant = sigil,
-            tier = data.trainingTier,
-            assembly = motion.sigilAssembly.value,
-            rotationDegrees = rotation,
-            glow = 0.55f + 0.25f * motion.eventFlash.value,
-            progressionActive = data.pendingRecommendation != null || data.recentPersonalRecord != null,
-            majorUnlock = data.majorUnlock,
+    val sigilState =
+        OrnateSigilState(
+            rankTier = rankTier,
+            variant = data.variant,
+            playerRing = targetPlayer,
+            classRing = if (hasClass) targetClass else null,
+            activeMedallion = activeMedallion,
+            showProficiency = showProficiency && hasClass,
+            settledOpacity = controller.sigilOpacity,
+            newRankLayer = data.stateId == StatusPrototypeStateId.RANK_PROMOTION,
         )
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        StatusSigil(
-            state = state,
-            animation = StatusSigilAnimation(motion.sigilAssembly.value, rotation, glowPulse),
-            effectsQuality = 1f,
+    val sigilAnim =
+        OrnateSigilAnimation(
+            assembly = motion.sigilAssembly.value,
+            rotation = rotation,
+            glow = motion.eventFlash.value,
+            playerRingTrim = controller.playerRingOverride ?: motion.xpFill.value,
+            classRingTrim = controller.classRingOverride ?: motion.classXpFill.value,
+            medallionPulse = motion.attrPulse.map { it.value },
+            proficiencyPulse = motion.proficiencyPulse.value,
+        )
+    val simplified = controller.effectsQuality == EffectsQuality.SIMPLIFIED
+    val minimal = controller.effectsQuality == EffectsQuality.MINIMAL
+
+    Box(Modifier.fillMaxWidth().clipToBounds()) {
+        // The ornate seal sits BEHIND the upper content at low opacity — atmospheric, may be
+        // cropped by the panel. It is drawn first (lowest z) so all text reads on top.
+        OrnateSigil(
+            state = sigilState,
+            animation = sigilAnim,
+            semanticDescription = sigilDescription(data, targetPlayer, if (hasClass) targetClass else null, activeMedallion),
             modifier =
                 Modifier
-                    .fillMaxWidth(0.5f)
+                    .align(Alignment.TopCenter)
+                    .fillMaxWidth(0.98f)
                     .aspectRatio(1f)
-                    .semantics { contentDescription = "${data.variant.displayName} sigil, tier ${data.trainingTier}" }
-                    .graphicsLayer { alpha = 0.4f + 0.6f * motion.sigilAssembly.value },
+                    .offset(y = (-28).dp)
+                    .then(zone("Sigil (behind)")),
+            simplified = simplified,
+            minimal = minimal,
+            frameMotion = frameMotion,
         )
-        Spacer(Modifier.height(6.dp))
-        Text(
-            "TIER ${data.trainingTier} · ${data.variant.classTitle.uppercase()}",
-            color = sigil.core.copy(alpha = 0.8f),
-            fontSize = 10.sp,
-            letterSpacing = 2.sp,
-        )
+        Column(Modifier.fillMaxWidth().padding(24.dp)) {
+            Box(zone("Identity + rank")) { IdentityBlock(data, accent, motion.levelReveal.value) }
+            Spacer(Modifier.height(20.dp))
+            Box(zone("XP + class XP")) {
+                ProgressionBars(data, accent, motion.xpFill.value, motion.classXpFill.value, motion.secondaryXpFill.value)
+            }
+            Spacer(Modifier.height(22.dp))
+            Box(zone("Attributes")) {
+                AttributeMeters(
+                    data,
+                    reveals = motion.attrReveal.map { it.value },
+                    values = motion.attrValue.map { it.value },
+                    pulses = motion.attrPulse.map { it.value },
+                )
+            }
+            Spacer(Modifier.height(6.dp))
+            Box(
+                zone("Unique proficiency"),
+            ) { ProficiencyBlock(data, accent, motion.proficiencyReveal.value, motion.proficiencyPulse.value) }
+            Spacer(Modifier.height(20.dp))
+            Box(zone("Adaptive training + quest")) { ProgressionInfo(data, accent, motion.proficiencyReveal.value) }
+        }
     }
 }

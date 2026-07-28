@@ -73,6 +73,9 @@ object FakeStatusPrototype {
             overlay = overlay,
             reducedMotion = reducedMotion,
             majorUnlock = false,
+            rankTier = RankTier.GOLD,
+            activeMedallionIndex = -1,
+            showProficiencyMedallion = variant != StatusClassVariant.NEUTRAL,
         )
     }
 
@@ -128,6 +131,7 @@ object FakeStatusPrototype {
             StatusPrototypeStateId.ATTRIBUTE_UP ->
                 base.copy(
                     attributes = base.attributes.mapIndexed { i, l -> if (i == 0) l.copy(value = l.value + 3, emphasized = true) else l },
+                    activeMedallionIndex = 0,
                     overlay =
                         StatusEventOverlay(
                             StatusOverlayKind.ATTRIBUTE,
@@ -177,8 +181,15 @@ object FakeStatusPrototype {
                 base.copy(
                     rankLabel = "Paragon I",
                     majorUnlock = true,
+                    rankTier = RankTier.APEX,
                     overlay = StatusEventOverlay(StatusOverlayKind.RANK_PROMOTION, "Rank promotion", "Paragon I"),
                 )
+            StatusPrototypeStateId.LOW_RANK ->
+                base.copy(rankLabel = "Initiate", rankTier = RankTier.INITIATE)
+            StatusPrototypeStateId.MID_RANK ->
+                base.copy(rankLabel = "Silver II", rankTier = RankTier.SILVER)
+            StatusPrototypeStateId.HIGH_RANK ->
+                base.copy(rankLabel = "Mythic", rankTier = RankTier.MYTHIC)
         }
     }
 

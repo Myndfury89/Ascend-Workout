@@ -87,6 +87,31 @@ internal fun StatusPrototypeControls(
                 Chips(StatusClassVariant.entries, controller.variant, { it.displayName }) { controller.variant = it }
                 ToggleRow("Force secondary class", controller.forceSecondary) { controller.forceSecondary = it }
             }
+            Section("Ornate sigil") {
+                Chips(rankOptions, controller.rankTierOverride, { it?.name?.lowercase()?.replaceFirstChar(Char::uppercase) ?: "Auto" }) {
+                    controller.rankTierOverride = it
+                }
+                Spacer(Modifier.height(6.dp))
+                Chips(
+                    medallionOptions,
+                    controller.activeMedallionOverride ?: -1,
+                    ::medallionLabel,
+                ) { controller.activeMedallionOverride = it }
+                Spacer(Modifier.height(6.dp))
+                Chips(ringOptions, controller.playerRingOverride, { ringLabel("Player", it) }) { controller.playerRingOverride = it }
+                Chips(ringOptions, controller.classRingOverride, { ringLabel("Class", it) }) { controller.classRingOverride = it }
+                Chips(opacityOptions, controller.sigilOpacity, ::opacityLabel) { controller.sigilOpacity = it }
+                ToggleRow(
+                    "Show proficiency medallion",
+                    controller.showProficiencyOverride ?: true,
+                ) { controller.showProficiencyOverride = it }
+                Spacer(Modifier.height(6.dp))
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Action("Level-up", Modifier.weight(1f)) { controller.selectState(StatusPrototypeStateId.PLAYER_LEVEL_UP) }
+                    Action("Class LvUp", Modifier.weight(1f)) { controller.selectState(StatusPrototypeStateId.CLASS_LEVEL_UP) }
+                    Action("Rank up", Modifier.weight(1f)) { controller.selectState(StatusPrototypeStateId.RANK_PROMOTION) }
+                }
+            }
             Section("Entrance mode") {
                 Chips(EntranceMode.entries, controller.entranceMode, { it.label }) { controller.entranceMode = it }
             }
@@ -162,6 +187,33 @@ private fun ToggleRow(
         Text("  $label", color = Color(0xFFCAD4E2), fontSize = 13.sp)
     }
 }
+
+private val rankOptions: List<RankTier?> = listOf(null) + RankTier.entries
+private val medallionOptions: List<Int> = listOf(-1, 0, 1, 2, 3, 4)
+private val ringOptions: List<Float?> = listOf(null, 0f, 0.5f, 1f)
+private val opacityOptions: List<Float> = listOf(0.12f, 0.16f, 0.30f)
+
+private fun medallionLabel(index: Int): String =
+    when (index) {
+        0 -> "Str"
+        1 -> "End"
+        2 -> "Agi"
+        3 -> "Dis"
+        4 -> "Rec"
+        else -> "None"
+    }
+
+private fun ringLabel(
+    prefix: String,
+    fraction: Float?,
+): String = if (fraction == null) "$prefix auto" else "$prefix ${(fraction * 100).toInt()}%"
+
+private fun opacityLabel(value: Float): String =
+    when {
+        value <= 0.13f -> "Faint"
+        value <= 0.17f -> "Default"
+        else -> "Strong"
+    }
 
 @Composable
 private fun Action(

@@ -4,11 +4,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ascend.core.designsystem.theme.AscendTheme
@@ -26,41 +29,29 @@ internal fun StaticStatusPanel(
     data: StatusPrototypeData,
     modifier: Modifier = Modifier,
 ) {
-    val sigil = StatusSigilVariant.of(data.variant)
-    val accent = sigil.core
+    val accent = StatusSigilVariant.of(data.variant).core
+    val hasClass = data.variant != StatusClassVariant.NEUTRAL
     Box(modifier.background(StatusPalette.groundDeep)) {
         StatusAtmosphere(sweep = 0.5f)
         StatusEnergyFrame(energy = 1f, pulse = 0f, rotation = 18f, frameMotion = false, modifier = Modifier.padding(12.dp)) {
             EdgeLitStatusPanel(accent = accent, materialize = 1f, scan = 0f, modifier = Modifier.fillMaxWidth()) {
-                Column(Modifier.fillMaxWidth().padding(24.dp)) {
-                    IdentityBlock(data, accent, 1f)
-                    Spacer(Modifier.padding(8.dp))
-                    Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-                        StatusSigil(
-                            state =
-                                StatusSigilState(
-                                    variant = sigil,
-                                    tier = data.trainingTier,
-                                    assembly = 1f,
-                                    majorUnlock = data.majorUnlock,
-                                    progressionActive = data.pendingRecommendation != null,
-                                ),
-                            animation = StatusSigilAnimation(1f, 18f, 1f),
-                            modifier = Modifier.fillMaxWidth(0.5f).padding(4.dp),
+                Box(Modifier.fillMaxWidth().clipToBounds()) {
+                    StaticOrnateSigil(data, hasClass, Modifier.align(Alignment.TopCenter))
+                    Column(Modifier.fillMaxWidth().padding(24.dp)) {
+                        IdentityBlock(data, accent, 1f)
+                        Spacer(Modifier.padding(10.dp))
+                        ProgressionBars(data, accent, data.playerXpFraction, data.classXpFraction, data.secondaryClassXpFraction ?: 0f)
+                        Spacer(Modifier.padding(12.dp))
+                        AttributeMeters(
+                            data,
+                            reveals = List(data.attributes.size) { 1f },
+                            values = data.attributes.map { it.value.toFloat() },
+                            pulses = List(data.attributes.size) { 1f },
                         )
+                        ProficiencyBlock(data, accent, 1f, 1f)
+                        Spacer(Modifier.padding(10.dp))
+                        ProgressionInfo(data, accent, 1f)
                     }
-                    Spacer(Modifier.padding(10.dp))
-                    ProgressionBars(data, accent, data.playerXpFraction, data.classXpFraction, data.secondaryClassXpFraction ?: 0f)
-                    Spacer(Modifier.padding(12.dp))
-                    AttributeMeters(
-                        data,
-                        reveals = List(data.attributes.size) { 1f },
-                        values = data.attributes.map { it.value.toFloat() },
-                        pulses = List(data.attributes.size) { 1f },
-                    )
-                    ProficiencyBlock(data, accent, 1f, 1f)
-                    Spacer(Modifier.padding(10.dp))
-                    ProgressionInfo(data, accent, 1f)
                 }
             }
             Box(Modifier.align(Alignment.TopCenter)) {
@@ -68,6 +59,40 @@ internal fun StaticStatusPanel(
             }
         }
     }
+}
+
+/** A settled (non-animated) ornate sigil for static previews and smoke tests. */
+@Composable
+private fun StaticOrnateSigil(
+    data: StatusPrototypeData,
+    hasClass: Boolean,
+    modifier: Modifier = Modifier,
+) {
+    OrnateSigil(
+        state =
+            OrnateSigilState(
+                rankTier = data.rankTier,
+                variant = data.variant,
+                playerRing = data.playerXpFraction,
+                classRing = if (hasClass) data.classXpFraction else null,
+                activeMedallion = data.activeMedallionIndex,
+                showProficiency = data.showProficiencyMedallion && hasClass,
+                newRankLayer = data.stateId == StatusPrototypeStateId.RANK_PROMOTION,
+            ),
+        animation =
+            OrnateSigilAnimation(
+                assembly = 1f,
+                rotation = 18f,
+                glow = 0f,
+                playerRingTrim = data.playerXpFraction,
+                classRingTrim = data.classXpFraction,
+                medallionPulse = List(5) { 1f },
+                proficiencyPulse = 1f,
+            ),
+        semanticDescription =
+            sigilDescription(data, data.playerXpFraction, if (hasClass) data.classXpFraction else null, data.activeMedallionIndex),
+        modifier = modifier.fillMaxWidth(0.98f).aspectRatio(1f).offset(y = (-28).dp),
+    )
 }
 
 @Composable
@@ -142,3 +167,25 @@ private fun PreviewSecondaryClass() = preview(StatusPrototypeStateId.STANDARD, S
 @Preview(name = "Font scale 1.5×", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 1040, fontScale = 1.5f)
 @Composable
 private fun PreviewLargeFontScale() = preview(StatusPrototypeStateId.RECOMMENDATION, StatusClassVariant.MONK, forceSecondary = true)
+
+// ---- ornate sigil focus previews ----
+
+@Preview(name = "Sigil · low rank", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940)
+@Composable
+private fun PreviewSigilLowRank() = preview(StatusPrototypeStateId.LOW_RANK, StatusClassVariant.NEUTRAL)
+
+@Preview(name = "Sigil · mid rank", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940)
+@Composable
+private fun PreviewSigilMidRank() = preview(StatusPrototypeStateId.MID_RANK, StatusClassVariant.MONK)
+
+@Preview(name = "Sigil · high rank dense", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940)
+@Composable
+private fun PreviewSigilHighRank() = preview(StatusPrototypeStateId.HIGH_RANK, StatusClassVariant.MAGICIAN)
+
+@Preview(name = "Sigil · attribute gain", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940)
+@Composable
+private fun PreviewSigilAttributeGain() = preview(StatusPrototypeStateId.ATTRIBUTE_UP, StatusClassVariant.BERSERKER)
+
+@Preview(name = "Sigil · rank promotion", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940)
+@Composable
+private fun PreviewSigilRankPromotion() = preview(StatusPrototypeStateId.RANK_PROMOTION, StatusClassVariant.BERSERKER)

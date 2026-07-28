@@ -108,21 +108,33 @@ fun RevisedStatusPrototypeScreen(
         infiniteRepeatable(tween(5200, easing = LinearEasing), RepeatMode.Restart),
         label = "scan",
     )
+    val sweep by infinite.animateFloat(
+        0f,
+        if (particlesRunning) 1f else 0.5f,
+        infiniteRepeatable(tween(9000, easing = LinearEasing), RepeatMode.Reverse),
+        label = "sweep",
+    )
 
     val zone: (String) -> Modifier = { label -> Modifier.hierarchyZone(label, controller.hierarchyOverlay, measurer, accent) }
+    val frameMotion = !reduced && effects.sigilIdle
 
-    Box(modifier.fillMaxSize().background(Color(0xFF05070B))) {
-        StatusAtmosphere(accent)
-        if (particlesRunning || effects.particleQuality > 0f) {
-            StatusParticleField(accent, running = particlesRunning, effectsQuality = effects.particleQuality)
-        }
+    Box(modifier.fillMaxSize().background(StatusPalette.groundDeep)) {
+        StatusAtmosphere(sweep = sweep)
+        StatusFog(running = particlesRunning, effectsQuality = effects.particleQuality)
+        StatusParticleField(running = particlesRunning, effectsQuality = effects.particleQuality)
 
         Column(
-            Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(20.dp),
+            Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 12.dp, vertical = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             val widthMod = controller.deviceWidth.widthDp?.let { Modifier.width(it.dp) } ?: Modifier.fillMaxWidth()
-            Box(widthMod) {
+            StatusEnergyFrame(
+                energy = motion.frameEnergy.value,
+                pulse = motion.eventFlash.value,
+                rotation = rotation,
+                frameMotion = frameMotion,
+                modifier = widthMod,
+            ) {
                 EdgeLitStatusPanel(
                     accent = accent,
                     materialize = motion.panelMaterialize.value,

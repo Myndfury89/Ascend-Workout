@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ascend.core.designsystem.theme.AscendTheme
@@ -29,8 +28,9 @@ internal fun StaticStatusPanel(
 ) {
     val sigil = StatusSigilVariant.of(data.variant)
     val accent = sigil.core
-    Box(modifier.background(Color(0xFF06080D)).padding(16.dp)) {
-        Box {
+    Box(modifier.background(StatusPalette.groundDeep)) {
+        StatusAtmosphere(sweep = 0.5f)
+        StatusEnergyFrame(energy = 1f, pulse = 0f, rotation = 18f, frameMotion = false, modifier = Modifier.padding(12.dp)) {
             EdgeLitStatusPanel(accent = accent, materialize = 1f, scan = 0f, modifier = Modifier.fillMaxWidth()) {
                 Column(Modifier.fillMaxWidth().padding(24.dp)) {
                     IdentityBlock(data, accent, 1f)

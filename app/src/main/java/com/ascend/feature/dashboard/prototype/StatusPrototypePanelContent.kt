@@ -89,7 +89,7 @@ internal fun IdentityBlock(
         Spacer(Modifier.height(6.dp))
         Text(
             data.hunterName,
-            color = Color(0xFFEAEEF6),
+            color = StatusPalette.textPrimary,
             fontSize = 30.sp,
             fontWeight = FontWeight.SemiBold,
             maxLines = 2,
@@ -97,14 +97,20 @@ internal fun IdentityBlock(
         )
         Spacer(Modifier.height(2.dp))
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Text("LEVEL ${data.level}", color = Color(0xFFB6C2D4), fontSize = 14.sp, fontWeight = FontWeight.Medium, letterSpacing = 1.sp)
+            Text(
+                "LEVEL ${data.level}",
+                color = StatusPalette.infoLine,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Medium,
+                letterSpacing = 1.sp,
+            )
             Text("   ·   ${data.variant.displayName}", color = accent.copy(alpha = 0.9f), fontSize = 14.sp)
             data.secondaryVariant?.let {
-                Text("  /  ${it.displayName}", color = Color(0xFF8A97AC), fontSize = 13.sp)
+                Text("  /  ${it.displayName}", color = StatusPalette.textMuted, fontSize = 13.sp)
             }
         }
         Spacer(Modifier.height(2.dp))
-        Text(data.title, color = Color(0xFF7E8CA0), fontSize = 12.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
+        Text(data.title, color = StatusPalette.textMuted, fontSize = 12.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
     }
 }
 
@@ -132,7 +138,7 @@ internal fun ProgressionBars(
                 "${data.secondaryVariant.displayName} (secondary)",
                 "${data.secondaryClassXpInLevel} / ${data.secondaryClassXpForLevel}",
                 secondaryFill,
-                Color(0xFF8A97AC),
+                StatusPalette.textMuted,
             )
         }
     }
@@ -149,14 +155,14 @@ private fun BarRow(
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(
                 label,
-                color = Color(0xFFB6C2D4),
+                color = StatusPalette.infoLine,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.weight(1f),
             )
-            Text(value, color = Color(0xFF8A97AC), fontSize = 11.sp, maxLines = 1)
+            Text(value, color = StatusPalette.textMuted, fontSize = 11.sp, maxLines = 1)
         }
         Spacer(Modifier.height(5.dp))
         LuminBar(fraction, accent)
@@ -193,13 +199,13 @@ internal fun AttributeMeters(
             ) {
                 Canvas(Modifier.size(8.dp)) { drawCircle(accent) }
                 Column(Modifier.padding(start = 12.dp).weight(1f)) {
-                    Text(line.name, color = Color(0xFFCAD4E2), fontSize = 13.sp)
+                    Text(line.name, color = StatusPalette.infoLine, fontSize = 13.sp)
                     Spacer(Modifier.height(4.dp))
                     LuminBar((value / ATTRIBUTE_CEILING).coerceIn(0f, 1f), accent, height = 5)
                 }
                 Text(
                     value.roundToInt().toString(),
-                    color = if (line.emphasized) accent else Color(0xFFEAEEF6),
+                    color = if (line.emphasized) accent else StatusPalette.textPrimary,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.padding(start = 12.dp),
@@ -232,7 +238,7 @@ internal fun ProficiencyBlock(
     ) {
         Column {
             Text(data.variant.proficiencyName.uppercase(), color = accent, fontSize = 11.sp, letterSpacing = 2.sp)
-            Text("Class proficiency", color = Color(0xFF7E8CA0), fontSize = 11.sp)
+            Text("Class proficiency", color = StatusPalette.textMuted, fontSize = 11.sp)
         }
         Text(data.uniqueProficiency.toString(), color = accent, fontSize = 22.sp, fontWeight = FontWeight.Bold)
     }
@@ -259,20 +265,20 @@ internal fun ProgressionInfo(
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(
                 data.questName,
-                color = Color(0xFFCAD4E2),
+                color = StatusPalette.infoLine,
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Medium,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.weight(1f),
             )
-            Text("${data.questProgress} / ${data.questTarget}", color = Color(0xFF8A97AC), fontSize = 12.sp, maxLines = 1)
+            Text("${data.questProgress} / ${data.questTarget}", color = StatusPalette.textMuted, fontSize = 12.sp, maxLines = 1)
         }
         Spacer(Modifier.height(6.dp))
         LuminBar(data.questFraction, accent, height = 6)
         data.questIntervalState?.let {
             Spacer(Modifier.height(6.dp))
-            Text(it, color = Color(0xFF7E8CA0), fontSize = 11.sp)
+            Text(it, color = StatusPalette.textMuted, fontSize = 11.sp)
         }
     }
 }
@@ -285,10 +291,10 @@ private fun InfoLine(
     highlight: Boolean = false,
 ) {
     Row(Modifier.fillMaxWidth().padding(vertical = 3.dp)) {
-        Text(label, color = Color(0xFF7E8CA0), fontSize = 12.sp, modifier = Modifier.width(112.dp))
+        Text(label, color = StatusPalette.textMuted, fontSize = 12.sp, modifier = Modifier.width(112.dp))
         Text(
             value,
-            color = if (highlight) accent else Color(0xFFCAD4E2),
+            color = if (highlight) accent else StatusPalette.infoLine,
             fontSize = 12.sp,
             fontWeight = if (highlight) FontWeight.Medium else FontWeight.Normal,
         )
@@ -297,5 +303,5 @@ private fun InfoLine(
 
 @Composable
 private fun SectionLabel(text: String) {
-    Text(text.uppercase(), color = Color(0xFF6E7C90), fontSize = 11.sp, letterSpacing = 2.sp, textAlign = TextAlign.Start)
+    Text(text.uppercase(), color = StatusPalette.label, fontSize = 11.sp, letterSpacing = 2.sp, textAlign = TextAlign.Start)
 }

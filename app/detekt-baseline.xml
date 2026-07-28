@@ -30,10 +30,12 @@
     <ID>FunctionNaming:RevisedStatusPrototypeScreen.kt$@Composable fun RevisedStatusPrototypeScreen( modifier: Modifier = Modifier, controller: PrototypeReviewController = rememberPrototypeReviewController(), )</ID>
     <ID>FunctionNaming:RevisedStatusPrototypeScreen.kt$@Composable private fun PanelContent( data: StatusPrototypeData, accent: Color, sigil: StatusSigilVariant, motion: StatusPrototypeMotion, rotation: Float, glowPulse: Float, zone: (String) -&gt; Modifier, )</ID>
     <ID>FunctionNaming:RevisedStatusPrototypeScreen.kt$@Composable private fun SigilBlock( data: StatusPrototypeData, sigil: StatusSigilVariant, motion: StatusPrototypeMotion, rotation: Float, glowPulse: Float, )</ID>
-    <ID>FunctionNaming:StatusAtmosphere.kt$@Composable fun StatusAtmosphere( accent: Color, modifier: Modifier = Modifier, )</ID>
-    <ID>FunctionNaming:StatusAtmosphere.kt$@Composable fun StatusParticleField( accent: Color, running: Boolean, modifier: Modifier = Modifier, effectsQuality: Float = 1f, )</ID>
+    <ID>FunctionNaming:StatusAtmosphere.kt$@Composable fun StatusAtmosphere( sweep: Float, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:StatusAtmosphere.kt$@Composable fun StatusFog( running: Boolean, modifier: Modifier = Modifier, effectsQuality: Float = 1f, )</ID>
+    <ID>FunctionNaming:StatusAtmosphere.kt$@Composable fun StatusParticleField( running: Boolean, modifier: Modifier = Modifier, effectsQuality: Float = 1f, )</ID>
     <ID>FunctionNaming:StatusDiagnosticsOverlay.kt$@Composable fun StatusDiagnosticsPanel( info: DiagnosticsInfo, frameMs: Float, modifier: Modifier = Modifier, )</ID>
     <ID>FunctionNaming:StatusDiagnosticsOverlay.kt$@Composable private fun Line( key: String, value: String, )</ID>
+    <ID>FunctionNaming:StatusEnergyFrame.kt$@Composable fun StatusEnergyFrame( energy: Float, pulse: Float, rotation: Float, frameMotion: Boolean, modifier: Modifier = Modifier, content: @Composable BoxScope.() -&gt; Unit, )</ID>
     <ID>FunctionNaming:StatusPrototypeControls.kt$@Composable internal fun EventOverlayChip( overlay: StatusEventOverlay, accent: Color, reveal: Float, flash: Float, )</ID>
     <ID>FunctionNaming:StatusPrototypeControls.kt$@Composable private fun Action( label: String, modifier: Modifier = Modifier, onClick: () -&gt; Unit, )</ID>
     <ID>FunctionNaming:StatusPrototypeControls.kt$@Composable private fun Section( title: String, content: @Composable () -&gt; Unit, )</ID>
@@ -105,6 +107,8 @@
     <ID>LongParameterList:QuestRepository.kt$QuestRepository$( objectiveId: String, value: Double, source: ProgressSource = ProgressSource.MANUAL, note: String? = null, perceivedEffort: Int? = null, sourceApplication: String? = null, externalRecordId: String? = null, )</ID>
     <ID>LongParameterList:QuestRepositoryImpl.kt$QuestRepositoryImpl$( private val db: AscendDatabase, private val questDao: QuestDao, private val exerciseDao: ExerciseDao, private val progressionRepository: ProgressionRepository, private val xpCalculator: XpCalculator, private val attributeCalculator: AttributeProgressCalculator, private val classRewardApplier: ClassRewardApplier, private val eventPublisher: ProgressionEventPublisher, )</ID>
     <ID>LongParameterList:RevisedStatusPrototypeScreen.kt$( data: StatusPrototypeData, accent: Color, sigil: StatusSigilVariant, motion: StatusPrototypeMotion, rotation: Float, glowPulse: Float, zone: (String) -&gt; Modifier, )</ID>
+    <ID>LongParameterList:StatusEnergyFrame.kt$( energy: Float, pulse: Float, rotation: Float, frameMotion: Boolean, modifier: Modifier = Modifier, content: @Composable BoxScope.() -&gt; Unit, )</ID>
+    <ID>LongParameterList:StatusEnergyFrame.kt$( origin: Offset, sx: Float, sy: Float, bright: Float, rotation: Float, motion: Boolean, )</ID>
     <ID>LongParameterList:StatusScreen.kt$( hunterName: String, rankLabel: String, level: Int, headerAlpha: Float, levelFlash: Float, rankFlash: Float, )</ID>
     <ID>LongParameterList:StatusScreen.kt$( reducedMotion: Boolean, busy: Boolean, onSimulate: (SimulatedCompletion) -&gt; Unit, onReplay: () -&gt; Unit, onReset: () -&gt; Unit, onReducedMotionChange: (Boolean) -&gt; Unit, )</ID>
     <ID>LongParameterList:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$( private val db: AscendDatabase, private val workoutDao: WorkoutDao, private val exerciseDao: ExerciseDao, private val progressionRepository: ProgressionRepository, private val xpCalculator: XpCalculator, private val attributeCalculator: AttributeProgressCalculator, private val classRewardApplier: ClassRewardApplier, private val eventPublisher: ProgressionEventPublisher, )</ID>
@@ -172,10 +176,14 @@
     <ID>MagicNumber:Color.kt$0xFFFFFFFF</ID>
     <ID>MagicNumber:EdgeLitStatusPanel.kt$0.18f</ID>
     <ID>MagicNumber:EdgeLitStatusPanel.kt$0.5f</ID>
-    <ID>MagicNumber:EdgeLitStatusPanel.kt$0xFF080B11</ID>
-    <ID>MagicNumber:EdgeLitStatusPanel.kt$0xFF0C1017</ID>
-    <ID>MagicNumber:EdgeLitStatusPanel.kt$0xFF161C28</ID>
+    <ID>MagicNumber:EdgeLitStatusPanel.kt$0xFF070810</ID>
+    <ID>MagicNumber:EdgeLitStatusPanel.kt$0xFF0B0E1B</ID>
+    <ID>MagicNumber:EdgeLitStatusPanel.kt$0xFF121627</ID>
+    <ID>MagicNumber:EdgeLitStatusPanel.kt$0xFF9FB0FF</ID>
+    <ID>MagicNumber:EdgeLitStatusPanel.kt$26f</ID>
+    <ID>MagicNumber:EdgeLitStatusPanel.kt$4</ID>
     <ID>MagicNumber:EdgeLitStatusPanel.kt$40f</ID>
+    <ID>MagicNumber:EdgeLitStatusPanel.kt$4f</ID>
     <ID>MagicNumber:EdgeLitStatusPanel.kt$80f</ID>
     <ID>MagicNumber:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$12.0</ID>
     <ID>MagicNumber:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$20.0</ID>
@@ -234,30 +242,70 @@
     <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$0.55f</ID>
     <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$0.5f</ID>
     <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$0.6f</ID>
-    <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$0xFF05070B</ID>
     <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$0xFF7E8CA0</ID>
     <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$24_000</ID>
     <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$2600</ID>
     <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$360f</ID>
     <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$4</ID>
     <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$5200</ID>
-    <ID>MagicNumber:StatusAtmosphere.kt$0.28f</ID>
+    <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$9000</ID>
+    <ID>MagicNumber:StatusAtmosphere.kt$0.03f</ID>
+    <ID>MagicNumber:StatusAtmosphere.kt$0.32f</ID>
+    <ID>MagicNumber:StatusAtmosphere.kt$0.34f</ID>
+    <ID>MagicNumber:StatusAtmosphere.kt$0.42f</ID>
     <ID>MagicNumber:StatusAtmosphere.kt$0.5f</ID>
-    <ID>MagicNumber:StatusAtmosphere.kt$0xFF05070B</ID>
-    <ID>MagicNumber:StatusAtmosphere.kt$0xFF080B12</ID>
-    <ID>MagicNumber:StatusAtmosphere.kt$0xFF0E1420</ID>
-    <ID>MagicNumber:StatusAtmosphere.kt$14_000</ID>
+    <ID>MagicNumber:StatusAtmosphere.kt$0.6f</ID>
+    <ID>MagicNumber:StatusAtmosphere.kt$120f</ID>
+    <ID>MagicNumber:StatusAtmosphere.kt$16_000</ID>
+    <ID>MagicNumber:StatusAtmosphere.kt$240f</ID>
+    <ID>MagicNumber:StatusAtmosphere.kt$26_000</ID>
+    <ID>MagicNumber:StatusAtmosphere.kt$4</ID>
     <ID>MagicNumber:StatusAtmosphere.kt$42</ID>
     <ID>MagicNumber:StatusAtmosphere.kt$6.28f</ID>
+    <ID>MagicNumber:StatusAtmosphere.kt$7</ID>
     <ID>MagicNumber:StatusDiagnosticsOverlay.kt$0.1f</ID>
     <ID>MagicNumber:StatusDiagnosticsOverlay.kt$0.9f</ID>
     <ID>MagicNumber:StatusDiagnosticsOverlay.kt$0xFF0B0F16</ID>
     <ID>MagicNumber:StatusDiagnosticsOverlay.kt$0xFF9AE6DA</ID>
     <ID>MagicNumber:StatusDiagnosticsOverlay.kt$1_000_000f</ID>
+    <ID>MagicNumber:StatusEnergyFrame.kt$0.18f</ID>
+    <ID>MagicNumber:StatusEnergyFrame.kt$0.45f</ID>
+    <ID>MagicNumber:StatusEnergyFrame.kt$0.55f</ID>
+    <ID>MagicNumber:StatusEnergyFrame.kt$0.5f</ID>
+    <ID>MagicNumber:StatusEnergyFrame.kt$0.64f</ID>
+    <ID>MagicNumber:StatusEnergyFrame.kt$0.6f</ID>
+    <ID>MagicNumber:StatusEnergyFrame.kt$10f</ID>
+    <ID>MagicNumber:StatusEnergyFrame.kt$12f</ID>
+    <ID>MagicNumber:StatusEnergyFrame.kt$14f</ID>
+    <ID>MagicNumber:StatusEnergyFrame.kt$20f</ID>
+    <ID>MagicNumber:StatusEnergyFrame.kt$22f</ID>
+    <ID>MagicNumber:StatusEnergyFrame.kt$3</ID>
+    <ID>MagicNumber:StatusEnergyFrame.kt$30f</ID>
+    <ID>MagicNumber:StatusEnergyFrame.kt$34f</ID>
+    <ID>MagicNumber:StatusEnergyFrame.kt$40f</ID>
+    <ID>MagicNumber:StatusEnergyFrame.kt$4f</ID>
+    <ID>MagicNumber:StatusEnergyFrame.kt$5f</ID>
+    <ID>MagicNumber:StatusEnergyFrame.kt$6</ID>
+    <ID>MagicNumber:StatusEnergyFrame.kt$6f</ID>
+    <ID>MagicNumber:StatusEnergyFrame.kt$7</ID>
+    <ID>MagicNumber:StatusEnergyFrame.kt$8f</ID>
     <ID>MagicNumber:StatusHierarchyOverlay.kt$0xFF04070C</ID>
     <ID>MagicNumber:StatusHierarchyOverlay.kt$0xFF3FD9C7</ID>
     <ID>MagicNumber:StatusHierarchyOverlay.kt$3f</ID>
     <ID>MagicNumber:StatusMotionViewModel.kt$StatusMotionViewModel$5_000</ID>
+    <ID>MagicNumber:StatusPalette.kt$StatusPalette$0xFF04050B</ID>
+    <ID>MagicNumber:StatusPalette.kt$StatusPalette$0xFF080A16</ID>
+    <ID>MagicNumber:StatusPalette.kt$StatusPalette$0xFF0E0B1E</ID>
+    <ID>MagicNumber:StatusPalette.kt$StatusPalette$0xFF1C1740</ID>
+    <ID>MagicNumber:StatusPalette.kt$StatusPalette$0xFF3B2E8C</ID>
+    <ID>MagicNumber:StatusPalette.kt$StatusPalette$0xFF4FE3FF</ID>
+    <ID>MagicNumber:StatusPalette.kt$StatusPalette$0xFF6E76A0</ID>
+    <ID>MagicNumber:StatusPalette.kt$StatusPalette$0xFF7C5CFF</ID>
+    <ID>MagicNumber:StatusPalette.kt$StatusPalette$0xFF7FE9FF</ID>
+    <ID>MagicNumber:StatusPalette.kt$StatusPalette$0xFF8A93B5</ID>
+    <ID>MagicNumber:StatusPalette.kt$StatusPalette$0xFFA88BFF</ID>
+    <ID>MagicNumber:StatusPalette.kt$StatusPalette$0xFFD9E4FF</ID>
+    <ID>MagicNumber:StatusPalette.kt$StatusPalette$0xFFEAF0FF</ID>
     <ID>MagicNumber:StatusPrototypeControls.kt$0.01f</ID>
     <ID>MagicNumber:StatusPrototypeControls.kt$0.04f</ID>
     <ID>MagicNumber:StatusPrototypeControls.kt$0.96f</ID>
@@ -271,18 +319,11 @@
     <ID>MagicNumber:StatusPrototypeMotion.kt$StatusPrototypeMotion$0.7f</ID>
     <ID>MagicNumber:StatusPrototypePanelContent.kt$0xFF3FD9C7</ID>
     <ID>MagicNumber:StatusPrototypePanelContent.kt$0xFF62B6E8</ID>
-    <ID>MagicNumber:StatusPrototypePanelContent.kt$0xFF6E7C90</ID>
-    <ID>MagicNumber:StatusPrototypePanelContent.kt$0xFF7E8CA0</ID>
     <ID>MagicNumber:StatusPrototypePanelContent.kt$0xFF7EC46B</ID>
-    <ID>MagicNumber:StatusPrototypePanelContent.kt$0xFF8A97AC</ID>
     <ID>MagicNumber:StatusPrototypePanelContent.kt$0xFF8AA0B8</ID>
     <ID>MagicNumber:StatusPrototypePanelContent.kt$0xFF9B8CFF</ID>
-    <ID>MagicNumber:StatusPrototypePanelContent.kt$0xFFB6C2D4</ID>
-    <ID>MagicNumber:StatusPrototypePanelContent.kt$0xFFCAD4E2</ID>
     <ID>MagicNumber:StatusPrototypePanelContent.kt$0xFFE8735A</ID>
-    <ID>MagicNumber:StatusPrototypePanelContent.kt$0xFFEAEEF6</ID>
     <ID>MagicNumber:StatusPrototypePreviews.kt$0.5f</ID>
-    <ID>MagicNumber:StatusPrototypePreviews.kt$0xFF06080D</ID>
     <ID>MagicNumber:StatusPrototypePreviews.kt$18f</ID>
     <ID>MagicNumber:StatusScreen.kt$0.05f</ID>
     <ID>MagicNumber:StatusScreen.kt$0xFF3FD9C7</ID>
@@ -429,6 +470,9 @@
     <ID>MaxLineLength:CreateQuestFromTemplateFlowTest.kt$CreateQuestFromTemplateFlowTest$unit = "reps"</ID>
     <ID>MaxLineLength:CreateQuestFromTemplateFlowTest.kt$CreateQuestFromTemplateFlowTest$val progression = ProgressionRepositoryImpl(db, db.playerDao(), db.xpDao(), db.attributeDao(), level, RankCalculator())</ID>
     <ID>MaxLineLength:DataModule.kt$DataModule$abstract</ID>
+    <ID>MaxLineLength:EdgeLitStatusPanel.kt$drawLine(Color(0xFF9FB0FF).copy(alpha = 0.02f * materialize), Offset(0f, y), Offset(size.width, y), strokeWidth = 1f)</ID>
+    <ID>MaxLineLength:EdgeLitStatusPanel.kt$drawLine(Color(0xFF9FB0FF).copy(alpha = 0.02f * materialize), Offset(x, 0f), Offset(x, size.height), strokeWidth = 1f)</ID>
+    <ID>MaxLineLength:EdgeLitStatusPanel.kt$drawPath(path, color = StatusPalette.infoLine.copy(alpha = 0.22f * materialize), style = Stroke(width = 1.dp.toPx()))</ID>
     <ID>MaxLineLength:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$variation("var-pullup-weighted", "ex-pullup", "Weighted Pull-Up", 6, "Added external load.", rom = 4, externalLoad = true)</ID>
     <ID>MaxLineLength:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$variation("var-pushup-diamond", "ex-pushup", "Diamond Push-Up", 4, "Hands together under the chest.", rom = 4)</ID>
     <ID>MaxLineLength:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$variation("var-pushup-knee", "ex-pushup", "Knee Push-Up", 2, "From the knees.", AssistanceType.KNEE, 40.0, rom = 3)</ID>
@@ -522,6 +566,13 @@
     <ID>MaxLineLength:SeedQuestTemplatesUseCase.kt$SeedQuestTemplatesUseCase.Companion$supportedVariations = listOf("Assisted", "Band-assisted")</ID>
     <ID>MaxLineLength:SeedQuestTemplatesUseCase.kt$SeedQuestTemplatesUseCase.Companion$supportedVariations = listOf("Bodyweight", "Weighted")</ID>
     <ID>MaxLineLength:SetSuggestionEngineTest.kt$SetSuggestionEngineTest$val s = engine.suggest(SetSuggestionInput(remaining = 137, preferredSetSize = 30, minimumSetSize = 10, maximumSetSize = 50))</ID>
+    <ID>MaxLineLength:StatusAtmosphere.kt$brush = Brush.radialGradient(listOf(b.tint.copy(alpha = 0.05f * effectsQuality), Color.Transparent), Offset(cx, cy), r)</ID>
+    <ID>MaxLineLength:StatusEnergyFrame.kt$colors = listOf(Color.Transparent, StatusPalette.violet.copy(alpha = 0.16f * bright), Color.Transparent)</ID>
+    <ID>MaxLineLength:StatusEnergyFrame.kt$drawLine(StatusPalette.cyanSoft.copy(alpha = 0.5f * bright), Offset(tx, y), Offset(tx, y + dir * 6f), strokeWidth = 1f)</ID>
+    <ID>MaxLineLength:StatusEnergyFrame.kt$drawLine(StatusPalette.indigo.copy(alpha = 0.5f * e), Offset(sideX, railY), Offset(sideX, h - railY), strokeWidth = 1.5f)</ID>
+    <ID>MaxLineLength:StatusEnergyFrame.kt$drawLine(StatusPalette.indigo.copy(alpha = 0.5f * e), Offset(w - sideX, railY), Offset(w - sideX, h - railY), strokeWidth = 1.5f)</ID>
+    <ID>MaxLineLength:StatusEnergyFrame.kt$drawLine(StatusPalette.violetBright.copy(alpha = 0.6f * bright), inner, inner + Offset(0f, sy * armY * 0.6f), strokeWidth = 1.5f)</ID>
+    <ID>MaxLineLength:StatusEnergyFrame.kt$drawLine(StatusPalette.violetBright.copy(alpha = 0.6f * bright), inner, inner + Offset(sx * armX * 0.6f, 0f), strokeWidth = 1.5f)</ID>
     <ID>MaxLineLength:StatusHierarchyOverlay.kt$drawRect(color = color.copy(alpha = 0.55f), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 1f))</ID>
     <ID>MaxLineLength:StatusMotion.kt$StatusMotion$lifetime.animateTo(domain.lifetimeXp.toFloat(), motion.tween(AscendMotionTokens.DELIBERATE, AscendEasing.settle))</ID>
     <ID>MaxLineLength:StatusMotion.kt$StatusMotion$lifetime.animateTo(event.toValue.toFloat(), motion.tween(AscendMotionTokens.DELIBERATE, AscendEasing.settle))</ID>
@@ -529,13 +580,15 @@
     <ID>MaxLineLength:StatusPrototypeControls.kt$Chips(EffectsQuality.entries, controller.effectsQuality, { it.label }) { controller.effectsQuality = it }</ID>
     <ID>MaxLineLength:StatusPrototypeControls.kt$Text(title.uppercase(), color = Color(0xFF6E7C90), fontSize = 11.sp, modifier = Modifier.padding(top = 12.dp, bottom = 8.dp))</ID>
     <ID>MaxLineLength:StatusPrototypeMotion.kt$StatusPrototypeMotion$attrValue[i].animateTo(line.value.toFloat(), motion.tween(AscendMotionTokens.STANDARD, AscendEasing.settle))</ID>
-    <ID>MaxLineLength:StatusPrototypePanelContent.kt$Text("${data.questProgress} / ${data.questTarget}", color = Color(0xFF8A97AC), fontSize = 12.sp, maxLines = 1)</ID>
-    <ID>MaxLineLength:StatusPrototypePanelContent.kt$Text("LEVEL ${data.level}", color = Color(0xFFB6C2D4), fontSize = 14.sp, fontWeight = FontWeight.Medium, letterSpacing = 1.sp)</ID>
-    <ID>MaxLineLength:StatusPrototypePanelContent.kt$Text(text.uppercase(), color = Color(0xFF6E7C90), fontSize = 11.sp, letterSpacing = 2.sp, textAlign = TextAlign.Start)</ID>
+    <ID>MaxLineLength:StatusPrototypeMotion.kt$StatusPrototypeMotion$frameEnergy.animateTo(1f, motion.tween(frameToken, if (everyday) AscendEasing.settle else AscendEasing.emphasize))</ID>
+    <ID>MaxLineLength:StatusPrototypePanelContent.kt$Text("${data.questProgress} / ${data.questTarget}", color = StatusPalette.textMuted, fontSize = 12.sp, maxLines = 1)</ID>
+    <ID>MaxLineLength:StatusPrototypePanelContent.kt$Text(data.title, color = StatusPalette.textMuted, fontSize = 12.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)</ID>
+    <ID>MaxLineLength:StatusPrototypePanelContent.kt$Text(text.uppercase(), color = StatusPalette.label, fontSize = 11.sp, letterSpacing = 2.sp, textAlign = TextAlign.Start)</ID>
     <ID>MaxLineLength:StatusPrototypePreviews.kt$@Preview(name = "Font scale 1.5×", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 1040, fontScale = 1.5f)</ID>
     <ID>MaxLineLength:StatusPrototypePreviews.kt$AscendTheme(darkTheme = true) { StaticStatusPanel(FakeStatusPrototype.stressData(StatusClassVariant.BERSERKER, reducedMotion = false)) }</ID>
     <ID>MaxLineLength:StatusPrototypePreviews.kt$ProgressionBars(data, accent, data.playerXpFraction, data.classXpFraction, data.secondaryClassXpFraction ?: 0f)</ID>
     <ID>MaxLineLength:StatusPrototypePreviews.kt$StaticStatusPanel(FakeStatusPrototype.dataFor(state, variant, reducedMotion = false, forceSecondary = forceSecondary))</ID>
+    <ID>MaxLineLength:StatusPrototypePreviews.kt$StatusEnergyFrame</ID>
     <ID>MaxLineLength:StatusPrototypePreviews.kt$private</ID>
     <ID>MaxLineLength:StatusPrototypeRenderTest.kt$StatusPrototypeRenderTest$val data = FakeStatusPrototype.dataFor(StatusPrototypeStateId.QUEST_COMPLETE, StatusClassVariant.MAGICIAN, reducedMotion = false)</ID>
     <ID>MaxLineLength:StatusPrototypeRenderTest.kt$StatusPrototypeRenderTest$val data = FakeStatusPrototype.dataFor(StatusPrototypeStateId.QUEST_COMPLETE, StatusClassVariant.MONK, reducedMotion = false)</ID>
@@ -607,6 +660,7 @@
     <ID>TooManyFunctions:StatusPrototypePreviews.kt$com.ascend.feature.dashboard.prototype.StatusPrototypePreviews.kt</ID>
     <ID>TooManyFunctions:WorkoutDao.kt$WorkoutDao</ID>
     <ID>TooManyFunctions:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl : WorkoutRepository</ID>
+    <ID>UnusedParameter:EdgeLitStatusPanel.kt$accent: Color</ID>
     <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "1 · Neutral standard", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewNeutralStandard()</ID>
     <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "10 · Text-stress scenario", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 1040) @Composable private fun PreviewTextStress()</ID>
     <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "11 · Small phone", showBackground = true, backgroundColor = 0xFF06080D, widthDp = 340, heightDp = 960) @Composable private fun PreviewSmallPhone()</ID>

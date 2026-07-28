@@ -18,6 +18,7 @@ import kotlinx.coroutines.launch
  */
 @Stable
 class StatusPrototypeMotion(attributeCount: Int) {
+    val frameEnergy = Animatable(0f)
     val panelMaterialize = Animatable(0f)
     val sigilAssembly = Animatable(0f)
     val levelReveal = Animatable(0f)
@@ -53,8 +54,16 @@ class StatusPrototypeMotion(attributeCount: Int) {
         val sigilEasing = if (everyday) AscendEasing.settle else AscendEasing.emphasize
         val fillToken = if (everyday) AscendMotionTokens.STANDARD else AscendMotionTokens.DELIBERATE
 
-        // 1. Panel materialises; in everyday open the sigil barely assembles (no reconstruction).
-        panelMaterialize.animateTo(1f, motion.tween(panelToken, AscendEasing.settle))
+        // 0. The outer energy frame wakes first — quickly in everyday, more deliberately for a
+        // major event so the shell carries the drama while the centre stays controlled.
+        coroutineScope {
+            launch {
+                val frameToken = if (everyday) AscendMotionTokens.QUICK else AscendMotionTokens.DELIBERATE
+                frameEnergy.animateTo(1f, motion.tween(frameToken, if (everyday) AscendEasing.settle else AscendEasing.emphasize))
+            }
+            // 1. Panel materialises; in everyday open the sigil barely assembles (no reconstruction).
+            launch { panelMaterialize.animateTo(1f, motion.tween(panelToken, AscendEasing.settle)) }
+        }
         if (everyday) sigilAssembly.snapTo(0.7f)
         sigilAssembly.animateTo(1f, motion.tween(sigilToken, sigilEasing))
 
@@ -128,6 +137,7 @@ class StatusPrototypeMotion(attributeCount: Int) {
     }
 
     private suspend fun reset() {
+        frameEnergy.snapTo(0f)
         panelMaterialize.snapTo(0f)
         sigilAssembly.snapTo(0f)
         levelReveal.snapTo(0f)

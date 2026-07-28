@@ -1,6 +1,6 @@
 # Database
 
-Room, offline‑first. Schema version **8**, exported to `app/schemas/` so migrations
+Room, offline‑first. Schema version **9**, exported to `app/schemas/` so migrations
 have a versioned baseline from the start.
 
 ## Entities
@@ -70,6 +70,15 @@ The class ledgers also gain a `rewardType` column, widening the exactly‑once g
 | `quest_checkpoint` | A cumulative "by this time" milestone |
 | `quest_interval_progress_entry` | One logged contribution toward an interval (unique `(sourceApplication, externalRecordId)` blocks double‑counted imports) |
 
+**v9 (Adaptive Training & Progressive Overload)**
+
+| Entity | Purpose |
+|---|---|
+| `exercise_prescription` | A current/proposed exercise prescription (sets, rep range, weight, rest, variation, …) |
+| `training_readiness_snapshot` | A structured, explainable readiness evaluation |
+| `progression_recommendation` | A pending/accepted/applied progression recommendation (survives restart) |
+| `progression_milestone` | A proven progression milestone; unique `milestoneKey` makes rewards exactly‑once |
+
 Foreign keys cascade from `user_profile` → progress/stats/xp/attributes/quests/workouts/events/class‑selection/class‑ledgers,
 `quest` → objectives → entries, and `workout` → sets. A `workout_set` also references
 `exercise` with `ON DELETE RESTRICT` (catalog rows can't be deleted while referenced).
@@ -123,6 +132,8 @@ configured.
 - **v6 → v7** (`AscendMigrations.MIGRATION_6_7`): adds `quest_template`.
 - **v7 → v8** (`AscendMigrations.MIGRATION_7_8`): adds the four interval‑scheduling
   tables with their FKs, indices, and the import dedup guard.
+- **v8 → v9** (`AscendMigrations.MIGRATION_8_9`): adds the four adaptive‑training
+  tables, including the unique `milestoneKey` reward guard.
 
 All are validated on the JVM by `AscendMigrationTest` (Robolectric, no emulator).
 The exported schemas are wired into the debug source set's assets so

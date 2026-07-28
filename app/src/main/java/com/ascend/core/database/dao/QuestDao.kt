@@ -96,4 +96,27 @@ interface QuestDao {
         status: String,
         updatedAt: Long,
     )
+
+    /** Recent finished quest outcomes for a template's exercise — the daily‑quest baseline source. */
+    @Query(
+        "SELECT q.id AS questId, q.status AS status, o.targetValue AS target, o.currentValue AS current, q.createdAt AS createdAt " +
+            "FROM quest q JOIN quest_objective o ON o.questId = q.id " +
+            "WHERE q.userId = :userId AND o.exerciseId = :exerciseId " +
+            "AND q.status IN ('COMPLETED', 'OVER_COMPLETED', 'PARTIALLY_COMPLETED') " +
+            "ORDER BY q.createdAt DESC LIMIT :limit",
+    )
+    suspend fun getRecentQuestOutcomes(
+        userId: String,
+        exerciseId: String,
+        limit: Int,
+    ): List<QuestOutcomeRow>
 }
+
+/** Projection of a finished quest's target vs. achieved amount. */
+data class QuestOutcomeRow(
+    val questId: String,
+    val status: String,
+    val target: Double,
+    val current: Double,
+    val createdAt: Long,
+)

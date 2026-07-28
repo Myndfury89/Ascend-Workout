@@ -306,4 +306,38 @@ class AscendMigrationTest {
         assertTrue("duplicate imported interval record is rejected", rejected)
         db.close()
     }
+
+    @Test
+    fun `migrate 8 to 9 adds the adaptive-training tables with the milestone guard`() {
+        val dbName = "migration-test-8-9.db"
+        helper.createDatabase(dbName, 8).use { db ->
+            db.execSQL(
+                "INSERT INTO user_profile (id, displayName, createdAt, updatedAt, onboardingCompleted, " +
+                    "measurementSystem, localOnly, cloudSyncEnabled) VALUES ('u1', 'T', 0, 0, 0, 'METRIC', 1, 0)",
+            )
+        }
+
+        val db = helper.runMigrationsAndValidate(dbName, 9, true, AscendMigrations.MIGRATION_8_9)
+
+        db.execSQL(
+            "INSERT INTO exercise_prescription (id, userId, exerciseId, progressionStrategy, targetSets, minimumReps, " +
+                "maximumReps, targetWeight, targetRestSeconds, effectiveFrom, status, createdAt, updatedAt) " +
+                "VALUES ('p1', 'u1', 'ex-bench', 'DOUBLE_PROGRESSION', 3, 8, 10, 135.0, 120, 0, 'ACTIVE', 0, 0)",
+        )
+        db.execSQL(
+            "INSERT INTO progression_milestone (id, userId, milestoneKey, milestoneType, exerciseId, previousValue, " +
+                "newValue, createdAt) VALUES ('m1', 'u1', 'k1', 'LOAD_INCREASE_COMPLETED', 'ex-bench', 135.0, 140.0, 0)",
+        )
+        var rejected = false
+        try {
+            db.execSQL(
+                "INSERT INTO progression_milestone (id, userId, milestoneKey, milestoneType, exerciseId, previousValue, " +
+                    "newValue, createdAt) VALUES ('m2', 'u1', 'k1', 'LOAD_INCREASE_COMPLETED', 'ex-bench', 135.0, 140.0, 1)",
+            )
+        } catch (expected: android.database.sqlite.SQLiteConstraintException) {
+            rejected = true
+        }
+        assertTrue("duplicate milestoneKey is rejected", rejected)
+        db.close()
+    }
 }

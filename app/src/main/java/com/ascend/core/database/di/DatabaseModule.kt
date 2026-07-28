@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.ascend.core.database.AscendDatabase
 import com.ascend.core.database.AscendMigrations
+import com.ascend.core.database.dao.AdaptiveTrainingDao
 import com.ascend.core.database.dao.AttributeDao
 import com.ascend.core.database.dao.ClassDao
 import com.ascend.core.database.dao.ExerciseDao
@@ -63,4 +64,7 @@ object DatabaseModule {
 
     @Provides
     fun provideQuestIntervalDao(db: AscendDatabase): QuestIntervalDao = db.questIntervalDao()
+
+    @Provides
+    fun provideAdaptiveTrainingDao(db: AscendDatabase): AdaptiveTrainingDao = db.adaptiveTrainingDao()
 }

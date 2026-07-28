@@ -456,6 +456,128 @@ object AscendMigrations {
             }
         }
 
+    /** v8 -> v9: Adaptive Training — prescriptions, readiness snapshots, recommendations, milestones. */
+    val MIGRATION_8_9 =
+        object : Migration(8, 9) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `exercise_prescription` (
+                        `id` TEXT NOT NULL,
+                        `userId` TEXT NOT NULL,
+                        `exerciseId` TEXT NOT NULL,
+                        `progressionStrategy` TEXT NOT NULL,
+                        `targetSets` INTEGER,
+                        `minimumReps` INTEGER,
+                        `maximumReps` INTEGER,
+                        `targetWeight` REAL,
+                        `targetRestSeconds` INTEGER,
+                        `targetDurationSeconds` INTEGER,
+                        `targetDistance` REAL,
+                        `targetPace` REAL,
+                        `tempo` TEXT,
+                        `variationId` TEXT,
+                        `assistanceValue` REAL,
+                        `effectiveFrom` INTEGER NOT NULL,
+                        `status` TEXT NOT NULL,
+                        `createdAt` INTEGER NOT NULL,
+                        `updatedAt` INTEGER NOT NULL,
+                        PRIMARY KEY(`id`),
+                        FOREIGN KEY(`userId`) REFERENCES `user_profile`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE
+                    )
+                    """.trimIndent(),
+                )
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_exercise_prescription_userId_exerciseId_status` " +
+                        "ON `exercise_prescription` (`userId`, `exerciseId`, `status`)",
+                )
+
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `training_readiness_snapshot` (
+                        `id` TEXT NOT NULL,
+                        `userId` TEXT NOT NULL,
+                        `exerciseId` TEXT,
+                        `questTemplateId` TEXT,
+                        `readinessState` TEXT NOT NULL,
+                        `score` REAL NOT NULL,
+                        `confidence` REAL NOT NULL,
+                        `evidence` TEXT NOT NULL,
+                        `positiveSignals` TEXT NOT NULL,
+                        `limitingSignals` TEXT NOT NULL,
+                        `missingSignals` TEXT NOT NULL,
+                        `safetyState` TEXT NOT NULL,
+                        `safetyFlags` TEXT NOT NULL,
+                        `createdAt` INTEGER NOT NULL,
+                        PRIMARY KEY(`id`),
+                        FOREIGN KEY(`userId`) REFERENCES `user_profile`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE
+                    )
+                    """.trimIndent(),
+                )
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_training_readiness_snapshot_userId` " +
+                        "ON `training_readiness_snapshot` (`userId`)",
+                )
+
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `progression_recommendation` (
+                        `id` TEXT NOT NULL,
+                        `userId` TEXT NOT NULL,
+                        `recommendationType` TEXT NOT NULL,
+                        `exerciseId` TEXT,
+                        `questTemplateId` TEXT,
+                        `currentPrescriptionId` TEXT,
+                        `proposedPrescriptionId` TEXT,
+                        `proposedTarget` INTEGER,
+                        `readinessState` TEXT NOT NULL,
+                        `reason` TEXT NOT NULL,
+                        `evidence` TEXT NOT NULL,
+                        `confidence` REAL NOT NULL,
+                        `safetyState` TEXT NOT NULL,
+                        `requiresConfirmation` INTEGER NOT NULL,
+                        `status` TEXT NOT NULL,
+                        `generatedAt` INTEGER NOT NULL,
+                        `expiresAt` INTEGER NOT NULL,
+                        `acceptedAt` INTEGER,
+                        `rejectedAt` INTEGER,
+                        `appliedAt` INTEGER,
+                        PRIMARY KEY(`id`),
+                        FOREIGN KEY(`userId`) REFERENCES `user_profile`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE
+                    )
+                    """.trimIndent(),
+                )
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_progression_recommendation_userId_status` " +
+                        "ON `progression_recommendation` (`userId`, `status`)",
+                )
+
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `progression_milestone` (
+                        `id` TEXT NOT NULL,
+                        `userId` TEXT NOT NULL,
+                        `milestoneKey` TEXT NOT NULL,
+                        `milestoneType` TEXT NOT NULL,
+                        `exerciseId` TEXT,
+                        `questTemplateId` TEXT,
+                        `sourceRecommendationId` TEXT,
+                        `previousValue` REAL NOT NULL,
+                        `newValue` REAL NOT NULL,
+                        `createdAt` INTEGER NOT NULL,
+                        PRIMARY KEY(`id`),
+                        FOREIGN KEY(`userId`) REFERENCES `user_profile`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE
+                    )
+                    """.trimIndent(),
+                )
+                db.execSQL("CREATE INDEX IF NOT EXISTS `index_progression_milestone_userId` ON `progression_milestone` (`userId`)")
+                db.execSQL(
+                    "CREATE UNIQUE INDEX IF NOT EXISTS `index_progression_milestone_milestoneKey` " +
+                        "ON `progression_milestone` (`milestoneKey`)",
+                )
+            }
+        }
+
     /** All migrations, wired into the Room builder. */
     val ALL: Array<Migration> =
         arrayOf(
@@ -466,5 +588,6 @@ object AscendMigrations {
             MIGRATION_5_6,
             MIGRATION_6_7,
             MIGRATION_7_8,
+            MIGRATION_8_9,
         )
 }

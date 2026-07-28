@@ -51,4 +51,27 @@ interface WorkoutDao {
         durationSeconds: Long?,
         updatedAt: Long,
     )
+
+    /** Completed sets for an exercise across the user's history — the performance source. */
+    @Query(
+        "SELECT w.id AS workoutId, w.performedAt AS performedAt, w.perceivedEffort AS perceivedEffort, " +
+            "ws.reps AS reps, ws.weight AS weight, ws.orderIndex AS orderIndex " +
+            "FROM workout_set ws JOIN workout w ON ws.workoutId = w.id " +
+            "WHERE w.userId = :userId AND ws.exerciseId = :exerciseId AND w.status = 'COMPLETED' " +
+            "ORDER BY w.performedAt ASC, ws.orderIndex ASC",
+    )
+    suspend fun getExerciseSetHistory(
+        userId: String,
+        exerciseId: String,
+    ): List<ExerciseSetHistoryRow>
 }
+
+/** Projection of one logged set with its session's time + effort. */
+data class ExerciseSetHistoryRow(
+    val workoutId: String,
+    val performedAt: Long,
+    val perceivedEffort: Int?,
+    val reps: Int?,
+    val weight: Double?,
+    val orderIndex: Int,
+)

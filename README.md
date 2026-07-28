@@ -63,6 +63,14 @@ core loop, built in verifiable phases. It is not the full product yet.
   checkpoint, and step‑resolution engines (timezone/DST‑safe, import‑deduped),
   schema v7–v8. Create/active‑quest UI for these flows is a later phase.
   See `QUEST_SYSTEM.md`.
+- **Adaptive Training & Progressive Overload (data + engines)** — real performance
+  (not level/EXP) determines readiness; game progression only unlocks options and
+  grants rewards. Double‑progression resistance loop, Daily Quest baseline
+  progression, an explainable readiness + safety model, a persisted
+  accept/reject/apply recommendation lifecycle, and proof‑gated, exactly‑once,
+  class‑neutral rewards (schema v9). First slice covers bench (Slice A) + Daily Quest
+  (Slice C); bodyweight graph, cardio, class‑priority, and adaptive redistribution
+  follow. UI deferred. See `ADAPTIVE_TRAINING.md`.
 
 **Not yet implemented:** onboarding ("The Awakening"), the real Status dashboard,
 scheduling/calendar, Health Connect, notifications, expeditions, progress

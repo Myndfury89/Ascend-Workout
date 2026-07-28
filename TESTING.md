@@ -9,7 +9,7 @@ Run everything:
 ./gradlew testDebugUnitTest
 ```
 
-## What's covered today (120 tests, all passing)
+## What's covered today (143 tests, all passing)
 
 **Progression (pure):**
 - `LevelCalculatorTest` — formula, monotonicity, cumulative XP, `resolve`, boundaries
@@ -41,6 +41,13 @@ Run everything:
 - `IntervalProgressTest` — interval status, daily‑met‑before‑expiry, redistribution (even/heavier‑final/lighter‑next/preserve/max‑cap), reminder suppression
 - `CheckpointAndStepTest` — cumulative checkpoints (met/overdue), step→interval resolution, duplicate‑import guard, epoch/timezone/DST‑safe boundaries
 - `QuestIntervalDaoTest` / `AscendMigrationTest` — multi‑set interval sums, import dedup, v6→v7 and v7→v8 migrations
+
+**Adaptive Training & Progressive Overload (pure + Robolectric):**
+- `RecentBaselineCalculatorTest` — median target (outlier‑proof), consistency, sample handling
+- `TrainingReadinessCalculatorTest` — load vs. rep readiness, one‑strong‑set / failed‑rep / high‑RPE / low‑data gating, pain/injury/serious‑symptom safety
+- `ProgressionEnginesTest` — bench double progression (Slice A: smallest load increase after all sets top) and Daily Quest baseline (Slice C: capped increase / maintain / floored reduce)
+- `ProgressionLifecycleTest` — recommendation persists + applies once + supersedes, reject changes nothing, reward‑once (duplicate milestone no double‑award), Player XP class‑neutral
+- `AscendMigrationTest` — v8→v9 migration + the unique `milestoneKey` guard
 
 **Status motion system (pure + Robolectric):**
 - `MotionSpecTest` — full motion preserves durations/stagger; reduced motion collapses them to zero

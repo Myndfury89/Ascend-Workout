@@ -12,6 +12,7 @@ import com.ascend.core.database.dao.ProgressionEventDao
 import com.ascend.core.database.dao.QuestDao
 import com.ascend.core.database.dao.QuestIntervalDao
 import com.ascend.core.database.dao.QuestTemplateDao
+import com.ascend.core.database.dao.SkillDao
 import com.ascend.core.database.dao.WorkoutDao
 import com.ascend.core.database.dao.XpDao
 import com.ascend.core.database.entity.AttributeTransactionEntity
@@ -26,6 +27,7 @@ import com.ascend.core.database.entity.ExerciseVariationEdgeEntity
 import com.ascend.core.database.entity.ExerciseVariationEntity
 import com.ascend.core.database.entity.PlayerClassEntity
 import com.ascend.core.database.entity.PlayerProgressEntity
+import com.ascend.core.database.entity.PlayerSkillEntity
 import com.ascend.core.database.entity.PlayerStatsEntity
 import com.ascend.core.database.entity.ProgressionEventEntity
 import com.ascend.core.database.entity.ProgressionMilestoneEntity
@@ -38,6 +40,8 @@ import com.ascend.core.database.entity.QuestIntervalScheduleEntity
 import com.ascend.core.database.entity.QuestObjectiveEntity
 import com.ascend.core.database.entity.QuestProgressEntryEntity
 import com.ascend.core.database.entity.QuestTemplateEntity
+import com.ascend.core.database.entity.SkillProgressTransactionEntity
+import com.ascend.core.database.entity.SkillUnlockEventEntity
 import com.ascend.core.database.entity.TrainingReadinessSnapshotEntity
 import com.ascend.core.database.entity.UserProfileEntity
 import com.ascend.core.database.entity.WorkoutEntity
@@ -75,8 +79,11 @@ import com.ascend.core.database.entity.XpTransactionEntity
         ExerciseVariationEntity::class,
         ExerciseVariationEdgeEntity::class,
         CardioPrescriptionEntity::class,
+        PlayerSkillEntity::class,
+        SkillProgressTransactionEntity::class,
+        SkillUnlockEventEntity::class,
     ],
-    version = 11,
+    version = 12,
     exportSchema = true,
 )
 abstract class AscendDatabase : RoomDatabase() {
@@ -103,6 +110,8 @@ abstract class AscendDatabase : RoomDatabase() {
     abstract fun adaptiveTrainingDao(): AdaptiveTrainingDao
 
     abstract fun exerciseVariationDao(): ExerciseVariationDao
+
+    abstract fun skillDao(): SkillDao
 
     companion object {
         const val NAME = "ascend.db"

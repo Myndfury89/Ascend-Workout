@@ -14,6 +14,7 @@ import com.ascend.core.database.dao.ProgressionEventDao
 import com.ascend.core.database.dao.QuestDao
 import com.ascend.core.database.dao.QuestIntervalDao
 import com.ascend.core.database.dao.QuestTemplateDao
+import com.ascend.core.database.dao.SkillDao
 import com.ascend.core.database.dao.WorkoutDao
 import com.ascend.core.database.dao.XpDao
 import dagger.Module
@@ -71,4 +72,7 @@ object DatabaseModule {
 
     @Provides
     fun provideExerciseVariationDao(db: AscendDatabase): ExerciseVariationDao = db.exerciseVariationDao()
+
+    @Provides
+    fun provideSkillDao(db: AscendDatabase): SkillDao = db.skillDao()
 }

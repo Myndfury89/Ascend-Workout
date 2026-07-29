@@ -679,6 +679,75 @@ object AscendMigrations {
             }
         }
 
+    /** v11 -> v12: Skills & Techniques — player skill state + idempotent progress + unlock log. */
+    val MIGRATION_11_12 =
+        object : Migration(11, 12) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `player_skill` (
+                        `userId` TEXT NOT NULL,
+                        `skillId` TEXT NOT NULL,
+                        `unlocked` INTEGER NOT NULL,
+                        `level` INTEGER NOT NULL,
+                        `skillXp` INTEGER NOT NULL,
+                        `unlockedAt` INTEGER,
+                        `updatedAt` INTEGER NOT NULL,
+                        PRIMARY KEY(`userId`, `skillId`),
+                        FOREIGN KEY(`userId`) REFERENCES `user_profile`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE
+                    )
+                    """.trimIndent(),
+                )
+                db.execSQL("CREATE INDEX IF NOT EXISTS `index_player_skill_userId` ON `player_skill` (`userId`)")
+
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `skill_progress_transaction` (
+                        `id` TEXT NOT NULL,
+                        `userId` TEXT NOT NULL,
+                        `skillId` TEXT NOT NULL,
+                        `amount` INTEGER NOT NULL,
+                        `sourceType` TEXT NOT NULL,
+                        `sourceId` TEXT NOT NULL,
+                        `createdAt` INTEGER NOT NULL,
+                        PRIMARY KEY(`id`),
+                        FOREIGN KEY(`userId`) REFERENCES `user_profile`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE
+                    )
+                    """.trimIndent(),
+                )
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_skill_progress_transaction_userId_skillId` " +
+                        "ON `skill_progress_transaction` (`userId`, `skillId`)",
+                )
+                db.execSQL(
+                    "CREATE UNIQUE INDEX IF NOT EXISTS " +
+                        "`index_skill_progress_transaction_userId_skillId_sourceType_sourceId` " +
+                        "ON `skill_progress_transaction` (`userId`, `skillId`, `sourceType`, `sourceId`)",
+                )
+
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `skill_unlock_event` (
+                        `id` TEXT NOT NULL,
+                        `userId` TEXT NOT NULL,
+                        `skillId` TEXT NOT NULL,
+                        `unlockedAt` INTEGER NOT NULL,
+                        `triggeringSourceType` TEXT NOT NULL,
+                        `triggeringSourceId` TEXT NOT NULL,
+                        `evidence` TEXT NOT NULL,
+                        `createdAt` INTEGER NOT NULL,
+                        PRIMARY KEY(`id`),
+                        FOREIGN KEY(`userId`) REFERENCES `user_profile`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE
+                    )
+                    """.trimIndent(),
+                )
+                db.execSQL(
+                    "CREATE UNIQUE INDEX IF NOT EXISTS `index_skill_unlock_event_userId_skillId` " +
+                        "ON `skill_unlock_event` (`userId`, `skillId`)",
+                )
+            }
+        }
+
     /** All migrations, wired into the Room builder. */
     val ALL: Array<Migration> =
         arrayOf(
@@ -692,5 +761,6 @@ object AscendMigrations {
             MIGRATION_8_9,
             MIGRATION_9_10,
             MIGRATION_10_11,
+            MIGRATION_11_12,
         )
 }

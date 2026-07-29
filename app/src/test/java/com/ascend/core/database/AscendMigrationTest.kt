@@ -400,4 +400,52 @@ class AscendMigrationTest {
         }
         db.close()
     }
+
+    @Test
+    fun `migrate 11 to 12 adds the skill tables with idempotency guards`() {
+        val dbName = "migration-test-11-12.db"
+        helper.createDatabase(dbName, 11).use { db ->
+            db.execSQL(
+                "INSERT INTO user_profile (id, displayName, createdAt, updatedAt, onboardingCompleted, " +
+                    "measurementSystem, localOnly, cloudSyncEnabled) VALUES ('u1', 'T', 0, 0, 0, 'METRIC', 1, 0)",
+            )
+        }
+
+        val db = helper.runMigrationsAndValidate(dbName, 12, true, AscendMigrations.MIGRATION_11_12)
+
+        db.execSQL(
+            "INSERT INTO player_skill (userId, skillId, unlocked, level, skillXp, updatedAt) " +
+                "VALUES ('u1', 'skill-perception', 1, 1, 40, 0)",
+        )
+        db.execSQL(
+            "INSERT INTO skill_progress_transaction (id, userId, skillId, amount, sourceType, sourceId, createdAt) " +
+                "VALUES ('t1', 'u1', 'skill-perception', 40, 'CARDIO', 's1', 0)",
+        )
+        var progressRejected = false
+        try {
+            db.execSQL(
+                "INSERT INTO skill_progress_transaction (id, userId, skillId, amount, sourceType, sourceId, createdAt) " +
+                    "VALUES ('t2', 'u1', 'skill-perception', 40, 'CARDIO', 's1', 1)",
+            )
+        } catch (expected: android.database.sqlite.SQLiteConstraintException) {
+            progressRejected = true
+        }
+        assertTrue("duplicate skill progress for the same source is rejected", progressRejected)
+
+        db.execSQL(
+            "INSERT INTO skill_unlock_event (id, userId, skillId, unlockedAt, triggeringSourceType, " +
+                "triggeringSourceId, evidence, createdAt) VALUES ('e1', 'u1', 'skill-perception', 0, 'WORKOUT', 'w1', '15m', 0)",
+        )
+        var unlockRejected = false
+        try {
+            db.execSQL(
+                "INSERT INTO skill_unlock_event (id, userId, skillId, unlockedAt, triggeringSourceType, " +
+                    "triggeringSourceId, evidence, createdAt) VALUES ('e2', 'u1', 'skill-perception', 1, 'WORKOUT', 'w2', '20m', 1)",
+            )
+        } catch (expected: android.database.sqlite.SQLiteConstraintException) {
+            unlockRejected = true
+        }
+        assertTrue("a second unlock of the same skill is rejected", unlockRejected)
+        db.close()
+    }
 }

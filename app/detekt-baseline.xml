@@ -119,6 +119,8 @@
     <ID>LongParameterList:QuestRepository.kt$QuestRepository$( objectiveId: String, value: Double, source: ProgressSource = ProgressSource.MANUAL, note: String? = null, perceivedEffort: Int? = null, sourceApplication: String? = null, externalRecordId: String? = null, )</ID>
     <ID>LongParameterList:QuestRepositoryImpl.kt$QuestRepositoryImpl$( private val db: AscendDatabase, private val questDao: QuestDao, private val exerciseDao: ExerciseDao, private val progressionRepository: ProgressionRepository, private val xpCalculator: XpCalculator, private val attributeCalculator: AttributeProgressCalculator, private val classRewardApplier: ClassRewardApplier, private val eventPublisher: ProgressionEventPublisher, )</ID>
     <ID>LongParameterList:RevisedStatusPrototypeScreen.kt$( data: StatusPrototypeData, accent: Color, motion: StatusPrototypeMotion, rotation: Float, controller: PrototypeReviewController, frameMotion: Boolean, zone: (String) -&gt; Modifier, )</ID>
+    <ID>LongParameterList:SkillRepository.kt$SkillRepository$( userId: String, skillId: String, evidenceUnits: Int, sourceType: String, sourceId: String, classAffinity: Double, )</ID>
+    <ID>LongParameterList:SkillRepositoryImpl.kt$SkillRepositoryImpl$( private val db: AscendDatabase, private val dao: SkillDao, private val levelCalculator: SkillLevelCalculator, private val progressCalculator: SkillProgressCalculator, private val eligibilityEngine: SkillEligibilityEngine, private val affinityResolver: SkillClassAffinityResolver, private val transferableResolver: TransferableSkillResolver, )</ID>
     <ID>LongParameterList:StatusEnergyFrame.kt$( energy: Float, pulse: Float, rotation: Float, frameMotion: Boolean, modifier: Modifier = Modifier, content: @Composable BoxScope.() -&gt; Unit, )</ID>
     <ID>LongParameterList:StatusEnergyFrame.kt$( origin: Offset, sx: Float, sy: Float, bright: Float, rotation: Float, motion: Boolean, )</ID>
     <ID>LongParameterList:StatusScreen.kt$( hunterName: String, rankLabel: String, level: Int, headerAlpha: Float, levelFlash: Float, rankFlash: Float, )</ID>
@@ -133,6 +135,7 @@
     <ID>MagicNumber:ActiveQuestScreen.kt$50</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$10</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$11</ID>
+    <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$12</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$3</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$4</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$5</ID>
@@ -316,6 +319,13 @@
     <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$4</ID>
     <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$5200</ID>
     <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$9000</ID>
+    <ID>MagicNumber:SkillCatalog.kt$SkillCatalog$0.02</ID>
+    <ID>MagicNumber:SkillCatalog.kt$SkillCatalog$0.03</ID>
+    <ID>MagicNumber:SkillCatalog.kt$SkillCatalog$0.05</ID>
+    <ID>MagicNumber:SkillCatalog.kt$SkillCatalog$0.1</ID>
+    <ID>MagicNumber:SkillCatalog.kt$SkillCatalog$0.15</ID>
+    <ID>MagicNumber:SkillCatalog.kt$SkillCatalog$1.1</ID>
+    <ID>MagicNumber:SkillCatalog.kt$SkillCatalog$1.15</ID>
     <ID>MagicNumber:StatusAtmosphere.kt$0.03f</ID>
     <ID>MagicNumber:StatusAtmosphere.kt$0.32f</ID>
     <ID>MagicNumber:StatusAtmosphere.kt$0.34f</ID>
@@ -456,6 +466,7 @@
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"INSERT INTO progression_milestone (id, userId, milestoneKey, milestoneType, exerciseId, previousValue, "</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"INSERT INTO quest_interval (id, questId, title, scheduledStart, scheduledEnd, targetValue, currentValue, "</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"INSERT INTO quest_interval_progress_entry (id, questIntervalId, questId, value, source, sourceApplication, "</ID>
+    <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"INSERT INTO skill_progress_transaction (id, userId, skillId, amount, sourceType, sourceId, createdAt) "</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"VALUES ('monk', 'Monk', 't', 'd', 'fi', '', 'BODYWEIGHT', 'DISCIPLINE', '', 'STRENGTH:1.25', 'BODY_MASTERY', "</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"assistanceType, externalLoadSupported, rangeOfMotionLevel, tempoProfile, enabled, createdAt, updatedAt) "</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"minimumSuccessfulExposures, minimumCompletedReps, minimumCompletedSets, requiredTempoControl, enabled) "</ID>
@@ -463,6 +474,8 @@
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"newValue, createdAt) VALUES ('m2', 'u1', 'k1', 'LOAD_INCREASE_COMPLETED', 'ex-bench', 135.0, 140.0, 1)"</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"supportsAutomaticProgress, supportsManualProgress, supportedVariations, safetyWarningThreshold, baseRewardXp, "</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"targetStep, defaultQuickAddValues, defaultPreferredSetSize, minimumAllowedSetSize, maximumAllowedSetSize, "</ID>
+    <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"triggeringSourceId, evidence, createdAt) VALUES ('e1', 'u1', 'skill-perception', 0, 'WORKOUT', 'w1', '15m', 0)"</ID>
+    <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"triggeringSourceId, evidence, createdAt) VALUES ('e2', 'u1', 'skill-perception', 1, 'WORKOUT', 'w2', '20m', 1)"</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"uniqueProficiencyName, favoredClassXpMultiplier, nonFavoredClassXpMultiplier, statusThemeKey, frameVariantKey, "</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$db.execSQL("INSERT INTO player_class (userId, primaryClassId, changeSource, updatedAt) VALUES ('u1', 'monk', 'MANUAL', 0)")</ID>
     <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$"ALTER TABLE `class_proficiency_transaction` ADD COLUMN `rewardType` TEXT NOT NULL DEFAULT 'UNIQUE_PROFICIENCY'"</ID>
@@ -658,6 +671,27 @@
     <ID>MaxLineLength:SeedQuestTemplatesUseCase.kt$SeedQuestTemplatesUseCase.Companion$supportedVariations = listOf("Assisted", "Band-assisted")</ID>
     <ID>MaxLineLength:SeedQuestTemplatesUseCase.kt$SeedQuestTemplatesUseCase.Companion$supportedVariations = listOf("Bodyweight", "Weighted")</ID>
     <ID>MaxLineLength:SetSuggestionEngineTest.kt$SetSuggestionEngineTest$val s = engine.suggest(SetSuggestionInput(remaining = 137, preferredSetSize = 30, minimumSetSize = 10, maximumSetSize = 50))</ID>
+    <ID>MaxLineLength:SkillCatalog.kt$SkillCatalog$SkillEffectDefinition(SkillEffectType.BODYWEIGHT_COMBO, 1.0, description = "Bodyweight-combo unlock")</ID>
+    <ID>MaxLineLength:SkillCatalog.kt$SkillCatalog$SkillEffectDefinition(SkillEffectType.ENDURANCE_ABILITY, 1.0, description = "Endurance-based ability")</ID>
+    <ID>MaxLineLength:SkillCatalog.kt$SkillCatalog$SkillEffectDefinition(SkillEffectType.REVEAL_DUNGEON_INFO, 1.0, 0.1, "Reveal extra Dungeon information")</ID>
+    <ID>MaxLineLength:SkillCatalog.kt$SkillCatalog$SkillEffectDefinition(SkillEffectType.REVEAL_ENCOUNTER_DIFFICULTY, 1.0, description = "Reveal encounter difficulty")</ID>
+    <ID>MaxLineLength:SkillCatalog.kt$SkillCatalog$SkillEffectDefinition(SkillEffectType.REVEAL_ENEMY_WEAKNESS, 1.0, description = "Reveal an enemy weakness")</ID>
+    <ID>MaxLineLength:SkillCatalog.kt$SkillCatalog$SkillEffectDefinition(SkillEffectType.REVEAL_PARTY_COMPOSITION, 1.0, description = "Suggest a party composition")</ID>
+    <ID>MaxLineLength:SkillCatalog.kt$SkillCatalog$SkillEffectDefinition(SkillEffectType.STAMINA_COST_REDUCTION, 0.15, 0.02, "Reduced simulated stamina cost")</ID>
+    <ID>MaxLineLength:SkillCatalog.kt$SkillCatalog$SkillEffectDefinition(SkillEffectType.STRENGTH_CONTRIBUTION_MULTIPLIER, 1.15, 0.03, "Strength contribution multiplier")</ID>
+    <ID>MaxLineLength:SkillCatalog.kt$SkillCatalog$SkillEffectDefinition(SkillEffectType.SUSTAINED_CONTRIBUTION, 1.1, 0.02, "Improved sustained contribution")</ID>
+    <ID>MaxLineLength:SkillCatalog.kt$SkillCatalog$SkillPrerequisite(SkillPrerequisiteType.ASSISTANCE_REDUCED, 1.0, group = 1, description = "Reduce assistance")</ID>
+    <ID>MaxLineLength:SkillCatalog.kt$SkillCatalog$SkillPrerequisite(SkillPrerequisiteType.TEMPO_PROGRESSION, 1.0, group = 1, description = "Progress tempo control")</ID>
+    <ID>MaxLineLength:SkillCatalog.kt$SkillCatalog$classAffinityTags = setOf(ActivityTags.STEADY_STATE_CARDIO, ActivityTags.BREATH_CONTROL, ActivityTags.AQUATIC)</ID>
+    <ID>MaxLineLength:SkillCatalogTest.kt$SkillCatalogTest$PlayerSkill("u1", it.id, unlocked = true, level = 1, skillXp = 0, currentLevelXp = 0, xpToNextLevel = 100, unlockedAt = 0)</ID>
+    <ID>MaxLineLength:SkillEngines.kt$SkillEligibilityEngine$if (e.mobilityOrBalanceMilestones &gt; 0) add("${e.mobilityOrBalanceMilestones} mobility/balance milestone(s)")</ID>
+    <ID>MaxLineLength:SkillFlowTest.kt$SkillFlowTest$db.playerDao().upsertProfile(UserProfileEntity(id = userId, displayName = "T", createdAt = 0, updatedAt = 0))</ID>
+    <ID>MaxLineLength:SkillFlowTest.kt$SkillFlowTest$val big = repo.awardXp(userId, SkillCatalog.PERCEPTION, evidenceUnits = 3, "CARDIO", "s2", 0.0) // +120 -&gt; 160 xp</ID>
+    <ID>MaxLineLength:SkillFlowTest.kt$SkillFlowTest$val duplicate = repo.awardXp(userId, SkillCatalog.PERCEPTION, evidenceUnits = 1, "CARDIO", "s1", classAffinity = 0.0)</ID>
+    <ID>MaxLineLength:SkillFlowTest.kt$SkillFlowTest$val first = repo.awardXp(userId, SkillCatalog.PERCEPTION, evidenceUnits = 1, "CARDIO", "s1", classAffinity = 0.0)</ID>
+    <ID>MaxLineLength:SkillRepositoryImpl.kt$SkillRepositoryImpl$eligibilityEngine.evaluate(def, evidence, affinityResolver.affinity(def, classDef), unlocked = def.id in unlockedIds)</ID>
+    <ID>MaxLineLength:SkillRepositoryImpl.kt$SkillRepositoryImpl$override suspend fun playerSkills(userId: String): List&lt;PlayerSkill&gt;</ID>
+    <ID>MaxLineLength:SkillRepositoryImpl.kt$SkillRepositoryImpl$val retained = transferableResolver.retainedAfterSwitch(current, definitionsById, newClassId).map { it.skillId }.toSet()</ID>
     <ID>MaxLineLength:StatusAtmosphere.kt$brush = Brush.radialGradient(listOf(b.tint.copy(alpha = 0.05f * effectsQuality), Color.Transparent), Offset(cx, cy), r)</ID>
     <ID>MaxLineLength:StatusEnergyFrame.kt$colors = listOf(Color.Transparent, StatusPalette.violet.copy(alpha = 0.16f * bright), Color.Transparent)</ID>
     <ID>MaxLineLength:StatusEnergyFrame.kt$drawLine(StatusPalette.cyanSoft.copy(alpha = 0.5f * bright), Offset(tx, y), Offset(tx, y + dir * 6f), strokeWidth = 1f)</ID>

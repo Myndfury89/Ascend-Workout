@@ -8,6 +8,7 @@ import com.ascend.core.data.repository.ProgressionRecommendationRepositoryImpl
 import com.ascend.core.data.repository.ProgressionRepositoryImpl
 import com.ascend.core.data.repository.QuestRepositoryImpl
 import com.ascend.core.data.repository.QuestTemplateRepositoryImpl
+import com.ascend.core.data.repository.SkillRepositoryImpl
 import com.ascend.core.data.repository.WorkoutRepositoryImpl
 import com.ascend.core.domain.repository.ClassRepository
 import com.ascend.core.domain.repository.ExerciseVariationGraphRepository
@@ -17,6 +18,7 @@ import com.ascend.core.domain.repository.ProgressionRecommendationRepository
 import com.ascend.core.domain.repository.ProgressionRepository
 import com.ascend.core.domain.repository.QuestRepository
 import com.ascend.core.domain.repository.QuestTemplateRepository
+import com.ascend.core.domain.repository.SkillRepository
 import com.ascend.core.domain.repository.WorkoutRepository
 import dagger.Binds
 import dagger.Module
@@ -54,4 +56,7 @@ abstract class DataModule {
 
     @Binds
     abstract fun bindExerciseVariationGraphRepository(impl: ExerciseVariationGraphRepositoryImpl): ExerciseVariationGraphRepository
+
+    @Binds
+    abstract fun bindSkillRepository(impl: SkillRepositoryImpl): SkillRepository
 }

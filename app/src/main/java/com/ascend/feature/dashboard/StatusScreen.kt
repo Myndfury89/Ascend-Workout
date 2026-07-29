@@ -1,6 +1,5 @@
 package com.ascend.feature.dashboard
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,7 +12,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -119,12 +117,10 @@ fun StatusScreen(
         }
 
         Spacer(Modifier.height(16.dp))
-        PrototypeControls(
+        StatusControls(
             reducedMotion = state.reducedMotion,
             busy = busy,
-            onSimulate = viewModel::simulate,
             onReplay = viewModel::replayEntrance,
-            onReset = viewModel::reset,
             onReducedMotionChange = viewModel::setReducedMotion,
         )
         Spacer(Modifier.height(24.dp))
@@ -242,13 +238,16 @@ private fun AttributeRow(
     }
 }
 
+/**
+ * Production Status controls — presentation only. Progression is earned from real quest and
+ * workout completions (which enqueue the animated events), so there is nothing to "simulate": the
+ * controls just re-run the entrance and toggle reduced motion.
+ */
 @Composable
-private fun PrototypeControls(
+private fun StatusControls(
     reducedMotion: Boolean,
     busy: Boolean,
-    onSimulate: (SimulatedCompletion) -> Unit,
     onReplay: () -> Unit,
-    onReset: () -> Unit,
     onReducedMotionChange: (Boolean) -> Unit,
 ) {
     Surface(
@@ -257,21 +256,9 @@ private fun PrototypeControls(
         modifier = Modifier.fillMaxWidth(),
     ) {
         Column(Modifier.padding(16.dp)) {
-            Text("Prototype controls", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text("Status", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
             Spacer(Modifier.height(12.dp))
-            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                Button(onClick = { onSimulate(SimulatedCompletion.LIGHT_QUEST) }, enabled = !busy, modifier = Modifier.weight(1f)) {
-                    Text(SimulatedCompletion.LIGHT_QUEST.label)
-                }
-                Button(onClick = { onSimulate(SimulatedCompletion.HEAVY_QUEST) }, enabled = !busy, modifier = Modifier.weight(1f)) {
-                    Text(SimulatedCompletion.HEAVY_QUEST.label)
-                }
-            }
-            Spacer(Modifier.height(10.dp))
-            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                OutlinedButton(onClick = onReplay, modifier = Modifier.weight(1f)) { Text("Replay entrance") }
-                OutlinedButton(onClick = onReset, enabled = !busy, modifier = Modifier.weight(1f)) { Text("Reset") }
-            }
+            OutlinedButton(onClick = onReplay, enabled = !busy, modifier = Modifier.fillMaxWidth()) { Text("Replay entrance") }
             Spacer(Modifier.height(12.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Switch(checked = reducedMotion, onCheckedChange = onReducedMotionChange)

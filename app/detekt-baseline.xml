@@ -85,7 +85,7 @@
     <ID>FunctionNaming:StatusScreen.kt$@Composable fun StatusScreen( modifier: Modifier = Modifier, viewModel: StatusMotionViewModel = hiltViewModel(), )</ID>
     <ID>FunctionNaming:StatusScreen.kt$@Composable private fun AttributeRow( attribute: AttributeType, value: Int, reveal: Float, pulse: Float, )</ID>
     <ID>FunctionNaming:StatusScreen.kt$@Composable private fun HunterHeader( hunterName: String, rankLabel: String, level: Int, headerAlpha: Float, levelFlash: Float, rankFlash: Float, )</ID>
-    <ID>FunctionNaming:StatusScreen.kt$@Composable private fun PrototypeControls( reducedMotion: Boolean, busy: Boolean, onSimulate: (SimulatedCompletion) -&gt; Unit, onReplay: () -&gt; Unit, onReset: () -&gt; Unit, onReducedMotionChange: (Boolean) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:StatusScreen.kt$@Composable private fun StatusControls( reducedMotion: Boolean, busy: Boolean, onReplay: () -&gt; Unit, onReducedMotionChange: (Boolean) -&gt; Unit, )</ID>
     <ID>FunctionNaming:StatusScreen.kt$@Composable private fun XpBar( levelState: LevelState, alpha: Float, )</ID>
     <ID>FunctionNaming:Theme.kt$@Composable fun AscendTheme( darkTheme: Boolean = isSystemInDarkTheme(), // App identity is dark-first; dynamic color is opt-in via settings later. dynamicColor: Boolean = false, content: @Composable () -&gt; Unit, )</ID>
     <ID>FunctionNaming:WeightUnitSelector.kt$@Composable fun WeightUnitSelector( selected: WeightUnit, onSelect: (WeightUnit) -&gt; Unit, modifier: Modifier = Modifier, )</ID>
@@ -134,7 +134,6 @@
     <ID>LongParameterList:StatusEnergyFrame.kt$( energy: Float, pulse: Float, rotation: Float, frameMotion: Boolean, modifier: Modifier = Modifier, content: @Composable BoxScope.() -&gt; Unit, )</ID>
     <ID>LongParameterList:StatusEnergyFrame.kt$( origin: Offset, sx: Float, sy: Float, bright: Float, rotation: Float, motion: Boolean, )</ID>
     <ID>LongParameterList:StatusScreen.kt$( hunterName: String, rankLabel: String, level: Int, headerAlpha: Float, levelFlash: Float, rankFlash: Float, )</ID>
-    <ID>LongParameterList:StatusScreen.kt$( reducedMotion: Boolean, busy: Boolean, onSimulate: (SimulatedCompletion) -&gt; Unit, onReplay: () -&gt; Unit, onReset: () -&gt; Unit, onReducedMotionChange: (Boolean) -&gt; Unit, )</ID>
     <ID>LongParameterList:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$( private val db: AscendDatabase, private val workoutDao: WorkoutDao, private val exerciseDao: ExerciseDao, private val progressionRepository: ProgressionRepository, private val xpCalculator: XpCalculator, private val attributeCalculator: AttributeProgressCalculator, private val classRewardApplier: ClassRewardApplier, private val eventPublisher: ProgressionEventPublisher, )</ID>
     <ID>LongParameterList:XpCalculator.kt$XpCalculator$( durationMinutes: Int, intensity: Float = 0f, volumeScore: Float = 0f, isPersonalRecord: Boolean = false, consistencyEligible: Boolean = false, expeditionMultiplier: Double = 1.0, )</ID>
     <ID>LoopWithTooManyJumpStatements:StepIntervalProgressResolver.kt$StepIntervalProgressResolver$for</ID>
@@ -666,6 +665,13 @@
     <ID>MaxLineLength:PerformanceHistoryRepository.kt$PerformanceHistoryRepository$sets = rows.sortedBy { it.orderIndex }.map { SetPerformance(reps = it.reps ?: 0, weight = it.weight) }</ID>
     <ID>MaxLineLength:PlayerRepositoryImpl.kt$PlayerRepositoryImpl$override fun observeStats(userId: String): Flow&lt;PlayerStats?&gt;</ID>
     <ID>MaxLineLength:PlayerRepositoryImpl.kt$PlayerRepositoryImpl$override suspend fun weightUnit(userId: String): WeightUnit</ID>
+    <ID>MaxLineLength:ProductionStatusDataTest.kt$ProductionStatusDataTest$assertTrue("real attribute growth is reflected", source.observeStats().first().asMap.getValue(AttributeType.STRENGTH) &gt;= 12L)</ID>
+    <ID>MaxLineLength:ProductionStatusDataTest.kt$ProductionStatusDataTest$db.playerDao().upsertProfile(UserProfileEntity(id = userId, displayName = "Kaiden", createdAt = 0, updatedAt = 0))</ID>
+    <ID>MaxLineLength:ProductionStatusDataTest.kt$ProductionStatusDataTest$db.playerDao().upsertProgress(com.ascend.core.database.entity.PlayerProgressEntity(userId = userId, updatedAt = 0))</ID>
+    <ID>MaxLineLength:ProductionStatusDataTest.kt$ProductionStatusDataTest$db.playerDao().upsertStats(com.ascend.core.database.entity.PlayerStatsEntity(userId = userId, updatedAt = 0))</ID>
+    <ID>MaxLineLength:ProductionStatusDataTest.kt$ProductionStatusDataTest$progression = ProgressionRepositoryImpl(db, db.playerDao(), db.xpDao(), db.attributeDao(), LevelCalculator(), RankCalculator())</ID>
+    <ID>MaxLineLength:ProductionStatusDataTest.kt$ProductionStatusDataTest$progression.awardAttributes(userId, mapOf(AttributeType.STRENGTH to 12L), XpSourceType.QUEST_COMPLETION, "q1")</ID>
+    <ID>MaxLineLength:ProductionStatusDataTest.kt$ProductionStatusDataTest$progression.awardXp(userId, amount = 500, sourceType = XpSourceType.QUEST_COMPLETION, sourceId = "q1", description = "Quest")</ID>
     <ID>MaxLineLength:ProgressionEngines.kt$ExerciseProgressionEngine$proposed = loadProgressionCalculator.nextLoadPrescription(prescription, equipmentKey).copy(userId = userId)</ID>
     <ID>MaxLineLength:ProgressionEngines.kt$QuestProgressionEngine$readiness.state == TrainingReadinessState.INSUFFICIENT_DATA -&gt; ProgressionRecommendationType.REQUEST_MORE_DATA</ID>
     <ID>MaxLineLength:ProgressionEngines.kt$val isChange = type != ProgressionRecommendationType.MAINTAIN_PRESCRIPTION &amp;&amp; type != ProgressionRecommendationType.REQUEST_MORE_DATA</ID>
@@ -787,9 +793,9 @@
     <ID>MaxLineLength:StatusPrototypeRenderTest.kt$StatusPrototypeRenderTest$val data = FakeStatusPrototype.dataFor(StatusPrototypeStateId.REDUCED_MOTION, StatusClassVariant.MONK, reducedMotion = false)</ID>
     <ID>MaxLineLength:StatusPrototypeRenderTest.kt$StatusPrototypeRenderTest$val data = FakeStatusPrototype.dataFor(StatusPrototypeStateId.STANDARD, StatusClassVariant.BERSERKER, reducedMotion = false)</ID>
     <ID>MaxLineLength:StatusPrototypeRenderTest.kt$StatusPrototypeRenderTest$val data = FakeStatusPrototype.dataFor(StatusPrototypeStateId.STANDARD, StatusClassVariant.MONK, reducedMotion = false)</ID>
-    <ID>MaxLineLength:StatusScreen.kt$Button</ID>
+    <ID>MaxLineLength:StatusScreen.kt$OutlinedButton(onClick = onReplay, enabled = !busy, modifier = Modifier.fillMaxWidth()) { Text("Replay entrance") }</ID>
     <ID>MaxLineLength:StatusScreen.kt$Text("Level $level", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)</ID>
-    <ID>MaxLineLength:StatusScreen.kt$Text("Prototype controls", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)</ID>
+    <ID>MaxLineLength:StatusScreen.kt$Text("Status", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)</ID>
     <ID>MaxLineLength:StreakCalculatorTest.kt$StreakCalculatorTest$val result = calc.onActivity(currentStreak = 4, longestStreak = 4, lastActiveDay = day.minusDays(1), today = day)</ID>
     <ID>MaxLineLength:StreakCalculatorTest.kt$StreakCalculatorTest$val result = calc.onActivity(currentStreak = 9, longestStreak = 12, lastActiveDay = day.minusDays(2), today = day)</ID>
     <ID>MaxLineLength:TrainingReadinessCalculator.kt$TrainingReadinessCalculator$)</ID>

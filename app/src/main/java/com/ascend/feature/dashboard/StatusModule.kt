@@ -7,19 +7,20 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 /**
- * Prototype wiring: the Status screen reads its domain state and its simulate
- * trigger from the same [FakeStatusData] singleton. Swapping to production is a
- * one‑module change — bind [StatusDataSource] to a real repository‑backed source
- * and drop the simulator.
+ * Production wiring: the Status screen reads its domain state from the real,
+ * repository‑backed [ProductionStatusData], and drains the persisted
+ * ProgressionEventQueue (populated by live quest/workout completions). There is no
+ * fake completion trigger in production, so the [StatusSimulator] is a no‑op. The
+ * prototype fake ([FakeStatusData]) remains for its unit test only.
  */
 @Module
 @InstallIn(SingletonComponent::class)
 object StatusModule {
     @Provides
     @Singleton
-    fun statusDataSource(fake: FakeStatusData): StatusDataSource = fake
+    fun statusDataSource(production: ProductionStatusData): StatusDataSource = production
 
     @Provides
     @Singleton
-    fun statusSimulator(fake: FakeStatusData): StatusSimulator = fake
+    fun statusSimulator(noOp: NoOpStatusSimulator): StatusSimulator = noOp
 }

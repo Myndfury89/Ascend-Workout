@@ -10,6 +10,9 @@ interface PlayerRepository {
     /** Ensure a local profile + progress + stats exist. Safe to call repeatedly. */
     suspend fun ensureLocalPlayer(displayName: String = "Player"): String
 
+    /** The profile's display name (falls back to a neutral default if unset). */
+    suspend fun displayName(userId: String): String
+
     fun observeProgress(userId: String): Flow<PlayerProgress?>
 
     fun observeStats(userId: String): Flow<PlayerStats?>

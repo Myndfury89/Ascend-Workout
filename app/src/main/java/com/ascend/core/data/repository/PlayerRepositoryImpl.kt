@@ -45,6 +45,9 @@ class PlayerRepositoryImpl
             return LOCAL_USER_ID
         }
 
+        override suspend fun displayName(userId: String): String =
+            playerDao.getProfile(userId)?.displayName?.takeIf { it.isNotBlank() } ?: "Hunter"
+
         override fun observeProgress(userId: String): Flow<PlayerProgress?> =
             playerDao.observeProgress(userId).map { it?.toDomain(levelCalculator) }
 

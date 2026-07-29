@@ -20,11 +20,11 @@
         <error line="12" column="5" source="standard:function-naming" />
     </file>
     <file name="src/main/java/com/ascend/feature/dashboard/StatusScreen.kt">
-        <error line="58" column="5" source="standard:function-naming" />
-        <error line="135" column="13" source="standard:function-naming" />
-        <error line="186" column="13" source="standard:function-naming" />
-        <error line="205" column="13" source="standard:function-naming" />
-        <error line="246" column="13" source="standard:function-naming" />
+        <error line="56" column="5" source="standard:function-naming" />
+        <error line="131" column="13" source="standard:function-naming" />
+        <error line="182" column="13" source="standard:function-naming" />
+        <error line="201" column="13" source="standard:function-naming" />
+        <error line="247" column="13" source="standard:function-naming" />
     </file>
     <file name="src/main/java/com/ascend/feature/dashboard/prototype/EdgeLitStatusPanel.kt">
         <error line="157" column="5" source="standard:function-naming" />

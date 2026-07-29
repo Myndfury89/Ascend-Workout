@@ -96,7 +96,7 @@ See `ARCHITECTURE.md`, `PROGRESSION_SYSTEM.md`, `QUEST_SYSTEM.md`, `WORKOUT_SYST
 |---|---|
 | Quests | Live — seeded 200‑push‑up quest, Active Quest screen with quick‑add, set history, suggestions, completion |
 | Workout | Live — logged‑session list, log‑workout flow (exercise catalog, sets, difficulty), finish for XP + attributes |
-| Status | Interactive motion prototype (fake data) — animated dashboard, simulate‑completion chain, reduced‑motion, replay |
+| Status | Live — real progression (level/rank/XP/attributes), animated from the persisted event queue drained on real quest/workout completions; reduced‑motion, replay |
 | Calendar / Progress | Placeholder |
 
 ## Architecture (summary)

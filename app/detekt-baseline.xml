@@ -189,6 +189,11 @@
     <ID>MagicNumber:Color.kt$0xFFEDF1F6</ID>
     <ID>MagicNumber:Color.kt$0xFFF6F8FB</ID>
     <ID>MagicNumber:Color.kt$0xFFFFFFFF</ID>
+    <ID>MagicNumber:DungeonCatalog.kt$DungeonCatalog$0.1f</ID>
+    <ID>MagicNumber:DungeonCatalog.kt$DungeonCatalog$0.25f</ID>
+    <ID>MagicNumber:DungeonCatalog.kt$DungeonCatalog$0.2f</ID>
+    <ID>MagicNumber:DungeonCatalog.kt$DungeonCatalog$0.4f</ID>
+    <ID>MagicNumber:DungeonCatalog.kt$DungeonCatalog$0.6f</ID>
     <ID>MagicNumber:EdgeLitStatusPanel.kt$0.18f</ID>
     <ID>MagicNumber:EdgeLitStatusPanel.kt$0.5f</ID>
     <ID>MagicNumber:EdgeLitStatusPanel.kt$0xFF070810</ID>
@@ -326,6 +331,8 @@
     <ID>MagicNumber:SkillCatalog.kt$SkillCatalog$0.15</ID>
     <ID>MagicNumber:SkillCatalog.kt$SkillCatalog$1.1</ID>
     <ID>MagicNumber:SkillCatalog.kt$SkillCatalog$1.15</ID>
+    <ID>MagicNumber:SoloReadinessEvaluator.kt$SoloReadinessConfig$10</ID>
+    <ID>MagicNumber:SoloReadinessEvaluator.kt$SoloReadinessConfig$60</ID>
     <ID>MagicNumber:StatusAtmosphere.kt$0.03f</ID>
     <ID>MagicNumber:StatusAtmosphere.kt$0.32f</ID>
     <ID>MagicNumber:StatusAtmosphere.kt$0.34f</ID>
@@ -535,12 +542,22 @@
     <ID>MaxLineLength:ClassRewardFlowTest.kt$ClassRewardFlowTest$assertTrue(types.none { it == ProgressionEventType.CLASS_XP_GAINED || it == ProgressionEventType.PROFICIENCY_GAINED })</ID>
     <ID>MaxLineLength:ClassRewardFlowTest.kt$ClassRewardFlowTest$db.playerDao().upsertProfile(UserProfileEntity(id = "u_mage", displayName = "Mage", createdAt = 0, updatedAt = 0))</ID>
     <ID>MaxLineLength:ClassRewardFlowTest.kt$ClassRewardFlowTest$db.playerDao().upsertProfile(UserProfileEntity(id = "u_none", displayName = "None", createdAt = 0, updatedAt = 0))</ID>
+    <ID>MaxLineLength:ContributionEligibilityEvaluator.kt$ContributionEligibilityEvaluator$return ContributionEligibility(MemberActivityState.DISCONNECTED, false, "Party member reconnecting.")</ID>
+    <ID>MaxLineLength:ContributionEligibilityEvaluator.kt$ContributionEligibilityEvaluator$return ContributionEligibility(MemberActivityState.PAUSED, false, "Party member contribution paused.")</ID>
+    <ID>MaxLineLength:ContributionEligibilityEvaluator.kt$ContributionEligibilityEvaluator$return ContributionEligibility(MemberActivityState.SAFETY_PAUSED, false, "Party member contribution paused.")</ID>
     <ID>MaxLineLength:CreateQuestFromTemplateFlowTest.kt$CreateQuestFromTemplateFlowTest$db.playerDao().upsertProfile(UserProfileEntity(id = LOCAL_USER_ID, displayName = "Tester", createdAt = 0, updatedAt = 0))</ID>
     <ID>MaxLineLength:CreateQuestFromTemplateFlowTest.kt$CreateQuestFromTemplateFlowTest$id = "tmpl-custom-1"</ID>
     <ID>MaxLineLength:CreateQuestFromTemplateFlowTest.kt$CreateQuestFromTemplateFlowTest$minimumTarget = 25</ID>
     <ID>MaxLineLength:CreateQuestFromTemplateFlowTest.kt$CreateQuestFromTemplateFlowTest$unit = "reps"</ID>
     <ID>MaxLineLength:CreateQuestFromTemplateFlowTest.kt$CreateQuestFromTemplateFlowTest$val progression = ProgressionRepositoryImpl(db, db.playerDao(), db.xpDao(), db.attributeDao(), level, RankCalculator())</ID>
     <ID>MaxLineLength:DataModule.kt$DataModule$abstract</ID>
+    <ID>MaxLineLength:DungeonCombatEngine.kt$DungeonCombatEngine$val armorFactor = if (c.armorBreaking) 1.0 else 1.0 - min(MAX_ARMOR_MITIGATION, enemy.armor / (enemy.armor + ARMOR_SOFTNESS))</ID>
+    <ID>MaxLineLength:DungeonCombatTest.kt$DungeonCombatTest$assertTrue("b earned more, so b is rewarded more", first.perMemberXp.getValue("b") &gt; first.perMemberXp.getValue("a"))</ID>
+    <ID>MaxLineLength:DungeonCombatTest.kt$DungeonCombatTest$val combo = engine.apply(engine.initialState(5000), enemy, mapper.map(action(WorkoutActionType.QUEST_INTERVAL, 100)))</ID>
+    <ID>MaxLineLength:DungeonCombatTest.kt$DungeonCombatTest$val crit = engine.apply(engine.initialState(5000), enemy, mapper.map(action(WorkoutActionType.PERSONAL_RECORD, 100)))</ID>
+    <ID>MaxLineLength:DungeonPartyTest.kt$DungeonPartyTest$assertTrue("per-member burden falls with more members", party4.expectedContributionPerMember &lt; solo1.expectedContributionPerMember)</ID>
+    <ID>MaxLineLength:DungeonPartyTest.kt$DungeonPartyTest$assertTrue("total enemy health rises with more members (not trivialized)", party4.scaledEnemyHealth &gt; solo1.scaledEnemyHealth)</ID>
+    <ID>MaxLineLength:DungeonPartyTest.kt$DungeonPartyTest$averageTrainingTier = 3</ID>
     <ID>MaxLineLength:EdgeLitStatusPanel.kt$drawLine(Color(0xFF9FB0FF).copy(alpha = 0.02f * materialize), Offset(0f, y), Offset(size.width, y), strokeWidth = 1f)</ID>
     <ID>MaxLineLength:EdgeLitStatusPanel.kt$drawLine(Color(0xFF9FB0FF).copy(alpha = 0.02f * materialize), Offset(x, 0f), Offset(x, size.height), strokeWidth = 1f)</ID>
     <ID>MaxLineLength:EdgeLitStatusPanel.kt$drawPath(path, color = StatusPalette.infoLine.copy(alpha = 0.22f * materialize), style = Stroke(width = 1.dp.toPx()))</ID>
@@ -746,6 +763,9 @@
     <ID>MaxLineLength:TrainingReadinessCalculator.kt$TrainingReadinessCalculator$return blocked(now, TrainingReadinessState.REGRESS, ProgressionSafetyState.BLOCKED, "Pain/injury reported — no progression")</ID>
     <ID>MaxLineLength:TrainingReadinessCalculatorTest.kt$TrainingReadinessCalculatorTest$id = "p1"</ID>
     <ID>MaxLineLength:TrainingReadinessCalculatorTest.kt$TrainingReadinessCalculatorTest$sets = reps.mapIndexed { i, r -&gt; SetPerformance(reps = r, weight = 135.0, failed = i == failedIndex, rpe = rpe) }</ID>
+    <ID>MaxLineLength:WorkoutContributionMapper.kt$WorkoutContributionMapper$contribution(input, ContributionType.CRITICAL_STRIKE, DungeonElements.CRITICAL, magnitude = input.metricValue)</ID>
+    <ID>MaxLineLength:WorkoutContributionMapper.kt$WorkoutContributionMapper$contribution(input, ContributionType.SHIELD, DungeonElements.RESTORATIVE, magnitude = config.shieldPerRecovery)</ID>
+    <ID>MaxLineLength:WorkoutContributionMapper.kt$WorkoutContributionMapper$magnitude = scaled(input.metricValue / SECONDS_PER_POWER, if (hasBreath) BREATH_SKILL_BONUS else 1.0)</ID>
     <ID>MaxLineLength:WorkoutDao.kt$WorkoutDao$@Query("UPDATE workout SET status = :status, durationSeconds = :durationSeconds, updatedAt = :updatedAt WHERE id = :workoutId")</ID>
     <ID>MaxLineLength:WorkoutMappers.kt$private inline fun &lt;reified T : Enum&lt;T&gt;&gt; String?.toEnumOrNull(): T?</ID>
     <ID>MaxLineLength:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$override fun observeExercises(): Flow&lt;List&lt;Exercise&gt;&gt;</ID>
@@ -760,6 +780,8 @@
     <ID>ReturnCount:BodyweightProgressionCalculators.kt$TempoProgressionCalculator$fun candidates( prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), hasVariationControl: Boolean = true, ): List&lt;ProgressionCandidate&gt;</ID>
     <ID>ReturnCount:CardioProgressionCalculators.kt$CardioProgressionCalculator$fun candidates( prescription: CardioPrescription, recent: List&lt;CardioPerformanceSummary&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), ): List&lt;ProgressionCandidate&gt;</ID>
     <ID>ReturnCount:CardioProgressionCalculators.kt$IntervalProgressionCalculator$fun candidates( prescription: CardioPrescription, recent: List&lt;CardioPerformanceSummary&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), ): List&lt;ProgressionCandidate&gt;</ID>
+    <ID>ReturnCount:ContributionEligibilityEvaluator.kt$ContributionEligibilityEvaluator$fun evaluate( member: DungeonPartyMember, workoutActive: Boolean, now: Long, ): ContributionEligibility</ID>
+    <ID>ReturnCount:DungeonCombatEngine.kt$DungeonCombatEngine$fun apply( state: DungeonCombatState, enemy: DungeonEnemy, contribution: WorkoutContribution, ): DungeonCombatState</ID>
     <ID>ReturnCount:ExerciseVariationProgressionEngine.kt$ExerciseVariationProgressionEngine$fun regressionCandidate( graph: ExerciseVariationGraph, currentVariationId: String, input: VariationReadinessInput, minFailures: Int = 2, ): ProgressionCandidate?</ID>
     <ID>ReturnCount:ProgressionRecommendationRepositoryImpl.kt$ProgressionRecommendationRepositoryImpl$override suspend fun accept(id: String): Boolean</ID>
     <ID>ReturnCount:ProgressionRecommendationRepositoryImpl.kt$ProgressionRecommendationRepositoryImpl$override suspend fun reject(id: String): Boolean</ID>

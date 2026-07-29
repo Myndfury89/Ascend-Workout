@@ -19,6 +19,21 @@
             </intent-filter>
         </activity>
 
+        <!--
+          Debug-only launcher for the fake party Dungeon prototype. Entirely simulated — no
+          Bluetooth, no nearby users, no networking. Never present in release.
+        -->
+        <activity
+            android:name="com.ascend.prototype.DungeonPrototypeActivity"
+            android:exported="true"
+            android:label="Ascend Dungeon Prototype"
+            android:theme="@style/Theme.Ascend">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>

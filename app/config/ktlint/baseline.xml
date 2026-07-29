@@ -102,6 +102,19 @@
     <file name="src/main/java/com/ascend/feature/dashboard/prototype/StatusSigil.kt">
         <error line="1" column="1" source="standard:filename" />
     </file>
+    <file name="src/main/java/com/ascend/feature/dungeon/prototype/DungeonPrototypeEncounter.kt">
+        <error line="37" column="14" source="standard:function-naming" />
+        <error line="79" column="13" source="standard:function-naming" />
+        <error line="116" column="14" source="standard:function-naming" />
+    </file>
+    <file name="src/main/java/com/ascend/feature/dungeon/prototype/DungeonPrototypeScreen.kt">
+        <error line="40" column="5" source="standard:function-naming" />
+        <error line="71" column="13" source="standard:function-naming" />
+        <error line="111" column="13" source="standard:function-naming" />
+        <error line="126" column="13" source="standard:function-naming" />
+        <error line="148" column="13" source="standard:function-naming" />
+        <error line="169" column="14" source="standard:function-naming" />
+    </file>
     <file name="src/main/java/com/ascend/feature/progress/ProgressScreen.kt">
         <error line="12" column="5" source="standard:function-naming" />
     </file>

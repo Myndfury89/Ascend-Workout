@@ -18,6 +18,15 @@
     <ID>FunctionNaming:Buttons.kt$@Composable fun PrimaryActionButton( text: String, onClick: () -&gt; Unit, modifier: Modifier = Modifier, enabled: Boolean = true, )</ID>
     <ID>FunctionNaming:Buttons.kt$@Composable fun QuickProgressButton( label: String, onClick: () -&gt; Unit, modifier: Modifier = Modifier, enabled: Boolean = true, )</ID>
     <ID>FunctionNaming:CalendarScreen.kt$@Composable fun CalendarScreen(modifier: Modifier = Modifier)</ID>
+    <ID>FunctionNaming:DungeonPrototypeEncounter.kt$@Composable internal fun EncounterSection(controller: DungeonPrototypeController)</ID>
+    <ID>FunctionNaming:DungeonPrototypeEncounter.kt$@OptIn(ExperimentalLayoutApi::class) @Composable internal fun DebugFooter(controller: DungeonPrototypeController)</ID>
+    <ID>FunctionNaming:DungeonPrototypeEncounter.kt$@OptIn(ExperimentalLayoutApi::class) @Composable private fun MemberRow( controller: DungeonPrototypeController, memberId: String, )</ID>
+    <ID>FunctionNaming:DungeonPrototypeScreen.kt$@Composable fun DungeonPrototypeScreen( modifier: Modifier = Modifier, controller: DungeonPrototypeController = rememberDungeonPrototypeController(remember { FakeNearbyAscendedProvider() }), )</ID>
+    <ID>FunctionNaming:DungeonPrototypeScreen.kt$@Composable internal fun SectionCard( title: String, content: @Composable () -&gt; Unit, )</ID>
+    <ID>FunctionNaming:DungeonPrototypeScreen.kt$@Composable private fun PartyPreview(controller: DungeonPrototypeController)</ID>
+    <ID>FunctionNaming:DungeonPrototypeScreen.kt$@Composable private fun ReadySection(controller: DungeonPrototypeController)</ID>
+    <ID>FunctionNaming:DungeonPrototypeScreen.kt$@Composable private fun ResultSection(controller: DungeonPrototypeController)</ID>
+    <ID>FunctionNaming:DungeonPrototypeScreen.kt$@OptIn(ExperimentalLayoutApi::class) @Composable private fun LobbySection(controller: DungeonPrototypeController)</ID>
     <ID>FunctionNaming:EdgeLitStatusPanel.kt$@Composable fun EdgeLitStatusPanel( accent: Color, materialize: Float, scan: Float, modifier: Modifier = Modifier, effectsQuality: Float = 1f, content: @Composable BoxScope.() -&gt; Unit, )</ID>
     <ID>FunctionNaming:LogWorkoutScreen.kt$@Composable fun LogWorkoutScreen( onBack: () -&gt; Unit, modifier: Modifier = Modifier, viewModel: LogWorkoutViewModel = hiltViewModel(), )</ID>
     <ID>FunctionNaming:LogWorkoutScreen.kt$@Composable private fun LoggedSetRow( index: Int, set: WorkoutSet, onDelete: () -&gt; Unit, )</ID>
@@ -194,6 +203,10 @@
     <ID>MagicNumber:DungeonCatalog.kt$DungeonCatalog$0.2f</ID>
     <ID>MagicNumber:DungeonCatalog.kt$DungeonCatalog$0.4f</ID>
     <ID>MagicNumber:DungeonCatalog.kt$DungeonCatalog$0.6f</ID>
+    <ID>MagicNumber:DungeonPrototypeController.kt$DungeonPrototypeController$1000</ID>
+    <ID>MagicNumber:DungeonPrototypeEncounter.kt$1000</ID>
+    <ID>MagicNumber:DungeonPrototypeEncounter.kt$120</ID>
+    <ID>MagicNumber:DungeonPrototypeEncounter.kt$30</ID>
     <ID>MagicNumber:EdgeLitStatusPanel.kt$0.18f</ID>
     <ID>MagicNumber:EdgeLitStatusPanel.kt$0.5f</ID>
     <ID>MagicNumber:EdgeLitStatusPanel.kt$0xFF070810</ID>
@@ -558,6 +571,23 @@
     <ID>MaxLineLength:DungeonPartyTest.kt$DungeonPartyTest$assertTrue("per-member burden falls with more members", party4.expectedContributionPerMember &lt; solo1.expectedContributionPerMember)</ID>
     <ID>MaxLineLength:DungeonPartyTest.kt$DungeonPartyTest$assertTrue("total enemy health rises with more members (not trivialized)", party4.scaledEnemyHealth &gt; solo1.scaledEnemyHealth)</ID>
     <ID>MaxLineLength:DungeonPartyTest.kt$DungeonPartyTest$averageTrainingTier = 3</ID>
+    <ID>MaxLineLength:DungeonPrototypeController.kt$DungeonPrototypeController$DungeonPartyMember(id, handle, trainingTier = 3, classId, skillIds, activityState, earnedContribution, lastActivityAt)</ID>
+    <ID>MaxLineLength:DungeonPrototypeController.kt$DungeonPrototypeController$WorkoutActionInput(draft.id, action, metricFor(action), "SIM", "sim-$nowMillis-${action.name}", draft.skillIds)</ID>
+    <ID>MaxLineLength:DungeonPrototypeController.kt$DungeonPrototypeController$averageTrainingTier = 3</ID>
+    <ID>MaxLineLength:DungeonPrototypeController.kt$DungeonPrototypeController$distinctSkills = members.flatMap { it.skillIds }.distinct().size</ID>
+    <ID>MaxLineLength:DungeonPrototypeController.kt$DungeonPrototypeController$timeline.add(0, TimelineEntry(draft.handle, "${action.pretty()} → ${contribution.type} (-$dealt)", isContribution = true))</ID>
+    <ID>MaxLineLength:DungeonPrototypeController.kt$DungeonPrototypeController$update(memberId) { it.copy(earnedContribution = it.earnedContribution + contribution.magnitude, lastActivityAt = nowMillis) }</ID>
+    <ID>MaxLineLength:DungeonPrototypeControllerTest.kt$DungeonPrototypeControllerTest$repeat(20) { if (c.phase == DungeonPrototypePhase.IN_ENCOUNTER) c.trigger(id, WorkoutActionType.PERSONAL_RECORD) }</ID>
+    <ID>MaxLineLength:DungeonPrototypeEncounter.kt$LinearProgressIndicator(progress = { combat.enemyHealthFraction }, modifier = Modifier.fillMaxWidth().height(12.dp))</ID>
+    <ID>MaxLineLength:DungeonPrototypeEncounter.kt$Text("Simulated clock: ${controller.nowMillis / 1000}s", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)</ID>
+    <ID>MaxLineLength:DungeonPrototypeEncounter.kt$Text("Trigger a workout action to contribute.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)</ID>
+    <ID>MaxLineLength:DungeonPrototypeEncounter.kt$Text("earned ${member.earnedContribution}", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)</ID>
+    <ID>MaxLineLength:DungeonPrototypeEncounter.kt$color = if (entry.isContribution) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant</ID>
+    <ID>MaxLineLength:DungeonPrototypeEncounter.kt$}</ID>
+    <ID>MaxLineLength:DungeonPrototypeScreen.kt$Button</ID>
+    <ID>MaxLineLength:DungeonPrototypeScreen.kt$Text("No members yet — join from the list above.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)</ID>
+    <ID>MaxLineLength:DungeonPrototypeScreen.kt$Text(title.uppercase(), fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.Medium)</ID>
+    <ID>MaxLineLength:DungeonPrototypeScreen.kt$color = if (m.ready) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant</ID>
     <ID>MaxLineLength:EdgeLitStatusPanel.kt$drawLine(Color(0xFF9FB0FF).copy(alpha = 0.02f * materialize), Offset(0f, y), Offset(size.width, y), strokeWidth = 1f)</ID>
     <ID>MaxLineLength:EdgeLitStatusPanel.kt$drawLine(Color(0xFF9FB0FF).copy(alpha = 0.02f * materialize), Offset(x, 0f), Offset(x, size.height), strokeWidth = 1f)</ID>
     <ID>MaxLineLength:EdgeLitStatusPanel.kt$drawPath(path, color = StatusPalette.infoLine.copy(alpha = 0.22f * materialize), style = Stroke(width = 1.dp.toPx()))</ID>
@@ -782,6 +812,7 @@
     <ID>ReturnCount:CardioProgressionCalculators.kt$IntervalProgressionCalculator$fun candidates( prescription: CardioPrescription, recent: List&lt;CardioPerformanceSummary&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), ): List&lt;ProgressionCandidate&gt;</ID>
     <ID>ReturnCount:ContributionEligibilityEvaluator.kt$ContributionEligibilityEvaluator$fun evaluate( member: DungeonPartyMember, workoutActive: Boolean, now: Long, ): ContributionEligibility</ID>
     <ID>ReturnCount:DungeonCombatEngine.kt$DungeonCombatEngine$fun apply( state: DungeonCombatState, enemy: DungeonEnemy, contribution: WorkoutContribution, ): DungeonCombatState</ID>
+    <ID>ReturnCount:DungeonPrototypeController.kt$DungeonPrototypeController$fun trigger( memberId: String, action: WorkoutActionType, )</ID>
     <ID>ReturnCount:ExerciseVariationProgressionEngine.kt$ExerciseVariationProgressionEngine$fun regressionCandidate( graph: ExerciseVariationGraph, currentVariationId: String, input: VariationReadinessInput, minFailures: Int = 2, ): ProgressionCandidate?</ID>
     <ID>ReturnCount:ProgressionRecommendationRepositoryImpl.kt$ProgressionRecommendationRepositoryImpl$override suspend fun accept(id: String): Boolean</ID>
     <ID>ReturnCount:ProgressionRecommendationRepositoryImpl.kt$ProgressionRecommendationRepositoryImpl$override suspend fun reject(id: String): Boolean</ID>
@@ -805,6 +836,7 @@
     <ID>TooManyFunctions:ClassRepository.kt$ClassRepository</ID>
     <ID>TooManyFunctions:ClassRepositoryImpl.kt$ClassRepositoryImpl : ClassRepository</ID>
     <ID>TooManyFunctions:DatabaseModule.kt$DatabaseModule</ID>
+    <ID>TooManyFunctions:DungeonPrototypeController.kt$DungeonPrototypeController</ID>
     <ID>TooManyFunctions:ProgressionRecommendationRepository.kt$ProgressionRecommendationRepository</ID>
     <ID>TooManyFunctions:ProgressionRecommendationRepositoryImpl.kt$ProgressionRecommendationRepositoryImpl : ProgressionRecommendationRepository</ID>
     <ID>TooManyFunctions:QuestDao.kt$QuestDao</ID>

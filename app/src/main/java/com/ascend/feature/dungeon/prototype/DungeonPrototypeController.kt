@@ -67,6 +67,11 @@ class DungeonPrototypeController(
         private set
     var selectedDungeonId by mutableStateOf(DungeonCatalog.DUNGEONS.first().id)
     var solo by mutableStateOf(false)
+    var weightUnit by mutableStateOf(com.ascend.core.common.WeightUnit.KILOGRAMS)
+
+    /** A formatted reference load for the strength contribution, in the selected unit. */
+    val strengthReferenceLabel: String
+        get() = "Strength set ≈ ${com.ascend.core.common.WeightUnits.format(STRENGTH_REFERENCE_KG, weightUnit)}"
     var nowMillis by mutableLongStateOf(0L)
         private set
 
@@ -231,6 +236,7 @@ class DungeonPrototypeController(
         private const val MOBILITY_METRIC = 160L
         private const val DEFAULT_BUDGET_SECONDS = 600L
         private const val FAIL_BUDGET_FACTOR = 3L
+        private const val STRENGTH_REFERENCE_KG = 60.0
     }
 }
 

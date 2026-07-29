@@ -124,6 +124,12 @@ internal fun StatusPrototypeControls(
             Section("Device width") {
                 Chips(DeviceWidth.entries, controller.deviceWidth, { it.label }) { controller.deviceWidth = it }
             }
+            Section("Weight unit") {
+                com.ascend.core.designsystem.component.WeightUnitSelector(
+                    selected = controller.weightUnit,
+                    onSelect = { controller.weightUnit = it },
+                )
+            }
             Section("Display") {
                 ToggleRow("Reduced motion", controller.reducedMotion) { controller.reducedMotion = it }
                 ToggleRow("Text-stress data", controller.textStress) { controller.textStress = it }

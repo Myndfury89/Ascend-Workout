@@ -748,6 +748,14 @@ object AscendMigrations {
             }
         }
 
+    /** v12 -> v13: a display weight-unit preference on the profile (canonical storage stays kg). */
+    val MIGRATION_12_13 =
+        object : Migration(12, 13) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE `user_profile` ADD COLUMN `weightUnit` TEXT NOT NULL DEFAULT 'KILOGRAMS'")
+            }
+        }
+
     /** All migrations, wired into the Room builder. */
     val ALL: Array<Migration> =
         arrayOf(
@@ -762,5 +770,6 @@ object AscendMigrations {
             MIGRATION_9_10,
             MIGRATION_10_11,
             MIGRATION_11_12,
+            MIGRATION_12_13,
         )
 }

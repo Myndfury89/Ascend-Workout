@@ -448,4 +448,30 @@ class AscendMigrationTest {
         assertTrue("a second unlock of the same skill is rejected", unlockRejected)
         db.close()
     }
+
+    @Test
+    fun `migrate 12 to 13 adds the weight-unit preference defaulting to kilograms`() {
+        val dbName = "migration-test-12-13.db"
+        helper.createDatabase(dbName, 12).use { db ->
+            db.execSQL(
+                "INSERT INTO user_profile (id, displayName, createdAt, updatedAt, onboardingCompleted, " +
+                    "measurementSystem, localOnly, cloudSyncEnabled) VALUES ('u1', 'T', 0, 0, 0, 'METRIC', 1, 0)",
+            )
+        }
+
+        val db = helper.runMigrationsAndValidate(dbName, 13, true, AscendMigrations.MIGRATION_12_13)
+
+        // The existing profile was backfilled with the default unit.
+        db.query("SELECT weightUnit FROM user_profile WHERE id = 'u1'").use { c ->
+            assertTrue(c.moveToFirst())
+            assertEquals("KILOGRAMS", c.getString(0))
+        }
+        // And it can be updated.
+        db.execSQL("UPDATE user_profile SET weightUnit = 'POUNDS' WHERE id = 'u1'")
+        db.query("SELECT weightUnit FROM user_profile WHERE id = 'u1'").use { c ->
+            assertTrue(c.moveToFirst())
+            assertEquals("POUNDS", c.getString(0))
+        }
+        db.close()
+    }
 }

@@ -101,9 +101,13 @@ object FakeStatusPrototype {
         variant: StatusClassVariant,
         reducedMotion: Boolean,
         forceSecondary: Boolean = false,
+        weightUnit: com.ascend.core.common.WeightUnit = com.ascend.core.common.WeightUnit.KILOGRAMS,
     ): StatusPrototypeData {
         val effectiveReduced = reducedMotion || stateId == StatusPrototypeStateId.REDUCED_MOTION
-        val base = baseline(variant, effectiveReduced, stateId, forceSecondary)
+        val base =
+            baseline(variant, effectiveReduced, stateId, forceSecondary).copy(
+                recentProgressionEvent = "Bench press → ${com.ascend.core.common.WeightUnits.format(62.5, weightUnit)} confirmed",
+            )
         return when (stateId) {
             StatusPrototypeStateId.STANDARD, StatusPrototypeStateId.REDUCED_MOTION -> base
             StatusPrototypeStateId.QUEST_PROGRESS ->
@@ -162,11 +166,13 @@ object FakeStatusPrototype {
                             "Specialisation deepens",
                         ),
                 )
-            StatusPrototypeStateId.PERSONAL_RECORD ->
+            StatusPrototypeStateId.PERSONAL_RECORD -> {
+                val pr = "Bench press ${com.ascend.core.common.WeightUnits.format(65.0, weightUnit)} × 5"
                 base.copy(
-                    recentPersonalRecord = "Bench press 65 kg × 5",
-                    overlay = StatusEventOverlay(StatusOverlayKind.PERSONAL_RECORD, "Personal record", "Bench press 65 kg × 5"),
+                    recentPersonalRecord = pr,
+                    overlay = StatusEventOverlay(StatusOverlayKind.PERSONAL_RECORD, "Personal record", pr),
                 )
+            }
             StatusPrototypeStateId.RECOMMENDATION ->
                 base.copy(
                     pendingRecommendation = recommendationFor(variant),

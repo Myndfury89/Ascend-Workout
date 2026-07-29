@@ -1,5 +1,6 @@
 package com.ascend.core.database.entity
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
@@ -13,6 +14,10 @@ data class UserProfileEntity(
     val updatedAt: Long,
     val onboardingCompleted: Boolean = false,
     val measurementSystem: String = "METRIC",
+    // Display unit for weights (canonical storage is always kilograms). Defaults from the
+    // measurement system but may be overridden independently. A DB default keeps the NOT NULL
+    // column consistent with the v12->v13 ALTER for rows inserted without it.
+    @ColumnInfo(defaultValue = "KILOGRAMS") val weightUnit: String = "KILOGRAMS",
     val timezone: String? = null,
     val localOnly: Boolean = true,
     val cloudSyncEnabled: Boolean = false,

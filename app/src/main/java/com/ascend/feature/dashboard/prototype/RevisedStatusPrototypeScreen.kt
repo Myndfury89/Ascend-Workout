@@ -52,7 +52,13 @@ fun RevisedStatusPrototypeScreen(
         if (controller.textStress) {
             FakeStatusPrototype.stressData(controller.variant, controller.reducedMotion)
         } else {
-            FakeStatusPrototype.dataFor(controller.stateId, controller.variant, controller.reducedMotion, controller.forceSecondary)
+            FakeStatusPrototype.dataFor(
+                controller.stateId,
+                controller.variant,
+                controller.reducedMotion,
+                controller.forceSecondary,
+                controller.weightUnit,
+            )
         }
 
     val reduced = controller.reducedMotion || data.reducedMotion

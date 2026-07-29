@@ -49,6 +49,15 @@ class FakeStatusDataTest {
             override fun observeProgress(userId: String): Flow<PlayerProgress?> = emptyFlow()
 
             override fun observeStats(userId: String): Flow<PlayerStats?> = emptyFlow()
+
+            override suspend fun weightUnit(userId: String) = com.ascend.core.common.WeightUnit.KILOGRAMS
+
+            override fun observeWeightUnit(userId: String) = emptyFlow<com.ascend.core.common.WeightUnit>()
+
+            override suspend fun setWeightUnit(
+                userId: String,
+                unit: com.ascend.core.common.WeightUnit,
+            ) = Unit
         }
 
     @Before

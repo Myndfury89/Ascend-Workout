@@ -27,6 +27,7 @@ class PrototypeReviewController {
     var diagnosticsOverlay by mutableStateOf(false)
 
     // Ornate sigil knobs (null override = follow the current state's data).
+    var weightUnit by mutableStateOf(com.ascend.core.common.WeightUnit.KILOGRAMS)
     var rankTierOverride by mutableStateOf<RankTier?>(null)
     var playerRingOverride by mutableStateOf<Float?>(null)
     var classRingOverride by mutableStateOf<Float?>(null)

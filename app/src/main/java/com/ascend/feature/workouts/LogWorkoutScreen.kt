@@ -42,8 +42,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ascend.R
+import com.ascend.core.common.WeightUnit
+import com.ascend.core.common.WeightUnits
 import com.ascend.core.designsystem.component.PrimaryActionButton
 import com.ascend.core.designsystem.component.QuickProgressButton
+import com.ascend.core.designsystem.component.WeightUnitSelector
 import com.ascend.core.model.Difficulty
 import com.ascend.core.model.Exercise
 import com.ascend.core.model.WorkoutSet
@@ -55,7 +58,10 @@ fun LogWorkoutScreen(
     viewModel: LogWorkoutViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val weightUnit by viewModel.weightUnit.collectAsStateWithLifecycle()
     LogWorkoutContent(
+        weightUnit = weightUnit,
+        onWeightUnitChange = viewModel::setWeightUnit,
         state = state,
         onBack = onBack,
         onTitleChange = viewModel::setTitle,
@@ -83,6 +89,8 @@ internal fun LogWorkoutContent(
     onFinish: () -> Unit,
     onDismissCompletion: () -> Unit,
     modifier: Modifier = Modifier,
+    weightUnit: WeightUnit = WeightUnit.KILOGRAMS,
+    onWeightUnitChange: (WeightUnit) -> Unit = {},
 ) {
     Column(
         modifier =
@@ -120,14 +128,24 @@ internal fun LogWorkoutContent(
             }
         }
 
+        Spacer(Modifier.height(16.dp))
+        Text(stringResource(R.string.workout_weight_unit_label), style = MaterialTheme.typography.labelLarge)
+        Spacer(Modifier.height(4.dp))
+        WeightUnitSelector(selected = weightUnit, onSelect = onWeightUnitChange)
+        Text(
+            stringResource(R.string.workout_weight_unit_helper),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+
         Spacer(Modifier.height(20.dp))
-        AddSetSection(exercises = state.exercises, onAddSet = onAddSet)
+        AddSetSection(exercises = state.exercises, weightUnit = weightUnit, onAddSet = onAddSet)
 
         if (state.sets.isNotEmpty()) {
             Spacer(Modifier.height(20.dp))
             Text(stringResource(R.string.workout_logged_sets), style = MaterialTheme.typography.titleMedium)
             state.sets.forEachIndexed { index, set ->
-                LoggedSetRow(index = index, set = set, onDelete = { onDeleteSet(set.id) })
+                LoggedSetRow(index = index, set = set, weightUnit = weightUnit, onDelete = { onDeleteSet(set.id) })
             }
         }
 
@@ -168,6 +186,7 @@ internal fun LogWorkoutContent(
 @Composable
 private fun AddSetSection(
     exercises: List<Exercise>,
+    weightUnit: WeightUnit,
     onAddSet: (Exercise, Int, Double?) -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -216,7 +235,7 @@ private fun AddSetSection(
             OutlinedTextField(
                 value = weightText,
                 onValueChange = { weightText = it.filter { c -> c.isDigit() || c == '.' }.take(6) },
-                label = { Text(stringResource(R.string.workout_weight_label)) },
+                label = { Text("${stringResource(R.string.workout_weight_label)} (${weightUnit.symbol})") },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 modifier = Modifier.width(120.dp),
@@ -243,6 +262,7 @@ private fun AddSetSection(
 private fun LoggedSetRow(
     index: Int,
     set: WorkoutSet,
+    weightUnit: WeightUnit,
     onDelete: () -> Unit,
 ) {
     Row(
@@ -250,7 +270,8 @@ private fun LoggedSetRow(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
-        val weightSuffix = set.weight?.let { " @ ${it.toInt()} kg" }.orEmpty()
+        // Weight is stored canonically in kg; render it in the selected display unit.
+        val weightSuffix = set.weight?.let { " @ ${WeightUnits.format(it, weightUnit)}" }.orEmpty()
         Text(
             "Set ${index + 1}: ${set.exerciseName} — ${set.volume.toInt()} ${set.unit}$weightSuffix",
             style = MaterialTheme.typography.bodyLarge,

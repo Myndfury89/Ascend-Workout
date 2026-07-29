@@ -83,7 +83,7 @@ import com.ascend.core.database.entity.XpTransactionEntity
         SkillProgressTransactionEntity::class,
         SkillUnlockEventEntity::class,
     ],
-    version = 12,
+    version = 13,
     exportSchema = true,
 )
 abstract class AscendDatabase : RoomDatabase() {

@@ -7,6 +7,9 @@
     <file name="src/main/java/com/ascend/core/designsystem/component/Placeholder.kt">
         <error line="25" column="5" source="standard:function-naming" />
     </file>
+    <file name="src/main/java/com/ascend/core/designsystem/component/WeightUnitSelector.kt">
+        <error line="25" column="5" source="standard:function-naming" />
+    </file>
     <file name="src/main/java/com/ascend/core/designsystem/theme/Theme.kt">
         <error line="54" column="5" source="standard:function-naming" />
     </file>
@@ -42,7 +45,7 @@
     </file>
     <file name="src/main/java/com/ascend/feature/dashboard/prototype/RevisedStatusPrototypeScreen.kt">
         <error line="47" column="5" source="standard:function-naming" />
-        <error line="202" column="13" source="standard:function-naming" />
+        <error line="208" column="13" source="standard:function-naming" />
     </file>
     <file name="src/main/java/com/ascend/feature/dashboard/prototype/StatusAtmosphere.kt">
         <error line="59" column="5" source="standard:function-naming" />
@@ -59,10 +62,10 @@
     <file name="src/main/java/com/ascend/feature/dashboard/prototype/StatusPrototypeControls.kt">
         <error line="32" column="14" source="standard:function-naming" />
         <error line="71" column="14" source="standard:function-naming" />
-        <error line="149" column="13" source="standard:function-naming" />
-        <error line="159" column="17" source="standard:function-naming" />
-        <error line="177" column="13" source="standard:function-naming" />
-        <error line="219" column="13" source="standard:function-naming" />
+        <error line="155" column="13" source="standard:function-naming" />
+        <error line="165" column="17" source="standard:function-naming" />
+        <error line="183" column="13" source="standard:function-naming" />
+        <error line="225" column="13" source="standard:function-naming" />
     </file>
     <file name="src/main/java/com/ascend/feature/dashboard/prototype/StatusPrototypePanelContent.kt">
         <error line="41" column="14" source="standard:function-naming" />
@@ -128,10 +131,10 @@
         <error line="59" column="13" source="standard:function-naming" />
     </file>
     <file name="src/main/java/com/ascend/feature/workouts/LogWorkoutScreen.kt">
-        <error line="52" column="5" source="standard:function-naming" />
-        <error line="76" column="14" source="standard:function-naming" />
-        <error line="169" column="13" source="standard:function-naming" />
-        <error line="243" column="13" source="standard:function-naming" />
+        <error line="55" column="5" source="standard:function-naming" />
+        <error line="82" column="14" source="standard:function-naming" />
+        <error line="187" column="13" source="standard:function-naming" />
+        <error line="262" column="13" source="standard:function-naming" />
     </file>
     <file name="src/main/java/com/ascend/feature/workouts/WorkoutScreen.kt">
         <error line="36" column="5" source="standard:function-naming" />

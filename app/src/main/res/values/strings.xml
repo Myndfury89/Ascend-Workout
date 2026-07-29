@@ -43,7 +43,9 @@
     <string name="workout_exercise_label">Exercise</string>
     <string name="workout_pick_exercise">Pick an exercise</string>
     <string name="workout_value_label">Amount</string>
-    <string name="workout_weight_label">Weight (kg)</string>
+    <string name="workout_weight_label">Weight</string>
+    <string name="workout_weight_unit_label">Weight unit</string>
+    <string name="workout_weight_unit_helper">Changes how weights are displayed. Your stored workout data will not be altered.</string>
     <string name="workout_logged_sets">Logged sets</string>
     <string name="workout_delete_set">Delete set</string>
     <string name="workout_finish">Finish Workout</string>

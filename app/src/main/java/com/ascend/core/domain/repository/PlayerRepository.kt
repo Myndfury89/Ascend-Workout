@@ -1,5 +1,6 @@
 package com.ascend.core.domain.repository
 
+import com.ascend.core.common.WeightUnit
 import com.ascend.core.model.PlayerProgress
 import com.ascend.core.model.PlayerStats
 import kotlinx.coroutines.flow.Flow
@@ -12,4 +13,15 @@ interface PlayerRepository {
     fun observeProgress(userId: String): Flow<PlayerProgress?>
 
     fun observeStats(userId: String): Flow<PlayerStats?>
+
+    /** The user's chosen display weight unit (canonical storage stays kilograms). */
+    suspend fun weightUnit(userId: String): WeightUnit
+
+    fun observeWeightUnit(userId: String): Flow<WeightUnit>
+
+    /** Persist a new display weight unit. Never rewrites any stored weight. */
+    suspend fun setWeightUnit(
+        userId: String,
+        unit: WeightUnit,
+    )
 }

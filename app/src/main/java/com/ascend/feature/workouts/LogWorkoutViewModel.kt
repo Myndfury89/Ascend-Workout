@@ -2,6 +2,8 @@ package com.ascend.feature.workouts
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ascend.core.common.WeightUnit
+import com.ascend.core.common.WeightUnits
 import com.ascend.core.domain.repository.CompleteWorkoutResult
 import com.ascend.core.domain.repository.NewSetSpec
 import com.ascend.core.domain.repository.NewWorkoutSpec
@@ -76,6 +78,14 @@ class LogWorkoutViewModel
                 )
             }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), LogWorkoutUiState())
 
+        /** The display weight unit; canonical storage is always kilograms. */
+        @OptIn(ExperimentalCoroutinesApi::class)
+        val weightUnit: StateFlow<WeightUnit> =
+            userId
+                .filterNotNull()
+                .flatMapLatest { playerRepository.observeWeightUnit(it) }
+                .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), WeightUnit.KILOGRAMS)
+
         init {
             viewModelScope.launch {
                 val uid = playerRepository.ensureLocalPlayer()
@@ -83,6 +93,11 @@ class LogWorkoutViewModel
                 userId.value = uid
             }
         }
+
+        fun setWeightUnit(unit: WeightUnit) =
+            viewModelScope.launch {
+                playerRepository.setWeightUnit(userId.filterNotNull().first(), unit)
+            }
 
         fun setTitle(value: String) {
             title.value = value
@@ -100,6 +115,8 @@ class LogWorkoutViewModel
             if (value <= 0) return@launch
             val uid = userId.filterNotNull().first()
             val id = ensureWorkout(uid)
+            // The screen provides the weight in the display unit; store it canonically in kg.
+            val canonicalWeight = weight?.let { WeightUnits.toCanonicalKg(it, weightUnit.value) }
             workoutRepository.addSet(
                 id,
                 NewSetSpec(
@@ -107,7 +124,7 @@ class LogWorkoutViewModel
                     volume = value.toDouble(),
                     unit = exercise.defaultUnit,
                     reps = if (exercise.measurementType.isRepBased()) value else null,
-                    weight = weight,
+                    weight = canonicalWeight,
                     durationSeconds = if (exercise.measurementType == ObjectiveType.DURATION) value.toLong() else null,
                     distance = if (exercise.measurementType == ObjectiveType.DISTANCE) value.toDouble() else null,
                 ),

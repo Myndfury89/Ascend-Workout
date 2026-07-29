@@ -2,6 +2,7 @@ package com.ascend.core.data.repository
 
 import androidx.room.withTransaction
 import com.ascend.core.common.LOCAL_USER_ID
+import com.ascend.core.common.WeightUnit
 import com.ascend.core.data.mapper.toDomain
 import com.ascend.core.database.AscendDatabase
 import com.ascend.core.database.dao.PlayerDao
@@ -48,4 +49,17 @@ class PlayerRepositoryImpl
             playerDao.observeProgress(userId).map { it?.toDomain(levelCalculator) }
 
         override fun observeStats(userId: String): Flow<PlayerStats?> = playerDao.observeStats(userId).map { it?.toDomain() }
+
+        override suspend fun weightUnit(userId: String): WeightUnit = WeightUnit.fromNameOrDefault(playerDao.getProfile(userId)?.weightUnit)
+
+        override fun observeWeightUnit(userId: String): Flow<WeightUnit> =
+            playerDao.observeProfile(userId).map { WeightUnit.fromNameOrDefault(it?.weightUnit) }
+
+        override suspend fun setWeightUnit(
+            userId: String,
+            unit: WeightUnit,
+        ) {
+            // Persist the display preference only — no stored weight is ever rewritten.
+            playerDao.updateWeightUnit(userId, unit.name, System.currentTimeMillis())
+        }
     }

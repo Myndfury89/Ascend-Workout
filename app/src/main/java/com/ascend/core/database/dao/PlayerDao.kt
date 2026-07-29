@@ -19,6 +19,13 @@ interface PlayerDao {
     @Query("SELECT * FROM user_profile WHERE id = :userId")
     fun observeProfile(userId: String): Flow<UserProfileEntity?>
 
+    @Query("UPDATE user_profile SET weightUnit = :weightUnit, updatedAt = :updatedAt WHERE id = :userId")
+    suspend fun updateWeightUnit(
+        userId: String,
+        weightUnit: String,
+        updatedAt: Long,
+    )
+
     @Upsert
     suspend fun upsertProgress(entity: PlayerProgressEntity)
 

@@ -115,6 +115,13 @@ private fun MemberRow(
 @Composable
 internal fun DebugFooter(controller: DungeonPrototypeController) {
     SectionCard("Debug") {
+        Text("Weight unit", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        com.ascend.core.designsystem.component.WeightUnitSelector(
+            selected = controller.weightUnit,
+            onSelect = { controller.weightUnit = it },
+        )
+        Text(controller.strengthReferenceLabel, fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Spacer(Modifier.height(6.dp))
         Text("Simulated clock: ${controller.nowMillis / 1000}s", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
         FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             OutlinedButton(onClick = { controller.advanceTimer(30) }) { Text("+30s", fontSize = 11.sp) }

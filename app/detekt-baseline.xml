@@ -83,10 +83,9 @@
     <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "Sigil · mid rank", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewSigilMidRank()</ID>
     <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "Sigil · rank promotion", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewSigilRankPromotion()</ID>
     <ID>FunctionNaming:StatusScreen.kt$@Composable fun StatusScreen( modifier: Modifier = Modifier, viewModel: StatusMotionViewModel = hiltViewModel(), )</ID>
-    <ID>FunctionNaming:StatusScreen.kt$@Composable private fun AttributeRow( attribute: AttributeType, value: Int, reveal: Float, pulse: Float, )</ID>
-    <ID>FunctionNaming:StatusScreen.kt$@Composable private fun HunterHeader( hunterName: String, rankLabel: String, level: Int, headerAlpha: Float, levelFlash: Float, rankFlash: Float, )</ID>
-    <ID>FunctionNaming:StatusScreen.kt$@Composable private fun StatusControls( reducedMotion: Boolean, busy: Boolean, onReplay: () -&gt; Unit, onReducedMotionChange: (Boolean) -&gt; Unit, )</ID>
-    <ID>FunctionNaming:StatusScreen.kt$@Composable private fun XpBar( levelState: LevelState, alpha: Float, )</ID>
+    <ID>FunctionNaming:StatusScreen.kt$@Composable private fun StatusControls( reducedMotion: Boolean, onReplay: () -&gt; Unit, onReducedMotionChange: (Boolean) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:StatusScreen.kt$@Composable private fun StatusEnergyFrameContent( data: StatusPrototypeData, motion: StatusPrototypeMotion, accent: Color, rotation: Float, scan: Float, ambient: Boolean, )</ID>
+    <ID>FunctionNaming:StatusScreen.kt$@Composable private fun StatusPanelContent( data: StatusPrototypeData, accent: Color, motion: StatusPrototypeMotion, rotation: Float, ambient: Boolean, )</ID>
     <ID>FunctionNaming:Theme.kt$@Composable fun AscendTheme( darkTheme: Boolean = isSystemInDarkTheme(), // App identity is dark-first; dynamic color is opt-in via settings later. dynamicColor: Boolean = false, content: @Composable () -&gt; Unit, )</ID>
     <ID>FunctionNaming:WeightUnitSelector.kt$@Composable fun WeightUnitSelector( selected: WeightUnit, onSelect: (WeightUnit) -&gt; Unit, modifier: Modifier = Modifier, )</ID>
     <ID>FunctionNaming:WorkoutScreen.kt$@Composable fun WorkoutScreen( onLogWorkout: () -&gt; Unit, modifier: Modifier = Modifier, viewModel: WorkoutsViewModel = hiltViewModel(), )</ID>
@@ -133,7 +132,7 @@
     <ID>LongParameterList:SkillRepositoryImpl.kt$SkillRepositoryImpl$( private val db: AscendDatabase, private val dao: SkillDao, private val levelCalculator: SkillLevelCalculator, private val progressCalculator: SkillProgressCalculator, private val eligibilityEngine: SkillEligibilityEngine, private val affinityResolver: SkillClassAffinityResolver, private val transferableResolver: TransferableSkillResolver, )</ID>
     <ID>LongParameterList:StatusEnergyFrame.kt$( energy: Float, pulse: Float, rotation: Float, frameMotion: Boolean, modifier: Modifier = Modifier, content: @Composable BoxScope.() -&gt; Unit, )</ID>
     <ID>LongParameterList:StatusEnergyFrame.kt$( origin: Offset, sx: Float, sy: Float, bright: Float, rotation: Float, motion: Boolean, )</ID>
-    <ID>LongParameterList:StatusScreen.kt$( hunterName: String, rankLabel: String, level: Int, headerAlpha: Float, levelFlash: Float, rankFlash: Float, )</ID>
+    <ID>LongParameterList:StatusScreen.kt$( data: StatusPrototypeData, motion: StatusPrototypeMotion, accent: Color, rotation: Float, scan: Float, ambient: Boolean, )</ID>
     <ID>LongParameterList:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$( private val db: AscendDatabase, private val workoutDao: WorkoutDao, private val exerciseDao: ExerciseDao, private val progressionRepository: ProgressionRepository, private val xpCalculator: XpCalculator, private val attributeCalculator: AttributeProgressCalculator, private val classRewardApplier: ClassRewardApplier, private val eventPublisher: ProgressionEventPublisher, )</ID>
     <ID>LongParameterList:XpCalculator.kt$XpCalculator$( durationMinutes: Int, intensity: Float = 0f, volumeScore: Float = 0f, isPersonalRecord: Boolean = false, consistencyEligible: Boolean = false, expeditionMultiplier: Double = 1.0, )</ID>
     <ID>LoopWithTooManyJumpStatements:StepIntervalProgressResolver.kt$StepIntervalProgressResolver$for</ID>
@@ -434,12 +433,13 @@
     <ID>MagicNumber:StatusPrototypePanelContent.kt$0xFFE8735A</ID>
     <ID>MagicNumber:StatusPrototypePreviews.kt$0.98f</ID>
     <ID>MagicNumber:StatusPrototypePreviews.kt$5</ID>
-    <ID>MagicNumber:StatusScreen.kt$0.05f</ID>
-    <ID>MagicNumber:StatusScreen.kt$0xFF3FD9C7</ID>
-    <ID>MagicNumber:StatusScreen.kt$0xFF62B6E8</ID>
-    <ID>MagicNumber:StatusScreen.kt$0xFF7EC46B</ID>
-    <ID>MagicNumber:StatusScreen.kt$0xFF9B8CFF</ID>
-    <ID>MagicNumber:StatusScreen.kt$0xFFE8735A</ID>
+    <ID>MagicNumber:StatusScreen.kt$0.5f</ID>
+    <ID>MagicNumber:StatusScreen.kt$0.98f</ID>
+    <ID>MagicNumber:StatusScreen.kt$0xFF10151F</ID>
+    <ID>MagicNumber:StatusScreen.kt$24_000</ID>
+    <ID>MagicNumber:StatusScreen.kt$360f</ID>
+    <ID>MagicNumber:StatusScreen.kt$5200</ID>
+    <ID>MagicNumber:StatusScreen.kt$9000</ID>
     <ID>MagicNumber:StatusSigil.kt$StatusSigilVariant.BERSERKER$0xFFE8A33D</ID>
     <ID>MagicNumber:StatusSigil.kt$StatusSigilVariant.MAGICIAN$0xFF9B8CFF</ID>
     <ID>MagicNumber:StatusSigil.kt$StatusSigilVariant.MONK$0xFF3FD9C7</ID>
@@ -793,9 +793,7 @@
     <ID>MaxLineLength:StatusPrototypeRenderTest.kt$StatusPrototypeRenderTest$val data = FakeStatusPrototype.dataFor(StatusPrototypeStateId.REDUCED_MOTION, StatusClassVariant.MONK, reducedMotion = false)</ID>
     <ID>MaxLineLength:StatusPrototypeRenderTest.kt$StatusPrototypeRenderTest$val data = FakeStatusPrototype.dataFor(StatusPrototypeStateId.STANDARD, StatusClassVariant.BERSERKER, reducedMotion = false)</ID>
     <ID>MaxLineLength:StatusPrototypeRenderTest.kt$StatusPrototypeRenderTest$val data = FakeStatusPrototype.dataFor(StatusPrototypeStateId.STANDARD, StatusClassVariant.MONK, reducedMotion = false)</ID>
-    <ID>MaxLineLength:StatusScreen.kt$OutlinedButton(onClick = onReplay, enabled = !busy, modifier = Modifier.fillMaxWidth()) { Text("Replay entrance") }</ID>
-    <ID>MaxLineLength:StatusScreen.kt$Text("Level $level", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)</ID>
-    <ID>MaxLineLength:StatusScreen.kt$Text("Status", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)</ID>
+    <ID>MaxLineLength:StatusScreen.kt$sigilDescription(data, data.playerXpFraction, if (hasClass) data.classXpFraction else null, data.activeMedallionIndex)</ID>
     <ID>MaxLineLength:StreakCalculatorTest.kt$StreakCalculatorTest$val result = calc.onActivity(currentStreak = 4, longestStreak = 4, lastActiveDay = day.minusDays(1), today = day)</ID>
     <ID>MaxLineLength:StreakCalculatorTest.kt$StreakCalculatorTest$val result = calc.onActivity(currentStreak = 9, longestStreak = 12, lastActiveDay = day.minusDays(2), today = day)</ID>
     <ID>MaxLineLength:TrainingReadinessCalculator.kt$TrainingReadinessCalculator$)</ID>

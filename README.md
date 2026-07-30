@@ -80,10 +80,11 @@ core loop, built in verifiable phases. It is not the full product yet.
   limit or raises the daily total (schema v11). UI deferred, behind a stable
   `AdaptiveTrainingQueries` surface. See `ADAPTIVE_TRAINING.md`.
 
-**Not yet implemented:** onboarding ("The Awakening"), the real Status dashboard,
-scheduling/calendar, Health Connect, notifications, expeditions, progress
-dashboards, achievements/titles, and cloud sync. Status, Calendar, and Progress
-screens are still placeholders.
+**Not yet implemented:** onboarding ("The Awakening"), scheduling/calendar, Health
+Connect, notifications, expeditions, progress dashboards, achievements/titles, and
+cloud sync. Calendar and Progress screens are still placeholders. (The production
+Status dashboard — the ornate sigil composition on real data — is now live; the
+adaptive‑training / daily‑quest info section on Status is a later wiring step.)
 
 See `ARCHITECTURE.md`, `PROGRESSION_SYSTEM.md`, `QUEST_SYSTEM.md`, `WORKOUT_SYSTEM.md`,
 `DATABASE.md`, `TESTING.md`, and `PRIVACY.md` for details.
@@ -96,7 +97,7 @@ See `ARCHITECTURE.md`, `PROGRESSION_SYSTEM.md`, `QUEST_SYSTEM.md`, `WORKOUT_SYST
 |---|---|
 | Quests | Live — seeded 200‑push‑up quest, Active Quest screen with quick‑add, set history, suggestions, completion |
 | Workout | Live — logged‑session list, log‑workout flow (exercise catalog, sets, difficulty), finish for XP + attributes |
-| Status | Live — real progression (level/rank/XP/attributes), animated from the persisted event queue drained on real quest/workout completions; reduced‑motion, replay |
+| Status | Live — real progression (level/rank/XP/attributes/class) rendered as the approved **ornate sigil composition** (edge‑lit panel, outer energy frame, class seal with rank geometry + dual progress rings), animated from the persisted event queue drained on real quest/workout completions; reduced‑motion, replay |
 | Calendar / Progress | Placeholder |
 
 ## Architecture (summary)

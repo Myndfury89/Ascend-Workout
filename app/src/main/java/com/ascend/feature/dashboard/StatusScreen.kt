@@ -1,22 +1,25 @@
 package com.ascend.feature.dashboard
 
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.LinearProgressIndicator
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
@@ -27,242 +30,248 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ascend.core.designsystem.motion.MotionSpec
-import com.ascend.core.domain.progression.LevelState
-import com.ascend.core.model.AttributeType
-import kotlin.math.roundToInt
+import com.ascend.feature.dashboard.prototype.AttributeMeters
+import com.ascend.feature.dashboard.prototype.EdgeLitStatusPanel
+import com.ascend.feature.dashboard.prototype.EntranceMode
+import com.ascend.feature.dashboard.prototype.EventOverlayChip
+import com.ascend.feature.dashboard.prototype.IdentityBlock
+import com.ascend.feature.dashboard.prototype.OrnateSigil
+import com.ascend.feature.dashboard.prototype.OrnateSigilAnimation
+import com.ascend.feature.dashboard.prototype.OrnateSigilState
+import com.ascend.feature.dashboard.prototype.ProficiencyBlock
+import com.ascend.feature.dashboard.prototype.ProgressionBars
+import com.ascend.feature.dashboard.prototype.StatusAtmosphere
+import com.ascend.feature.dashboard.prototype.StatusClassVariant
+import com.ascend.feature.dashboard.prototype.StatusFog
+import com.ascend.feature.dashboard.prototype.StatusPalette
+import com.ascend.feature.dashboard.prototype.StatusParticleField
+import com.ascend.feature.dashboard.prototype.StatusPrototypeData
+import com.ascend.feature.dashboard.prototype.StatusPrototypeMotion
+import com.ascend.feature.dashboard.prototype.StatusSigilVariant
+import com.ascend.feature.dashboard.prototype.sigilDescription
 
-private val AttributeAccents: Map<AttributeType, Color> =
-    mapOf(
-        AttributeType.STRENGTH to Color(0xFFE8735A),
-        AttributeType.ENDURANCE to Color(0xFF3FD9C7),
-        AttributeType.AGILITY to Color(0xFF7EC46B),
-        AttributeType.DISCIPLINE to Color(0xFF9B8CFF),
-        AttributeType.RECOVERY to Color(0xFF62B6E8),
-    )
+private const val ATTRIBUTE_COUNT = 5
 
-// Soft ceiling for the per‑attribute meter fill (values can exceed it).
-private const val ATTRIBUTE_METER_CEILING = 120f
-
+/**
+ * The production Status screen: the approved ornate composition — a dominant edge-lit panel over a
+ * dark holographic field, framed by an outer energy border, with the centred class sigil behind the
+ * identity — driven by **real** progression data. Domain facts (level / rank / XP / attributes /
+ * class) come from [StatusMotionViewModel]; the entrance and event beats replay the persisted
+ * ProgressionEventQueue drained on real quest/workout completions, exactly once. Reduced motion
+ * collapses every tween and stops all ambient animation.
+ */
 @Composable
 fun StatusScreen(
     modifier: Modifier = Modifier,
     viewModel: StatusMotionViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val domain = state.domain
 
-    if (state.phase == StatusPhase.LOADING || state.domain == null) {
-        Box(modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+    if (state.phase == StatusPhase.LOADING || domain == null) {
+        Box(modifier.fillMaxSize().background(StatusPalette.groundDeep), contentAlignment = Alignment.Center) {
             CircularProgressIndicator()
         }
         return
     }
 
-    val motion = MotionSpec(reducedMotion = state.reducedMotion)
-    val anim = remember { StatusMotion(AttributeType.entries) }
+    val data =
+        StatusComposition.map(
+            hunterName = state.hunterName,
+            domain = domain,
+            classInfo = state.classInfo,
+            batch = state.pendingBatch,
+            reducedMotion = state.reducedMotion,
+        )
+    val reduced = state.reducedMotion
+    val motionSpec = MotionSpec(reducedMotion = reduced)
+    val accent = StatusSigilVariant.of(data.variant).core
 
-    LaunchedEffect(state.entranceKey, state.domain != null) {
-        state.domain?.let { anim.playEntrance(it, motion) }
+    val motion = remember { StatusPrototypeMotion(ATTRIBUTE_COUNT) }
+
+    // Entrance: fast, low-ceremony everyday open. Replays when the ViewModel bumps entranceKey.
+    LaunchedEffect(state.entranceKey, domain.level, domain.rank) {
+        motion.play(data, motionSpec, EntranceMode.EVERYDAY_OPEN)
     }
+    // A real earning batch drained from the queue: play its beat (cinematic for a major unlock),
+    // then mark it consumed so it never replays.
     LaunchedEffect(state.pendingBatch) {
         val batch = state.pendingBatch
         if (batch.isNotEmpty()) {
-            anim.playBatch(batch, motion)
+            val mode = if (data.majorUnlock) EntranceMode.MAJOR_EVENT else EntranceMode.EVERYDAY_OPEN
+            motion.play(data, motionSpec, mode)
             viewModel.onBatchPlayed(batch.map { it.id })
         }
     }
 
-    val lifetimeNow = anim.lifetime.value.toLong()
-    val levelState = viewModel.levelState(lifetimeNow)
-    val busy = state.isSimulating || state.pendingBatch.isNotEmpty()
+    // Ambient motion — off entirely under reduced motion.
+    val ambient = !reduced
+    val infinite = rememberInfiniteTransition(label = "ambient")
+    val rotation by infinite.animateFloat(
+        0f,
+        if (ambient) 360f else 0f,
+        infiniteRepeatable(tween(24_000, easing = LinearEasing), RepeatMode.Restart),
+        label = "rot",
+    )
+    val scan by infinite.animateFloat(
+        0f,
+        if (ambient) 1f else 0f,
+        infiniteRepeatable(tween(5200, easing = LinearEasing), RepeatMode.Restart),
+        label = "scan",
+    )
+    val sweep by infinite.animateFloat(
+        0f,
+        if (ambient) 1f else 0.5f,
+        infiniteRepeatable(tween(9000, easing = LinearEasing), RepeatMode.Reverse),
+        label = "sweep",
+    )
 
-    Column(
-        modifier =
-            modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-                .padding(20.dp),
-    ) {
-        HunterHeader(
-            hunterName = state.hunterName,
-            rankLabel = anim.displayedRank.displayName,
-            level = levelState.level,
-            headerAlpha = anim.headerAlpha.value,
-            levelFlash = anim.levelFlash.value,
-            rankFlash = anim.rankFlash.value,
-        )
+    Box(modifier.fillMaxSize().background(StatusPalette.groundDeep)) {
+        StatusAtmosphere(sweep = sweep)
+        StatusFog(running = ambient)
+        StatusParticleField(running = ambient)
 
-        Spacer(Modifier.height(20.dp))
-        XpBar(levelState = levelState, alpha = anim.xpBarAlpha.value)
-
-        Spacer(Modifier.height(24.dp))
-        Text("Attributes", style = MaterialTheme.typography.titleMedium)
-        Spacer(Modifier.height(8.dp))
-        AttributeType.entries.forEach { attribute ->
-            AttributeRow(
-                attribute = attribute,
-                value = anim.attrValue.getValue(attribute).value.roundToInt(),
-                reveal = anim.attrReveal.getValue(attribute).value,
-                pulse = anim.attrPulse.getValue(attribute).value,
+        Column(
+            Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 12.dp, vertical = 20.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            StatusEnergyFrameContent(data, motion, accent, rotation, scan, ambient)
+            Spacer(Modifier.height(20.dp))
+            StatusControls(
+                reducedMotion = reduced,
+                onReplay = viewModel::replayEntrance,
+                onReducedMotionChange = viewModel::setReducedMotion,
             )
-            Spacer(Modifier.height(10.dp))
+            Spacer(Modifier.height(28.dp))
         }
-
-        Spacer(Modifier.height(16.dp))
-        StatusControls(
-            reducedMotion = state.reducedMotion,
-            busy = busy,
-            onReplay = viewModel::replayEntrance,
-            onReducedMotionChange = viewModel::setReducedMotion,
-        )
-        Spacer(Modifier.height(24.dp))
     }
 }
 
 @Composable
-private fun HunterHeader(
-    hunterName: String,
-    rankLabel: String,
-    level: Int,
-    headerAlpha: Float,
-    levelFlash: Float,
-    rankFlash: Float,
+private fun StatusEnergyFrameContent(
+    data: StatusPrototypeData,
+    motion: StatusPrototypeMotion,
+    accent: Color,
+    rotation: Float,
+    scan: Float,
+    ambient: Boolean,
 ) {
-    val accent = MaterialTheme.colorScheme.primary
-    val ember = MaterialTheme.colorScheme.secondary
-    Card(
-        modifier =
-            Modifier
-                .fillMaxWidth()
-                .graphicsLayer { alpha = headerAlpha }
-                .drawBehind {
-                    if (levelFlash > 0f) {
-                        drawRect(accent.copy(alpha = 0.28f * levelFlash))
-                    }
-                    if (rankFlash > 0f) {
-                        drawRect(ember.copy(alpha = 0.28f * rankFlash))
-                    }
-                },
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+    com.ascend.feature.dashboard.prototype.StatusEnergyFrame(
+        energy = motion.frameEnergy.value,
+        pulse = motion.eventFlash.value,
+        rotation = rotation,
+        frameMotion = ambient,
+        modifier = Modifier.fillMaxWidth(),
     ) {
-        Column(Modifier.padding(20.dp)) {
-            Text(rankLabel.uppercase(), style = MaterialTheme.typography.labelLarge, color = accent)
-            Spacer(Modifier.height(4.dp))
-            Text(hunterName, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.SemiBold)
-            Spacer(Modifier.height(4.dp))
-            Text("Level $level", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            if (levelFlash > 0.05f) {
-                Text(
-                    "LEVEL UP",
-                    style = MaterialTheme.typography.titleSmall,
-                    color = accent,
-                    modifier = Modifier.graphicsLayer { alpha = levelFlash },
-                )
-            } else if (rankFlash > 0.05f) {
-                Text(
-                    "RANK UP",
-                    style = MaterialTheme.typography.titleSmall,
-                    color = ember,
-                    modifier = Modifier.graphicsLayer { alpha = rankFlash },
-                )
+        EdgeLitStatusPanel(
+            accent = accent,
+            materialize = motion.panelMaterialize.value,
+            scan = scan,
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            StatusPanelContent(data, accent, motion, rotation, ambient)
+        }
+        Box(Modifier.align(Alignment.TopCenter).padding(top = 8.dp)) {
+            EventOverlayChip(data.overlay, accent, motion.overlayReveal.value, motion.eventFlash.value)
+        }
+    }
+}
+
+@Composable
+private fun StatusPanelContent(
+    data: StatusPrototypeData,
+    accent: Color,
+    motion: StatusPrototypeMotion,
+    rotation: Float,
+    ambient: Boolean,
+) {
+    val hasClass = data.variant != StatusClassVariant.NEUTRAL
+    val sigilState =
+        OrnateSigilState(
+            rankTier = data.rankTier,
+            variant = data.variant,
+            playerRing = data.playerXpFraction,
+            classRing = if (hasClass) data.classXpFraction else null,
+            activeMedallion = data.activeMedallionIndex,
+            showProficiency = data.showProficiencyMedallion && hasClass,
+            newRankLayer = data.majorUnlock && data.overlay.emphasizedAttribute == null,
+        )
+    val sigilAnim =
+        OrnateSigilAnimation(
+            assembly = motion.sigilAssembly.value,
+            rotation = rotation,
+            glow = motion.eventFlash.value,
+            playerRingTrim = motion.xpFill.value,
+            classRingTrim = motion.classXpFill.value,
+            medallionPulse = motion.attrPulse.map { it.value },
+            proficiencyPulse = motion.proficiencyPulse.value,
+        )
+
+    Box(Modifier.fillMaxWidth().clipToBounds()) {
+        // The ornate seal sits BEHIND the readable content at low opacity — atmospheric.
+        OrnateSigil(
+            state = sigilState,
+            animation = sigilAnim,
+            semanticDescription =
+                sigilDescription(data, data.playerXpFraction, if (hasClass) data.classXpFraction else null, data.activeMedallionIndex),
+            modifier =
+                Modifier
+                    .align(Alignment.TopCenter)
+                    .fillMaxWidth(0.98f)
+                    .aspectRatio(1f)
+                    .offset(y = (-28).dp),
+            frameMotion = ambient,
+        )
+        Column(Modifier.fillMaxWidth().padding(24.dp)) {
+            IdentityBlock(data, accent, motion.levelReveal.value)
+            Spacer(Modifier.height(20.dp))
+            ProgressionBars(data, accent, motion.xpFill.value, motion.classXpFill.value, motion.secondaryXpFill.value)
+            Spacer(Modifier.height(22.dp))
+            AttributeMeters(
+                data,
+                reveals = motion.attrReveal.map { it.value },
+                values = motion.attrValue.map { it.value },
+                pulses = motion.attrPulse.map { it.value },
+            )
+            if (hasClass) {
+                Spacer(Modifier.height(6.dp))
+                ProficiencyBlock(data, accent, motion.proficiencyReveal.value, motion.proficiencyPulse.value)
             }
         }
     }
 }
 
-@Composable
-private fun XpBar(
-    levelState: LevelState,
-    alpha: Float,
-) {
-    Column(Modifier.graphicsLayer { this.alpha = alpha }) {
-        LinearProgressIndicator(
-            progress = { levelState.progressFraction },
-            modifier = Modifier.fillMaxWidth().height(10.dp).clip(CircleShape),
-        )
-        Spacer(Modifier.height(6.dp))
-        Text(
-            "${levelState.currentLevelXp} / ${levelState.xpToNextLevel} XP",
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
-    }
-}
-
-@Composable
-private fun AttributeRow(
-    attribute: AttributeType,
-    value: Int,
-    reveal: Float,
-    pulse: Float,
-) {
-    val accent = AttributeAccents[attribute] ?: MaterialTheme.colorScheme.primary
-    val meterFraction = (value / ATTRIBUTE_METER_CEILING).coerceIn(0f, 1f)
-    Row(
-        modifier =
-            Modifier
-                .fillMaxWidth()
-                .graphicsLayer {
-                    this.alpha = reveal
-                    translationY = (1f - reveal) * 28.dp.toPx()
-                    scaleX = pulse
-                    scaleY = pulse
-                },
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Box(Modifier.size(10.dp).clip(CircleShape).drawBehind { drawRect(accent) })
-        Column(Modifier.padding(start = 12.dp).weight(1f)) {
-            Text(attribute.displayName, style = MaterialTheme.typography.bodyLarge)
-            Spacer(Modifier.height(4.dp))
-            LinearProgressIndicator(
-                progress = { meterFraction },
-                color = accent,
-                trackColor = MaterialTheme.colorScheme.surfaceVariant,
-                modifier = Modifier.fillMaxWidth().height(6.dp).clip(CircleShape),
-            )
-        }
-        Text(
-            value.toString(),
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.SemiBold,
-            modifier = Modifier.padding(start = 12.dp),
-        )
-    }
-}
-
 /**
- * Production Status controls — presentation only. Progression is earned from real quest and
- * workout completions (which enqueue the animated events), so there is nothing to "simulate": the
- * controls just re-run the entrance and toggle reduced motion.
+ * Production Status controls — presentation only. Progression is earned from real quest and workout
+ * completions (which enqueue the animated events), so there is nothing to "simulate": the controls
+ * just re-run the entrance and toggle reduced motion.
  */
 @Composable
 private fun StatusControls(
     reducedMotion: Boolean,
-    busy: Boolean,
     onReplay: () -> Unit,
     onReducedMotionChange: (Boolean) -> Unit,
 ) {
     Surface(
-        color = MaterialTheme.colorScheme.surfaceVariant,
-        shape = MaterialTheme.shapes.medium,
+        color = Color(0xFF10151F).copy(alpha = 0.85f),
+        shape = androidx.compose.material3.MaterialTheme.shapes.medium,
         modifier = Modifier.fillMaxWidth(),
     ) {
         Column(Modifier.padding(16.dp)) {
-            Text("Status", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text("STATUS", color = StatusPalette.label, fontSize = 11.sp, letterSpacing = 2.sp)
             Spacer(Modifier.height(12.dp))
-            OutlinedButton(onClick = onReplay, enabled = !busy, modifier = Modifier.fillMaxWidth()) { Text("Replay entrance") }
+            OutlinedButton(onClick = onReplay, modifier = Modifier.fillMaxWidth()) { Text("Replay entrance") }
             Spacer(Modifier.height(12.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Switch(checked = reducedMotion, onCheckedChange = onReducedMotionChange)
-                Text("  Reduced motion", style = MaterialTheme.typography.bodyMedium)
+                Text("  Reduced motion", color = StatusPalette.infoLine)
             }
         }
     }

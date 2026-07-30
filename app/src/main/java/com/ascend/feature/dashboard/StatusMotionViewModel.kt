@@ -4,8 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ascend.core.domain.progression.LevelCalculator
 import com.ascend.core.domain.progression.LevelState
+import com.ascend.core.domain.repository.ClassRepository
 import com.ascend.core.domain.repository.ProgressionEventRepository
 import com.ascend.core.model.AttributeType
+import com.ascend.core.model.PlayerClassSelection
 import com.ascend.core.model.PlayerProgress
 import com.ascend.core.model.PlayerStats
 import com.ascend.core.model.ProgressionEvent
@@ -42,6 +44,8 @@ data class StatusUiState(
     // Bumped to replay the entrance sequence.
     val entranceKey: Int = 0,
     val isSimulating: Boolean = false,
+    // Real class/specialization facts for the ornate composition (neutral until a class is chosen).
+    val classInfo: StatusClassInfo = StatusClassInfo.NEUTRAL,
 )
 
 /**
@@ -63,6 +67,7 @@ class StatusMotionViewModel
         private val simulator: StatusSimulator,
         private val eventRepository: ProgressionEventRepository,
         private val levelCalculator: LevelCalculator,
+        private val classRepository: ClassRepository,
     ) : ViewModel() {
         /** Resolve any lifetime‑XP value into a level state so the bar can sweep the
          *  curve continuously and level‑ups fall out for free during animation. */
@@ -73,6 +78,7 @@ class StatusMotionViewModel
         private val reducedMotion = MutableStateFlow(false)
         private val entranceKey = MutableStateFlow(0)
         private val simulating = MutableStateFlow(false)
+        private val classInfo = MutableStateFlow(StatusClassInfo.NEUTRAL)
 
         val uiState: StateFlow<StatusUiState> =
             combine(domain, pending, reducedMotion, entranceKey, simulating) {
@@ -86,7 +92,8 @@ class StatusMotionViewModel
                     entranceKey = entrance,
                     isSimulating = isSimulating,
                 )
-            }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), StatusUiState())
+            }.combine(classInfo) { state, ci -> state.copy(classInfo = ci) }
+                .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), StatusUiState())
 
         init {
             viewModelScope.launch {
@@ -100,7 +107,33 @@ class StatusMotionViewModel
                         pending.value = firstBatch(events)
                     }
                 }
+                launch {
+                    // Re-resolve class progress whenever the selection OR any earning ticks player
+                    // progress (class XP is gained on the same completions), so the class ring and
+                    // bars stay live without a dedicated class-progress flow.
+                    combine(classRepository.observeSelection(uid), dataSource.observeProgress()) { sel, _ -> sel }
+                        .collect { classInfo.value = resolveClassInfo(uid, it) }
+                }
             }
+        }
+
+        private suspend fun resolveClassInfo(
+            userId: String,
+            selection: PlayerClassSelection,
+        ): StatusClassInfo {
+            val primaryId = selection.primaryClassId ?: return StatusClassInfo.NEUTRAL
+            val primary = classRepository.classProgress(userId, primaryId)
+            val secondary = selection.secondaryClassId?.let { classRepository.classProgress(userId, it) }
+            return StatusClassInfo(
+                variant = StatusComposition.variantOf(primaryId),
+                classLevel = primary.classLevel,
+                classXpInLevel = primary.currentLevelXp.clampToInt(),
+                classXpForLevel = primary.xpToNextLevel.clampToInt(),
+                uniqueProficiency = primary.uniqueProficiency.clampToInt(),
+                secondaryVariant = selection.secondaryClassId?.let { StatusComposition.variantOf(it) },
+                secondaryXpInLevel = secondary?.currentLevelXp?.clampToInt(),
+                secondaryXpForLevel = secondary?.xpToNextLevel?.clampToInt(),
+            )
         }
 
         fun simulate(kind: SimulatedCompletion) =

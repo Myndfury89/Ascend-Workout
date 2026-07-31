@@ -27,7 +27,7 @@
     <ID>FunctionNaming:DungeonPrototypeScreen.kt$@Composable private fun ReadySection(controller: DungeonPrototypeController)</ID>
     <ID>FunctionNaming:DungeonPrototypeScreen.kt$@Composable private fun ResultSection(controller: DungeonPrototypeController)</ID>
     <ID>FunctionNaming:DungeonPrototypeScreen.kt$@OptIn(ExperimentalLayoutApi::class) @Composable private fun LobbySection(controller: DungeonPrototypeController)</ID>
-    <ID>FunctionNaming:EdgeLitStatusPanel.kt$@Composable fun EdgeLitStatusPanel( accent: Color, materialize: Float, scan: Float, modifier: Modifier = Modifier, effectsQuality: Float = 1f, content: @Composable BoxScope.() -&gt; Unit, )</ID>
+    <ID>FunctionNaming:EdgeLitStatusPanel.kt$@Composable fun EdgeLitStatusPanel( accent: Color, materialize: Float, scan: Float, modifier: Modifier = Modifier, effectsQuality: Float = 1f, selfFraming: Boolean = false, frameEnergy: Float = 0f, framePulse: Float = 0f, frameRotation: Float = 0f, frameMotion: Boolean = false, content: @Composable BoxScope.() -&gt; Unit, )</ID>
     <ID>FunctionNaming:LogWorkoutScreen.kt$@Composable fun LogWorkoutScreen( onBack: () -&gt; Unit, modifier: Modifier = Modifier, viewModel: LogWorkoutViewModel = hiltViewModel(), )</ID>
     <ID>FunctionNaming:LogWorkoutScreen.kt$@Composable private fun LoggedSetRow( index: Int, set: WorkoutSet, weightUnit: WeightUnit, onDelete: () -&gt; Unit, )</ID>
     <ID>FunctionNaming:LogWorkoutScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable private fun AddSetSection( exercises: List&lt;Exercise&gt;, weightUnit: WeightUnit, onAddSet: (Exercise, Int, Double?) -&gt; Unit, )</ID>
@@ -84,7 +84,7 @@
     <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "Sigil · rank promotion", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewSigilRankPromotion()</ID>
     <ID>FunctionNaming:StatusScreen.kt$@Composable fun StatusScreen( modifier: Modifier = Modifier, viewModel: StatusMotionViewModel = hiltViewModel(), )</ID>
     <ID>FunctionNaming:StatusScreen.kt$@Composable private fun StatusControls( reducedMotion: Boolean, onReplay: () -&gt; Unit, onReducedMotionChange: (Boolean) -&gt; Unit, )</ID>
-    <ID>FunctionNaming:StatusScreen.kt$@Composable private fun StatusEnergyFrameContent( data: StatusPrototypeData, motion: StatusPrototypeMotion, accent: Color, rotation: Float, scan: Float, ambient: Boolean, )</ID>
+    <ID>FunctionNaming:StatusScreen.kt$@Composable private fun StatusFramedPanel( data: StatusPrototypeData, motion: StatusPrototypeMotion, accent: Color, rotation: Float, scan: Float, ambient: Boolean, )</ID>
     <ID>FunctionNaming:StatusScreen.kt$@Composable private fun StatusPanelContent( data: StatusPrototypeData, accent: Color, motion: StatusPrototypeMotion, rotation: Float, ambient: Boolean, )</ID>
     <ID>FunctionNaming:Theme.kt$@Composable fun AscendTheme( darkTheme: Boolean = isSystemInDarkTheme(), // App identity is dark-first; dynamic color is opt-in via settings later. dynamicColor: Boolean = false, content: @Composable () -&gt; Unit, )</ID>
     <ID>FunctionNaming:WeightUnitSelector.kt$@Composable fun WeightUnitSelector( selected: WeightUnit, onSelect: (WeightUnit) -&gt; Unit, modifier: Modifier = Modifier, )</ID>
@@ -108,7 +108,8 @@
     <ID>LongParameterList:BodyweightProgressionCalculator.kt$BodyweightProgressionCalculator$( private val repCalculator: RepProgressionCalculator, private val setCalculator: SetProgressionCalculator, private val restCalculator: RestProgressionCalculator, private val assistanceCalculator: AssistanceProgressionCalculator, private val externalLoadCalculator: ExternalLoadProgressionCalculator, private val tempoCalculator: TempoProgressionCalculator, private val variationEngine: ExerciseVariationProgressionEngine, )</ID>
     <ID>LongParameterList:ClassRepositoryImpl.kt$ClassRepositoryImpl$( userId: String, slot: ClassSlot, newClassId: String?, reason: String?, source: ClassChangeSource, ts: Long, )</ID>
     <ID>LongParameterList:ClassRewardApplier.kt$ClassRewardApplier$( userId: String, basePlayerXp: Long, baseAttributeDistribution: Map&lt;AttributeType, Long&gt;, activityTags: Set&lt;String&gt;, sourceType: XpSourceType, sourceId: String, )</ID>
-    <ID>LongParameterList:EdgeLitStatusPanel.kt$( accent: Color, materialize: Float, scan: Float, modifier: Modifier = Modifier, effectsQuality: Float = 1f, content: @Composable BoxScope.() -&gt; Unit, )</ID>
+    <ID>LongParameterList:EdgeLitStatusPanel.kt$( accent: Color, materialize: Float, scan: Float, modifier: Modifier = Modifier, effectsQuality: Float = 1f, selfFraming: Boolean = false, frameEnergy: Float = 0f, framePulse: Float = 0f, frameRotation: Float = 0f, frameMotion: Boolean = false, content: @Composable BoxScope.() -&gt; Unit, )</ID>
+    <ID>LongParameterList:EdgeLitStatusPanel.kt$( origin: Offset, sx: Float, sy: Float, bright: Float, rotation: Float, motion: Boolean, )</ID>
     <ID>LongParameterList:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$( id: String, exerciseId: String, name: String, tier: Int, description: String, assistanceType: AssistanceType = AssistanceType.NONE, assistanceValue: Double? = null, rom: Int = 4, externalLoad: Boolean = false, )</ID>
     <ID>LongParameterList:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$( source: String, destination: String, reps: Int, sets: Int, rpe: Double? = null, classUnlock: String? = null, )</ID>
     <ID>LongParameterList:ExerciseVariationGraphTest.kt$ExerciseVariationGraphTest$( exposures: Int = 2, reps: Int = 12, sets: Int = 3, rpe: Double? = 7.0, rir: Int? = null, assistance: Double? = null, rom: Int? = 5, tempo: Boolean = true, failures: Int = 0, safety: ProgressionSafetyState = ProgressionSafetyState.OK, unlocks: Set&lt;String&gt; = emptySet(), )</ID>
@@ -208,16 +209,31 @@
     <ID>MagicNumber:DungeonPrototypeEncounter.kt$120</ID>
     <ID>MagicNumber:DungeonPrototypeEncounter.kt$30</ID>
     <ID>MagicNumber:EdgeLitStatusPanel.kt$0.18f</ID>
+    <ID>MagicNumber:EdgeLitStatusPanel.kt$0.45f</ID>
+    <ID>MagicNumber:EdgeLitStatusPanel.kt$0.55f</ID>
     <ID>MagicNumber:EdgeLitStatusPanel.kt$0.5f</ID>
+    <ID>MagicNumber:EdgeLitStatusPanel.kt$0.64f</ID>
     <ID>MagicNumber:EdgeLitStatusPanel.kt$0xFF070810</ID>
     <ID>MagicNumber:EdgeLitStatusPanel.kt$0xFF0B0E1B</ID>
     <ID>MagicNumber:EdgeLitStatusPanel.kt$0xFF121627</ID>
     <ID>MagicNumber:EdgeLitStatusPanel.kt$0xFF9FB0FF</ID>
+    <ID>MagicNumber:EdgeLitStatusPanel.kt$12f</ID>
+    <ID>MagicNumber:EdgeLitStatusPanel.kt$18f</ID>
+    <ID>MagicNumber:EdgeLitStatusPanel.kt$20f</ID>
     <ID>MagicNumber:EdgeLitStatusPanel.kt$26f</ID>
+    <ID>MagicNumber:EdgeLitStatusPanel.kt$3</ID>
+    <ID>MagicNumber:EdgeLitStatusPanel.kt$30f</ID>
+    <ID>MagicNumber:EdgeLitStatusPanel.kt$3f</ID>
     <ID>MagicNumber:EdgeLitStatusPanel.kt$4</ID>
     <ID>MagicNumber:EdgeLitStatusPanel.kt$40f</ID>
     <ID>MagicNumber:EdgeLitStatusPanel.kt$4f</ID>
+    <ID>MagicNumber:EdgeLitStatusPanel.kt$5f</ID>
+    <ID>MagicNumber:EdgeLitStatusPanel.kt$6</ID>
+    <ID>MagicNumber:EdgeLitStatusPanel.kt$6f</ID>
+    <ID>MagicNumber:EdgeLitStatusPanel.kt$7</ID>
     <ID>MagicNumber:EdgeLitStatusPanel.kt$80f</ID>
+    <ID>MagicNumber:EdgeLitStatusPanel.kt$8f</ID>
+    <ID>MagicNumber:EdgeLitStatusPanel.kt$9f</ID>
     <ID>MagicNumber:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$12.0</ID>
     <ID>MagicNumber:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$20.0</ID>
     <ID>MagicNumber:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$3</ID>
@@ -595,8 +611,13 @@
     <ID>MaxLineLength:DungeonPrototypeScreen.kt$Text("No members yet — join from the list above.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)</ID>
     <ID>MaxLineLength:DungeonPrototypeScreen.kt$Text(title.uppercase(), fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.Medium)</ID>
     <ID>MaxLineLength:DungeonPrototypeScreen.kt$color = if (m.ready) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant</ID>
+    <ID>MaxLineLength:EdgeLitStatusPanel.kt$colors = listOf(Color.Transparent, StatusPalette.violet.copy(alpha = 0.18f * bright), Color.Transparent)</ID>
     <ID>MaxLineLength:EdgeLitStatusPanel.kt$drawLine(Color(0xFF9FB0FF).copy(alpha = 0.02f * materialize), Offset(0f, y), Offset(size.width, y), strokeWidth = 1f)</ID>
     <ID>MaxLineLength:EdgeLitStatusPanel.kt$drawLine(Color(0xFF9FB0FF).copy(alpha = 0.02f * materialize), Offset(x, 0f), Offset(x, size.height), strokeWidth = 1f)</ID>
+    <ID>MaxLineLength:EdgeLitStatusPanel.kt$drawLine(StatusPalette.cyan.copy(alpha = 0.9f * bright), origin, origin + Offset(0f, sy * arm), strokeWidth = 2.5f, cap = StrokeCap.Round)</ID>
+    <ID>MaxLineLength:EdgeLitStatusPanel.kt$drawLine(StatusPalette.cyan.copy(alpha = 0.9f * bright), origin, origin + Offset(sx * arm, 0f), strokeWidth = 2.5f, cap = StrokeCap.Round)</ID>
+    <ID>MaxLineLength:EdgeLitStatusPanel.kt$drawLine(StatusPalette.cyanSoft.copy(alpha = 0.45f * bright), Offset(tx, y), Offset(tx, y + dir * 6f), strokeWidth = 1f)</ID>
+    <ID>MaxLineLength:EdgeLitStatusPanel.kt$drawPath(panelPath(size, inset - i * 4f), color = StatusPalette.violet.copy(alpha = 0.06f * e / i), style = Stroke(width = 2f))</ID>
     <ID>MaxLineLength:EdgeLitStatusPanel.kt$drawPath(path, color = StatusPalette.infoLine.copy(alpha = 0.22f * materialize), style = Stroke(width = 1.dp.toPx()))</ID>
     <ID>MaxLineLength:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$variation("var-pullup-weighted", "ex-pullup", "Weighted Pull-Up", 6, "Added external load.", rom = 4, externalLoad = true)</ID>
     <ID>MaxLineLength:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$variation("var-pushup-diamond", "ex-pushup", "Diamond Push-Up", 4, "Hands together under the chest.", rom = 4)</ID>

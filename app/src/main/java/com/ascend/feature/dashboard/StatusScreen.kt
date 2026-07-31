@@ -142,7 +142,7 @@ fun StatusScreen(
             Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 12.dp, vertical = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            StatusEnergyFrameContent(data, motion, accent, rotation, scan, ambient)
+            StatusFramedPanel(data, motion, accent, rotation, scan, ambient)
             Spacer(Modifier.height(20.dp))
             StatusControls(
                 reducedMotion = reduced,
@@ -154,8 +154,12 @@ fun StatusScreen(
     }
 }
 
+/**
+ * Structure A: a single dominant edge-lit panel whose own edge-lighting *is* the outer energy frame
+ * (no separate wrapping shell). The frame energy/pulse/rotation ride the panel's perimeter.
+ */
 @Composable
-private fun StatusEnergyFrameContent(
+private fun StatusFramedPanel(
     data: StatusPrototypeData,
     motion: StatusPrototypeMotion,
     accent: Color,
@@ -163,18 +167,17 @@ private fun StatusEnergyFrameContent(
     scan: Float,
     ambient: Boolean,
 ) {
-    com.ascend.feature.dashboard.prototype.StatusEnergyFrame(
-        energy = motion.frameEnergy.value,
-        pulse = motion.eventFlash.value,
-        rotation = rotation,
-        frameMotion = ambient,
-        modifier = Modifier.fillMaxWidth(),
-    ) {
+    Box(Modifier.fillMaxWidth()) {
         EdgeLitStatusPanel(
             accent = accent,
             materialize = motion.panelMaterialize.value,
             scan = scan,
             modifier = Modifier.fillMaxWidth(),
+            selfFraming = true,
+            frameEnergy = motion.frameEnergy.value,
+            framePulse = motion.eventFlash.value,
+            frameRotation = rotation,
+            frameMotion = ambient,
         ) {
             StatusPanelContent(data, accent, motion, rotation, ambient)
         }

@@ -21,12 +21,30 @@
     </file>
     <file name="src/main/java/com/ascend/feature/dashboard/StatusScreen.kt">
         <error line="71" column="5" source="standard:function-naming" />
-        <error line="158" column="13" source="standard:function-naming" />
-        <error line="188" column="13" source="standard:function-naming" />
-        <error line="257" column="13" source="standard:function-naming" />
+        <error line="162" column="13" source="standard:function-naming" />
+        <error line="191" column="13" source="standard:function-naming" />
+        <error line="260" column="13" source="standard:function-naming" />
     </file>
     <file name="src/main/java/com/ascend/feature/dashboard/prototype/EdgeLitStatusPanel.kt">
-        <error line="157" column="5" source="standard:function-naming" />
+        <error line="267" column="1" source="standard:max-line-length" />
+        <error line="267" column="14" source="standard:argument-list-wrapping" />
+        <error line="267" column="38" source="standard:argument-list-wrapping" />
+        <error line="267" column="59" source="standard:argument-list-wrapping" />
+        <error line="267" column="62" source="standard:argument-list-wrapping" />
+        <error line="267" column="70" source="standard:argument-list-wrapping" />
+        <error line="267" column="101" source="standard:argument-list-wrapping" />
+        <error line="267" column="121" source="standard:argument-list-wrapping" />
+        <error line="267" column="142" source="standard:argument-list-wrapping" />
+        <error line="268" column="1" source="standard:max-line-length" />
+        <error line="268" column="14" source="standard:argument-list-wrapping" />
+        <error line="268" column="38" source="standard:argument-list-wrapping" />
+        <error line="268" column="59" source="standard:argument-list-wrapping" />
+        <error line="268" column="62" source="standard:argument-list-wrapping" />
+        <error line="268" column="70" source="standard:argument-list-wrapping" />
+        <error line="268" column="101" source="standard:argument-list-wrapping" />
+        <error line="268" column="121" source="standard:argument-list-wrapping" />
+        <error line="268" column="142" source="standard:argument-list-wrapping" />
+        <error line="318" column="5" source="standard:function-naming" />
     </file>
     <file name="src/main/java/com/ascend/feature/dashboard/prototype/OrnateSigil.kt">
         <error line="34" column="5" source="standard:function-naming" />

@@ -7,6 +7,7 @@
     <ID>CyclomaticComplexMethod:BodyweightProgressionCalculators.kt$BodyweightSignals.Companion$fun from( prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn, config: BodyweightProgressionConfig, ): BodyweightSignals</ID>
     <ID>CyclomaticComplexMethod:ExerciseVariationProgressionEngine.kt$ExerciseVariationProgressionEngine$private fun evaluateEdge( graph: ExerciseVariationGraph, edge: ExerciseVariationProgressionEdge, input: VariationReadinessInput, ): EdgeEligibility</ID>
     <ID>CyclomaticComplexMethod:FakeStatusPrototype.kt$FakeStatusPrototype$fun dataFor( stateId: StatusPrototypeStateId, variant: StatusClassVariant, reducedMotion: Boolean, forceSecondary: Boolean = false, weightUnit: com.ascend.core.common.WeightUnit = com.ascend.core.common.WeightUnit.KILOGRAMS, ): StatusPrototypeData</ID>
+    <ID>CyclomaticComplexMethod:GoalAffinityMapping.kt$GoalAffinityMapping$fun preferenceTags(pref: ActivityPreference): Set&lt;String&gt;</ID>
     <ID>CyclomaticComplexMethod:ProgressionRewardService.kt$ProgressionRewardCalculator$fun rewardFor( milestoneType: ProgressionMilestoneType, primaryAttribute: AttributeType?, ): ProgressionRewardSpec</ID>
     <ID>CyclomaticComplexMethod:QuestRepositoryImpl.kt$QuestRepositoryImpl$override suspend fun completeQuest(questId: String): CompleteQuestResult</ID>
     <ID>CyclomaticComplexMethod:RevisedStatusPrototypeScreen.kt$@Composable fun RevisedStatusPrototypeScreen( modifier: Modifier = Modifier, controller: PrototypeReviewController = rememberPrototypeReviewController(), )</ID>
@@ -106,6 +107,7 @@
     <ID>LongParameterList:ActiveQuestScreen.kt$( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
     <ID>LongParameterList:AdaptiveIntervalRedistributionTest.kt$AdaptiveIntervalRedistributionTest$( dailyTarget: Int = 200, progress: Int = 30, leftover: Int = 20, futures: List&lt;FutureInterval&gt; = listOf(future("a", 50, 10), future("b", 50, 20), future("c", 50, 30)), preference: RedistributionPreference = RedistributionPreference.EVEN, timeRemaining: Long = 1000, quietHours: List&lt;Pair&lt;Long, Long&gt;&gt; = emptyList(), maxSetSize: Int = Int.MAX_VALUE, maxIntervalTarget: Int = Int.MAX_VALUE, fatigue: Int? = null, auto: Boolean = false, safety: ProgressionSafetyState = ProgressionSafetyState.OK, now: Long = 5, )</ID>
     <ID>LongParameterList:BodyweightProgressionCalculator.kt$BodyweightProgressionCalculator$( private val repCalculator: RepProgressionCalculator, private val setCalculator: SetProgressionCalculator, private val restCalculator: RestProgressionCalculator, private val assistanceCalculator: AssistanceProgressionCalculator, private val externalLoadCalculator: ExternalLoadProgressionCalculator, private val tempoCalculator: TempoProgressionCalculator, private val variationEngine: ExerciseVariationProgressionEngine, )</ID>
+    <ID>LongParameterList:ClassAffinityAssessorTest.kt$ClassAffinityAssessorTest$( goal: PrimaryGoal, prefs: Set&lt;ActivityPreference&gt; = emptySet(), experience: Map&lt;ActivityDomain, ExperienceLevel&gt; = emptyMap(), sex: OptionalSex = OptionalSex.NOT_SET, age: AgeSafetyCategory = AgeSafetyCategory.ADULT, limitations: Set&lt;Limitation&gt; = emptySet(), body: BodyMetrics = BodyMetrics(), )</ID>
     <ID>LongParameterList:ClassRepositoryImpl.kt$ClassRepositoryImpl$( userId: String, slot: ClassSlot, newClassId: String?, reason: String?, source: ClassChangeSource, ts: Long, )</ID>
     <ID>LongParameterList:ClassRewardApplier.kt$ClassRewardApplier$( userId: String, basePlayerXp: Long, baseAttributeDistribution: Map&lt;AttributeType, Long&gt;, activityTags: Set&lt;String&gt;, sourceType: XpSourceType, sourceId: String, )</ID>
     <ID>LongParameterList:EdgeLitStatusPanel.kt$( accent: Color, materialize: Float, scan: Float, modifier: Modifier = Modifier, effectsQuality: Float = 1f, selfFraming: Boolean = false, frameEnergy: Float = 0f, framePulse: Float = 0f, frameRotation: Float = 0f, frameMotion: Boolean = false, content: @Composable BoxScope.() -&gt; Unit, )</ID>
@@ -113,6 +115,9 @@
     <ID>LongParameterList:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$( id: String, exerciseId: String, name: String, tier: Int, description: String, assistanceType: AssistanceType = AssistanceType.NONE, assistanceValue: Double? = null, rom: Int = 4, externalLoad: Boolean = false, )</ID>
     <ID>LongParameterList:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$( source: String, destination: String, reps: Int, sets: Int, rpe: Double? = null, classUnlock: String? = null, )</ID>
     <ID>LongParameterList:ExerciseVariationGraphTest.kt$ExerciseVariationGraphTest$( exposures: Int = 2, reps: Int = 12, sets: Int = 3, rpe: Double? = 7.0, rir: Int? = null, assistance: Double? = null, rom: Int? = 5, tempo: Boolean = true, failures: Int = 0, safety: ProgressionSafetyState = ProgressionSafetyState.OK, unlocks: Set&lt;String&gt; = emptySet(), )</ID>
+    <ID>LongParameterList:InitialQuestPlanGenerator.kt$InitialQuestPlanGenerator$( candidate: QuestPlanCandidate, band: DifficultyBand, conservative: Boolean, durationFactor: Double, limitations: Set&lt;com.ascend.core.model.onboarding.Limitation&gt;, equipment: Set&lt;com.ascend.core.model.onboarding.Equipment&gt;, safetyAdjustments: MutableList&lt;String&gt;, )</ID>
+    <ID>LongParameterList:InitialQuestPlanGeneratorTest.kt$InitialQuestPlanGeneratorTest$( frequency: TrainingFrequency = TrainingFrequency.THREE_TO_FOUR_WEEKLY, equipment: Set&lt;Equipment&gt; = emptySet(), environment: TrainingEnvironment = TrainingEnvironment.HOME, availability: Availability = Availability(trainingDays = TrainingDaysPerWeek.THREE), limitations: Set&lt;Limitation&gt; = emptySet(), age: AgeSafetyCategory = AgeSafetyCategory.ADULT, goal: PrimaryGoal = PrimaryGoal.GENERAL_HEALTH, )</ID>
+    <ID>LongParameterList:InitialQuestPlanGeneratorTest.kt$InitialQuestPlanGeneratorTest$( id: String, min: Int, max: Int, default: Int, step: Int, prefSet: Int, minSet: Int, warn: Int, unit: String = "reps", )</ID>
     <ID>LongParameterList:IntervalProgressTest.kt$IntervalProgressTest$( id: String, start: Long, end: Long, target: Double, current: Double, status: QuestIntervalStatus = QuestIntervalStatus.PENDING, )</ID>
     <ID>LongParameterList:LogWorkoutScreen.kt$( state: LogWorkoutUiState, onBack: () -&gt; Unit, onTitleChange: (String) -&gt; Unit, onDifficultyChange: (Difficulty) -&gt; Unit, onAddSet: (Exercise, Int, Double?) -&gt; Unit, onDeleteSet: (String) -&gt; Unit, onFinish: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, weightUnit: WeightUnit = WeightUnit.KILOGRAMS, onWeightUnitChange: (WeightUnit) -&gt; Unit = {}, )</ID>
     <ID>LongParameterList:MulticlassRewardCalculator.kt$MulticlassRewardCalculator$( def: ClassDefinition, slot: ClassSlot, allocation: Double, activityTags: Set&lt;String&gt;, basePlayerXp: Long, baseMagnitude: Long, )</ID>
@@ -163,6 +168,15 @@
     <ID>MagicNumber:AscendMotion.kt$AscendEasing$0.84f</ID>
     <ID>MagicNumber:AscendMotion.kt$AscendEasing$0.85f</ID>
     <ID>MagicNumber:AscendMotion.kt$AscendEasing$1.12f</ID>
+    <ID>MagicNumber:AssessmentInputs.kt$SessionDuration.MIN_20_30$30</ID>
+    <ID>MagicNumber:AssessmentInputs.kt$SessionDuration.MIN_30_45$45</ID>
+    <ID>MagicNumber:AssessmentInputs.kt$SessionDuration.MIN_45_60$60</ID>
+    <ID>MagicNumber:AssessmentInputs.kt$SessionDuration.OVER_60$90</ID>
+    <ID>MagicNumber:AssessmentInputs.kt$SessionDuration.UNDER_20$20</ID>
+    <ID>MagicNumber:AssessmentInputs.kt$TrainingDaysPerWeek.FIVE$5</ID>
+    <ID>MagicNumber:AssessmentInputs.kt$TrainingDaysPerWeek.FOUR$4</ID>
+    <ID>MagicNumber:AssessmentInputs.kt$TrainingDaysPerWeek.SIX$6</ID>
+    <ID>MagicNumber:AssessmentInputs.kt$TrainingDaysPerWeek.THREE$3</ID>
     <ID>MagicNumber:AttributeProgressCalculator.kt$AttributeConfig$0.8</ID>
     <ID>MagicNumber:AttributeProgressCalculator.kt$AttributeConfig$1.3</ID>
     <ID>MagicNumber:AttributeProgressCalculator.kt$AttributeConfig$1.6</ID>
@@ -278,6 +292,7 @@
     <ID>MagicNumber:FakeStatusPrototype.kt$FakeStatusPrototype$94</ID>
     <ID>MagicNumber:FakeStatusPrototype.kt$FakeStatusPrototype$96</ID>
     <ID>MagicNumber:FakeStatusPrototype.kt$FakeStatusPrototype$97</ID>
+    <ID>MagicNumber:GoalAffinityMapping.kt$GoalAffinityMapping$3</ID>
     <ID>MagicNumber:LogWorkoutScreen.kt$5</ID>
     <ID>MagicNumber:LogWorkoutScreen.kt$6</ID>
     <ID>MagicNumber:LogWorkoutViewModel.kt$LogWorkoutViewModel$5_000</ID>
@@ -501,6 +516,8 @@
     <ID>MaxLineLength:AdaptiveTrainingQueries.kt$AdaptiveTrainingQueries$nextOptions = graph.advanceEdges(currentVariationId).mapNotNull { graph.variation(it.destinationVariationId) }</ID>
     <ID>MaxLineLength:AdaptiveTrainingQueries.kt$AdaptiveTrainingQueries$regressionOptions = graph.regressEdges(currentVariationId).mapNotNull { graph.variation(it.destinationVariationId) }</ID>
     <ID>MaxLineLength:AdaptiveTrainingQueries.kt$AdaptiveTrainingQueries$suspend fun applyRedistribution(recommendation: AdaptiveIntervalRecommendation)</ID>
+    <ID>MaxLineLength:AgeSafetyClassifier.kt$AgeSafetyClassifier$fun usesConservativeDefaults(category: AgeSafetyCategory): Boolean</ID>
+    <ID>MaxLineLength:AgeSafetyClassifierTest.kt$AgeSafetyClassifierTest$listOf(AgeSafetyCategory.MINOR_YOUNGER, AgeSafetyCategory.MINOR_OLDER, AgeSafetyCategory.NOT_PROVIDED)</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"'Body Mastery', 1.3, 0.75, 'monk', 'balanced', 'aqua', 'body_mastery', 'i', 'p', '', '', '', '', 1, 0, 0)"</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"INSERT INTO class_definition (id, name, classTitle, description, fitnessIdentity, favoredWorkoutCategories, "</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"INSERT INTO class_xp_transaction (id, userId, classId, amount, transactionType, sourceType, sourceId, createdAt) "</ID>
@@ -558,6 +575,7 @@
     <ID>MaxLineLength:CardioProgressionCalculators.kt$IntervalProgressionCalculator$if (!cardioConsistent(recent, config)) return listOf(maintain("Repeat the current intervals before progressing"))</ID>
     <ID>MaxLineLength:CardioProgressionCalculators.kt$return window.all { it.completed &amp;&amp; (it.perceivedEffort == null || it.perceivedEffort &lt;= config.maxPerceivedEffortForProgression) }</ID>
     <ID>MaxLineLength:CardioProgressionTest.kt$CardioProgressionTest$assertEquals(ProgressionRecommendationType.MAINTAIN_PRESCRIPTION, cardio.recommend(steady, listOf(summary(6))).recommendationType)</ID>
+    <ID>MaxLineLength:ClassAffinityAssessorTest.kt$ClassAffinityAssessorTest$assertTrue("evidence is goal/preference based", r.evidenceKeys.any { it.startsWith("goal:") || it.startsWith("prefers:") })</ID>
     <ID>MaxLineLength:ClassAttributeScaler.kt$ClassAttributeScaler$)</ID>
     <ID>MaxLineLength:ClassCatalog.kt$ClassCatalog$favoredTags = setOf(ActivityTags.BODYWEIGHT, ActivityTags.MUSCULAR_ENDURANCE, ActivityTags.MOBILITY, ActivityTags.BALANCE)</ID>
     <ID>MaxLineLength:ClassCatalog.kt$ClassCatalog$favoredWorkoutCategories = listOf("Calisthenics", "Bodyweight strength", "Mobility", "Balance", "Core control")</ID>
@@ -645,11 +663,29 @@
     <ID>MaxLineLength:FakeStatusPrototype.kt$FakeStatusPrototype$overlay = StatusEventOverlay(StatusOverlayKind.RECOMMENDATION, "New recommendation", recommendationFor(variant))</ID>
     <ID>MaxLineLength:FakeStatusPrototype.kt$FakeStatusPrototype$recentProgressionEvent = "Bench press → ${com.ascend.core.common.WeightUnits.format(62.5, weightUnit)} confirmed"</ID>
     <ID>MaxLineLength:FakeStatusPrototype.kt$FakeStatusPrototype$trainingFocus = "Concurrent heavy pressing, calisthenic variation laddering, and Zone-2 aerobic base building"</ID>
+    <ID>MaxLineLength:InitialQuestPlanGenerator.kt$InitialQuestPlanGenerator$"and your available equipment, environment, and schedule. It is provisional — it adapts as you log real workouts."</ID>
+    <ID>MaxLineLength:InitialQuestPlanGenerator.kt$InitialQuestPlanGenerator$TrainingFrequency.ONE_TO_TWO_WEEKLY, TrainingFrequency.THREE_TO_FOUR_WEEKLY -&gt; DifficultyBand.DEVELOPING</ID>
+    <ID>MaxLineLength:InitialQuestPlanGenerator.kt$InitialQuestPlanGenerator$null, TrainingFrequency.NEW_OR_RETURNING, TrainingFrequency.LESS_THAN_ONCE_WEEKLY -&gt; DifficultyBand.FOUNDATION</ID>
+    <ID>MaxLineLength:InitialQuestPlanGenerator.kt$InitialQuestPlanGenerator$rationale = "Start ${template.name.lowercase()} at $target ${template.unit} — a comfortable, repeatable baseline."</ID>
+    <ID>MaxLineLength:InitialQuestPlanGenerator.kt$InitialQuestPlanGenerator$return</ID>
+    <ID>MaxLineLength:InitialQuestPlanGenerator.kt$InitialQuestPlanGenerator$toDefinition(candidate, band, conservative, durationFactor, limitations, equipment, safetyAdjustments)</ID>
+    <ID>MaxLineLength:InitialQuestPlanGeneratorTest.kt$InitialQuestPlanGeneratorTest$assertTrue("crunches dropped for back sensitivity", backPlan.questDefinitions.none { it.templateId == "tmpl-crunches" })</ID>
+    <ID>MaxLineLength:InitialQuestPlanGeneratorTest.kt$InitialQuestPlanGeneratorTest$assertTrue("minor target &lt;= adult target", minor.questDefinitions.first().target &lt;= adult.questDefinitions.first().target)</ID>
+    <ID>MaxLineLength:InitialQuestPlanGeneratorTest.kt$InitialQuestPlanGeneratorTest$assertTrue("no bar, no substitute -&gt; excluded", without.questDefinitions.none { it.templateId == "tmpl-pullups" })</ID>
+    <ID>MaxLineLength:InitialQuestPlanGeneratorTest.kt$InitialQuestPlanGeneratorTest$assessment(availability = Availability(trainingDays = TrainingDaysPerWeek.THREE, sessionDuration = SessionDuration.MIN_45_60))</ID>
+    <ID>MaxLineLength:InitialQuestPlanGeneratorTest.kt$InitialQuestPlanGeneratorTest$assessment(availability = Availability(trainingDays = TrainingDaysPerWeek.THREE, sessionDuration = SessionDuration.UNDER_20))</ID>
+    <ID>MaxLineLength:InitialQuestPlanGeneratorTest.kt$InitialQuestPlanGeneratorTest$val adult = generator.generate(assessment(frequency = TrainingFrequency.FIVE_PLUS_WEEKLY), listOf(candidate("tmpl-pushups")))</ID>
+    <ID>MaxLineLength:InitialQuestPlanGeneratorTest.kt$InitialQuestPlanGeneratorTest$val legPlan = generator.generate(assessment(limitations = setOf(Limitation.LOWER_BODY)), listOf(candidate("tmpl-squats")))</ID>
+    <ID>MaxLineLength:InitialQuestPlanGeneratorTest.kt$InitialQuestPlanGeneratorTest$val one = generator.generate(assessment(availability = Availability(trainingDays = TrainingDaysPerWeek.ONE)), four)</ID>
+    <ID>MaxLineLength:InitialQuestPlanGeneratorTest.kt$InitialQuestPlanGeneratorTest$val plan = generator.generate(assessment(frequency = TrainingFrequency.NEW_OR_RETURNING), listOf(candidate("tmpl-pushups")))</ID>
+    <ID>MaxLineLength:InitialQuestPlanGeneratorTest.kt$InitialQuestPlanGeneratorTest$val six = generator.generate(assessment(availability = Availability(trainingDays = TrainingDaysPerWeek.SIX)), four)</ID>
+    <ID>MaxLineLength:InitialQuestPlanGeneratorTest.kt$InitialQuestPlanGeneratorTest$val with = generator.generate(assessment(equipment = setOf(Equipment.PULL_UP_BAR)), listOf(candidate("tmpl-pullups")))</ID>
     <ID>MaxLineLength:IntervalGenerationTest.kt$IntervalGenerationTest$assertEquals(List(8) { 25 }, distribution.distribute(200, 0, IntervalDistributionStrategy.PREFERRED_SET_SIZE, 25))</ID>
     <ID>MaxLineLength:IntervalGenerationTest.kt$IntervalGenerationTest$assertEquals(listOf(50, 50, 25), distribution.distribute(125, 0, IntervalDistributionStrategy.PREFERRED_SET_SIZE, 50))</ID>
     <ID>MaxLineLength:IntervalProgressTest.kt$IntervalProgressTest$reminders.shouldRemind(active, now = 50, questComplete = false, notificationsEnabled = true, quietHours = listOf(40L to 60L))</ID>
     <ID>MaxLineLength:LogWorkoutViewModel.kt$LogWorkoutViewModel$private fun ObjectiveType.isRepBased(): Boolean</ID>
     <ID>MaxLineLength:MulticlassRewardCalculator.kt$MulticlassRewardCalculator$val primary = contribution(primaryDef, ClassSlot.PRIMARY, allocation = 1.0, activityTags, basePlayerXp, baseMagnitude)</ID>
+    <ID>MaxLineLength:OnboardingModelsTest.kt$OnboardingModelsTest$val inProgress = OnboardingState(currentStep = OnboardingStep.GOALS, completedSteps = setOf(OnboardingStep.WELCOME))</ID>
     <ID>MaxLineLength:OrnateSigil.kt$drawPath(geo.motif, StatusPalette.cyanSoft.copy(alpha = a * 0.5f), style = Stroke(width = 1f, cap = StrokeCap.Round))</ID>
     <ID>MaxLineLength:OrnateSigil.kt$drawPath(path, accentBlend(state.variant).copy(alpha = la.coerceAtMost(0.7f)), style = Stroke(width = weight))</ID>
     <ID>MaxLineLength:OrnateSigil.kt$style = Stroke(width = weight, pathEffect = if (dashed) PathEffect.dashPathEffect(floatArrayOf(4f, 6f)) else null)</ID>

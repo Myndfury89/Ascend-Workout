@@ -21,6 +21,16 @@ data class UserProfileEntity(
     val timezone: String? = null,
     val localOnly: Boolean = true,
     val cloudSyncEnabled: Boolean = false,
+    // Onboarding + safety/privacy (schema v14). Canonical height is centimetres. Age is stored only
+    // as the derived four-band safety category (never a birth year/DOB). Social defaults start
+    // private with presence/discovery OFF; DB defaults keep NOT NULL columns consistent with the
+    // v13->v14 ALTER for rows inserted without them.
+    @ColumnInfo(defaultValue = "0") val onboardingVersion: Int = 0,
+    val heightCm: Double? = null,
+    @ColumnInfo(defaultValue = "NOT_PROVIDED") val ageSafetyCategory: String = "NOT_PROVIDED",
+    @ColumnInfo(defaultValue = "PRIVATE") val socialVisibility: String = "PRIVATE",
+    @ColumnInfo(defaultValue = "0") val partyPresenceEnabled: Boolean = false,
+    @ColumnInfo(defaultValue = "0") val strangerDiscoveryEnabled: Boolean = false,
 )
 
 @Entity(

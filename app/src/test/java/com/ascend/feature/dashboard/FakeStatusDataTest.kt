@@ -46,6 +46,8 @@ class FakeStatusDataTest {
         object : PlayerRepository {
             override suspend fun ensureLocalPlayer(displayName: String): String = userId
 
+            override suspend fun displayName(userId: String): String = "Tester"
+
             override fun observeProgress(userId: String): Flow<PlayerProgress?> = emptyFlow()
 
             override fun observeStats(userId: String): Flow<PlayerStats?> = emptyFlow()

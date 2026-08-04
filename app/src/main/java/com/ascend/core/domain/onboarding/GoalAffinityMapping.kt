@@ -26,8 +26,7 @@ object GoalAffinityMapping {
             PrimaryGoal.MAINTENANCE -> setOf(ActivityTags.RECOVERY)
         }
 
-    fun goalKeywords(goal: PrimaryGoal): Set<String> =
-        goal.displayName.lowercase().split(Regex("[^a-z]+")).filter { it.length > 3 }.toSet()
+    fun goalKeywords(goal: PrimaryGoal): Set<String> = goal.displayName.lowercase().split(Regex("[^a-z]+")).filter { it.length > 3 }.toSet()
 
     fun preferenceTags(pref: ActivityPreference): Set<String> =
         when (pref) {

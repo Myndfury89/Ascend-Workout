@@ -264,8 +264,20 @@ private fun DrawScope.drawFrameCorner(
     motion: Boolean,
 ) {
     val arm = 30f
-    drawLine(StatusPalette.cyan.copy(alpha = 0.9f * bright), origin, origin + Offset(sx * arm, 0f), strokeWidth = 2.5f, cap = StrokeCap.Round)
-    drawLine(StatusPalette.cyan.copy(alpha = 0.9f * bright), origin, origin + Offset(0f, sy * arm), strokeWidth = 2.5f, cap = StrokeCap.Round)
+    drawLine(
+        StatusPalette.cyan.copy(alpha = 0.9f * bright),
+        origin,
+        origin + Offset(sx * arm, 0f),
+        strokeWidth = 2.5f,
+        cap = StrokeCap.Round,
+    )
+    drawLine(
+        StatusPalette.cyan.copy(alpha = 0.9f * bright),
+        origin,
+        origin + Offset(0f, sy * arm),
+        strokeWidth = 2.5f,
+        cap = StrokeCap.Round,
+    )
     drawCircle(StatusPalette.cyanSoft.copy(alpha = bright), radius = 3f, center = origin)
     drawCircle(StatusPalette.cyan.copy(alpha = 0.35f * bright), radius = 7f, center = origin)
     val c = origin + Offset(sx * 20f, sy * 20f)

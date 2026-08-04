@@ -4,7 +4,6 @@ import com.ascend.core.model.onboarding.AbilitySnapshot
 import com.ascend.core.model.onboarding.InitialAssessment
 import com.ascend.core.model.onboarding.OnboardingStep
 import com.ascend.core.model.onboarding.PullUpCapability
-import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 

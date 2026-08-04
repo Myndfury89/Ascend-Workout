@@ -124,6 +124,7 @@
     <ID>LongParameterList:OrnateSigil.kt$( state: OrnateSigilState, anim: OrnateSigilAnimation, geo: OrnateSigilGeometry, center: Offset, minimal: Boolean, frameMotion: Boolean, )</ID>
     <ID>LongParameterList:OrnateSigil.kt$( state: OrnateSigilState, animation: OrnateSigilAnimation, semanticDescription: String, modifier: Modifier = Modifier, simplified: Boolean = false, minimal: Boolean = false, frameMotion: Boolean = true, )</ID>
     <ID>LongParameterList:OrnateSigilGeometry.kt$OrnateSigilGeometry$( val radius: Float, val innerPaths: List&lt;Path&gt;, val connectors: List&lt;Pair&lt;Offset, Offset&gt;&gt;, val arcs: List&lt;ArcSpec&gt;, val motif: Path, val motifTicks: Int, val medallionCenters: List&lt;Offset&gt;, val medallionRadius: Float, val proficiencyIndex: Int, )</ID>
+    <ID>LongParameterList:PlayerDao.kt$PlayerDao$( userId: String, ageSafetyCategory: String, socialVisibility: String, partyPresenceEnabled: Boolean, strangerDiscoveryEnabled: Boolean, updatedAt: Long, )</ID>
     <ID>LongParameterList:ProgressionEngines.kt$( userId: String, type: ProgressionRecommendationType, readiness: TrainingReadiness, exerciseId: String?, questTemplateId: String?, currentPrescriptionId: String?, proposed: ExercisePrescription?, proposedTarget: Int?, autoSafeAdaptation: Boolean, now: Long, )</ID>
     <ID>LongParameterList:ProgressionEngines.kt$ExerciseProgressionEngine$( userId: String, prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), equipmentKey: String? = null, autoSafeAdaptation: Boolean = false, now: Long = System.currentTimeMillis(), )</ID>
     <ID>LongParameterList:ProgressionEngines.kt$QuestProgressionEngine$( userId: String, template: QuestTemplate, outcomes: List&lt;com.ascend.core.model.QuestOutcome&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), autoSafeAdaptation: Boolean = false, now: Long = System.currentTimeMillis(), )</ID>
@@ -151,6 +152,7 @@
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$11</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$12</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$13</ID>
+    <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$14</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$3</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$4</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$5</ID>
@@ -516,6 +518,7 @@
     <ID>MaxLineLength:AdaptiveTrainingQueries.kt$AdaptiveTrainingQueries$nextOptions = graph.advanceEdges(currentVariationId).mapNotNull { graph.variation(it.destinationVariationId) }</ID>
     <ID>MaxLineLength:AdaptiveTrainingQueries.kt$AdaptiveTrainingQueries$regressionOptions = graph.regressEdges(currentVariationId).mapNotNull { graph.variation(it.destinationVariationId) }</ID>
     <ID>MaxLineLength:AdaptiveTrainingQueries.kt$AdaptiveTrainingQueries$suspend fun applyRedistribution(recommendation: AdaptiveIntervalRecommendation)</ID>
+    <ID>MaxLineLength:AgeSafety.kt$AgeSafetyPolicy$fun</ID>
     <ID>MaxLineLength:AgeSafetyClassifier.kt$AgeSafetyClassifier$fun usesConservativeDefaults(category: AgeSafetyCategory): Boolean</ID>
     <ID>MaxLineLength:AgeSafetyClassifierTest.kt$AgeSafetyClassifierTest$listOf(AgeSafetyCategory.MINOR_YOUNGER, AgeSafetyCategory.MINOR_OLDER, AgeSafetyCategory.NOT_PROVIDED)</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"'Body Mastery', 1.3, 0.75, 'monk', 'balanced', 'aqua', 'body_mastery', 'i', 'p', '', '', '', '', 1, 0, 0)"</ID>
@@ -523,6 +526,7 @@
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"INSERT INTO class_xp_transaction (id, userId, classId, amount, transactionType, sourceType, sourceId, createdAt) "</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"INSERT INTO exercise_prescription (id, userId, exerciseId, progressionStrategy, targetSets, minimumReps, "</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"INSERT INTO exercise_variation_edge (id, sourceVariationId, destinationVariationId, progressionType, "</ID>
+    <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"INSERT INTO initial_quest_plan (userId, difficultyBand, rationale, safetyAdjustments, provisional, createdAt) "</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"INSERT INTO progression_milestone (id, userId, milestoneKey, milestoneType, exerciseId, previousValue, "</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"INSERT INTO quest_interval (id, questId, title, scheduledStart, scheduledEnd, targetValue, currentValue, "</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"INSERT INTO quest_interval_progress_entry (id, questIntervalId, questId, value, source, sourceApplication, "</ID>
@@ -544,8 +548,14 @@
     <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$"ON `class_proficiency_transaction` (`proficiencyKey`, `transactionType`, `sourceType`, `sourceId`, `rewardType`)"</ID>
     <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$"ON `class_xp_transaction` (`classId`, `transactionType`, `sourceType`, `sourceId`, `rewardType`)"</ID>
     <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$"ON `exercise_variation_edge` (`sourceVariationId`, `destinationVariationId`, `progressionType`)"</ID>
+    <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$"`difficultyBand` TEXT NOT NULL, `rationale` TEXT NOT NULL, `safetyAdjustments` TEXT NOT NULL, "</ID>
     <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$"`index_class_proficiency_transaction_proficiencyKey_transactionType_sourceType_sourceId_rewardType` "</ID>
+    <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$"`provisional` INTEGER NOT NULL DEFAULT 1, `createdAt` INTEGER NOT NULL, PRIMARY KEY(`userId`))"</ID>
+    <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$"`secondaryGoals` TEXT NOT NULL, `trainingFrequency` TEXT, `activityExperience` TEXT NOT NULL, "</ID>
+    <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$"`selfReportedAt` INTEGER NOT NULL, `replacedByEvidenceAt` INTEGER, `abilityPushUps` INTEGER, "</ID>
     <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$db.execSQL("ALTER TABLE `class_xp_transaction` ADD COLUMN `rewardType` TEXT NOT NULL DEFAULT 'CLASS_XP'")</ID>
+    <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$db.execSQL("ALTER TABLE `user_profile` ADD COLUMN `ageSafetyCategory` TEXT NOT NULL DEFAULT 'NOT_PROVIDED'")</ID>
+    <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$db.execSQL("ALTER TABLE `user_profile` ADD COLUMN `strangerDiscoveryEnabled` INTEGER NOT NULL DEFAULT 0")</ID>
     <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$db.execSQL("CREATE INDEX IF NOT EXISTS `index_progression_milestone_userId` ON `progression_milestone` (`userId`)")</ID>
     <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$db.execSQL("CREATE INDEX IF NOT EXISTS `index_quest_checkpoint_questId` ON `quest_checkpoint` (`questId`)")</ID>
     <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$db.execSQL("DROP INDEX IF EXISTS `index_class_proficiency_transaction_proficiencyKey_transactionType_sourceType_sourceId`")</ID>
@@ -632,8 +642,6 @@
     <ID>MaxLineLength:EdgeLitStatusPanel.kt$colors = listOf(Color.Transparent, StatusPalette.violet.copy(alpha = 0.18f * bright), Color.Transparent)</ID>
     <ID>MaxLineLength:EdgeLitStatusPanel.kt$drawLine(Color(0xFF9FB0FF).copy(alpha = 0.02f * materialize), Offset(0f, y), Offset(size.width, y), strokeWidth = 1f)</ID>
     <ID>MaxLineLength:EdgeLitStatusPanel.kt$drawLine(Color(0xFF9FB0FF).copy(alpha = 0.02f * materialize), Offset(x, 0f), Offset(x, size.height), strokeWidth = 1f)</ID>
-    <ID>MaxLineLength:EdgeLitStatusPanel.kt$drawLine(StatusPalette.cyan.copy(alpha = 0.9f * bright), origin, origin + Offset(0f, sy * arm), strokeWidth = 2.5f, cap = StrokeCap.Round)</ID>
-    <ID>MaxLineLength:EdgeLitStatusPanel.kt$drawLine(StatusPalette.cyan.copy(alpha = 0.9f * bright), origin, origin + Offset(sx * arm, 0f), strokeWidth = 2.5f, cap = StrokeCap.Round)</ID>
     <ID>MaxLineLength:EdgeLitStatusPanel.kt$drawLine(StatusPalette.cyanSoft.copy(alpha = 0.45f * bright), Offset(tx, y), Offset(tx, y + dir * 6f), strokeWidth = 1f)</ID>
     <ID>MaxLineLength:EdgeLitStatusPanel.kt$drawPath(panelPath(size, inset - i * 4f), color = StatusPalette.violet.copy(alpha = 0.06f * e / i), style = Stroke(width = 2f))</ID>
     <ID>MaxLineLength:EdgeLitStatusPanel.kt$drawPath(path, color = StatusPalette.infoLine.copy(alpha = 0.22f * materialize), style = Stroke(width = 1.dp.toPx()))</ID>
@@ -663,6 +671,7 @@
     <ID>MaxLineLength:FakeStatusPrototype.kt$FakeStatusPrototype$overlay = StatusEventOverlay(StatusOverlayKind.RECOMMENDATION, "New recommendation", recommendationFor(variant))</ID>
     <ID>MaxLineLength:FakeStatusPrototype.kt$FakeStatusPrototype$recentProgressionEvent = "Bench press → ${com.ascend.core.common.WeightUnits.format(62.5, weightUnit)} confirmed"</ID>
     <ID>MaxLineLength:FakeStatusPrototype.kt$FakeStatusPrototype$trainingFocus = "Concurrent heavy pressing, calisthenic variation laddering, and Zone-2 aerobic base building"</ID>
+    <ID>MaxLineLength:GoalAffinityMapping.kt$GoalAffinityMapping$fun goalKeywords(goal: PrimaryGoal): Set&lt;String&gt;</ID>
     <ID>MaxLineLength:InitialQuestPlanGenerator.kt$InitialQuestPlanGenerator$"and your available equipment, environment, and schedule. It is provisional — it adapts as you log real workouts."</ID>
     <ID>MaxLineLength:InitialQuestPlanGenerator.kt$InitialQuestPlanGenerator$TrainingFrequency.ONE_TO_TWO_WEEKLY, TrainingFrequency.THREE_TO_FOUR_WEEKLY -&gt; DifficultyBand.DEVELOPING</ID>
     <ID>MaxLineLength:InitialQuestPlanGenerator.kt$InitialQuestPlanGenerator$null, TrainingFrequency.NEW_OR_RETURNING, TrainingFrequency.LESS_THAN_ONCE_WEEKLY -&gt; DifficultyBand.FOUNDATION</ID>
@@ -672,8 +681,8 @@
     <ID>MaxLineLength:InitialQuestPlanGeneratorTest.kt$InitialQuestPlanGeneratorTest$assertTrue("crunches dropped for back sensitivity", backPlan.questDefinitions.none { it.templateId == "tmpl-crunches" })</ID>
     <ID>MaxLineLength:InitialQuestPlanGeneratorTest.kt$InitialQuestPlanGeneratorTest$assertTrue("minor target &lt;= adult target", minor.questDefinitions.first().target &lt;= adult.questDefinitions.first().target)</ID>
     <ID>MaxLineLength:InitialQuestPlanGeneratorTest.kt$InitialQuestPlanGeneratorTest$assertTrue("no bar, no substitute -&gt; excluded", without.questDefinitions.none { it.templateId == "tmpl-pullups" })</ID>
-    <ID>MaxLineLength:InitialQuestPlanGeneratorTest.kt$InitialQuestPlanGeneratorTest$assessment(availability = Availability(trainingDays = TrainingDaysPerWeek.THREE, sessionDuration = SessionDuration.MIN_45_60))</ID>
-    <ID>MaxLineLength:InitialQuestPlanGeneratorTest.kt$InitialQuestPlanGeneratorTest$assessment(availability = Availability(trainingDays = TrainingDaysPerWeek.THREE, sessionDuration = SessionDuration.UNDER_20))</ID>
+    <ID>MaxLineLength:InitialQuestPlanGeneratorTest.kt$InitialQuestPlanGeneratorTest$availability = Availability(trainingDays = TrainingDaysPerWeek.THREE, sessionDuration = SessionDuration.MIN_45_60)</ID>
+    <ID>MaxLineLength:InitialQuestPlanGeneratorTest.kt$InitialQuestPlanGeneratorTest$availability = Availability(trainingDays = TrainingDaysPerWeek.THREE, sessionDuration = SessionDuration.UNDER_20)</ID>
     <ID>MaxLineLength:InitialQuestPlanGeneratorTest.kt$InitialQuestPlanGeneratorTest$val adult = generator.generate(assessment(frequency = TrainingFrequency.FIVE_PLUS_WEEKLY), listOf(candidate("tmpl-pushups")))</ID>
     <ID>MaxLineLength:InitialQuestPlanGeneratorTest.kt$InitialQuestPlanGeneratorTest$val legPlan = generator.generate(assessment(limitations = setOf(Limitation.LOWER_BODY)), listOf(candidate("tmpl-squats")))</ID>
     <ID>MaxLineLength:InitialQuestPlanGeneratorTest.kt$InitialQuestPlanGeneratorTest$val one = generator.generate(assessment(availability = Availability(trainingDays = TrainingDaysPerWeek.ONE)), four)</ID>
@@ -685,7 +694,20 @@
     <ID>MaxLineLength:IntervalProgressTest.kt$IntervalProgressTest$reminders.shouldRemind(active, now = 50, questComplete = false, notificationsEnabled = true, quietHours = listOf(40L to 60L))</ID>
     <ID>MaxLineLength:LogWorkoutViewModel.kt$LogWorkoutViewModel$private fun ObjectiveType.isRepBased(): Boolean</ID>
     <ID>MaxLineLength:MulticlassRewardCalculator.kt$MulticlassRewardCalculator$val primary = contribution(primaryDef, ClassSlot.PRIMARY, allocation = 1.0, activityTags, basePlayerXp, baseMagnitude)</ID>
+    <ID>MaxLineLength:OnboardingMappers.kt$sessionDuration = availabilitySessionDuration?.let { SessionDuration.valueOf(it) } ?: SessionDuration.MIN_20_30</ID>
+    <ID>MaxLineLength:OnboardingMappers.kt$trainingDays = availabilityTrainingDays?.let { TrainingDaysPerWeek.valueOf(it) } ?: TrainingDaysPerWeek.FLEXIBLE</ID>
     <ID>MaxLineLength:OnboardingModelsTest.kt$OnboardingModelsTest$val inProgress = OnboardingState(currentStep = OnboardingStep.GOALS, completedSteps = setOf(OnboardingStep.WELCOME))</ID>
+    <ID>MaxLineLength:OnboardingRepositoryImpl.kt$OnboardingRepositoryImpl$override fun observeState(userId: String): Flow&lt;OnboardingState?&gt;</ID>
+    <ID>MaxLineLength:OnboardingRepositoryImpl.kt$OnboardingRepositoryImpl$override suspend fun getAffinity(userId: String): ClassAffinityResult?</ID>
+    <ID>MaxLineLength:OnboardingRepositoryImpl.kt$OnboardingRepositoryImpl$override suspend fun savePlan(plan: InitialQuestPlan)</ID>
+    <ID>MaxLineLength:OnboardingRepositoryTest.kt$OnboardingRepositoryTest$ClassAffinityResult("berserker", mapOf("berserker" to 4.0, "monk" to 1.0), "Trains strength", listOf("goal:STRENGTH"))</ID>
+    <ID>MaxLineLength:OnboardingRepositoryTest.kt$OnboardingRepositoryTest$InitialQuestDefinition("tmpl-pushups", "Push-ups", "reps", 25, 10, "Baseline", safetyAdjusted = true)</ID>
+    <ID>MaxLineLength:OnboardingRepositoryTest.kt$OnboardingRepositoryTest$assertEquals("canonical kg is unchanged by a unit switch", 80.0, loaded.bodyMetrics.currentWeightKg!!, 0.001)</ID>
+    <ID>MaxLineLength:OnboardingRepositoryTest.kt$OnboardingRepositoryTest$assertEquals(setOf(ActivityPreference.WEIGHTLIFTING, ActivityPreference.BODYWEIGHT), loaded.activityPreferences)</ID>
+    <ID>MaxLineLength:OnboardingRepositoryTest.kt$OnboardingRepositoryTest$availability = Availability(trainingDays = TrainingDaysPerWeek.THREE, sessionDuration = SessionDuration.MIN_30_45)</ID>
+    <ID>MaxLineLength:OnboardingRepositoryTest.kt$OnboardingRepositoryTest$db.playerDao().upsertProfile(UserProfileEntity(id = userId, displayName = "Kai", createdAt = 0, updatedAt = 0))</ID>
+    <ID>MaxLineLength:OnboardingRepositoryTest.kt$OnboardingRepositoryTest$repo.saveSafetyProfile(userId, AgeSafetyCategory.MINOR_YOUNGER, AgeSafetyPolicy.defaultsFor(AgeSafetyCategory.MINOR_YOUNGER))</ID>
+    <ID>MaxLineLength:OnboardingRepositoryTest.kt$OnboardingRepositoryTest$repo.saveState(userId, OnboardingState(currentStep = OnboardingStep.GOALS, completedSteps = setOf(OnboardingStep.WELCOME)))</ID>
     <ID>MaxLineLength:OrnateSigil.kt$drawPath(geo.motif, StatusPalette.cyanSoft.copy(alpha = a * 0.5f), style = Stroke(width = 1f, cap = StrokeCap.Round))</ID>
     <ID>MaxLineLength:OrnateSigil.kt$drawPath(path, accentBlend(state.variant).copy(alpha = la.coerceAtMost(0.7f)), style = Stroke(width = weight))</ID>
     <ID>MaxLineLength:OrnateSigil.kt$style = Stroke(width = weight, pathEffect = if (dashed) PathEffect.dashPathEffect(floatArrayOf(4f, 6f)) else null)</ID>
@@ -720,6 +742,7 @@
     <ID>MaxLineLength:OrnateSigilTest.kt$OrnateSigilTest$val standard = FakeStatusPrototype.dataFor(StatusPrototypeStateId.STANDARD, StatusClassVariant.BERSERKER, reducedMotion = false)</ID>
     <ID>MaxLineLength:OrnateSigilTest.kt$OrnateSigilTest$val standard = FakeStatusPrototype.dataFor(StatusPrototypeStateId.STANDARD, StatusClassVariant.MONK, reducedMotion = false)</ID>
     <ID>MaxLineLength:PerformanceHistoryRepository.kt$PerformanceHistoryRepository$sets = rows.sortedBy { it.orderIndex }.map { SetPerformance(reps = it.reps ?: 0, weight = it.weight) }</ID>
+    <ID>MaxLineLength:PlayerDao.kt$PlayerDao$@Query("UPDATE user_profile SET onboardingCompleted = 1, onboardingVersion = :version, updatedAt = :updatedAt WHERE id = :userId")</ID>
     <ID>MaxLineLength:PlayerRepositoryImpl.kt$PlayerRepositoryImpl$override fun observeStats(userId: String): Flow&lt;PlayerStats?&gt;</ID>
     <ID>MaxLineLength:PlayerRepositoryImpl.kt$PlayerRepositoryImpl$override suspend fun weightUnit(userId: String): WeightUnit</ID>
     <ID>MaxLineLength:ProductionStatusDataTest.kt$ProductionStatusDataTest$assertTrue("real attribute growth is reflected", source.observeStats().first().asMap.getValue(AttributeType.STRENGTH) &gt;= 12L)</ID>
@@ -911,8 +934,14 @@
     <ID>TooManyFunctions:ClassDao.kt$ClassDao</ID>
     <ID>TooManyFunctions:ClassRepository.kt$ClassRepository</ID>
     <ID>TooManyFunctions:ClassRepositoryImpl.kt$ClassRepositoryImpl : ClassRepository</ID>
+    <ID>TooManyFunctions:DataModule.kt$DataModule</ID>
     <ID>TooManyFunctions:DatabaseModule.kt$DatabaseModule</ID>
     <ID>TooManyFunctions:DungeonPrototypeController.kt$DungeonPrototypeController</ID>
+    <ID>TooManyFunctions:OnboardingDao.kt$OnboardingDao</ID>
+    <ID>TooManyFunctions:OnboardingMappers.kt$com.ascend.core.data.mapper.OnboardingMappers.kt</ID>
+    <ID>TooManyFunctions:OnboardingRepository.kt$OnboardingRepository</ID>
+    <ID>TooManyFunctions:OnboardingRepositoryImpl.kt$OnboardingRepositoryImpl : OnboardingRepository</ID>
+    <ID>TooManyFunctions:PlayerDao.kt$PlayerDao</ID>
     <ID>TooManyFunctions:ProgressionRecommendationRepository.kt$ProgressionRecommendationRepository</ID>
     <ID>TooManyFunctions:ProgressionRecommendationRepositoryImpl.kt$ProgressionRecommendationRepositoryImpl : ProgressionRecommendationRepository</ID>
     <ID>TooManyFunctions:QuestDao.kt$QuestDao</ID>

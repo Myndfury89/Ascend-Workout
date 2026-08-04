@@ -26,6 +26,34 @@ interface PlayerDao {
         updatedAt: Long,
     )
 
+    @Query("UPDATE user_profile SET heightCm = :heightCm, updatedAt = :updatedAt WHERE id = :userId")
+    suspend fun updateHeight(
+        userId: String,
+        heightCm: Double?,
+        updatedAt: Long,
+    )
+
+    @Query(
+        "UPDATE user_profile SET ageSafetyCategory = :ageSafetyCategory, socialVisibility = :socialVisibility, " +
+            "partyPresenceEnabled = :partyPresenceEnabled, strangerDiscoveryEnabled = :strangerDiscoveryEnabled, " +
+            "updatedAt = :updatedAt WHERE id = :userId",
+    )
+    suspend fun updateSafetyProfile(
+        userId: String,
+        ageSafetyCategory: String,
+        socialVisibility: String,
+        partyPresenceEnabled: Boolean,
+        strangerDiscoveryEnabled: Boolean,
+        updatedAt: Long,
+    )
+
+    @Query("UPDATE user_profile SET onboardingCompleted = 1, onboardingVersion = :version, updatedAt = :updatedAt WHERE id = :userId")
+    suspend fun markOnboardingComplete(
+        userId: String,
+        version: Int,
+        updatedAt: Long,
+    )
+
     @Upsert
     suspend fun upsertProgress(entity: PlayerProgressEntity)
 

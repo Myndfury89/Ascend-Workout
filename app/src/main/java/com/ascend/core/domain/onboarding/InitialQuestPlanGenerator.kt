@@ -6,9 +6,7 @@ import com.ascend.core.model.onboarding.DifficultyBand
 import com.ascend.core.model.onboarding.InitialAssessment
 import com.ascend.core.model.onboarding.InitialQuestDefinition
 import com.ascend.core.model.onboarding.InitialQuestPlan
-import com.ascend.core.model.onboarding.PrimaryGoal
 import com.ascend.core.model.onboarding.SessionDuration
-import com.ascend.core.model.onboarding.TrainingEnvironment
 import com.ascend.core.model.onboarding.TrainingFrequency
 import javax.inject.Inject
 import kotlin.math.roundToInt

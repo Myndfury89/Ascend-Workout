@@ -132,12 +132,16 @@ class InitialQuestPlanGeneratorTest {
     fun `shorter sessions produce lower or equal targets`() {
         val short =
             generator.generate(
-                assessment(availability = Availability(trainingDays = TrainingDaysPerWeek.THREE, sessionDuration = SessionDuration.UNDER_20)),
+                assessment(
+                    availability = Availability(trainingDays = TrainingDaysPerWeek.THREE, sessionDuration = SessionDuration.UNDER_20),
+                ),
                 listOf(candidate("tmpl-pushups")),
             ).questDefinitions.first().target
         val long =
             generator.generate(
-                assessment(availability = Availability(trainingDays = TrainingDaysPerWeek.THREE, sessionDuration = SessionDuration.MIN_45_60)),
+                assessment(
+                    availability = Availability(trainingDays = TrainingDaysPerWeek.THREE, sessionDuration = SessionDuration.MIN_45_60),
+                ),
                 listOf(candidate("tmpl-pushups")),
             ).questDefinitions.first().target
         assertTrue("short session target <= long", short <= long)

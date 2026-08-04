@@ -9,6 +9,7 @@ import com.ascend.core.database.dao.AttributeDao
 import com.ascend.core.database.dao.ClassDao
 import com.ascend.core.database.dao.ExerciseDao
 import com.ascend.core.database.dao.ExerciseVariationDao
+import com.ascend.core.database.dao.OnboardingDao
 import com.ascend.core.database.dao.PlayerDao
 import com.ascend.core.database.dao.ProgressionEventDao
 import com.ascend.core.database.dao.QuestDao
@@ -75,4 +76,7 @@ object DatabaseModule {
 
     @Provides
     fun provideSkillDao(db: AscendDatabase): SkillDao = db.skillDao()
+
+    @Provides
+    fun provideOnboardingDao(db: AscendDatabase): OnboardingDao = db.onboardingDao()
 }

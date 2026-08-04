@@ -55,13 +55,14 @@ class ClassAffinityAssessor
                 }
 
             val input = ClassRecommendationInput(goalTags = tags, goalKeywords = keywords)
-            val recommendation = engine.recommend(input, definitions)
-                ?: return ClassAffinityResult(
-                    recommendedClassId = null,
-                    classScores = emptyMap(),
-                    rationale = "No class recommendation is available yet — you can choose any class.",
-                    evidenceKeys = evidence,
-                )
+            val recommendation =
+                engine.recommend(input, definitions)
+                    ?: return ClassAffinityResult(
+                        recommendedClassId = null,
+                        classScores = emptyMap(),
+                        rationale = "No class recommendation is available yet — you can choose any class.",
+                        evidenceKeys = evidence,
+                    )
 
             val scores =
                 (listOf(recommendation.recommended) + recommendation.alternatives)

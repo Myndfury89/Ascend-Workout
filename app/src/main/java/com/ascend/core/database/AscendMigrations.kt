@@ -756,6 +756,70 @@ object AscendMigrations {
             }
         }
 
+    /**
+     * v13 -> v14: onboarding + initial-assessment persistence. Extends user_profile with
+     * onboarding version, canonical height, the derived age-safety category, and social/privacy
+     * defaults (private + presence/discovery off); adds the onboarding state, provisional
+     * assessment, class-affinity, and initial-plan (+ items) tables. Purely additive — no existing
+     * data is rewritten. NOT NULL additions carry DEFAULTs so pre-existing rows migrate cleanly.
+     */
+    val MIGRATION_13_14 =
+        object : Migration(13, 14) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE `user_profile` ADD COLUMN `onboardingVersion` INTEGER NOT NULL DEFAULT 0")
+                db.execSQL("ALTER TABLE `user_profile` ADD COLUMN `heightCm` REAL")
+                db.execSQL("ALTER TABLE `user_profile` ADD COLUMN `ageSafetyCategory` TEXT NOT NULL DEFAULT 'NOT_PROVIDED'")
+                db.execSQL("ALTER TABLE `user_profile` ADD COLUMN `socialVisibility` TEXT NOT NULL DEFAULT 'PRIVATE'")
+                db.execSQL("ALTER TABLE `user_profile` ADD COLUMN `partyPresenceEnabled` INTEGER NOT NULL DEFAULT 0")
+                db.execSQL("ALTER TABLE `user_profile` ADD COLUMN `strangerDiscoveryEnabled` INTEGER NOT NULL DEFAULT 0")
+
+                db.execSQL(
+                    "CREATE TABLE IF NOT EXISTS `onboarding_state` (`userId` TEXT NOT NULL, " +
+                        "`currentStep` TEXT NOT NULL, `completedSteps` TEXT NOT NULL, `skippedSteps` TEXT NOT NULL, " +
+                        "`startedAt` INTEGER NOT NULL, `completedAt` INTEGER, `version` INTEGER NOT NULL, " +
+                        "PRIMARY KEY(`userId`))",
+                )
+                db.execSQL(
+                    "CREATE TABLE IF NOT EXISTS `initial_assessment` (`userId` TEXT NOT NULL, `primaryGoal` TEXT, " +
+                        "`secondaryGoals` TEXT NOT NULL, `trainingFrequency` TEXT, `activityExperience` TEXT NOT NULL, " +
+                        "`activityPreferences` TEXT NOT NULL, `equipment` TEXT NOT NULL, `environment` TEXT, " +
+                        "`limitations` TEXT NOT NULL, `ageSafetyCategory` TEXT NOT NULL, `provenance` TEXT NOT NULL, " +
+                        "`selfReportedAt` INTEGER NOT NULL, `replacedByEvidenceAt` INTEGER, `abilityPushUps` INTEGER, " +
+                        "`abilitySquats` INTEGER, `abilityPullUp` TEXT, `abilityCardioMinutes` INTEGER, " +
+                        "`abilitySteps` INTEGER, `abilityRecentStrength` INTEGER, `abilityPreferredCardio` TEXT, " +
+                        "`abilityTypicalDuration` TEXT, `availabilityTrainingDays` TEXT, " +
+                        "`availabilitySessionDuration` TEXT, `availabilityPreferredDays` TEXT NOT NULL, " +
+                        "`availabilityTimeWindows` TEXT NOT NULL, `availabilityRestDays` TEXT NOT NULL, " +
+                        "`physiologySex` TEXT NOT NULL, `physiologyWaistCm` REAL, `physiologyBodyFatPercent` REAL, " +
+                        "`currentWeightKg` REAL, `goalWeightKg` REAL, PRIMARY KEY(`userId`))",
+                )
+                db.execSQL(
+                    "CREATE TABLE IF NOT EXISTS `class_affinity_result` (`userId` TEXT NOT NULL, " +
+                        "`recommendedClassId` TEXT, `classScores` TEXT NOT NULL, `rationale` TEXT NOT NULL, " +
+                        "`evidenceKeys` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, PRIMARY KEY(`userId`))",
+                )
+                db.execSQL(
+                    "CREATE TABLE IF NOT EXISTS `initial_quest_plan` (`userId` TEXT NOT NULL, " +
+                        "`difficultyBand` TEXT NOT NULL, `rationale` TEXT NOT NULL, `safetyAdjustments` TEXT NOT NULL, " +
+                        "`provisional` INTEGER NOT NULL DEFAULT 1, `createdAt` INTEGER NOT NULL, PRIMARY KEY(`userId`))",
+                )
+                db.execSQL(
+                    "CREATE TABLE IF NOT EXISTS `initial_quest_plan_item` (`id` TEXT NOT NULL, " +
+                        "`planUserId` TEXT NOT NULL, `templateId` TEXT NOT NULL, `name` TEXT NOT NULL, " +
+                        "`unit` TEXT NOT NULL, `target` INTEGER NOT NULL, `preferredSetSize` INTEGER, " +
+                        "`rationale` TEXT NOT NULL, `equipmentCompatible` INTEGER NOT NULL, " +
+                        "`scheduleCompatible` INTEGER NOT NULL, `safetyAdjusted` INTEGER NOT NULL, " +
+                        "`provisional` INTEGER NOT NULL DEFAULT 1, `sortOrder` INTEGER NOT NULL, PRIMARY KEY(`id`), " +
+                        "FOREIGN KEY(`planUserId`) REFERENCES `initial_quest_plan`(`userId`) " +
+                        "ON UPDATE NO ACTION ON DELETE CASCADE )",
+                )
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_initial_quest_plan_item_planUserId` " +
+                        "ON `initial_quest_plan_item` (`planUserId`)",
+                )
+            }
+        }
+
     /** All migrations, wired into the Room builder. */
     val ALL: Array<Migration> =
         arrayOf(
@@ -771,5 +835,6 @@ object AscendMigrations {
             MIGRATION_10_11,
             MIGRATION_11_12,
             MIGRATION_12_13,
+            MIGRATION_13_14,
         )
 }

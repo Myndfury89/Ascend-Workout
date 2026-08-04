@@ -474,4 +474,64 @@ class AscendMigrationTest {
         }
         db.close()
     }
+
+    @Test
+    fun `migrate 13 to 14 adds onboarding columns and tables and preserves data`() {
+        val dbName = "migration-test-13-14.db"
+
+        helper.createDatabase(dbName, 13).use { db ->
+            db.execSQL(
+                "INSERT INTO user_profile (id, displayName, createdAt, updatedAt, onboardingCompleted, " +
+                    "measurementSystem, weightUnit, localOnly, cloudSyncEnabled) " +
+                    "VALUES ('u1', 'Tester', 0, 0, 0, 'METRIC', 'KILOGRAMS', 1, 0)",
+            )
+        }
+
+        val db = helper.runMigrationsAndValidate(dbName, 14, true, AscendMigrations.MIGRATION_13_14)
+
+        // The v13 row survived and the new safety columns were backfilled with private defaults.
+        db.query(
+            "SELECT displayName, ageSafetyCategory, socialVisibility, partyPresenceEnabled, " +
+                "strangerDiscoveryEnabled, onboardingVersion FROM user_profile WHERE id = 'u1'",
+        ).use { c ->
+            assertTrue(c.moveToFirst())
+            assertEquals("Tester", c.getString(0))
+            assertEquals("NOT_PROVIDED", c.getString(1))
+            assertEquals("PRIVATE", c.getString(2))
+            assertEquals(0, c.getInt(3))
+            assertEquals(0, c.getInt(4))
+            assertEquals(0, c.getInt(5))
+        }
+
+        // The new onboarding tables are usable, including the plan -> item FK chain.
+        db.execSQL(
+            "INSERT INTO onboarding_state (userId, currentStep, completedSteps, skippedSteps, startedAt, version) " +
+                "VALUES ('u1', 'GOALS', 'WELCOME', '', 5, 1)",
+        )
+        db.execSQL(
+            "INSERT INTO initial_assessment (userId, secondaryGoals, activityExperience, activityPreferences, " +
+                "equipment, limitations, ageSafetyCategory, provenance, selfReportedAt, " +
+                "availabilityPreferredDays, availabilityTimeWindows, availabilityRestDays, physiologySex) " +
+                "VALUES ('u1', '', '', '', '', '', 'ADULT', 'SELF_REPORTED', 7, '', '', '', 'NOT_SET')",
+        )
+        db.execSQL(
+            "INSERT INTO initial_quest_plan (userId, difficultyBand, rationale, safetyAdjustments, provisional, createdAt) " +
+                "VALUES ('u1', 'FOUNDATION', 'Start easy', '', 1, 9)",
+        )
+        db.execSQL(
+            "INSERT INTO initial_quest_plan_item (id, planUserId, templateId, name, unit, target, rationale, " +
+                "equipmentCompatible, scheduleCompatible, safetyAdjusted, provisional, sortOrder) " +
+                "VALUES ('u1:tmpl-pushups', 'u1', 'tmpl-pushups', 'Push-ups', 'reps', 25, 'Baseline', 1, 1, 0, 1, 0)",
+        )
+        db.query("SELECT target FROM initial_quest_plan_item WHERE planUserId = 'u1'").use { c ->
+            assertTrue(c.moveToFirst())
+            assertEquals(25, c.getInt(0))
+        }
+        // replacedByEvidenceAt defaults to null (provisional, not yet reconciled).
+        db.query("SELECT replacedByEvidenceAt FROM initial_assessment WHERE userId = 'u1'").use { c ->
+            assertTrue(c.moveToFirst())
+            assertTrue(c.isNull(0))
+        }
+        db.close()
+    }
 }

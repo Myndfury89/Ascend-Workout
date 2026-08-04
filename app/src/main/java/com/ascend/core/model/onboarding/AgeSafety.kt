@@ -63,8 +63,7 @@ object AgeSafetyPolicy {
         category == AgeSafetyCategory.MINOR_YOUNGER || category == AgeSafetyCategory.MINOR_OLDER
 
     /** Minors and not-provided users get conservative starting prescriptions. */
-    fun usesConservativeDefaults(category: AgeSafetyCategory): Boolean =
-        isMinor(category) || category == AgeSafetyCategory.NOT_PROVIDED
+    fun usesConservativeDefaults(category: AgeSafetyCategory): Boolean = isMinor(category) || category == AgeSafetyCategory.NOT_PROVIDED
 
     /**
      * Defaults are private + presence/discovery OFF for everyone. Only [ADULT] may later opt in.

@@ -6,6 +6,7 @@ import com.ascend.core.common.LOCAL_USER_ID
 import com.ascend.core.domain.onboarding.AgeSafetyClassifier
 import com.ascend.core.domain.onboarding.AssessmentQuestSuggester
 import com.ascend.core.domain.onboarding.ClassAffinityAssessor
+import com.ascend.core.domain.onboarding.CreateInitialQuestScheduleUseCase
 import com.ascend.core.domain.onboarding.InitialQuestPlanGenerator
 import com.ascend.core.domain.onboarding.QuestActivityProfileCatalog
 import com.ascend.core.domain.onboarding.QuestPlanCandidate
@@ -45,6 +46,7 @@ class OnboardingViewModel
         private val affinityAssessor: ClassAffinityAssessor,
         private val planGenerator: InitialQuestPlanGenerator,
         private val assessmentSuggester: AssessmentQuestSuggester,
+        private val initialQuestSchedule: CreateInitialQuestScheduleUseCase,
     ) : ViewModel() {
         private val userId = LOCAL_USER_ID
         private val _uiState = MutableStateFlow(OnboardingUiState())
@@ -176,7 +178,7 @@ class OnboardingViewModel
         /** Finalize onboarding: create the profile + persist everything, then route to Status. */
         fun complete() {
             val state = _uiState.value
-            if (state.ageIneligible) return
+            if (state.ageIneligible || state.completed) return
             viewModelScope.launch {
                 val now = System.currentTimeMillis()
                 val category = state.ageSafetyCategory
@@ -197,7 +199,12 @@ class OnboardingViewModel
                     )
                 }
                 state.affinity?.let { onboardingRepository.saveAffinity(userId, it, now) }
-                state.plan?.let { onboardingRepository.savePlan(it) }
+                state.plan?.let { plan ->
+                    onboardingRepository.savePlan(plan)
+                    // Realize the provisional plan into real starting Daily Quests via the existing
+                    // quest infrastructure (idempotent; awards nothing until actually completed).
+                    initialQuestSchedule.create(userId, plan)
+                }
                 onboardingRepository.saveState(
                     userId,
                     (onboardingRepository.getState(userId) ?: OnboardingState(startedAt = now)).copy(

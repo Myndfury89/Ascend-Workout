@@ -13,8 +13,11 @@ import com.ascend.core.domain.classes.ClassRecommendationEngine
 import com.ascend.core.domain.onboarding.AgeSafetyClassifier
 import com.ascend.core.domain.onboarding.AssessmentQuestSuggester
 import com.ascend.core.domain.onboarding.ClassAffinityAssessor
+import com.ascend.core.domain.onboarding.CreateInitialQuestScheduleUseCase
 import com.ascend.core.domain.onboarding.InitialQuestPlanGenerator
 import com.ascend.core.domain.progression.LevelCalculator
+import com.ascend.core.domain.quest.CreateQuestFromTemplateUseCase
+import com.ascend.core.domain.quest.QuestTargetValidator
 import com.ascend.core.model.onboarding.AgeRange
 import com.ascend.core.model.onboarding.AgeSafetyCategory
 import com.ascend.core.model.onboarding.Equipment
@@ -29,6 +32,7 @@ import com.ascend.core.model.onboarding.TrainingFrequency
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.asExecutor
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestDispatcher
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
@@ -68,6 +72,7 @@ class OnboardingViewModelTest {
     private lateinit var playerRepo: PlayerRepositoryImpl
     private lateinit var classRepo: ClassRepositoryImpl
     private lateinit var templateRepo: QuestTemplateRepositoryImpl
+    private lateinit var questRepo: FakeQuestRepository
 
     @Before
     fun setUp() {
@@ -84,6 +89,7 @@ class OnboardingViewModelTest {
         playerRepo = PlayerRepositoryImpl(db, db.playerDao(), LevelCalculator())
         classRepo = ClassRepositoryImpl(db, db.classDao(), LevelCalculator())
         templateRepo = QuestTemplateRepositoryImpl(db.questTemplateDao())
+        questRepo = FakeQuestRepository()
     }
 
     @After
@@ -101,6 +107,10 @@ class OnboardingViewModelTest {
             ClassAffinityAssessor(ClassRecommendationEngine()),
             InitialQuestPlanGenerator(),
             AssessmentQuestSuggester(),
+            CreateInitialQuestScheduleUseCase(
+                CreateQuestFromTemplateUseCase(questRepo, templateRepo, QuestTargetValidator()),
+                questRepo,
+            ),
         )
 
     /** Advance one step (validate current + run the launched transition). */
@@ -213,6 +223,10 @@ class OnboardingViewModelTest {
         }
         val progress = runBlocking { db.playerDao().getProgress(LOCAL_USER_ID) }!!
         assertEquals("no XP awarded from onboarding", 0L, progress.lifetimeXp)
+
+        // A real, conservative starting schedule was created via the existing quest infrastructure.
+        val startingQuests = runBlocking { questRepo.observeQuestsForUser(LOCAL_USER_ID).first() }
+        assertTrue("a starting schedule was created", startingQuests.isNotEmpty())
     }
 
     @Test

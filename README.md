@@ -80,11 +80,25 @@ core loop, built in verifiable phases. It is not the full product yet.
   limit or raises the daily total (schema v11). UI deferred, behind a stable
   `AdaptiveTrainingQueries` surface. See `ADAPTIVE_TRAINING.md`.
 
-**Not yet implemented:** onboarding ("The Awakening"), scheduling/calendar, Health
-Connect, notifications, expeditions, progress dashboards, achievements/titles, and
-cloud sync. Calendar and Progress screens are still placeholders. (The production
-Status dashboard — the ornate sigil composition on real data — is now live; the
-adaptive‑training / daily‑quest info section on Status is a later wiring step.)
+- **Onboarding & initial assessment ("Your Ascension Begins")** — a portrait‑first,
+  resumable ~10‑step assessment that introduces the app, collects safe‑personalization
+  info, recommends an initial class and a conservative provisional Daily‑Quest plan, and
+  creates the starting profile — then routes to production Status. Reuses the existing
+  profile, `WeightUnits` (canonical kg), class models + `ClassRecommendationEngine`, and
+  `QuestTemplate` + `CreateQuestFromTemplateUseCase` (no duplicate systems). Provisional,
+  self‑reported baselines (never verified; `replacedByEvidenceAt` reserved for a later
+  evidence‑reconciliation phase); onboarding awards **no** XP/Skills/PRs/rewards. Includes
+  a provisional, U.S.‑first **age‑safety policy** (min age 13; four bands; conservative +
+  private minor defaults; age never gates class/Skill/rank) — pending legal review. First
+  launch gates on completion (incomplete → resume; complete → Status; below‑min‑age →
+  neutral eligibility screen). Schema **v14** (`MIGRATION_13_14`). See below.
+
+**Not yet implemented:** scheduling/calendar, Health Connect, notifications, expeditions,
+progress dashboards, achievements/titles, and cloud sync. Calendar and Progress screens
+are still placeholders. (The production Status dashboard — the ornate sigil composition on
+real data — is live; the adaptive‑training / daily‑quest info section on Status, and the
+onboarding evidence‑reconciliation that would replace self‑reported baselines, are later
+steps.)
 
 See `ARCHITECTURE.md`, `PROGRESSION_SYSTEM.md`, `QUEST_SYSTEM.md`, `WORKOUT_SYSTEM.md`,
 `DATABASE.md`, `TESTING.md`, and `PRIVACY.md` for details.

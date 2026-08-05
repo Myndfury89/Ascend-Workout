@@ -8,6 +8,8 @@
     <ID>CyclomaticComplexMethod:ExerciseVariationProgressionEngine.kt$ExerciseVariationProgressionEngine$private fun evaluateEdge( graph: ExerciseVariationGraph, edge: ExerciseVariationProgressionEdge, input: VariationReadinessInput, ): EdgeEligibility</ID>
     <ID>CyclomaticComplexMethod:FakeStatusPrototype.kt$FakeStatusPrototype$fun dataFor( stateId: StatusPrototypeStateId, variant: StatusClassVariant, reducedMotion: Boolean, forceSecondary: Boolean = false, weightUnit: com.ascend.core.common.WeightUnit = com.ascend.core.common.WeightUnit.KILOGRAMS, ): StatusPrototypeData</ID>
     <ID>CyclomaticComplexMethod:GoalAffinityMapping.kt$GoalAffinityMapping$fun preferenceTags(pref: ActivityPreference): Set&lt;String&gt;</ID>
+    <ID>CyclomaticComplexMethod:OnboardingScreen.kt$@Composable private fun StepScaffold( state: OnboardingUiState, viewModel: OnboardingViewModel, )</ID>
+    <ID>CyclomaticComplexMethod:OnboardingViewModel.kt$OnboardingViewModel$private fun validate(state: OnboardingUiState): String?</ID>
     <ID>CyclomaticComplexMethod:ProgressionRewardService.kt$ProgressionRewardCalculator$fun rewardFor( milestoneType: ProgressionMilestoneType, primaryAttribute: AttributeType?, ): ProgressionRewardSpec</ID>
     <ID>CyclomaticComplexMethod:QuestRepositoryImpl.kt$QuestRepositoryImpl$override suspend fun completeQuest(questId: String): CompleteQuestResult</ID>
     <ID>CyclomaticComplexMethod:RevisedStatusPrototypeScreen.kt$@Composable fun RevisedStatusPrototypeScreen( modifier: Modifier = Modifier, controller: PrototypeReviewController = rememberPrototypeReviewController(), )</ID>
@@ -16,6 +18,7 @@
     <ID>FunctionNaming:ActiveQuestScreen.kt$@Composable private fun CustomAddDialog( onAdd: (Int) -&gt; Unit, onDismiss: () -&gt; Unit, )</ID>
     <ID>FunctionNaming:ActiveQuestScreen.kt$@OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class) @Composable internal fun ActiveQuestContent( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
     <ID>FunctionNaming:AscendApp.kt$@Composable fun AscendApp()</ID>
+    <ID>FunctionNaming:AscendRoot.kt$@Composable fun AscendRoot(viewModel: RootGateViewModel = hiltViewModel())</ID>
     <ID>FunctionNaming:Buttons.kt$@Composable fun PrimaryActionButton( text: String, onClick: () -&gt; Unit, modifier: Modifier = Modifier, enabled: Boolean = true, )</ID>
     <ID>FunctionNaming:Buttons.kt$@Composable fun QuickProgressButton( label: String, onClick: () -&gt; Unit, modifier: Modifier = Modifier, enabled: Boolean = true, )</ID>
     <ID>FunctionNaming:CalendarScreen.kt$@Composable fun CalendarScreen(modifier: Modifier = Modifier)</ID>
@@ -33,6 +36,29 @@
     <ID>FunctionNaming:LogWorkoutScreen.kt$@Composable private fun LoggedSetRow( index: Int, set: WorkoutSet, weightUnit: WeightUnit, onDelete: () -&gt; Unit, )</ID>
     <ID>FunctionNaming:LogWorkoutScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable private fun AddSetSection( exercises: List&lt;Exercise&gt;, weightUnit: WeightUnit, onAddSet: (Exercise, Int, Double?) -&gt; Unit, )</ID>
     <ID>FunctionNaming:LogWorkoutScreen.kt$@OptIn(ExperimentalMaterial3Api::class, androidx.compose.foundation.layout.ExperimentalLayoutApi::class) @Composable internal fun LogWorkoutContent( state: LogWorkoutUiState, onBack: () -&gt; Unit, onTitleChange: (String) -&gt; Unit, onDifficultyChange: (Difficulty) -&gt; Unit, onAddSet: (Exercise, Int, Double?) -&gt; Unit, onDeleteSet: (String) -&gt; Unit, onFinish: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, weightUnit: WeightUnit = WeightUnit.KILOGRAMS, onWeightUnitChange: (WeightUnit) -&gt; Unit = {}, )</ID>
+    <ID>FunctionNaming:OnboardingComponents.kt$@Composable fun CenteredMessage( title: String, body: String, modifier: Modifier = Modifier, content: @Composable () -&gt; Unit = {}, )</ID>
+    <ID>FunctionNaming:OnboardingComponents.kt$@Composable fun FieldBlock( label: String, content: @Composable () -&gt; Unit, )</ID>
+    <ID>FunctionNaming:OnboardingComponents.kt$@Composable fun OnboardingHint(text: String)</ID>
+    <ID>FunctionNaming:OnboardingComponents.kt$@Composable fun OnboardingScaffold( title: String, subtitle: String?, progressIndex: Int, progressTotal: Int, onBack: (() -&gt; Unit)?, onNext: (() -&gt; Unit)?, nextLabel: String = "Next", onSkip: (() -&gt; Unit)? = null, validationError: String? = null, content: @Composable () -&gt; Unit, )</ID>
+    <ID>FunctionNaming:OnboardingComponents.kt$@Composable fun SelectPill( label: String, selected: Boolean, onClick: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:OnboardingComponents.kt$@OptIn(ExperimentalLayoutApi::class) @Composable fun &lt;T&gt; MultiChoice( options: List&lt;T&gt;, selected: Set&lt;T&gt;, label: (T) -&gt; String, onToggle: (T) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:OnboardingComponents.kt$@OptIn(ExperimentalLayoutApi::class) @Composable fun &lt;T&gt; SingleChoice( options: List&lt;T&gt;, selected: T?, label: (T) -&gt; String, onSelect: (T) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:OnboardingScreen.kt$@Composable fun AgeIneligibleScreen()</ID>
+    <ID>FunctionNaming:OnboardingScreen.kt$@Composable fun OnboardingScreen(viewModel: OnboardingViewModel = hiltViewModel())</ID>
+    <ID>FunctionNaming:OnboardingScreen.kt$@Composable private fun StepScaffold( state: OnboardingUiState, viewModel: OnboardingViewModel, )</ID>
+    <ID>FunctionNaming:OnboardingScreen.kt$@Composable private fun WelcomeScreen( reducedMotion: Boolean, onReducedMotionChange: (Boolean) -&gt; Unit, onBegin: () -&gt; Unit, )</ID>
+    <ID>FunctionNaming:OnboardingSteps.kt$@Composable fun AbilitySnapshotStep( draft: OnboardingDraft, onDraft: ((OnboardingDraft) -&gt; OnboardingDraft) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:OnboardingSteps.kt$@Composable fun ActivityPreferencesStep( draft: OnboardingDraft, onDraft: ((OnboardingDraft) -&gt; OnboardingDraft) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:OnboardingSteps.kt$@Composable fun AvailabilityStep( draft: OnboardingDraft, onDraft: ((OnboardingDraft) -&gt; OnboardingDraft) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:OnboardingSteps.kt$@Composable fun BasicProfileStep( draft: OnboardingDraft, onDraft: ((OnboardingDraft) -&gt; OnboardingDraft) -&gt; Unit, onAge: (AgeRange) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:OnboardingSteps.kt$@Composable fun ClassAffinityStep( draft: OnboardingDraft, affinity: ClassAffinityResult?, onSelectClass: (String) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:OnboardingSteps.kt$@Composable fun EquipmentEnvironmentStep( draft: OnboardingDraft, onDraft: ((OnboardingDraft) -&gt; OnboardingDraft) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:OnboardingSteps.kt$@Composable fun GoalsStep( draft: OnboardingDraft, onDraft: ((OnboardingDraft) -&gt; OnboardingDraft) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:OnboardingSteps.kt$@Composable fun PhysiologyLimitationsStep( draft: OnboardingDraft, onDraft: ((OnboardingDraft) -&gt; OnboardingDraft) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:OnboardingSteps.kt$@Composable fun PlanReviewStep( draft: OnboardingDraft, plan: InitialQuestPlan?, )</ID>
+    <ID>FunctionNaming:OnboardingSteps.kt$@Composable fun TrainingBackgroundStep( draft: OnboardingDraft, onDraft: ((OnboardingDraft) -&gt; OnboardingDraft) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:OnboardingSteps.kt$@Composable private fun DarkNumberField( label: String, initial: String, onValue: (String) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:OnboardingSteps.kt$@Composable private fun ReviewLine( label: String, value: String, )</ID>
     <ID>FunctionNaming:OrnateSigil.kt$@Composable fun OrnateSigil( state: OrnateSigilState, animation: OrnateSigilAnimation, semanticDescription: String, modifier: Modifier = Modifier, simplified: Boolean = false, minimal: Boolean = false, frameMotion: Boolean = true, )</ID>
     <ID>FunctionNaming:Placeholder.kt$@Composable fun CenteredPlaceholder( title: String, message: String, icon: ImageVector, modifier: Modifier = Modifier, )</ID>
     <ID>FunctionNaming:ProgressScreen.kt$@Composable fun ProgressScreen(modifier: Modifier = Modifier)</ID>
@@ -96,6 +122,7 @@
     <ID>LongMethod:FakeStatusPrototype.kt$FakeStatusPrototype$fun dataFor( stateId: StatusPrototypeStateId, variant: StatusClassVariant, reducedMotion: Boolean, forceSecondary: Boolean = false, weightUnit: com.ascend.core.common.WeightUnit = com.ascend.core.common.WeightUnit.KILOGRAMS, ): StatusPrototypeData</ID>
     <ID>LongMethod:LogWorkoutScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable private fun AddSetSection( exercises: List&lt;Exercise&gt;, weightUnit: WeightUnit, onAddSet: (Exercise, Int, Double?) -&gt; Unit, )</ID>
     <ID>LongMethod:LogWorkoutScreen.kt$@OptIn(ExperimentalMaterial3Api::class, androidx.compose.foundation.layout.ExperimentalLayoutApi::class) @Composable internal fun LogWorkoutContent( state: LogWorkoutUiState, onBack: () -&gt; Unit, onTitleChange: (String) -&gt; Unit, onDifficultyChange: (Difficulty) -&gt; Unit, onAddSet: (Exercise, Int, Double?) -&gt; Unit, onDeleteSet: (String) -&gt; Unit, onFinish: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, weightUnit: WeightUnit = WeightUnit.KILOGRAMS, onWeightUnitChange: (WeightUnit) -&gt; Unit = {}, )</ID>
+    <ID>LongMethod:OnboardingComponents.kt$@Composable fun OnboardingScaffold( title: String, subtitle: String?, progressIndex: Int, progressTotal: Int, onBack: (() -&gt; Unit)?, onNext: (() -&gt; Unit)?, nextLabel: String = "Next", onSkip: (() -&gt; Unit)? = null, validationError: String? = null, content: @Composable () -&gt; Unit, )</ID>
     <ID>LongMethod:OrnateSigil.kt$private fun DrawScope.drawOrnateSigil( state: OrnateSigilState, anim: OrnateSigilAnimation, geo: OrnateSigilGeometry, center: Offset, minimal: Boolean, frameMotion: Boolean, )</ID>
     <ID>LongMethod:OrnateSigilGeometry.kt$fun buildOrnateGeometry( key: SigilGeometryKey, radiusPx: Float, ): OrnateSigilGeometry</ID>
     <ID>LongMethod:QuestRepositoryImpl.kt$QuestRepositoryImpl$override suspend fun completeQuest(questId: String): CompleteQuestResult</ID>
@@ -121,6 +148,8 @@
     <ID>LongParameterList:IntervalProgressTest.kt$IntervalProgressTest$( id: String, start: Long, end: Long, target: Double, current: Double, status: QuestIntervalStatus = QuestIntervalStatus.PENDING, )</ID>
     <ID>LongParameterList:LogWorkoutScreen.kt$( state: LogWorkoutUiState, onBack: () -&gt; Unit, onTitleChange: (String) -&gt; Unit, onDifficultyChange: (Difficulty) -&gt; Unit, onAddSet: (Exercise, Int, Double?) -&gt; Unit, onDeleteSet: (String) -&gt; Unit, onFinish: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, weightUnit: WeightUnit = WeightUnit.KILOGRAMS, onWeightUnitChange: (WeightUnit) -&gt; Unit = {}, )</ID>
     <ID>LongParameterList:MulticlassRewardCalculator.kt$MulticlassRewardCalculator$( def: ClassDefinition, slot: ClassSlot, allocation: Double, activityTags: Set&lt;String&gt;, basePlayerXp: Long, baseMagnitude: Long, )</ID>
+    <ID>LongParameterList:OnboardingComponents.kt$( title: String, subtitle: String?, progressIndex: Int, progressTotal: Int, onBack: (() -&gt; Unit)?, onNext: (() -&gt; Unit)?, nextLabel: String = "Next", onSkip: (() -&gt; Unit)? = null, validationError: String? = null, content: @Composable () -&gt; Unit, )</ID>
+    <ID>LongParameterList:OnboardingViewModel.kt$OnboardingViewModel$( private val onboardingRepository: OnboardingRepository, private val playerRepository: PlayerRepository, private val classRepository: ClassRepository, private val questTemplateRepository: QuestTemplateRepository, private val ageClassifier: AgeSafetyClassifier, private val affinityAssessor: ClassAffinityAssessor, private val planGenerator: InitialQuestPlanGenerator, private val assessmentSuggester: AssessmentQuestSuggester, )</ID>
     <ID>LongParameterList:OrnateSigil.kt$( state: OrnateSigilState, anim: OrnateSigilAnimation, geo: OrnateSigilGeometry, center: Offset, minimal: Boolean, frameMotion: Boolean, )</ID>
     <ID>LongParameterList:OrnateSigil.kt$( state: OrnateSigilState, animation: OrnateSigilAnimation, semanticDescription: String, modifier: Modifier = Modifier, simplified: Boolean = false, minimal: Boolean = false, frameMotion: Boolean = true, )</ID>
     <ID>LongParameterList:OrnateSigilGeometry.kt$OrnateSigilGeometry$( val radius: Float, val innerPaths: List&lt;Path&gt;, val connectors: List&lt;Pair&lt;Offset, Offset&gt;&gt;, val arcs: List&lt;ArcSpec&gt;, val motif: Path, val motifTicks: Int, val medallionCenters: List&lt;Offset&gt;, val medallionRadius: Float, val proficiencyIndex: Int, )</ID>
@@ -170,6 +199,7 @@
     <ID>MagicNumber:AscendMotion.kt$AscendEasing$0.84f</ID>
     <ID>MagicNumber:AscendMotion.kt$AscendEasing$0.85f</ID>
     <ID>MagicNumber:AscendMotion.kt$AscendEasing$1.12f</ID>
+    <ID>MagicNumber:AscendRoot.kt$RootGateViewModel$5_000</ID>
     <ID>MagicNumber:AssessmentInputs.kt$SessionDuration.MIN_20_30$30</ID>
     <ID>MagicNumber:AssessmentInputs.kt$SessionDuration.MIN_30_45$45</ID>
     <ID>MagicNumber:AssessmentInputs.kt$SessionDuration.MIN_45_60$60</ID>
@@ -298,6 +328,14 @@
     <ID>MagicNumber:LogWorkoutScreen.kt$5</ID>
     <ID>MagicNumber:LogWorkoutScreen.kt$6</ID>
     <ID>MagicNumber:LogWorkoutViewModel.kt$LogWorkoutViewModel$5_000</ID>
+    <ID>MagicNumber:OnboardingComponents.kt$OnboardingPalette$0xFF06070E</ID>
+    <ID>MagicNumber:OnboardingComponents.kt$OnboardingPalette$0xFF0E1220</ID>
+    <ID>MagicNumber:OnboardingComponents.kt$OnboardingPalette$0xFF20264A</ID>
+    <ID>MagicNumber:OnboardingComponents.kt$OnboardingPalette$0xFF232B47</ID>
+    <ID>MagicNumber:OnboardingComponents.kt$OnboardingPalette$0xFF8A93B5</ID>
+    <ID>MagicNumber:OnboardingComponents.kt$OnboardingPalette$0xFF8C9BFF</ID>
+    <ID>MagicNumber:OnboardingComponents.kt$OnboardingPalette$0xFFE8735A</ID>
+    <ID>MagicNumber:OnboardingComponents.kt$OnboardingPalette$0xFFEAF0FF</ID>
     <ID>MagicNumber:OrnateSigil.kt$0.18f</ID>
     <ID>MagicNumber:OrnateSigil.kt$0.25f</ID>
     <ID>MagicNumber:OrnateSigil.kt$0.3f</ID>
@@ -496,6 +534,7 @@
     <ID>MagicNumber:WorkoutsViewModel.kt$WorkoutsViewModel$5_000</ID>
     <ID>MatchingDeclarationName:Attributes.kt$AttributeType</ID>
     <ID>MatchingDeclarationName:EdgeLitStatusPanel.kt$EdgeLightSegment</ID>
+    <ID>MatchingDeclarationName:OnboardingComponents.kt$OnboardingPalette</ID>
     <ID>MatchingDeclarationName:StatusDiagnosticsOverlay.kt$DiagnosticsInfo</ID>
     <ID>MatchingDeclarationName:StatusSigil.kt$StatusSigilVariant</ID>
     <ID>MaxLineLength:AdaptiveIntervalRedistributionTest.kt$AdaptiveIntervalRedistributionTest$context(dailyTarget = 100, progress = 80, leftover = 0, futures = listOf(future("a", 30, 10), future("b", 30, 20)))</ID>
@@ -694,9 +733,14 @@
     <ID>MaxLineLength:IntervalProgressTest.kt$IntervalProgressTest$reminders.shouldRemind(active, now = 50, questComplete = false, notificationsEnabled = true, quietHours = listOf(40L to 60L))</ID>
     <ID>MaxLineLength:LogWorkoutViewModel.kt$LogWorkoutViewModel$private fun ObjectiveType.isRepBased(): Boolean</ID>
     <ID>MaxLineLength:MulticlassRewardCalculator.kt$MulticlassRewardCalculator$val primary = contribution(primaryDef, ClassSlot.PRIMARY, allocation = 1.0, activityTags, basePlayerXp, baseMagnitude)</ID>
+    <ID>MaxLineLength:OnboardingComponents.kt$Box</ID>
+    <ID>MaxLineLength:OnboardingComponents.kt$Icon(Icons.Filled.Check, contentDescription = null, tint = OnboardingPalette.accent, modifier = Modifier.size(16.dp))</ID>
+    <ID>MaxLineLength:OnboardingContracts.kt$OnboardingDraft$bodyMetrics = BodyMetrics(heightCm = heightCm, currentWeightKg = currentWeightKg, goalWeightKg = goalWeightKg)</ID>
     <ID>MaxLineLength:OnboardingMappers.kt$sessionDuration = availabilitySessionDuration?.let { SessionDuration.valueOf(it) } ?: SessionDuration.MIN_20_30</ID>
     <ID>MaxLineLength:OnboardingMappers.kt$trainingDays = availabilityTrainingDays?.let { TrainingDaysPerWeek.valueOf(it) } ?: TrainingDaysPerWeek.FLEXIBLE</ID>
     <ID>MaxLineLength:OnboardingModelsTest.kt$OnboardingModelsTest$val inProgress = OnboardingState(currentStep = OnboardingStep.GOALS, completedSteps = setOf(OnboardingStep.WELCOME))</ID>
+    <ID>MaxLineLength:OnboardingRenderTest.kt$OnboardingRenderTest$AscendTheme { CenteredMessage("Your Ascension Begins", "Begin your assessment.") { OnboardingHint("Reduced motion") } }</ID>
+    <ID>MaxLineLength:OnboardingRepositoryImpl.kt$OnboardingRepositoryImpl$override fun observeCompleted(userId: String): Flow&lt;Boolean&gt;</ID>
     <ID>MaxLineLength:OnboardingRepositoryImpl.kt$OnboardingRepositoryImpl$override fun observeState(userId: String): Flow&lt;OnboardingState?&gt;</ID>
     <ID>MaxLineLength:OnboardingRepositoryImpl.kt$OnboardingRepositoryImpl$override suspend fun getAffinity(userId: String): ClassAffinityResult?</ID>
     <ID>MaxLineLength:OnboardingRepositoryImpl.kt$OnboardingRepositoryImpl$override suspend fun savePlan(plan: InitialQuestPlan)</ID>
@@ -708,6 +752,18 @@
     <ID>MaxLineLength:OnboardingRepositoryTest.kt$OnboardingRepositoryTest$db.playerDao().upsertProfile(UserProfileEntity(id = userId, displayName = "Kai", createdAt = 0, updatedAt = 0))</ID>
     <ID>MaxLineLength:OnboardingRepositoryTest.kt$OnboardingRepositoryTest$repo.saveSafetyProfile(userId, AgeSafetyCategory.MINOR_YOUNGER, AgeSafetyPolicy.defaultsFor(AgeSafetyCategory.MINOR_YOUNGER))</ID>
     <ID>MaxLineLength:OnboardingRepositoryTest.kt$OnboardingRepositoryTest$repo.saveState(userId, OnboardingState(currentStep = OnboardingStep.GOALS, completedSteps = setOf(OnboardingStep.WELCOME)))</ID>
+    <ID>MaxLineLength:OnboardingScreen.kt$ClassAffinityStep(draft, state.affinity) { id -&gt; viewModel.updateDraft { it.copy(selectedClassId = id) } }</ID>
+    <ID>MaxLineLength:OnboardingScreen.kt$colors = ButtonDefaults.buttonColors(containerColor = OnboardingPalette.accent, contentColor = OnboardingPalette.ground)</ID>
+    <ID>MaxLineLength:OnboardingSteps.kt$"${draft.trainingDays?.count?.toString() ?: "Flexible"} days · ${draft.sessionDuration?.let { durationLabel(it) } ?: "—"}"</ID>
+    <ID>MaxLineLength:OnboardingSteps.kt$MultiChoice</ID>
+    <ID>MaxLineLength:OnboardingSteps.kt$SingleChoice</ID>
+    <ID>MaxLineLength:OnboardingSteps.kt$Switch(checked = draft.safetyAcknowledged, onCheckedChange = { onDraft { d -&gt; d.copy(safetyAcknowledged = it) } })</ID>
+    <ID>MaxLineLength:OnboardingSteps.kt$Text("${pretty(plan.difficultyBand.name)} intensity · provisional", color = OnboardingPalette.textMuted, fontSize = 12.sp)</ID>
+    <ID>MaxLineLength:OnboardingSteps.kt$Text("We'll suggest starter quests once your details are in.", color = OnboardingPalette.textMuted, fontSize = 13.sp)</ID>
+    <ID>MaxLineLength:OnboardingSteps.kt$Text("• ${s.title}", color = OnboardingPalette.textMuted, fontSize = 13.sp, modifier = Modifier.padding(vertical = 2.dp))</ID>
+    <ID>MaxLineLength:OnboardingViewModel.kt$OnboardingViewModel$OnboardingStep.EQUIPMENT_ENVIRONMENT -&gt; if (d.environment == null) "Select where you'll train." else null</ID>
+    <ID>MaxLineLength:OnboardingViewModel.kt$OnboardingViewModel$val assessment = _uiState.value.draft.toAssessment(userId, _uiState.value.ageSafetyCategory, System.currentTimeMillis())</ID>
+    <ID>MaxLineLength:OnboardingViewModelTest.kt$OnboardingViewModelTest$assertNull("no profile is created for a below-minimum-age user", runBlocking { db.playerDao().getProfile(LOCAL_USER_ID) })</ID>
     <ID>MaxLineLength:OrnateSigil.kt$drawPath(geo.motif, StatusPalette.cyanSoft.copy(alpha = a * 0.5f), style = Stroke(width = 1f, cap = StrokeCap.Round))</ID>
     <ID>MaxLineLength:OrnateSigil.kt$drawPath(path, accentBlend(state.variant).copy(alpha = la.coerceAtMost(0.7f)), style = Stroke(width = weight))</ID>
     <ID>MaxLineLength:OrnateSigil.kt$style = Stroke(width = weight, pathEffect = if (dashed) PathEffect.dashPathEffect(floatArrayOf(4f, 6f)) else null)</ID>
@@ -901,6 +957,7 @@
     <ID>MaxLineLength:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$override fun observeWorkout(workoutId: String): Flow&lt;Workout?&gt;</ID>
     <ID>MaxLineLength:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$override suspend fun getWorkout(workoutId: String): Workout?</ID>
     <ID>MaxLineLength:WorkoutsViewModel.kt$WorkoutsViewModel$workoutRepository.observeWorkoutsForUser(uid).map { WorkoutsUiState(isLoading = false, workouts = it) }</ID>
+    <ID>MayBeConst:OnboardingSteps.kt$private val SAFETY_NOTE = "Stop exercising and seek appropriate help if you experience chest pain, faintness, severe " + "shortness of breath, sharp pain, or signs of injury."</ID>
     <ID>ReturnCount:BodyweightProgressionCalculators.kt$AssistanceProgressionCalculator$fun evaluate( prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), ): ProgressionCandidate</ID>
     <ID>ReturnCount:BodyweightProgressionCalculators.kt$ExternalLoadProgressionCalculator$fun evaluate( prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), externalLoadSupported: Boolean = false, ): ProgressionCandidate</ID>
     <ID>ReturnCount:BodyweightProgressionCalculators.kt$RepProgressionCalculator$fun evaluate( prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), ): ProgressionCandidate</ID>
@@ -913,6 +970,7 @@
     <ID>ReturnCount:DungeonCombatEngine.kt$DungeonCombatEngine$fun apply( state: DungeonCombatState, enemy: DungeonEnemy, contribution: WorkoutContribution, ): DungeonCombatState</ID>
     <ID>ReturnCount:DungeonPrototypeController.kt$DungeonPrototypeController$fun trigger( memberId: String, action: WorkoutActionType, )</ID>
     <ID>ReturnCount:ExerciseVariationProgressionEngine.kt$ExerciseVariationProgressionEngine$fun regressionCandidate( graph: ExerciseVariationGraph, currentVariationId: String, input: VariationReadinessInput, minFailures: Int = 2, ): ProgressionCandidate?</ID>
+    <ID>ReturnCount:OnboardingViewModelTest.kt$OnboardingViewModelTest$private fun OnboardingViewModel.walkTo(target: OnboardingStep)</ID>
     <ID>ReturnCount:ProgressionRecommendationRepositoryImpl.kt$ProgressionRecommendationRepositoryImpl$override suspend fun accept(id: String): Boolean</ID>
     <ID>ReturnCount:ProgressionRecommendationRepositoryImpl.kt$ProgressionRecommendationRepositoryImpl$override suspend fun reject(id: String): Boolean</ID>
     <ID>ReturnCount:QuestIntervalDistributionCalculator.kt$QuestIntervalDistributionCalculator$private fun weighted( total: Int, count: Int, frontLoaded: Boolean, ): List&lt;Int&gt;</ID>
@@ -941,6 +999,8 @@
     <ID>TooManyFunctions:OnboardingMappers.kt$com.ascend.core.data.mapper.OnboardingMappers.kt</ID>
     <ID>TooManyFunctions:OnboardingRepository.kt$OnboardingRepository</ID>
     <ID>TooManyFunctions:OnboardingRepositoryImpl.kt$OnboardingRepositoryImpl : OnboardingRepository</ID>
+    <ID>TooManyFunctions:OnboardingSteps.kt$com.ascend.feature.onboarding.OnboardingSteps.kt</ID>
+    <ID>TooManyFunctions:OnboardingViewModel.kt$OnboardingViewModel : ViewModel</ID>
     <ID>TooManyFunctions:PlayerDao.kt$PlayerDao</ID>
     <ID>TooManyFunctions:ProgressionRecommendationRepository.kt$ProgressionRecommendationRepository</ID>
     <ID>TooManyFunctions:ProgressionRecommendationRepositoryImpl.kt$ProgressionRecommendationRepositoryImpl : ProgressionRecommendationRepository</ID>

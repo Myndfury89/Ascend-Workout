@@ -202,6 +202,16 @@ class OnboardingRepositoryTest {
         }
 
     @Test
+    fun `completion is observable for the app-entry gate`() =
+        runTest {
+            assertFalse("incomplete profile routes to onboarding", repo.observeCompleted(userId).first())
+            repo.saveDisplayName(userId, "Kaiden")
+            assertEquals("Kaiden", db.playerDao().getProfile(userId)!!.displayName)
+            repo.markCompleted(userId, ONBOARDING_VERSION)
+            assertTrue("completed profile routes to the main shell", repo.observeCompleted(userId).first())
+        }
+
+    @Test
     fun `safety defaults and completion are written to the profile`() =
         runTest {
             repo.saveSafetyProfile(userId, AgeSafetyCategory.MINOR_YOUNGER, AgeSafetyPolicy.defaultsFor(AgeSafetyCategory.MINOR_YOUNGER))

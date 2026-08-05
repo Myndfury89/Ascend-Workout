@@ -54,6 +54,16 @@ interface PlayerDao {
         updatedAt: Long,
     )
 
+    @Query("UPDATE user_profile SET displayName = :displayName, updatedAt = :updatedAt WHERE id = :userId")
+    suspend fun updateDisplayName(
+        userId: String,
+        displayName: String,
+        updatedAt: Long,
+    )
+
+    @Query("SELECT onboardingCompleted FROM user_profile WHERE id = :userId")
+    fun observeOnboardingCompleted(userId: String): Flow<Boolean?>
+
     @Upsert
     suspend fun upsertProgress(entity: PlayerProgressEntity)
 

@@ -15,6 +15,15 @@ import kotlinx.coroutines.flow.Flow
  * class-affinity result, and initial plan in their own tables. Nothing here awards progression.
  */
 interface OnboardingRepository {
+    /** Whether the local profile has finished onboarding (false when no profile exists yet). */
+    fun observeCompleted(userId: String): Flow<Boolean>
+
+    /** Update the profile's display name (reuses the existing user_profile; awards nothing). */
+    suspend fun saveDisplayName(
+        userId: String,
+        displayName: String,
+    )
+
     fun observeState(userId: String): Flow<OnboardingState?>
 
     suspend fun getState(userId: String): OnboardingState?

@@ -34,6 +34,13 @@ class OnboardingRepositoryImpl(
         playerDao: PlayerDao,
     ) : this(onboardingDao, playerDao, { System.currentTimeMillis() })
 
+    override fun observeCompleted(userId: String): Flow<Boolean> = playerDao.observeOnboardingCompleted(userId).map { it == true }
+
+    override suspend fun saveDisplayName(
+        userId: String,
+        displayName: String,
+    ) = playerDao.updateDisplayName(userId, displayName, clock())
+
     override fun observeState(userId: String): Flow<OnboardingState?> = onboardingDao.observeState(userId).map { it?.toDomain() }
 
     override suspend fun getState(userId: String): OnboardingState? = onboardingDao.getState(userId)?.toDomain()

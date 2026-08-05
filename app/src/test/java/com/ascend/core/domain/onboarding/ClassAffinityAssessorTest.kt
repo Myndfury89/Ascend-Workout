@@ -78,6 +78,64 @@ class ClassAffinityAssessorTest {
     }
 
     @Test
+    fun `sex does not affect the class recommendation`() {
+        val base = assessor.assess(assessment(PrimaryGoal.ENDURANCE, setOf(ActivityPreference.RUNNING)), definitions)
+        listOf(OptionalSex.FEMALE, OptionalSex.MALE, OptionalSex.PREFER_NOT_TO_ANSWER).forEach { sex ->
+            val v = assessor.assess(assessment(PrimaryGoal.ENDURANCE, setOf(ActivityPreference.RUNNING), sex = sex), definitions)
+            assertEquals("sex must not change the class", base.recommendedClassId, v.recommendedClassId)
+            assertEquals(base.classScores, v.classScores)
+        }
+    }
+
+    @Test
+    fun `body weight does not affect the class recommendation`() {
+        val light =
+            assessor.assess(
+                assessment(PrimaryGoal.STRENGTH, setOf(ActivityPreference.WEIGHTLIFTING), body = BodyMetrics(currentWeightKg = 55.0)),
+                definitions,
+            )
+        val heavy =
+            assessor.assess(
+                assessment(PrimaryGoal.STRENGTH, setOf(ActivityPreference.WEIGHTLIFTING), body = BodyMetrics(currentWeightKg = 140.0)),
+                definitions,
+            )
+        assertEquals(light.recommendedClassId, heavy.recommendedClassId)
+        assertEquals(light.classScores, heavy.classScores)
+    }
+
+    @Test
+    fun `age does not reduce class affinity`() {
+        val adult =
+            assessor.assess(
+                assessment(PrimaryGoal.MOBILITY, setOf(ActivityPreference.BODYWEIGHT), age = AgeSafetyCategory.ADULT),
+                definitions,
+            )
+        val minor =
+            assessor.assess(
+                assessment(PrimaryGoal.MOBILITY, setOf(ActivityPreference.BODYWEIGHT), age = AgeSafetyCategory.MINOR_YOUNGER),
+                definitions,
+            )
+        assertEquals(adult.recommendedClassId, minor.recommendedClassId)
+        assertEquals("age must not scale any class score", adult.classScores, minor.classScores)
+    }
+
+    @Test
+    fun `limitations do not reduce class affinity`() {
+        val none = assessor.assess(assessment(PrimaryGoal.STRENGTH, setOf(ActivityPreference.WEIGHTLIFTING)), definitions)
+        val limited =
+            assessor.assess(
+                assessment(
+                    PrimaryGoal.STRENGTH,
+                    setOf(ActivityPreference.WEIGHTLIFTING),
+                    limitations = setOf(Limitation.LOWER_BODY, Limitation.RETURNING_FROM_INJURY),
+                ),
+                definitions,
+            )
+        assertEquals(none.recommendedClassId, limited.recommendedClassId)
+        assertEquals(none.classScores, limited.classScores)
+    }
+
+    @Test
     fun `protected and physiological traits do not change the recommendation`() {
         val base = assessment(PrimaryGoal.STRENGTH, setOf(ActivityPreference.WEIGHTLIFTING))
         val varied =

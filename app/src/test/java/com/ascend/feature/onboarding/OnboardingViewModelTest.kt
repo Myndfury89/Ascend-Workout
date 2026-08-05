@@ -230,6 +230,45 @@ class OnboardingViewModelTest {
     }
 
     @Test
+    fun `switching the display unit preserves the canonical weight and awards nothing`() {
+        val vm = newViewModel()
+        idle()
+        vm.walkTo(OnboardingStep.PLAN_REVIEW)
+        idle()
+        // Enter a canonical weight, then flip the display unit back and forth.
+        vm.updateDraft { it.copy(currentWeightKg = 95.0, heightCm = 180.0, weightUnit = com.ascend.core.common.WeightUnit.KILOGRAMS) }
+        vm.updateDraft { it.copy(weightUnit = com.ascend.core.common.WeightUnit.POUNDS) }
+        vm.updateDraft { it.copy(weightUnit = com.ascend.core.common.WeightUnit.KILOGRAMS) }
+        // The canonical value is untouched by display-unit changes.
+        assertEquals(95.0, vm.uiState.value.draft.currentWeightKg!!, 0.0)
+
+        vm.complete()
+        idle()
+        val assessment = runBlocking { onboardingRepo.getAssessment(LOCAL_USER_ID) }!!
+        assertEquals("canonical weight is stored regardless of unit switches", 95.0, assessment.bodyMetrics.currentWeightKg!!, 0.0)
+        assertEquals(180.0, assessment.bodyMetrics.heightCm!!, 0.0)
+        // No PR, reward, or progression event can arise from a unit switch.
+        db.query(androidx.sqlite.db.SimpleSQLiteQuery("SELECT COUNT(*) FROM progression_event")).use { c ->
+            c.moveToFirst()
+            assertEquals(0, c.getInt(0))
+        }
+    }
+
+    @Test
+    fun `a preview class id can never be saved as the selection`() {
+        val vm = newViewModel()
+        idle()
+        vm.walkTo(OnboardingStep.PLAN_REVIEW)
+        idle()
+        // Force a not-yet-implemented (preview) id; the guard must refuse to persist it.
+        vm.updateDraft { it.copy(selectedClassId = "assassin") }
+        vm.complete()
+        idle()
+        assertTrue(vm.uiState.value.completed)
+        assertNull("a preview class must not become a real selection", runBlocking { classRepo.getSelection(LOCAL_USER_ID) }.primaryClassId)
+    }
+
+    @Test
     fun `onboarding resumes from the saved step with entered values`() {
         // Simulate an interrupted session: state at Goals + a persisted provisional assessment.
         runBlocking {

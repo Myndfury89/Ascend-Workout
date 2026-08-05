@@ -1,6 +1,7 @@
 package com.ascend.feature.onboarding
 
 import com.ascend.core.common.WeightUnit
+import com.ascend.core.model.ClassDefinition
 import com.ascend.core.model.onboarding.AbilitySnapshot
 import com.ascend.core.model.onboarding.ActivityDomain
 import com.ascend.core.model.onboarding.ActivityPreference
@@ -136,6 +137,7 @@ data class OnboardingUiState(
     val reducedMotion: Boolean = false,
     val validationError: String? = null,
     val affinity: ClassAffinityResult? = null,
+    val classDefinitions: List<ClassDefinition> = emptyList(),
     val plan: InitialQuestPlan? = null,
     val completed: Boolean = false,
 ) {

@@ -75,6 +75,19 @@ class WeightUnitsTest {
     }
 
     @Test
+    fun `each weight unit maps to its measurement system for shared height presentation`() {
+        assertEquals(MeasurementSystem.METRIC, WeightUnit.KILOGRAMS.measurementSystem)
+        assertEquals(MeasurementSystem.IMPERIAL, WeightUnit.POUNDS.measurementSystem)
+    }
+
+    @Test
+    fun `the per-value accessibility label reflects the selected unit`() {
+        // 112.5 kg in kg, and the spec's pound example.
+        assertEquals("Weight, 112.5 kilograms", WeightUnits.accessibilityLabel(112.5, WeightUnit.KILOGRAMS))
+        assertEquals("Weight, 248 pounds", WeightUnits.accessibilityLabel(WeightUnits.lbToKg(248.0), WeightUnit.POUNDS))
+    }
+
+    @Test
     fun `a display-unit switch does not change the personal-record comparison`() {
         // PR checks compare canonical kilograms; the display unit is irrelevant.
         val currentBestKg = 100.0

@@ -22,6 +22,13 @@ enum class WeightUnit(
     /** A screen-reader label that never relies on colour to convey the selection. */
     val accessibilityLabel: String get() = "Weight unit, ${displayName.lowercase()} selected"
 
+    /**
+     * The measurement system this unit belongs to, so a single unit toggle can also drive height
+     * presentation (kg → Metric/centimetres, lb → Imperial/feet-inches) without a second setting.
+     */
+    val measurementSystem: MeasurementSystem
+        get() = if (this == POUNDS) MeasurementSystem.IMPERIAL else MeasurementSystem.METRIC
+
     companion object {
         /** The default weight unit for a measurement system (Metric → kg, Imperial → lb). */
         fun forMeasurementSystem(system: MeasurementSystem): WeightUnit = if (system == MeasurementSystem.IMPERIAL) POUNDS else KILOGRAMS
@@ -85,6 +92,13 @@ object WeightUnits {
         unit: WeightUnit,
         config: WeightRoundingConfig = WeightRoundingConfig(),
     ): String = "${formatValue(canonicalKg, unit, config)} ${unit.symbol}"
+
+    /** A screen-reader label that never relies on colour, e.g. "Weight, 112.5 kilograms". */
+    fun accessibilityLabel(
+        canonicalKg: Double,
+        unit: WeightUnit,
+        config: WeightRoundingConfig = WeightRoundingConfig(),
+    ): String = "Weight, ${formatValue(canonicalKg, unit, config)} ${unit.displayName.lowercase()}"
 
     // ---- equipment increments (canonical kg; displayed in the selected unit) ----
 

@@ -22,13 +22,10 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.ascend.core.common.WeightUnit
-import com.ascend.core.common.WeightUnits
 import com.ascend.core.designsystem.component.WeightUnitSelector
 import com.ascend.core.model.onboarding.ActivityDomain
 import com.ascend.core.model.onboarding.ActivityPreference
 import com.ascend.core.model.onboarding.AgeRange
-import com.ascend.core.model.onboarding.ClassAffinityResult
 import com.ascend.core.model.onboarding.Equipment
 import com.ascend.core.model.onboarding.ExperienceLevel
 import com.ascend.core.model.onboarding.InitialQuestPlan
@@ -108,30 +105,38 @@ fun BasicProfileStep(
         OnboardingHint("We store only a general age band — never your birthday.")
         SingleChoice(AgeRange.entries.toList(), draft.ageRange, ::ageLabel) { onAge(it) }
     }
-    FieldBlock("Weight unit") {
+    FieldBlock("Measurement units") {
+        OnboardingHint(
+            "Sets how height and weight are shown (kg + cm, or lb + ft/in). Switching only changes the " +
+                "display — never your stored values.",
+        )
         WeightUnitSelector(selected = draft.weightUnit, onSelect = { onDraft { d -> d.copy(weightUnit = it) } })
     }
     FieldBlock("Height & weight (optional)") {
         OnboardingHint("Helps personalize recommendations. Stored privately; you can add these later.")
-        DarkNumberField("Height (cm)", draft.heightCm?.let { it.toInt().toString() } ?: "") { s ->
-            onDraft { d -> d.copy(heightCm = s.toDoubleOrNull()) }
-        }
+        HeightPickerField(
+            canonicalCm = draft.heightCm,
+            system = draft.weightUnit.measurementSystem,
+            onCommit = { cm -> onDraft { d -> d.copy(heightCm = cm) } },
+        )
         Spacer(Modifier.height(12.dp))
-        val unit = draft.weightUnit
-        DarkNumberField("Current weight (${unit.symbol})", weightText(draft.currentWeightKg, unit)) { s ->
-            onDraft { d -> d.copy(currentWeightKg = s.toDoubleOrNull()?.let { WeightUnits.toCanonicalKg(it, unit) }) }
-        }
+        Text("Current weight", color = OnboardingPalette.textMuted, fontSize = 12.sp)
+        Spacer(Modifier.height(4.dp))
+        WeightPickerField(
+            canonicalKg = draft.currentWeightKg,
+            unit = draft.weightUnit,
+            onCommit = { kg -> onDraft { d -> d.copy(currentWeightKg = kg) } },
+        )
         Spacer(Modifier.height(12.dp))
-        DarkNumberField("Goal weight (${unit.symbol}, optional)", weightText(draft.goalWeightKg, unit)) { s ->
-            onDraft { d -> d.copy(goalWeightKg = s.toDoubleOrNull()?.let { WeightUnits.toCanonicalKg(it, unit) }) }
-        }
+        Text("Goal weight (optional)", color = OnboardingPalette.textMuted, fontSize = 12.sp)
+        Spacer(Modifier.height(4.dp))
+        WeightPickerField(
+            canonicalKg = draft.goalWeightKg,
+            unit = draft.weightUnit,
+            onCommit = { kg -> onDraft { d -> d.copy(goalWeightKg = kg) } },
+        )
     }
 }
-
-private fun weightText(
-    canonicalKg: Double?,
-    unit: WeightUnit,
-): String = canonicalKg?.let { WeightUnits.formatValue(it, unit) } ?: ""
 
 private fun ageLabel(range: AgeRange): String =
     when (range) {
@@ -300,29 +305,6 @@ fun PhysiologyLimitationsStep(
             Spacer(Modifier.height(0.dp))
             Text("  I understand", color = OnboardingPalette.textPrimary, fontSize = 14.sp)
         }
-    }
-}
-
-@Composable
-fun ClassAffinityStep(
-    draft: OnboardingDraft,
-    affinity: ClassAffinityResult?,
-    onSelectClass: (String) -> Unit,
-) {
-    if (affinity?.recommendedClassId != null) {
-        Text(
-            "Suggested affinity: ${pretty(affinity.recommendedClassId)}",
-            color = OnboardingPalette.accent,
-            fontSize = 16.sp,
-        )
-        Spacer(Modifier.height(6.dp))
-        Text(affinity.rationale, color = OnboardingPalette.textMuted, fontSize = 13.sp)
-        Spacer(Modifier.height(18.dp))
-    }
-    FieldBlock("Choose your starting class") {
-        OnboardingHint("Any class is available regardless of the suggestion — you can change later.")
-        val classes = affinity?.classScores?.keys?.toList() ?: listOf("berserker", "monk", "magician")
-        SingleChoice(classes, draft.selectedClassId, ::pretty) { onSelectClass(it) }
     }
 }
 

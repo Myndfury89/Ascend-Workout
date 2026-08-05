@@ -67,10 +67,11 @@ class ClassAffinityAssessor
             val scores =
                 (listOf(recommendation.recommended) + recommendation.alternatives)
                     .associate { it.classId to it.score }
+            val recommendedDef = definitions.first { it.id == recommendation.recommended.classId }
             return ClassAffinityResult(
                 recommendedClassId = recommendation.recommended.classId,
                 classScores = scores,
-                rationale = recommendation.recommended.reasons.joinToString("; "),
+                rationale = ClassRecommendationRationale.build(assessment, recommendedDef),
                 evidenceKeys = evidence,
             )
         }

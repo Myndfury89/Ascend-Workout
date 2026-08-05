@@ -53,9 +53,12 @@ class OnboardingViewModel
         val uiState: StateFlow<OnboardingUiState> = _uiState.asStateFlow()
 
         init {
-            viewModelScope.launch { classRepository.seedDefinitions() }
             viewModelScope.launch { questTemplateRepository.seed() }
             viewModelScope.launch {
+                // Seed then load class definitions so the class-selection cards render real data
+                // (attributes, proficiency, tags) rather than name-only placeholders.
+                classRepository.seedDefinitions()
+                val definitions = classRepository.definitions()
                 val saved = onboardingRepository.getState(userId)
                 val assessment = onboardingRepository.getAssessment(userId)
                 val draft = assessment?.let { it.toDraft() } ?: OnboardingDraft()
@@ -66,6 +69,7 @@ class OnboardingViewModel
                         currentStep = saved?.currentStep ?: OnboardingStep.WELCOME,
                         draft = draft,
                         ageSafetyCategory = category,
+                        classDefinitions = definitions,
                     )
                 }
             }
@@ -189,15 +193,19 @@ class OnboardingViewModel
                 playerRepository.setWeightUnit(userId, draft.weightUnit)
                 onboardingRepository.saveSafetyProfile(userId, category, ageClassifier.socialDefaults(category))
                 onboardingRepository.saveAssessment(draft.toAssessment(userId, category, now))
-                draft.selectedClassId?.let {
-                    classRepository.setClasses(
-                        userId,
-                        it,
-                        null,
-                        selectionReason = "onboarding",
-                        changeSource = ClassChangeSource.ONBOARDING,
-                    )
-                }
+                // Only an implemented, selectable class may be saved — a preview ("yet to awaken")
+                // id can never become a real selection even if one were somehow set.
+                draft.selectedClassId
+                    ?.takeIf { id -> state.classDefinitions.any { it.id == id } }
+                    ?.let {
+                        classRepository.setClasses(
+                            userId,
+                            it,
+                            null,
+                            selectionReason = "onboarding",
+                            changeSource = ClassChangeSource.ONBOARDING,
+                        )
+                    }
                 state.affinity?.let { onboardingRepository.saveAffinity(userId, it, now) }
                 state.plan?.let { plan ->
                     onboardingRepository.savePlan(plan)

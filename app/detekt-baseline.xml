@@ -36,6 +36,17 @@
     <ID>FunctionNaming:LogWorkoutScreen.kt$@Composable private fun LoggedSetRow( index: Int, set: WorkoutSet, weightUnit: WeightUnit, onDelete: () -&gt; Unit, )</ID>
     <ID>FunctionNaming:LogWorkoutScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable private fun AddSetSection( exercises: List&lt;Exercise&gt;, weightUnit: WeightUnit, onAddSet: (Exercise, Int, Double?) -&gt; Unit, )</ID>
     <ID>FunctionNaming:LogWorkoutScreen.kt$@OptIn(ExperimentalMaterial3Api::class, androidx.compose.foundation.layout.ExperimentalLayoutApi::class) @Composable internal fun LogWorkoutContent( state: LogWorkoutUiState, onBack: () -&gt; Unit, onTitleChange: (String) -&gt; Unit, onDifficultyChange: (Difficulty) -&gt; Unit, onAddSet: (Exercise, Int, Double?) -&gt; Unit, onDeleteSet: (String) -&gt; Unit, onFinish: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, weightUnit: WeightUnit = WeightUnit.KILOGRAMS, onWeightUnitChange: (WeightUnit) -&gt; Unit = {}, )</ID>
+    <ID>FunctionNaming:OnboardingClassSelection.kt$@Composable fun ClassAffinityStep( draft: OnboardingDraft, affinity: ClassAffinityResult?, definitions: List&lt;ClassDefinition&gt;, onSelectClass: (String) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:OnboardingClassSelection.kt$@Composable private fun Badge( text: String, muted: Boolean = false, )</ID>
+    <ID>FunctionNaming:OnboardingClassSelection.kt$@Composable private fun ClassCard( def: ClassDefinition, recommended: Boolean, selected: Boolean, score: Double, maxScore: Double, rationale: String?, onSelect: () -&gt; Unit, onDetails: () -&gt; Unit, )</ID>
+    <ID>FunctionNaming:OnboardingClassSelection.kt$@Composable private fun ClassDetailsDialog( def: ClassDefinition, onDismiss: () -&gt; Unit, )</ID>
+    <ID>FunctionNaming:OnboardingClassSelection.kt$@Composable private fun DetailParagraph(text: String)</ID>
+    <ID>FunctionNaming:OnboardingClassSelection.kt$@Composable private fun DetailSection( label: String, value: String, )</ID>
+    <ID>FunctionNaming:OnboardingClassSelection.kt$@Composable private fun DetailsScaffold( title: String, subtitle: String, onDismiss: () -&gt; Unit, content: @Composable () -&gt; Unit, )</ID>
+    <ID>FunctionNaming:OnboardingClassSelection.kt$@Composable private fun LabelledLine( label: String, value: String, valueAccent: Boolean = false, muted: Boolean = false, )</ID>
+    <ID>FunctionNaming:OnboardingClassSelection.kt$@Composable private fun MatchIndicator( score: Double, maxScore: Double, )</ID>
+    <ID>FunctionNaming:OnboardingClassSelection.kt$@Composable private fun PreviewClassCard( preview: PreviewClass, onDetails: () -&gt; Unit, )</ID>
+    <ID>FunctionNaming:OnboardingClassSelection.kt$@Composable private fun PreviewDetailsDialog( preview: PreviewClass, onDismiss: () -&gt; Unit, )</ID>
     <ID>FunctionNaming:OnboardingComponents.kt$@Composable fun CenteredMessage( title: String, body: String, modifier: Modifier = Modifier, content: @Composable () -&gt; Unit = {}, )</ID>
     <ID>FunctionNaming:OnboardingComponents.kt$@Composable fun FieldBlock( label: String, content: @Composable () -&gt; Unit, )</ID>
     <ID>FunctionNaming:OnboardingComponents.kt$@Composable fun OnboardingHint(text: String)</ID>
@@ -43,6 +54,16 @@
     <ID>FunctionNaming:OnboardingComponents.kt$@Composable fun SelectPill( label: String, selected: Boolean, onClick: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
     <ID>FunctionNaming:OnboardingComponents.kt$@OptIn(ExperimentalLayoutApi::class) @Composable fun &lt;T&gt; MultiChoice( options: List&lt;T&gt;, selected: Set&lt;T&gt;, label: (T) -&gt; String, onToggle: (T) -&gt; Unit, )</ID>
     <ID>FunctionNaming:OnboardingComponents.kt$@OptIn(ExperimentalLayoutApi::class) @Composable fun &lt;T&gt; SingleChoice( options: List&lt;T&gt;, selected: T?, label: (T) -&gt; String, onSelect: (T) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:OnboardingPickers.kt$@Composable fun HeightPickerField( canonicalCm: Double?, system: MeasurementSystem, onCommit: (Double?) -&gt; Unit, limits: ProfileMeasurementLimits = ProfileMeasurementLimits.DEFAULT, )</ID>
+    <ID>FunctionNaming:OnboardingPickers.kt$@Composable fun WeightPickerField( canonicalKg: Double?, unit: WeightUnit, onCommit: (Double?) -&gt; Unit, limits: ProfileMeasurementLimits = ProfileMeasurementLimits.DEFAULT, )</ID>
+    <ID>FunctionNaming:OnboardingPickers.kt$@Composable private fun HeightPickerDialog( canonicalCm: Double?, system: MeasurementSystem, limits: ProfileMeasurementLimits, onDismiss: () -&gt; Unit, onCommit: (Double?) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:OnboardingPickers.kt$@Composable private fun ImperialHeightDialog( canonicalCm: Double?, limits: ProfileMeasurementLimits, onDismiss: () -&gt; Unit, onCommit: (Double?) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:OnboardingPickers.kt$@Composable private fun MetricHeightDialog( canonicalCm: Double?, limits: ProfileMeasurementLimits, onDismiss: () -&gt; Unit, onCommit: (Double?) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:OnboardingPickers.kt$@Composable private fun PickerDialog( title: String, error: String?, onClear: () -&gt; Unit, onCancel: () -&gt; Unit, onConfirm: () -&gt; Unit, content: @Composable () -&gt; Unit, )</ID>
+    <ID>FunctionNaming:OnboardingPickers.kt$@Composable private fun PickerField( valueText: String?, placeholder: String, accessibility: String, onClick: () -&gt; Unit, )</ID>
+    <ID>FunctionNaming:OnboardingPickers.kt$@Composable private fun PickerRow( label: String, selected: Boolean, onClick: () -&gt; Unit, )</ID>
+    <ID>FunctionNaming:OnboardingPickers.kt$@Composable private fun ValueColumn( options: List&lt;String&gt;, selectedIndex: Int, onPick: (Int) -&gt; Unit, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:OnboardingPickers.kt$@Composable private fun WeightPickerDialog( canonicalKg: Double?, unit: WeightUnit, limits: ProfileMeasurementLimits, onDismiss: () -&gt; Unit, onCommit: (Double?) -&gt; Unit, )</ID>
     <ID>FunctionNaming:OnboardingScreen.kt$@Composable fun AgeIneligibleScreen()</ID>
     <ID>FunctionNaming:OnboardingScreen.kt$@Composable fun OnboardingScreen(viewModel: OnboardingViewModel = hiltViewModel())</ID>
     <ID>FunctionNaming:OnboardingScreen.kt$@Composable private fun StepScaffold( state: OnboardingUiState, viewModel: OnboardingViewModel, )</ID>
@@ -51,7 +72,6 @@
     <ID>FunctionNaming:OnboardingSteps.kt$@Composable fun ActivityPreferencesStep( draft: OnboardingDraft, onDraft: ((OnboardingDraft) -&gt; OnboardingDraft) -&gt; Unit, )</ID>
     <ID>FunctionNaming:OnboardingSteps.kt$@Composable fun AvailabilityStep( draft: OnboardingDraft, onDraft: ((OnboardingDraft) -&gt; OnboardingDraft) -&gt; Unit, )</ID>
     <ID>FunctionNaming:OnboardingSteps.kt$@Composable fun BasicProfileStep( draft: OnboardingDraft, onDraft: ((OnboardingDraft) -&gt; OnboardingDraft) -&gt; Unit, onAge: (AgeRange) -&gt; Unit, )</ID>
-    <ID>FunctionNaming:OnboardingSteps.kt$@Composable fun ClassAffinityStep( draft: OnboardingDraft, affinity: ClassAffinityResult?, onSelectClass: (String) -&gt; Unit, )</ID>
     <ID>FunctionNaming:OnboardingSteps.kt$@Composable fun EquipmentEnvironmentStep( draft: OnboardingDraft, onDraft: ((OnboardingDraft) -&gt; OnboardingDraft) -&gt; Unit, )</ID>
     <ID>FunctionNaming:OnboardingSteps.kt$@Composable fun GoalsStep( draft: OnboardingDraft, onDraft: ((OnboardingDraft) -&gt; OnboardingDraft) -&gt; Unit, )</ID>
     <ID>FunctionNaming:OnboardingSteps.kt$@Composable fun PhysiologyLimitationsStep( draft: OnboardingDraft, onDraft: ((OnboardingDraft) -&gt; OnboardingDraft) -&gt; Unit, )</ID>
@@ -135,6 +155,7 @@
     <ID>LongParameterList:AdaptiveIntervalRedistributionTest.kt$AdaptiveIntervalRedistributionTest$( dailyTarget: Int = 200, progress: Int = 30, leftover: Int = 20, futures: List&lt;FutureInterval&gt; = listOf(future("a", 50, 10), future("b", 50, 20), future("c", 50, 30)), preference: RedistributionPreference = RedistributionPreference.EVEN, timeRemaining: Long = 1000, quietHours: List&lt;Pair&lt;Long, Long&gt;&gt; = emptyList(), maxSetSize: Int = Int.MAX_VALUE, maxIntervalTarget: Int = Int.MAX_VALUE, fatigue: Int? = null, auto: Boolean = false, safety: ProgressionSafetyState = ProgressionSafetyState.OK, now: Long = 5, )</ID>
     <ID>LongParameterList:BodyweightProgressionCalculator.kt$BodyweightProgressionCalculator$( private val repCalculator: RepProgressionCalculator, private val setCalculator: SetProgressionCalculator, private val restCalculator: RestProgressionCalculator, private val assistanceCalculator: AssistanceProgressionCalculator, private val externalLoadCalculator: ExternalLoadProgressionCalculator, private val tempoCalculator: TempoProgressionCalculator, private val variationEngine: ExerciseVariationProgressionEngine, )</ID>
     <ID>LongParameterList:ClassAffinityAssessorTest.kt$ClassAffinityAssessorTest$( goal: PrimaryGoal, prefs: Set&lt;ActivityPreference&gt; = emptySet(), experience: Map&lt;ActivityDomain, ExperienceLevel&gt; = emptyMap(), sex: OptionalSex = OptionalSex.NOT_SET, age: AgeSafetyCategory = AgeSafetyCategory.ADULT, limitations: Set&lt;Limitation&gt; = emptySet(), body: BodyMetrics = BodyMetrics(), )</ID>
+    <ID>LongParameterList:ClassRecommendationRationaleTest.kt$ClassRecommendationRationaleTest$( goal: PrimaryGoal = PrimaryGoal.STRENGTH, secondary: List&lt;PrimaryGoal&gt; = emptyList(), prefs: Set&lt;ActivityPreference&gt; = emptySet(), env: TrainingEnvironment? = null, sex: OptionalSex = OptionalSex.NOT_SET, age: AgeSafetyCategory = AgeSafetyCategory.ADULT, limitations: Set&lt;Limitation&gt; = emptySet(), body: BodyMetrics = BodyMetrics(), )</ID>
     <ID>LongParameterList:ClassRepositoryImpl.kt$ClassRepositoryImpl$( userId: String, slot: ClassSlot, newClassId: String?, reason: String?, source: ClassChangeSource, ts: Long, )</ID>
     <ID>LongParameterList:ClassRewardApplier.kt$ClassRewardApplier$( userId: String, basePlayerXp: Long, baseAttributeDistribution: Map&lt;AttributeType, Long&gt;, activityTags: Set&lt;String&gt;, sourceType: XpSourceType, sourceId: String, )</ID>
     <ID>LongParameterList:EdgeLitStatusPanel.kt$( accent: Color, materialize: Float, scan: Float, modifier: Modifier = Modifier, effectsQuality: Float = 1f, selfFraming: Boolean = false, frameEnergy: Float = 0f, framePulse: Float = 0f, frameRotation: Float = 0f, frameMotion: Boolean = false, content: @Composable BoxScope.() -&gt; Unit, )</ID>
@@ -148,7 +169,9 @@
     <ID>LongParameterList:IntervalProgressTest.kt$IntervalProgressTest$( id: String, start: Long, end: Long, target: Double, current: Double, status: QuestIntervalStatus = QuestIntervalStatus.PENDING, )</ID>
     <ID>LongParameterList:LogWorkoutScreen.kt$( state: LogWorkoutUiState, onBack: () -&gt; Unit, onTitleChange: (String) -&gt; Unit, onDifficultyChange: (Difficulty) -&gt; Unit, onAddSet: (Exercise, Int, Double?) -&gt; Unit, onDeleteSet: (String) -&gt; Unit, onFinish: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, weightUnit: WeightUnit = WeightUnit.KILOGRAMS, onWeightUnitChange: (WeightUnit) -&gt; Unit = {}, )</ID>
     <ID>LongParameterList:MulticlassRewardCalculator.kt$MulticlassRewardCalculator$( def: ClassDefinition, slot: ClassSlot, allocation: Double, activityTags: Set&lt;String&gt;, basePlayerXp: Long, baseMagnitude: Long, )</ID>
+    <ID>LongParameterList:OnboardingClassSelection.kt$( def: ClassDefinition, recommended: Boolean, selected: Boolean, score: Double, maxScore: Double, rationale: String?, onSelect: () -&gt; Unit, onDetails: () -&gt; Unit, )</ID>
     <ID>LongParameterList:OnboardingComponents.kt$( title: String, subtitle: String?, progressIndex: Int, progressTotal: Int, onBack: (() -&gt; Unit)?, onNext: (() -&gt; Unit)?, nextLabel: String = "Next", onSkip: (() -&gt; Unit)? = null, validationError: String? = null, content: @Composable () -&gt; Unit, )</ID>
+    <ID>LongParameterList:OnboardingPickers.kt$( title: String, error: String?, onClear: () -&gt; Unit, onCancel: () -&gt; Unit, onConfirm: () -&gt; Unit, content: @Composable () -&gt; Unit, )</ID>
     <ID>LongParameterList:OnboardingViewModel.kt$OnboardingViewModel$( private val onboardingRepository: OnboardingRepository, private val playerRepository: PlayerRepository, private val classRepository: ClassRepository, private val questTemplateRepository: QuestTemplateRepository, private val ageClassifier: AgeSafetyClassifier, private val affinityAssessor: ClassAffinityAssessor, private val planGenerator: InitialQuestPlanGenerator, private val assessmentSuggester: AssessmentQuestSuggester, private val initialQuestSchedule: CreateInitialQuestScheduleUseCase, )</ID>
     <ID>LongParameterList:OrnateSigil.kt$( state: OrnateSigilState, anim: OrnateSigilAnimation, geo: OrnateSigilGeometry, center: Offset, minimal: Boolean, frameMotion: Boolean, )</ID>
     <ID>LongParameterList:OrnateSigil.kt$( state: OrnateSigilState, animation: OrnateSigilAnimation, semanticDescription: String, modifier: Modifier = Modifier, simplified: Boolean = false, minimal: Boolean = false, frameMotion: Boolean = true, )</ID>
@@ -328,6 +351,8 @@
     <ID>MagicNumber:LogWorkoutScreen.kt$5</ID>
     <ID>MagicNumber:LogWorkoutScreen.kt$6</ID>
     <ID>MagicNumber:LogWorkoutViewModel.kt$LogWorkoutViewModel$5_000</ID>
+    <ID>MagicNumber:OnboardingClassSelection.kt$0.06f</ID>
+    <ID>MagicNumber:OnboardingClassSelection.kt$3</ID>
     <ID>MagicNumber:OnboardingComponents.kt$OnboardingPalette$0xFF06070E</ID>
     <ID>MagicNumber:OnboardingComponents.kt$OnboardingPalette$0xFF0E1220</ID>
     <ID>MagicNumber:OnboardingComponents.kt$OnboardingPalette$0xFF20264A</ID>
@@ -336,6 +361,8 @@
     <ID>MagicNumber:OnboardingComponents.kt$OnboardingPalette$0xFF8C9BFF</ID>
     <ID>MagicNumber:OnboardingComponents.kt$OnboardingPalette$0xFFE8735A</ID>
     <ID>MagicNumber:OnboardingComponents.kt$OnboardingPalette$0xFFEAF0FF</ID>
+    <ID>MagicNumber:OnboardingPickers.kt$11</ID>
+    <ID>MagicNumber:OnboardingPickers.kt$5</ID>
     <ID>MagicNumber:OrnateSigil.kt$0.18f</ID>
     <ID>MagicNumber:OrnateSigil.kt$0.25f</ID>
     <ID>MagicNumber:OrnateSigil.kt$0.3f</ID>
@@ -625,6 +652,11 @@
     <ID>MaxLineLength:CardioProgressionCalculators.kt$return window.all { it.completed &amp;&amp; (it.perceivedEffort == null || it.perceivedEffort &lt;= config.maxPerceivedEffortForProgression) }</ID>
     <ID>MaxLineLength:CardioProgressionTest.kt$CardioProgressionTest$assertEquals(ProgressionRecommendationType.MAINTAIN_PRESCRIPTION, cardio.recommend(steady, listOf(summary(6))).recommendationType)</ID>
     <ID>MaxLineLength:ClassAffinityAssessorTest.kt$ClassAffinityAssessorTest$assertTrue("evidence is goal/preference based", r.evidenceKeys.any { it.startsWith("goal:") || it.startsWith("prefers:") })</ID>
+    <ID>MaxLineLength:ClassAffinityAssessorTest.kt$ClassAffinityAssessorTest$assessment(PrimaryGoal.MOBILITY, setOf(ActivityPreference.BODYWEIGHT), age = AgeSafetyCategory.MINOR_YOUNGER)</ID>
+    <ID>MaxLineLength:ClassAffinityAssessorTest.kt$ClassAffinityAssessorTest$assessment(PrimaryGoal.STRENGTH, setOf(ActivityPreference.WEIGHTLIFTING), body = BodyMetrics(currentWeightKg = 140.0))</ID>
+    <ID>MaxLineLength:ClassAffinityAssessorTest.kt$ClassAffinityAssessorTest$assessment(PrimaryGoal.STRENGTH, setOf(ActivityPreference.WEIGHTLIFTING), body = BodyMetrics(currentWeightKg = 55.0))</ID>
+    <ID>MaxLineLength:ClassAffinityAssessorTest.kt$ClassAffinityAssessorTest$val none = assessor.assess(assessment(PrimaryGoal.STRENGTH, setOf(ActivityPreference.WEIGHTLIFTING)), definitions)</ID>
+    <ID>MaxLineLength:ClassAffinityAssessorTest.kt$ClassAffinityAssessorTest$val v = assessor.assess(assessment(PrimaryGoal.ENDURANCE, setOf(ActivityPreference.RUNNING), sex = sex), definitions)</ID>
     <ID>MaxLineLength:ClassAttributeScaler.kt$ClassAttributeScaler$)</ID>
     <ID>MaxLineLength:ClassCatalog.kt$ClassCatalog$favoredTags = setOf(ActivityTags.BODYWEIGHT, ActivityTags.MUSCULAR_ENDURANCE, ActivityTags.MOBILITY, ActivityTags.BALANCE)</ID>
     <ID>MaxLineLength:ClassCatalog.kt$ClassCatalog$favoredWorkoutCategories = listOf("Calisthenics", "Bodyweight strength", "Mobility", "Balance", "Core control")</ID>
@@ -633,6 +665,8 @@
     <ID>MaxLineLength:ClassProgressionCalculatorTest.kt$ClassProgressionCalculatorTest$assertEquals(0L, calc.uniqueProficiency(baseMagnitude = 40, affinity = 0.0, ClassCatalog.BERSERKER, allocation = 1.0))</ID>
     <ID>MaxLineLength:ClassProgressionCalculatorTest.kt$ClassProgressionCalculatorTest$assertEquals(78L, calc.uniqueProficiency(baseMagnitude = 40, affinity = 1.0, ClassCatalog.MONK, allocation = 1.0))</ID>
     <ID>MaxLineLength:ClassProgressionPreferenceResolver.kt$ClassProgressionPreferenceResolver$fun preferenceFor(classId: String?): ClassProgressionPreference?</ID>
+    <ID>MaxLineLength:ClassRecommendationRationaleTest.kt$ClassRecommendationRationaleTest$assessment(goal = PrimaryGoal.ENDURANCE, prefs = setOf(ActivityPreference.RUNNING, ActivityPreference.CYCLING))</ID>
+    <ID>MaxLineLength:ClassRecommendationRationaleTest.kt$ClassRecommendationRationaleTest$val text = ClassRecommendationRationale.build(assessment(goal = PrimaryGoal.MAINTENANCE), ClassCatalog.BERSERKER)</ID>
     <ID>MaxLineLength:ClassRepositoryImpl.kt$ClassRepositoryImpl$classDao.observeDefinitions().map { list -&gt; list.takeIf { it.isNotEmpty() }?.map { it.toDomain() } ?: ClassCatalog.ALL }</ID>
     <ID>MaxLineLength:ClassRepositoryImpl.kt$ClassRepositoryImpl$override suspend fun getHistory(userId: String): List&lt;ClassHistory&gt;</ID>
     <ID>MaxLineLength:ClassRepositoryImpl.kt$ClassRepositoryImpl$override suspend fun getSelection(userId: String): PlayerClassSelection</ID>
@@ -737,12 +771,26 @@
     <ID>MaxLineLength:IntervalProgressTest.kt$IntervalProgressTest$reminders.shouldRemind(active, now = 50, questComplete = false, notificationsEnabled = true, quietHours = listOf(40L to 60L))</ID>
     <ID>MaxLineLength:LogWorkoutViewModel.kt$LogWorkoutViewModel$private fun ObjectiveType.isRepBased(): Boolean</ID>
     <ID>MaxLineLength:MulticlassRewardCalculator.kt$MulticlassRewardCalculator$val primary = contribution(primaryDef, ClassSlot.PRIMARY, allocation = 1.0, activityTags, basePlayerXp, baseMagnitude)</ID>
+    <ID>MaxLineLength:OnboardingClassCardRenderTest.kt$OnboardingClassCardRenderTest$favoredTags = setOf(com.ascend.core.model.ActivityTags.AQUATIC, com.ascend.core.model.ActivityTags.STEADY_STATE_CARDIO)</ID>
+    <ID>MaxLineLength:OnboardingClassSelection.kt$Icon(Icons.Filled.Check, contentDescription = null, tint = OnboardingPalette.accent, modifier = Modifier.size(18.dp))</ID>
+    <ID>MaxLineLength:OnboardingClassSelection.kt$Text("In development — previewed here, not yet selectable.", color = OnboardingPalette.textMuted, fontSize = 13.sp)</ID>
+    <ID>MaxLineLength:OnboardingClassSelection.kt$Text("Paths Yet to Awaken", color = OnboardingPalette.textPrimary, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)</ID>
+    <ID>MaxLineLength:OnboardingClassSelection.kt$Text("Why this was recommended", color = OnboardingPalette.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.Medium)</ID>
+    <ID>MaxLineLength:OnboardingClassSelection.kt$TextButton(onClick = onDismiss) { Text("Close", color = OnboardingPalette.accent, fontWeight = FontWeight.SemiBold) }</ID>
     <ID>MaxLineLength:OnboardingComponents.kt$Box</ID>
     <ID>MaxLineLength:OnboardingComponents.kt$Icon(Icons.Filled.Check, contentDescription = null, tint = OnboardingPalette.accent, modifier = Modifier.size(16.dp))</ID>
     <ID>MaxLineLength:OnboardingContracts.kt$OnboardingDraft$bodyMetrics = BodyMetrics(heightCm = heightCm, currentWeightKg = currentWeightKg, goalWeightKg = goalWeightKg)</ID>
     <ID>MaxLineLength:OnboardingMappers.kt$sessionDuration = availabilitySessionDuration?.let { SessionDuration.valueOf(it) } ?: SessionDuration.MIN_20_30</ID>
     <ID>MaxLineLength:OnboardingMappers.kt$trainingDays = availabilityTrainingDays?.let { TrainingDaysPerWeek.valueOf(it) } ?: TrainingDaysPerWeek.FLEXIBLE</ID>
     <ID>MaxLineLength:OnboardingModelsTest.kt$OnboardingModelsTest$val inProgress = OnboardingState(currentStep = OnboardingStep.GOALS, completedSteps = setOf(OnboardingStep.WELCOME))</ID>
+    <ID>MaxLineLength:OnboardingPickerRenderTest.kt$OnboardingPickerRenderTest$AscendTheme { HeightPickerField(canonicalCm = 187.96, system = MeasurementSystem.IMPERIAL, onCommit = { committed = it }) }</ID>
+    <ID>MaxLineLength:OnboardingPickerRenderTest.kt$OnboardingPickerRenderTest$AscendTheme { HeightPickerField(canonicalCm = 188.0, system = MeasurementSystem.METRIC, onCommit = { committed = it }) }</ID>
+    <ID>MaxLineLength:OnboardingPickerRenderTest.kt$OnboardingPickerRenderTest$AscendTheme { WeightPickerField(canonicalKg = 100.0, unit = WeightUnit.KILOGRAMS, onCommit = { committed = it }) }</ID>
+    <ID>MaxLineLength:OnboardingPickerRenderTest.kt$OnboardingPickerRenderTest$AscendTheme { WeightPickerField(canonicalKg = WeightUnits.lbToKg(248.0), unit = WeightUnit.POUNDS, onCommit = {}) }</ID>
+    <ID>MaxLineLength:OnboardingPickers.kt$LazyColumn</ID>
+    <ID>MaxLineLength:OnboardingPickers.kt$TextButton(onClick = onConfirm) { Text("Confirm", color = OnboardingPalette.accent, fontWeight = FontWeight.SemiBold) }</ID>
+    <ID>MaxLineLength:OnboardingPickers.kt$error = "Choose a height between ${limits.heightFeetOptions.first} and ${limits.heightFeetOptions.last} ft."</ID>
+    <ID>MaxLineLength:OnboardingPickers.kt$modifier = Modifier.clearAndSetSemantics { contentDescription = "Selected height, $feet feet $inches inches" }</ID>
     <ID>MaxLineLength:OnboardingRenderTest.kt$OnboardingRenderTest$AscendTheme { CenteredMessage("Your Ascension Begins", "Begin your assessment.") { OnboardingHint("Reduced motion") } }</ID>
     <ID>MaxLineLength:OnboardingRepositoryImpl.kt$OnboardingRepositoryImpl$override fun observeCompleted(userId: String): Flow&lt;Boolean&gt;</ID>
     <ID>MaxLineLength:OnboardingRepositoryImpl.kt$OnboardingRepositoryImpl$override fun observeState(userId: String): Flow&lt;OnboardingState?&gt;</ID>
@@ -756,7 +804,6 @@
     <ID>MaxLineLength:OnboardingRepositoryTest.kt$OnboardingRepositoryTest$db.playerDao().upsertProfile(UserProfileEntity(id = userId, displayName = "Kai", createdAt = 0, updatedAt = 0))</ID>
     <ID>MaxLineLength:OnboardingRepositoryTest.kt$OnboardingRepositoryTest$repo.saveSafetyProfile(userId, AgeSafetyCategory.MINOR_YOUNGER, AgeSafetyPolicy.defaultsFor(AgeSafetyCategory.MINOR_YOUNGER))</ID>
     <ID>MaxLineLength:OnboardingRepositoryTest.kt$OnboardingRepositoryTest$repo.saveState(userId, OnboardingState(currentStep = OnboardingStep.GOALS, completedSteps = setOf(OnboardingStep.WELCOME)))</ID>
-    <ID>MaxLineLength:OnboardingScreen.kt$ClassAffinityStep(draft, state.affinity) { id -&gt; viewModel.updateDraft { it.copy(selectedClassId = id) } }</ID>
     <ID>MaxLineLength:OnboardingScreen.kt$colors = ButtonDefaults.buttonColors(containerColor = OnboardingPalette.accent, contentColor = OnboardingPalette.ground)</ID>
     <ID>MaxLineLength:OnboardingSteps.kt$"${draft.trainingDays?.count?.toString() ?: "Flexible"} days · ${draft.sessionDuration?.let { durationLabel(it) } ?: "—"}"</ID>
     <ID>MaxLineLength:OnboardingSteps.kt$MultiChoice</ID>
@@ -767,7 +814,10 @@
     <ID>MaxLineLength:OnboardingSteps.kt$Text("• ${s.title}", color = OnboardingPalette.textMuted, fontSize = 13.sp, modifier = Modifier.padding(vertical = 2.dp))</ID>
     <ID>MaxLineLength:OnboardingViewModel.kt$OnboardingViewModel$OnboardingStep.EQUIPMENT_ENVIRONMENT -&gt; if (d.environment == null) "Select where you'll train." else null</ID>
     <ID>MaxLineLength:OnboardingViewModel.kt$OnboardingViewModel$val assessment = _uiState.value.draft.toAssessment(userId, _uiState.value.ageSafetyCategory, System.currentTimeMillis())</ID>
+    <ID>MaxLineLength:OnboardingViewModelTest.kt$OnboardingViewModelTest$assertEquals("canonical weight is stored regardless of unit switches", 95.0, assessment.bodyMetrics.currentWeightKg!!, 0.0)</ID>
+    <ID>MaxLineLength:OnboardingViewModelTest.kt$OnboardingViewModelTest$assertNull("a preview class must not become a real selection", runBlocking { classRepo.getSelection(LOCAL_USER_ID) }.primaryClassId)</ID>
     <ID>MaxLineLength:OnboardingViewModelTest.kt$OnboardingViewModelTest$assertNull("no profile is created for a below-minimum-age user", runBlocking { db.playerDao().getProfile(LOCAL_USER_ID) })</ID>
+    <ID>MaxLineLength:OnboardingViewModelTest.kt$OnboardingViewModelTest$vm.updateDraft { it.copy(currentWeightKg = 95.0, heightCm = 180.0, weightUnit = com.ascend.core.common.WeightUnit.KILOGRAMS) }</ID>
     <ID>MaxLineLength:OrnateSigil.kt$drawPath(geo.motif, StatusPalette.cyanSoft.copy(alpha = a * 0.5f), style = Stroke(width = 1f, cap = StrokeCap.Round))</ID>
     <ID>MaxLineLength:OrnateSigil.kt$drawPath(path, accentBlend(state.variant).copy(alpha = la.coerceAtMost(0.7f)), style = Stroke(width = weight))</ID>
     <ID>MaxLineLength:OrnateSigil.kt$style = Stroke(width = weight, pathEffect = if (dashed) PathEffect.dashPathEffect(floatArrayOf(4f, 6f)) else null)</ID>
@@ -805,6 +855,9 @@
     <ID>MaxLineLength:PlayerDao.kt$PlayerDao$@Query("UPDATE user_profile SET onboardingCompleted = 1, onboardingVersion = :version, updatedAt = :updatedAt WHERE id = :userId")</ID>
     <ID>MaxLineLength:PlayerRepositoryImpl.kt$PlayerRepositoryImpl$override fun observeStats(userId: String): Flow&lt;PlayerStats?&gt;</ID>
     <ID>MaxLineLength:PlayerRepositoryImpl.kt$PlayerRepositoryImpl$override suspend fun weightUnit(userId: String): WeightUnit</ID>
+    <ID>MaxLineLength:PreviewClassCatalog.kt$PreviewClassCatalog$favoredTags = setOf(ActivityTags.HEAVY_STRENGTH, ActivityTags.MUSCULAR_ENDURANCE, ActivityTags.RECOVERY, ActivityTags.BALANCE)</ID>
+    <ID>MaxLineLength:PreviewClassCatalog.kt$PreviewClassCatalog$favoredTags = setOf(ActivityTags.STEADY_STATE_CARDIO, ActivityTags.MUSCULAR_ENDURANCE, ActivityTags.BALANCE)</ID>
+    <ID>MaxLineLength:PreviewClassCatalog.kt$PreviewClassCatalog$primaryStyles = listOf("Sprint intervals", "Boxing", "Agility drills", "Footwork", "Reaction work", "Explosive calisthenics")</ID>
     <ID>MaxLineLength:ProductionStatusDataTest.kt$ProductionStatusDataTest$assertTrue("real attribute growth is reflected", source.observeStats().first().asMap.getValue(AttributeType.STRENGTH) &gt;= 12L)</ID>
     <ID>MaxLineLength:ProductionStatusDataTest.kt$ProductionStatusDataTest$db.playerDao().upsertProfile(UserProfileEntity(id = userId, displayName = "Kaiden", createdAt = 0, updatedAt = 0))</ID>
     <ID>MaxLineLength:ProductionStatusDataTest.kt$ProductionStatusDataTest$db.playerDao().upsertProgress(com.ascend.core.database.entity.PlayerProgressEntity(userId = userId, updatedAt = 0))</ID>
@@ -999,8 +1052,10 @@
     <ID>TooManyFunctions:DataModule.kt$DataModule</ID>
     <ID>TooManyFunctions:DatabaseModule.kt$DatabaseModule</ID>
     <ID>TooManyFunctions:DungeonPrototypeController.kt$DungeonPrototypeController</ID>
+    <ID>TooManyFunctions:OnboardingClassSelection.kt$com.ascend.feature.onboarding.OnboardingClassSelection.kt</ID>
     <ID>TooManyFunctions:OnboardingDao.kt$OnboardingDao</ID>
     <ID>TooManyFunctions:OnboardingMappers.kt$com.ascend.core.data.mapper.OnboardingMappers.kt</ID>
+    <ID>TooManyFunctions:OnboardingPickers.kt$com.ascend.feature.onboarding.OnboardingPickers.kt</ID>
     <ID>TooManyFunctions:OnboardingRepository.kt$OnboardingRepository</ID>
     <ID>TooManyFunctions:OnboardingRepositoryImpl.kt$OnboardingRepositoryImpl : OnboardingRepository</ID>
     <ID>TooManyFunctions:OnboardingSteps.kt$com.ascend.feature.onboarding.OnboardingSteps.kt</ID>

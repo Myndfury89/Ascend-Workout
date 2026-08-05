@@ -95,7 +95,9 @@ private fun StepScaffold(
             OnboardingStep.ABILITY_SNAPSHOT -> AbilitySnapshotStep(draft, viewModel::updateDraft)
             OnboardingStep.PHYSIOLOGY_LIMITATIONS -> PhysiologyLimitationsStep(draft, viewModel::updateDraft)
             OnboardingStep.CLASS_AFFINITY ->
-                ClassAffinityStep(draft, state.affinity) { id -> viewModel.updateDraft { it.copy(selectedClassId = id) } }
+                ClassAffinityStep(draft, state.affinity, state.classDefinitions) { id ->
+                    viewModel.updateDraft { it.copy(selectedClassId = id) }
+                }
             OnboardingStep.PLAN_REVIEW -> PlanReviewStep(draft, state.plan)
             else -> Unit
         }

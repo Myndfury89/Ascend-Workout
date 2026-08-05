@@ -112,6 +112,12 @@ internal fun StatusPrototypeControls(
                     Action("Rank up", Modifier.weight(1f)) { controller.selectState(StatusPrototypeStateId.RANK_PROMOTION) }
                 }
             }
+            Section("Sigil direction (CP1)") {
+                ToggleRow("Refined sigil (proposed vs current)", controller.sigilRefined) { controller.sigilRefined = it }
+                ToggleRow("Stationary-layer overlay", controller.stationaryOverlay) { controller.stationaryOverlay = it }
+                Spacer(Modifier.height(6.dp))
+                Chips(RotationPace.entries, controller.rotationPace, { it.label }) { controller.rotationPace = it }
+            }
             Section("Entrance mode") {
                 Chips(EntranceMode.entries, controller.entranceMode, { it.label }) { controller.entranceMode = it }
             }
@@ -197,7 +203,7 @@ private fun ToggleRow(
 private val rankOptions: List<RankTier?> = listOf(null) + RankTier.entries
 private val medallionOptions: List<Int> = listOf(-1, 0, 1, 2, 3, 4)
 private val ringOptions: List<Float?> = listOf(null, 0f, 0.5f, 1f)
-private val opacityOptions: List<Float> = listOf(0.12f, 0.16f, 0.30f)
+private val opacityOptions: List<Float> = listOf(0.12f, 0.16f, 0.24f, 0.30f, 0.40f)
 
 private fun medallionLabel(index: Int): String =
     when (index) {
@@ -218,7 +224,9 @@ private fun opacityLabel(value: Float): String =
     when {
         value <= 0.13f -> "Faint"
         value <= 0.17f -> "Default"
-        else -> "Strong"
+        value <= 0.26f -> "Raised"
+        value <= 0.32f -> "Strong"
+        else -> "Max"
     }
 
 @Composable

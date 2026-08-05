@@ -97,7 +97,7 @@ fun RevisedStatusPrototypeScreen(
     val rotation by infinite.animateFloat(
         0f,
         if (rotationRunning) 360f else 0f,
-        infiniteRepeatable(tween(24_000, easing = LinearEasing), RepeatMode.Restart),
+        infiniteRepeatable(tween(controller.rotationPace.periodMs, easing = LinearEasing), RepeatMode.Restart),
         label = "rot",
     )
     val scan by infinite.animateFloat(
@@ -262,6 +262,9 @@ private fun PanelContent(
             simplified = simplified,
             minimal = minimal,
             frameMotion = frameMotion,
+            rotationProfile = controller.rotationProfile,
+            opacityProfile = controller.opacityProfile,
+            stationaryOverlay = controller.stationaryOverlay,
         )
         Column(Modifier.fillMaxWidth().padding(24.dp)) {
             Box(zone("Identity + rank")) { IdentityBlock(data, accent, motion.levelReveal.value) }

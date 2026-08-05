@@ -48,6 +48,16 @@ data class EffectsConfig(
     val scanQuality: Float,
 )
 
+/**
+ * Ambient sigil rotation pace for review. [REVIEW] is the fast, review-friendly period; [AMBIENT]
+ * is the restrained real-world drift the handoff calls for (150–260s/rev) so the reviewer can feel
+ * how quiet it actually is in production.
+ */
+enum class RotationPace(val label: String, val periodMs: Int) {
+    REVIEW("Review 24s", 24_000),
+    AMBIENT("Ambient 200s", 200_000),
+}
+
 /** Simulated device-width category for legibility review; null width fills the container. */
 enum class DeviceWidth(val label: String, val widthDp: Int?) {
     COMPACT("Small phone", 340),

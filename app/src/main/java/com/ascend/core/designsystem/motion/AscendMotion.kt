@@ -84,6 +84,89 @@ data class MotionSpec(
     }
 }
 
+/**
+ * The four ceremonial **motion verbs** (design handoff v1). Distinct from the everyday tokens above
+ * and additive — nothing here replaces or deletes them. Every ceremonial/progression animation in the
+ * sigil system should read as exactly one of these. Durations in ms.
+ *
+ * - **Assemble** — geometry/panels/sigils form from fragments or traced lines.
+ * - **Charge** — energy gathers before an important event. *Least-validated token*: re-check feel at
+ *   real particle counts / on-device frame rate.
+ * - **Lock** — a value/result snaps into its final precise state.
+ * - **Ascend** — rank/identity elements permanently gain complexity (rare, cinematic).
+ *
+ * Under reduced motion every verb collapses to a single [AscendVerb.REDUCED_MS] linear cross-fade
+ * (see [MotionSpec.verbTween]); Reward-tier events additionally emit a brief [AscendVerb.RECOGNITION_CUE_MS]
+ * non-kinetic cue so a silent personal record never reads as a bug.
+ */
+object AscendVerb {
+    const val ASSEMBLE_MS = 850
+    const val CHARGE_MS = 1100
+    const val LOCK_MS = 380
+    const val ASCEND_MS = 2200
+
+    /** Reduced-motion collapse for every verb: a short linear cross-fade, never a hard 0 cut. */
+    const val REDUCED_MS = 140
+
+    /** Reduced-motion Reward-tier recognition cue (a flat colour pulse) — the silent-PR guard. */
+    const val RECOGNITION_CUE_MS = 320
+}
+
+/** Original easings for the verbs (kept separate from [AscendEasing] so neither set drifts). */
+object AscendVerbEasing {
+    val assemble: Easing = CubicBezierEasing(0.16f, 1f, 0.3f, 1f) // expo decelerate
+    val charge: Easing = CubicBezierEasing(0.65f, 0f, 0.35f, 1f) // symmetric ease in-out
+    val lock: Easing = CubicBezierEasing(0.34f, 1.56f, 0.64f, 1f) // snap overshoot
+    val ascend: Easing = CubicBezierEasing(0.22f, 1f, 0.36f, 1f) // slow decelerate
+}
+
+/** A verb bundles its default duration + easing so call sites name intent, never numbers. */
+enum class MotionVerb(val durationMs: Int, val easing: Easing) {
+    ASSEMBLE(AscendVerb.ASSEMBLE_MS, AscendVerbEasing.assemble),
+    CHARGE(AscendVerb.CHARGE_MS, AscendVerbEasing.charge),
+    LOCK(AscendVerb.LOCK_MS, AscendVerbEasing.lock),
+    ASCEND(AscendVerb.ASCEND_MS, AscendVerbEasing.ascend),
+}
+
+/**
+ * The three motion tiers and their duration windows. [referenceVerb] is the verb that best
+ * characterises the tier; the window is a design guide, not a hard clamp.
+ */
+enum class MotionTier(val minMs: Int, val maxMs: Int, val referenceVerb: MotionVerb) {
+    EVERYDAY(200, 700, MotionVerb.LOCK),
+    REWARD(700, 1500, MotionVerb.CHARGE),
+    ASCENSION(1500, 3000, MotionVerb.ASCEND),
+}
+
+/**
+ * Verb-review speed profile from the handoff (Fast ×0.55, Standard ×1, Cinematic ×1.6). Applied as
+ * [MotionSpec.speedScale]; kept distinct from the prototype's own everyday speed control.
+ */
+enum class VerbSpeed(val scale: Float) {
+    FAST(0.55f),
+    STANDARD(1f),
+    CINEMATIC(1.6f),
+}
+
+/**
+ * A verb-aware tween. Unlike [MotionSpec.duration] (which collapses to 0), reduced motion here
+ * collapses to a [AscendVerb.REDUCED_MS] **linear cross-fade** — the ceremonial system must still
+ * cross-fade, never hard-cut. Otherwise the verb's own duration is scaled by [MotionSpec.speedScale].
+ */
+fun <T> MotionSpec.verbTween(
+    verb: MotionVerb,
+    delayMs: Int = 0,
+): FiniteAnimationSpec<T> =
+    if (reducedMotion) {
+        tween(durationMillis = AscendVerb.REDUCED_MS, easing = AscendEasing.linear)
+    } else {
+        tween(
+            durationMillis = (verb.durationMs * speedScale).toInt().coerceAtLeast(1),
+            delayMillis = (delayMs * speedScale).toInt(),
+            easing = verb.easing,
+        )
+    }
+
 /** Ambient motion configuration. Screens provide it from a user/system preference. */
 val LocalMotionSpec = staticCompositionLocalOf { MotionSpec.Full }
 

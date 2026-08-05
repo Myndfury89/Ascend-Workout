@@ -39,6 +39,9 @@ fun OrnateSigil(
     simplified: Boolean = false,
     minimal: Boolean = false,
     frameMotion: Boolean = true,
+    rotationProfile: SigilRotationProfile = SigilRotationProfile.LEGACY,
+    opacityProfile: SigilOpacityProfile = SigilOpacityProfile.LEGACY,
+    stationaryOverlay: Boolean = false,
 ) {
     val density = LocalDensity.current
     BoxWithConstraints(modifier) {
@@ -49,11 +52,12 @@ fun OrnateSigil(
 
         Canvas(Modifier.matchParentSize().semantics { contentDescription = semanticDescription }) {
             val center = Offset(size.width / 2f, size.height / 2f)
-            drawOrnateSigil(state, animation, geometry, center, minimal, frameMotion)
+            drawOrnateSigil(state, animation, geometry, center, minimal, frameMotion, rotationProfile, opacityProfile, stationaryOverlay)
         }
     }
 }
 
+@Suppress("LongMethod") // one cohesive draw pass; splitting layers would spread shared state.
 private fun DrawScope.drawOrnateSigil(
     state: OrnateSigilState,
     anim: OrnateSigilAnimation,
@@ -61,41 +65,50 @@ private fun DrawScope.drawOrnateSigil(
     center: Offset,
     minimal: Boolean,
     frameMotion: Boolean,
+    rotationProfile: SigilRotationProfile,
+    opacityProfile: SigilOpacityProfile,
+    stationaryOverlay: Boolean,
 ) {
     val assembly = anim.assembly.coerceIn(0f, 1f)
     // A brief opacity bump mid-assembly (25–35%), settling back to the restrained default.
     val bump = sin(assembly * Math.PI.toFloat()).coerceIn(0f, 1f)
     val op = state.settledOpacity + (OrnateSigilState.ASSEMBLY_PEAK_OPACITY - state.settledOpacity) * bump
     val a = op * assembly
-    val rot = if (frameMotion) anim.rotation else 0f
+    val baseRot = if (frameMotion) anim.rotation else 0f
+    val w = opacityProfile.weights
     val style = SigilClassStyleCatalog.styleFor(state.variant)
     val weight = style.lineWeight
 
     translate(center.x, center.y) {
-        // Layer 1 — background ornament (faintest): a soft aura + a faint large polygon.
-        drawCircle(StatusPalette.violet.copy(alpha = a * 0.10f), radius = geo.radius * 0.92f, center = Offset.Zero)
+        // Layer 1 — background ornament (faintest): a soft aura.
+        drawCircle(StatusPalette.violet.copy(alpha = a * w.aura), radius = geo.radius * 0.92f, center = Offset.Zero)
 
-        // Layer 2 — outer border motif + ring tracks (faint).
-        rotate(rot, pivot = Offset.Zero) {
-            drawPath(geo.motif, StatusPalette.cyanSoft.copy(alpha = a * 0.5f), style = Stroke(width = 1f, cap = StrokeCap.Round))
+        // Layer 2 — outer border motif (ornament). Rotates only under the legacy profile; the
+        // ceremonial rule keeps the outer frame stationary.
+        rotate(rotationProfile.outerMotifRotation(baseRot), pivot = Offset.Zero) {
+            drawPath(geo.motif, StatusPalette.cyanSoft.copy(alpha = a * w.outerMotif), style = Stroke(width = 1f, cap = StrokeCap.Round))
         }
-        ringTrack(geo.radius * 0.72f, StatusPalette.infoLine.copy(alpha = a * 0.35f), weight = 2f)
-        ringTrack(geo.radius * 0.6f, StatusPalette.cyanSoft.copy(alpha = a * 0.3f), weight = 1.4f, dashed = true)
+        // Structural ring tracks — stationary instrumentation, highest ornamental opacity in RingForward.
+        ringTrack(geo.radius * 0.72f, StatusPalette.infoLine.copy(alpha = a * w.ringPrimary), weight = 2f)
+        ringTrack(geo.radius * 0.6f, StatusPalette.cyanSoft.copy(alpha = a * w.ringSecondary), weight = 1.4f, dashed = true)
 
-        // Layer 3 — rank geometry (moderate). Newest layer brightens on a rank promotion.
-        rotate(rot * 0.5f, pivot = Offset.Zero) {
+        // Layer 3 — ceremonial middle geometry (the only drifting layer under the ceremonial rule).
+        rotate(rotationProfile.middleRotation(baseRot), pivot = Offset.Zero) {
             geo.innerPaths.forEachIndexed { i, path ->
                 val newest = state.newRankLayer && i >= geo.innerPaths.lastIndex - 1
                 val la = if (newest) (a * 1.2f + anim.glow * 0.3f) else a
-                drawPath(path, accentBlend(state.variant).copy(alpha = la.coerceAtMost(0.7f)), style = Stroke(width = weight))
+                drawPath(path, accentBlend(state.variant).copy(alpha = la.coerceAtMost(w.centralCap)), style = Stroke(width = weight))
             }
             geo.connectors.forEach { (p0, p1) ->
-                drawLine(StatusPalette.violetBright.copy(alpha = a * 0.7f), p0, p1, strokeWidth = weight * 0.7f)
+                drawLine(StatusPalette.violetBright.copy(alpha = a * w.connectors), p0, p1, strokeWidth = weight * 0.7f)
             }
-            if (!minimal) {
+        }
+        // Inner detail arcs — reversed parallax against the middle under the ceremonial rule.
+        if (!minimal) {
+            rotate(rotationProfile.innerParallaxRotation(baseRot), pivot = Offset.Zero) {
                 geo.arcs.forEach { arc ->
                     drawArc(
-                        color = StatusPalette.cyan.copy(alpha = a * 0.6f),
+                        color = StatusPalette.cyan.copy(alpha = a * w.arcs),
                         startAngle = arc.startAngle,
                         sweepAngle = arc.sweep,
                         useCenter = false,
@@ -107,27 +120,27 @@ private fun DrawScope.drawOrnateSigil(
             }
         }
 
-        // Layer 4 — active progress segments (clearer). Player ring solid; class ring dashed and
-        // inner — distinguishable by position, pattern, and thickness, not colour alone.
-        val playerFill = (op * 1.5f).coerceAtMost(0.62f) + anim.glow * 0.25f
+        // Layer 4 — active progress segments (stationary instrumentation). Player ring solid; class
+        // ring dashed and inner — distinguishable by position, pattern, and thickness, not colour alone.
+        val playerFill = (op * w.playerMult).coerceAtMost(w.playerCap) + anim.glow * w.playerGlow
         ringArc(
             geo.radius * 0.72f,
             anim.playerRingTrim * assembly,
-            StatusPalette.infoLine.copy(alpha = playerFill.coerceAtMost(0.85f)),
+            StatusPalette.infoLine.copy(alpha = playerFill.coerceAtMost(w.playerFinalCap)),
             weight = 3f,
         )
         state.classRing?.let {
-            val classFill = (op * 1.4f).coerceAtMost(0.55f) + anim.proficiencyPulse.minus(1f).coerceAtLeast(0f) * 0.8f
+            val classFill = (op * w.classMult).coerceAtMost(w.classCap) + anim.proficiencyPulse.minus(1f).coerceAtLeast(0f) * 0.8f
             ringArc(
                 geo.radius * 0.6f,
                 anim.classRingTrim * assembly,
-                StatusPalette.cyanSoft.copy(alpha = classFill.coerceAtMost(0.8f)),
+                StatusPalette.cyanSoft.copy(alpha = classFill.coerceAtMost(w.classFinalCap)),
                 weight = 1.8f,
                 dashed = true,
             )
         }
 
-        // Layer 5 — medallions. Base moderate; the pulsing one is the brightest temporary element.
+        // Layer 5 — medallions (stationary). Base moderate; the pulsing one is the brightest temporary element.
         geo.medallionCenters.forEachIndexed { i, c ->
             val isProficiency = i == geo.proficiencyIndex
             val pulse = if (isProficiency) anim.proficiencyPulse else anim.medallionPulse.getOrElse(i) { 1f }
@@ -139,10 +152,20 @@ private fun DrawScope.drawOrnateSigil(
                 }
             val color = medallionColor(i, isProficiency, state.variant)
             val extra = ((pulse - 1f) / 0.18f).coerceIn(0f, 1f) * 0.45f
-            val mAlpha = (a * 1.1f + extra).coerceAtMost(0.85f)
+            val mAlpha = (a * w.medallionMult + extra).coerceAtMost(w.medallionFinalCap)
             val mRadius = geo.medallionRadius * (if (isProficiency) 1.25f else 1f) * pulse
             drawMedallionRing(c, mRadius, color.copy(alpha = mAlpha * 0.7f), weight = 1.2f)
             drawMedallionGlyph(glyph, c, mRadius * 0.7f, color.copy(alpha = mAlpha), weight = weight * 0.7f)
+        }
+
+        // Debug-only review aid: mark which layers are stationary vs rotating. Fixed dots sit on the
+        // structural rings (they never move); the bright dot rides the ceremonial middle (it orbits).
+        if (stationaryOverlay) {
+            drawCircle(StatusPalette.infoLine.copy(alpha = 0.9f), radius = 3f, center = Offset(0f, -geo.radius * 0.72f))
+            drawCircle(StatusPalette.infoLine.copy(alpha = 0.9f), radius = 3f, center = Offset(0f, -geo.radius * 0.6f))
+            rotate(rotationProfile.middleRotation(baseRot), pivot = Offset.Zero) {
+                drawCircle(StatusPalette.cyan.copy(alpha = 0.95f), radius = 4.5f, center = Offset(0f, -geo.radius * 0.4f))
+            }
         }
     }
 }

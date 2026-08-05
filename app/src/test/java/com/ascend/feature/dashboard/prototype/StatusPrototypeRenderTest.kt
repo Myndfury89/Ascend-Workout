@@ -169,6 +169,24 @@ class StatusPrototypeRenderTest {
     }
 
     @Test
+    fun `the refined sigil renders with ceremonial rotation, ring-forward opacity, and the stationary overlay`() {
+        compose.setContent {
+            AscendTheme(darkTheme = true) {
+                OrnateSigil(
+                    ornateState(true),
+                    ornateAnim(),
+                    "Refined Gold-rank Monk seal.",
+                    Modifier.size(240.dp),
+                    rotationProfile = SigilRotationProfile.CEREMONIAL_MIDDLE,
+                    opacityProfile = SigilOpacityProfile.RING_FORWARD,
+                    stationaryOverlay = true,
+                )
+            }
+        }
+        compose.onNodeWithContentDescription("Refined Gold-rank Monk seal.", substring = true).assertExists()
+    }
+
+    @Test
     fun `the ornate sigil renders in minimal effects mode`() {
         compose.setContent {
             AscendTheme(darkTheme = true) {

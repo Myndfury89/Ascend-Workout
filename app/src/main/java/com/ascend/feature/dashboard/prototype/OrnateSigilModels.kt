@@ -154,6 +154,85 @@ object SigilClassStyleCatalog {
         }
 }
 
+/**
+ * Which sigil layers rotate. [LEGACY] is the current production behaviour (the outer border motif
+ * and the rank geometry both drift). [CEREMONIAL_MIDDLE] enforces the handoff rule: **only the
+ * ceremonial middle rotates** — the outer frame, the progress instrumentation, tick rings, and
+ * medallions stay stationary — with a subtle reversed inner parallax. Progress instrumentation never
+ * rotates in either profile.
+ */
+enum class SigilRotationProfile {
+    LEGACY,
+    CEREMONIAL_MIDDLE,
+    ;
+
+    /** Outer border/bezel motif rotation. Stationary under the ceremonial rule. */
+    fun outerMotifRotation(rot: Float): Float = if (this == LEGACY) rot else 0f
+
+    /** The ceremonial middle (rank star / interlocking geometry) — the only layer that drifts. */
+    fun middleRotation(rot: Float): Float = if (this == LEGACY) rot * 0.5f else rot
+
+    /** Inner detail drift; reversed against the middle for a restrained parallax when ceremonial. */
+    fun innerParallaxRotation(rot: Float): Float = if (this == LEGACY) rot * 0.5f else -rot * 0.8f
+
+    /** Progress rings / arcs / ticks / medallions — data instrumentation — never rotate. */
+    @Suppress("unused")
+    fun progressRotation(rot: Float): Float = 0f
+}
+
+/**
+ * Per-layer idle opacity weights over the settled base. [Legacy] reproduces the current production
+ * numbers exactly; [RingForward] applies the refined hierarchy — **circular structural rings read
+ * highest, the central major geometry medium, and micro-ornament lowest**, with the whole seal still
+ * restrained behind the interface. Kept as data so the hierarchy is unit-testable and tunable.
+ */
+data class SigilOpacityWeights(
+    val aura: Float,
+    val outerMotif: Float,
+    val ringPrimary: Float,
+    val ringSecondary: Float,
+    val centralCap: Float,
+    val connectors: Float,
+    val arcs: Float,
+    val playerMult: Float,
+    val playerCap: Float,
+    val playerGlow: Float,
+    val playerFinalCap: Float,
+    val classMult: Float,
+    val classCap: Float,
+    val classFinalCap: Float,
+    val medallionMult: Float,
+    val medallionFinalCap: Float,
+) {
+    companion object {
+        /** Byte-for-byte the current production sigil opacity math. */
+        val Legacy =
+            SigilOpacityWeights(
+                aura = 0.10f, outerMotif = 0.5f, ringPrimary = 0.35f, ringSecondary = 0.30f,
+                centralCap = 0.70f, connectors = 0.70f, arcs = 0.60f,
+                playerMult = 1.5f, playerCap = 0.62f, playerGlow = 0.25f, playerFinalCap = 0.85f,
+                classMult = 1.4f, classCap = 0.55f, classFinalCap = 0.80f,
+                medallionMult = 1.1f, medallionFinalCap = 0.85f,
+            )
+
+        /** Rings forward: structural rings dominate, central medium, ornament faint. */
+        val RingForward =
+            SigilOpacityWeights(
+                aura = 0.05f, outerMotif = 0.28f, ringPrimary = 0.90f, ringSecondary = 0.72f,
+                centralCap = 0.55f, connectors = 0.30f, arcs = 0.28f,
+                playerMult = 2.4f, playerCap = 0.92f, playerGlow = 0.25f, playerFinalCap = 0.97f,
+                classMult = 2.1f, classCap = 0.85f, classFinalCap = 0.92f,
+                medallionMult = 0.9f, medallionFinalCap = 0.80f,
+            )
+    }
+}
+
+/** The two opacity presets, selectable in the review harness for current-vs-proposed comparison. */
+enum class SigilOpacityProfile(val weights: SigilOpacityWeights) {
+    LEGACY(SigilOpacityWeights.Legacy),
+    RING_FORWARD(SigilOpacityWeights.RingForward),
+}
+
 /** The cache key: geometry is precomputed once per unique combination, not per frame. */
 data class SigilGeometryKey(
     val rankTier: RankTier,

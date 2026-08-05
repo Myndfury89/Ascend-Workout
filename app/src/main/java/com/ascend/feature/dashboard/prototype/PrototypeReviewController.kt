@@ -35,6 +35,19 @@ class PrototypeReviewController {
     var showProficiencyOverride by mutableStateOf<Boolean?>(null)
     var sigilOpacity by mutableStateOf(OrnateSigilState.DEFAULT_SETTLED_OPACITY)
 
+    // CP1 review knobs: toggle the refined sigil direction on/off for current-vs-proposed comparison.
+    var sigilRefined by mutableStateOf(false)
+    var stationaryOverlay by mutableStateOf(false)
+    var rotationPace by mutableStateOf(RotationPace.REVIEW)
+
+    /** The rotation-layering profile implied by [sigilRefined] (proposed = ceremonial-middle only). */
+    val rotationProfile: SigilRotationProfile
+        get() = if (sigilRefined) SigilRotationProfile.CEREMONIAL_MIDDLE else SigilRotationProfile.LEGACY
+
+    /** The opacity profile implied by [sigilRefined] (proposed = rings-forward hierarchy). */
+    val opacityProfile: SigilOpacityProfile
+        get() = if (sigilRefined) SigilOpacityProfile.RING_FORWARD else SigilOpacityProfile.LEGACY
+
     var loopRunning by mutableStateOf(false)
         private set
     var loopPaused by mutableStateOf(false)

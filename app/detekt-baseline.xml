@@ -79,7 +79,7 @@
     <ID>FunctionNaming:OnboardingSteps.kt$@Composable fun TrainingBackgroundStep( draft: OnboardingDraft, onDraft: ((OnboardingDraft) -&gt; OnboardingDraft) -&gt; Unit, )</ID>
     <ID>FunctionNaming:OnboardingSteps.kt$@Composable private fun DarkNumberField( label: String, initial: String, onValue: (String) -&gt; Unit, )</ID>
     <ID>FunctionNaming:OnboardingSteps.kt$@Composable private fun ReviewLine( label: String, value: String, )</ID>
-    <ID>FunctionNaming:OrnateSigil.kt$@Composable fun OrnateSigil( state: OrnateSigilState, animation: OrnateSigilAnimation, semanticDescription: String, modifier: Modifier = Modifier, simplified: Boolean = false, minimal: Boolean = false, frameMotion: Boolean = true, )</ID>
+    <ID>FunctionNaming:OrnateSigil.kt$@Composable fun OrnateSigil( state: OrnateSigilState, animation: OrnateSigilAnimation, semanticDescription: String, modifier: Modifier = Modifier, simplified: Boolean = false, minimal: Boolean = false, frameMotion: Boolean = true, rotationProfile: SigilRotationProfile = SigilRotationProfile.LEGACY, opacityProfile: SigilOpacityProfile = SigilOpacityProfile.LEGACY, stationaryOverlay: Boolean = false, )</ID>
     <ID>FunctionNaming:Placeholder.kt$@Composable fun CenteredPlaceholder( title: String, message: String, icon: ImageVector, modifier: Modifier = Modifier, )</ID>
     <ID>FunctionNaming:ProgressScreen.kt$@Composable fun ProgressScreen(modifier: Modifier = Modifier)</ID>
     <ID>FunctionNaming:QuestsScreen.kt$@Composable fun QuestsScreen( onQuestClick: (String) -&gt; Unit, modifier: Modifier = Modifier, viewModel: QuestsViewModel = hiltViewModel(), )</ID>
@@ -137,13 +137,13 @@
     <ID>FunctionNaming:WeightUnitSelector.kt$@Composable fun WeightUnitSelector( selected: WeightUnit, onSelect: (WeightUnit) -&gt; Unit, modifier: Modifier = Modifier, )</ID>
     <ID>FunctionNaming:WorkoutScreen.kt$@Composable fun WorkoutScreen( onLogWorkout: () -&gt; Unit, modifier: Modifier = Modifier, viewModel: WorkoutsViewModel = hiltViewModel(), )</ID>
     <ID>FunctionNaming:WorkoutScreen.kt$@Composable private fun WorkoutListCard(workout: Workout)</ID>
+    <ID>FunctionOnlyReturningConstant:OrnateSigilModels.kt$SigilRotationProfile$@Suppress("unused") fun progressRotation(rot: Float): Float</ID>
     <ID>LongMethod:ActiveQuestScreen.kt$@OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class) @Composable internal fun ActiveQuestContent( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
     <ID>LongMethod:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$override fun migrate(db: SupportSQLiteDatabase)</ID>
     <ID>LongMethod:FakeStatusPrototype.kt$FakeStatusPrototype$fun dataFor( stateId: StatusPrototypeStateId, variant: StatusClassVariant, reducedMotion: Boolean, forceSecondary: Boolean = false, weightUnit: com.ascend.core.common.WeightUnit = com.ascend.core.common.WeightUnit.KILOGRAMS, ): StatusPrototypeData</ID>
     <ID>LongMethod:LogWorkoutScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable private fun AddSetSection( exercises: List&lt;Exercise&gt;, weightUnit: WeightUnit, onAddSet: (Exercise, Int, Double?) -&gt; Unit, )</ID>
     <ID>LongMethod:LogWorkoutScreen.kt$@OptIn(ExperimentalMaterial3Api::class, androidx.compose.foundation.layout.ExperimentalLayoutApi::class) @Composable internal fun LogWorkoutContent( state: LogWorkoutUiState, onBack: () -&gt; Unit, onTitleChange: (String) -&gt; Unit, onDifficultyChange: (Difficulty) -&gt; Unit, onAddSet: (Exercise, Int, Double?) -&gt; Unit, onDeleteSet: (String) -&gt; Unit, onFinish: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, weightUnit: WeightUnit = WeightUnit.KILOGRAMS, onWeightUnitChange: (WeightUnit) -&gt; Unit = {}, )</ID>
     <ID>LongMethod:OnboardingComponents.kt$@Composable fun OnboardingScaffold( title: String, subtitle: String?, progressIndex: Int, progressTotal: Int, onBack: (() -&gt; Unit)?, onNext: (() -&gt; Unit)?, nextLabel: String = "Next", onSkip: (() -&gt; Unit)? = null, validationError: String? = null, content: @Composable () -&gt; Unit, )</ID>
-    <ID>LongMethod:OrnateSigil.kt$private fun DrawScope.drawOrnateSigil( state: OrnateSigilState, anim: OrnateSigilAnimation, geo: OrnateSigilGeometry, center: Offset, minimal: Boolean, frameMotion: Boolean, )</ID>
     <ID>LongMethod:OrnateSigilGeometry.kt$fun buildOrnateGeometry( key: SigilGeometryKey, radiusPx: Float, ): OrnateSigilGeometry</ID>
     <ID>LongMethod:QuestRepositoryImpl.kt$QuestRepositoryImpl$override suspend fun completeQuest(questId: String): CompleteQuestResult</ID>
     <ID>LongMethod:RevisedStatusPrototypeScreen.kt$@Composable fun RevisedStatusPrototypeScreen( modifier: Modifier = Modifier, controller: PrototypeReviewController = rememberPrototypeReviewController(), )</ID>
@@ -173,8 +173,8 @@
     <ID>LongParameterList:OnboardingComponents.kt$( title: String, subtitle: String?, progressIndex: Int, progressTotal: Int, onBack: (() -&gt; Unit)?, onNext: (() -&gt; Unit)?, nextLabel: String = "Next", onSkip: (() -&gt; Unit)? = null, validationError: String? = null, content: @Composable () -&gt; Unit, )</ID>
     <ID>LongParameterList:OnboardingPickers.kt$( title: String, error: String?, onClear: () -&gt; Unit, onCancel: () -&gt; Unit, onConfirm: () -&gt; Unit, content: @Composable () -&gt; Unit, )</ID>
     <ID>LongParameterList:OnboardingViewModel.kt$OnboardingViewModel$( private val onboardingRepository: OnboardingRepository, private val playerRepository: PlayerRepository, private val classRepository: ClassRepository, private val questTemplateRepository: QuestTemplateRepository, private val ageClassifier: AgeSafetyClassifier, private val affinityAssessor: ClassAffinityAssessor, private val planGenerator: InitialQuestPlanGenerator, private val assessmentSuggester: AssessmentQuestSuggester, private val initialQuestSchedule: CreateInitialQuestScheduleUseCase, )</ID>
-    <ID>LongParameterList:OrnateSigil.kt$( state: OrnateSigilState, anim: OrnateSigilAnimation, geo: OrnateSigilGeometry, center: Offset, minimal: Boolean, frameMotion: Boolean, )</ID>
-    <ID>LongParameterList:OrnateSigil.kt$( state: OrnateSigilState, animation: OrnateSigilAnimation, semanticDescription: String, modifier: Modifier = Modifier, simplified: Boolean = false, minimal: Boolean = false, frameMotion: Boolean = true, )</ID>
+    <ID>LongParameterList:OrnateSigil.kt$( state: OrnateSigilState, anim: OrnateSigilAnimation, geo: OrnateSigilGeometry, center: Offset, minimal: Boolean, frameMotion: Boolean, rotationProfile: SigilRotationProfile, opacityProfile: SigilOpacityProfile, stationaryOverlay: Boolean, )</ID>
+    <ID>LongParameterList:OrnateSigil.kt$( state: OrnateSigilState, animation: OrnateSigilAnimation, semanticDescription: String, modifier: Modifier = Modifier, simplified: Boolean = false, minimal: Boolean = false, frameMotion: Boolean = true, rotationProfile: SigilRotationProfile = SigilRotationProfile.LEGACY, opacityProfile: SigilOpacityProfile = SigilOpacityProfile.LEGACY, stationaryOverlay: Boolean = false, )</ID>
     <ID>LongParameterList:OrnateSigilGeometry.kt$OrnateSigilGeometry$( val radius: Float, val innerPaths: List&lt;Path&gt;, val connectors: List&lt;Pair&lt;Offset, Offset&gt;&gt;, val arcs: List&lt;ArcSpec&gt;, val motif: Path, val motifTicks: Int, val medallionCenters: List&lt;Offset&gt;, val medallionRadius: Float, val proficiencyIndex: Int, )</ID>
     <ID>LongParameterList:PlayerDao.kt$PlayerDao$( userId: String, ageSafetyCategory: String, socialVisibility: String, partyPresenceEnabled: Boolean, strangerDiscoveryEnabled: Boolean, updatedAt: Long, )</ID>
     <ID>LongParameterList:ProgressionEngines.kt$( userId: String, type: ProgressionRecommendationType, readiness: TrainingReadiness, exerciseId: String?, questTemplateId: String?, currentPrescriptionId: String?, proposed: ExercisePrescription?, proposedTarget: Int?, autoSafeAdaptation: Boolean, now: Long, )</ID>
@@ -222,6 +222,23 @@
     <ID>MagicNumber:AscendMotion.kt$AscendEasing$0.84f</ID>
     <ID>MagicNumber:AscendMotion.kt$AscendEasing$0.85f</ID>
     <ID>MagicNumber:AscendMotion.kt$AscendEasing$1.12f</ID>
+    <ID>MagicNumber:AscendMotion.kt$AscendVerbEasing$0.16f</ID>
+    <ID>MagicNumber:AscendMotion.kt$AscendVerbEasing$0.22f</ID>
+    <ID>MagicNumber:AscendMotion.kt$AscendVerbEasing$0.34f</ID>
+    <ID>MagicNumber:AscendMotion.kt$AscendVerbEasing$0.35f</ID>
+    <ID>MagicNumber:AscendMotion.kt$AscendVerbEasing$0.36f</ID>
+    <ID>MagicNumber:AscendMotion.kt$AscendVerbEasing$0.3f</ID>
+    <ID>MagicNumber:AscendMotion.kt$AscendVerbEasing$0.64f</ID>
+    <ID>MagicNumber:AscendMotion.kt$AscendVerbEasing$0.65f</ID>
+    <ID>MagicNumber:AscendMotion.kt$AscendVerbEasing$1.56f</ID>
+    <ID>MagicNumber:AscendMotion.kt$MotionTier.ASCENSION$1500</ID>
+    <ID>MagicNumber:AscendMotion.kt$MotionTier.ASCENSION$3000</ID>
+    <ID>MagicNumber:AscendMotion.kt$MotionTier.EVERYDAY$200</ID>
+    <ID>MagicNumber:AscendMotion.kt$MotionTier.EVERYDAY$700</ID>
+    <ID>MagicNumber:AscendMotion.kt$MotionTier.REWARD$1500</ID>
+    <ID>MagicNumber:AscendMotion.kt$MotionTier.REWARD$700</ID>
+    <ID>MagicNumber:AscendMotion.kt$VerbSpeed.CINEMATIC$1.6f</ID>
+    <ID>MagicNumber:AscendMotion.kt$VerbSpeed.FAST$0.55f</ID>
     <ID>MagicNumber:AscendRoot.kt$RootGateViewModel$5_000</ID>
     <ID>MagicNumber:AssessmentInputs.kt$SessionDuration.MIN_20_30$30</ID>
     <ID>MagicNumber:AssessmentInputs.kt$SessionDuration.MIN_30_45$45</ID>
@@ -364,22 +381,15 @@
     <ID>MagicNumber:OnboardingPickers.kt$11</ID>
     <ID>MagicNumber:OnboardingPickers.kt$5</ID>
     <ID>MagicNumber:OrnateSigil.kt$0.18f</ID>
-    <ID>MagicNumber:OrnateSigil.kt$0.25f</ID>
     <ID>MagicNumber:OrnateSigil.kt$0.3f</ID>
     <ID>MagicNumber:OrnateSigil.kt$0.45f</ID>
-    <ID>MagicNumber:OrnateSigil.kt$0.55f</ID>
-    <ID>MagicNumber:OrnateSigil.kt$0.5f</ID>
-    <ID>MagicNumber:OrnateSigil.kt$0.62f</ID>
+    <ID>MagicNumber:OrnateSigil.kt$0.4f</ID>
     <ID>MagicNumber:OrnateSigil.kt$0.6f</ID>
     <ID>MagicNumber:OrnateSigil.kt$0.72f</ID>
     <ID>MagicNumber:OrnateSigil.kt$0.7f</ID>
-    <ID>MagicNumber:OrnateSigil.kt$0.85f</ID>
     <ID>MagicNumber:OrnateSigil.kt$0.8f</ID>
-    <ID>MagicNumber:OrnateSigil.kt$1.1f</ID>
     <ID>MagicNumber:OrnateSigil.kt$1.25f</ID>
     <ID>MagicNumber:OrnateSigil.kt$1.2f</ID>
-    <ID>MagicNumber:OrnateSigil.kt$1.4f</ID>
-    <ID>MagicNumber:OrnateSigil.kt$1.5f</ID>
     <ID>MagicNumber:OrnateSigil.kt$4f</ID>
     <ID>MagicNumber:OrnateSigil.kt$5f</ID>
     <ID>MagicNumber:OrnateSigil.kt$6f</ID>
@@ -421,18 +431,21 @@
     <ID>MagicNumber:OrnateSigilModels.kt$4f</ID>
     <ID>MagicNumber:OrnateSigilModels.kt$RankGeometryConfig$3</ID>
     <ID>MagicNumber:OrnateSigilModels.kt$RankGeometryConfig$4</ID>
+    <ID>MagicNumber:OrnateSigilModels.kt$SigilRotationProfile$0.5f</ID>
+    <ID>MagicNumber:OrnateSigilModels.kt$SigilRotationProfile$0.8f</ID>
     <ID>MagicNumber:ProgressionOptionRanker.kt$ProgressionOptionRanker$3</ID>
     <ID>MagicNumber:PrototypeReviewModels.kt$DeviceWidth.COMPACT$340</ID>
     <ID>MagicNumber:PrototypeReviewModels.kt$DeviceWidth.EXPANDED$520</ID>
     <ID>MagicNumber:PrototypeReviewModels.kt$DeviceWidth.MEDIUM$400</ID>
     <ID>MagicNumber:PrototypeReviewModels.kt$MotionSpeed.CINEMATIC$1.35f</ID>
     <ID>MagicNumber:PrototypeReviewModels.kt$MotionSpeed.FAST$0.65f</ID>
+    <ID>MagicNumber:PrototypeReviewModels.kt$RotationPace.AMBIENT$200_000</ID>
+    <ID>MagicNumber:PrototypeReviewModels.kt$RotationPace.REVIEW$24_000</ID>
     <ID>MagicNumber:QuestViewModel.kt$QuestViewModel$5_000</ID>
     <ID>MagicNumber:QuestsViewModel.kt$QuestsViewModel$5_000</ID>
     <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$0.5f</ID>
     <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$0.98f</ID>
     <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$0xFF7E8CA0</ID>
-    <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$24_000</ID>
     <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$360f</ID>
     <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$4</ID>
     <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$5200</ID>
@@ -509,7 +522,11 @@
     <ID>MagicNumber:StatusPrototypeControls.kt$0.13f</ID>
     <ID>MagicNumber:StatusPrototypeControls.kt$0.16f</ID>
     <ID>MagicNumber:StatusPrototypeControls.kt$0.17f</ID>
+    <ID>MagicNumber:StatusPrototypeControls.kt$0.24f</ID>
+    <ID>MagicNumber:StatusPrototypeControls.kt$0.26f</ID>
     <ID>MagicNumber:StatusPrototypeControls.kt$0.30f</ID>
+    <ID>MagicNumber:StatusPrototypeControls.kt$0.32f</ID>
+    <ID>MagicNumber:StatusPrototypeControls.kt$0.40f</ID>
     <ID>MagicNumber:StatusPrototypeControls.kt$0.5f</ID>
     <ID>MagicNumber:StatusPrototypeControls.kt$0.96f</ID>
     <ID>MagicNumber:StatusPrototypeControls.kt$0xFF10141C</ID>
@@ -818,9 +835,13 @@
     <ID>MaxLineLength:OnboardingViewModelTest.kt$OnboardingViewModelTest$assertNull("a preview class must not become a real selection", runBlocking { classRepo.getSelection(LOCAL_USER_ID) }.primaryClassId)</ID>
     <ID>MaxLineLength:OnboardingViewModelTest.kt$OnboardingViewModelTest$assertNull("no profile is created for a below-minimum-age user", runBlocking { db.playerDao().getProfile(LOCAL_USER_ID) })</ID>
     <ID>MaxLineLength:OnboardingViewModelTest.kt$OnboardingViewModelTest$vm.updateDraft { it.copy(currentWeightKg = 95.0, heightCm = 180.0, weightUnit = com.ascend.core.common.WeightUnit.KILOGRAMS) }</ID>
-    <ID>MaxLineLength:OrnateSigil.kt$drawPath(geo.motif, StatusPalette.cyanSoft.copy(alpha = a * 0.5f), style = Stroke(width = 1f, cap = StrokeCap.Round))</ID>
-    <ID>MaxLineLength:OrnateSigil.kt$drawPath(path, accentBlend(state.variant).copy(alpha = la.coerceAtMost(0.7f)), style = Stroke(width = weight))</ID>
+    <ID>MaxLineLength:OrnateSigil.kt$drawCircle(StatusPalette.cyan.copy(alpha = 0.95f), radius = 4.5f, center = Offset(0f, -geo.radius * 0.4f))</ID>
+    <ID>MaxLineLength:OrnateSigil.kt$drawOrnateSigil(state, animation, geometry, center, minimal, frameMotion, rotationProfile, opacityProfile, stationaryOverlay)</ID>
+    <ID>MaxLineLength:OrnateSigil.kt$drawPath(geo.motif, StatusPalette.cyanSoft.copy(alpha = a * w.outerMotif), style = Stroke(width = 1f, cap = StrokeCap.Round))</ID>
+    <ID>MaxLineLength:OrnateSigil.kt$drawPath(path, accentBlend(state.variant).copy(alpha = la.coerceAtMost(w.centralCap)), style = Stroke(width = weight))</ID>
+    <ID>MaxLineLength:OrnateSigil.kt$ringTrack(geo.radius * 0.6f, StatusPalette.cyanSoft.copy(alpha = a * w.ringSecondary), weight = 1.4f, dashed = true)</ID>
     <ID>MaxLineLength:OrnateSigil.kt$style = Stroke(width = weight, pathEffect = if (dashed) PathEffect.dashPathEffect(floatArrayOf(4f, 6f)) else null)</ID>
+    <ID>MaxLineLength:OrnateSigil.kt$val classFill = (op * w.classMult).coerceAtMost(w.classCap) + anim.proficiencyPulse.minus(1f).coerceAtLeast(0f) * 0.8f</ID>
     <ID>MaxLineLength:OrnateSigilGeometry.kt$ArcSpec(radius = r * 0.5f, startAngle = start + 6f, sweep = (360f / cfg.segmentedArcs.coerceAtLeast(1)) - 12f)</ID>
     <ID>MaxLineLength:OrnateSigilGeometry.kt$drawArc(color, 200f, 160f, false, topLeft = center + Offset(-u * 0.5f, -u * 0.5f), size = Size(u, u), style = s)</ID>
     <ID>MaxLineLength:OrnateSigilGeometry.kt$drawArc(color, 20f, 140f, false, topLeft = center + Offset(-u * 0.5f, -u * 0.2f), size = Size(u, u), style = s)</ID>
@@ -965,6 +986,8 @@
     <ID>MaxLineLength:StatusPrototypeControls.kt$Chips(ringOptions, controller.classRingOverride, { ringLabel("Class", it) }) { controller.classRingOverride = it }</ID>
     <ID>MaxLineLength:StatusPrototypeControls.kt$Chips(ringOptions, controller.playerRingOverride, { ringLabel("Player", it) }) { controller.playerRingOverride = it }</ID>
     <ID>MaxLineLength:StatusPrototypeControls.kt$Text(title.uppercase(), color = Color(0xFF6E7C90), fontSize = 11.sp, modifier = Modifier.padding(top = 12.dp, bottom = 8.dp))</ID>
+    <ID>MaxLineLength:StatusPrototypeControls.kt$ToggleRow("Refined sigil (proposed vs current)", controller.sigilRefined) { controller.sigilRefined = it }</ID>
+    <ID>MaxLineLength:StatusPrototypeControls.kt$ToggleRow("Stationary-layer overlay", controller.stationaryOverlay) { controller.stationaryOverlay = it }</ID>
     <ID>MaxLineLength:StatusPrototypeMotion.kt$StatusPrototypeMotion$attrValue[i].animateTo(line.value.toFloat(), motion.tween(AscendMotionTokens.STANDARD, AscendEasing.settle))</ID>
     <ID>MaxLineLength:StatusPrototypeMotion.kt$StatusPrototypeMotion$frameEnergy.animateTo(1f, motion.tween(frameToken, if (everyday) AscendEasing.settle else AscendEasing.emphasize))</ID>
     <ID>MaxLineLength:StatusPrototypePanelContent.kt$Text("${data.questProgress} / ${data.questTarget}", color = StatusPalette.textMuted, fontSize = 12.sp, maxLines = 1)</ID>

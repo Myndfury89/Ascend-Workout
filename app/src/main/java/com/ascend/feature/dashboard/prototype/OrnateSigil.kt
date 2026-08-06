@@ -158,6 +158,10 @@ private fun DrawScope.drawOrnateSigil(
             geo.connectors.forEach { (p0, p1) ->
                 drawLine(StatusPalette.violetBright.copy(alpha = a * w.connectors), p0, p1, strokeWidth = weight * 0.7f)
             }
+            // CP-C: the 12-mark inner support-glyph ring rides the middle group and rotates with it.
+            geo.middleGroup?.let { mg ->
+                drawPath(mg.supportRing, StatusPalette.cyanSoft.copy(alpha = a * w.arcs), style = Stroke(width = 1f, cap = StrokeCap.Round))
+            }
         }
         // Static per-class core anchor (CP2) — holds the eye while the middle drifts. Slightly
         // emphasized and never rotated; only present in the class-distinct geometry.

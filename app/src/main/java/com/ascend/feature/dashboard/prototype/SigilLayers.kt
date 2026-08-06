@@ -1,6 +1,7 @@
 package com.ascend.feature.dashboard.prototype
 
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Path
 
 /*
  * CP-B: the addressable, shared-origin **outer instrumentation** layer set for the sigil — the
@@ -37,6 +38,18 @@ data class SigilMedallion(
     /** Index into the attribute pulse list; -1 for the proficiency medallion (uses its own pulse). */
     val pulseIndex: Int get() = if (isProficiency) -1 else role.ordinal
 }
+
+/**
+ * CP-C: the per-class **rotating middle ceremonial group** — the 12-mark inner support-glyph ring
+ * plus the class-specific central structure — pinned to the shared centre origin and rotated as ONE
+ * unit at the class's 150–260s/rev drift. The static core anchor is deliberately NOT part of this
+ * group (it never rotates and scales in independently), and the data-driven rank overlay is kept
+ * separate so rank complexity composes on top without changing the class silhouette.
+ */
+data class SigilMiddleGroup(
+    val supportRing: Path,
+    val central: List<Path>,
+)
 
 /** Which ring: two static structural tracks, plus the two live (trim-driven) progress rings. */
 enum class SigilRingRole { STRUCTURAL_PRIMARY, STRUCTURAL_SECONDARY, PLAYER_XP, CLASS_XP }

@@ -41,7 +41,25 @@ class OrnateSigilGeometry(
     val coreAnchor: Path? = null,
     /** CP-B: the addressable outer-instrumentation layer set (static rings + isolated medallions + live XP rings). */
     val instrumentation: SigilInstrumentation = SigilInstrumentation(emptyList(), emptyList()),
+    /** CP-C: the per-class rotating middle group (support ring + central structure). Null for legacy. */
+    val middleGroup: SigilMiddleGroup? = null,
+    /** CP-C: the data-driven rank-detail overlay, composed on top of the middle group (procedural). */
+    val rankOverlay: List<Path> = emptyList(),
 )
+
+/** The 12-mark inner support-glyph ring (short radial ticks) between the class ring and the central star. */
+private fun supportGlyphRing(r: Float): Path =
+    Path().apply {
+        val ringR = r * 0.46f
+        val marks = 12
+        for (i in 0 until marks) {
+            val a = 2.0 * Math.PI * i / marks - Math.PI / 2
+            val ca = cos(a).toFloat()
+            val sa = sin(a).toFloat()
+            moveTo(ca * (ringR - r * 0.02f), sa * (ringR - r * 0.02f))
+            lineTo(ca * (ringR + r * 0.02f), sa * (ringR + r * 0.02f))
+        }
+    }
 
 private fun circlePath(
     center: Offset,
@@ -149,14 +167,22 @@ fun buildOrnateGeometry(
     val classGeo = ClassSigilGeometryCatalog.forVariant(key.variant)
     val r = radiusPx
     val innerPaths = mutableListOf<Path>()
+    var middleGroup: SigilMiddleGroup? = null
+    var rankOverlay: List<Path> = emptyList()
 
     if (key.classDistinct) {
-        // CP2: the class's distinct central silhouette leads and must dominate the read. Rank adds
-        // only small nested inner detail — no full-size rank polygon that would blur the class shape.
-        innerPaths += classCentralPaths(classGeo.central, r, cfg.basePolygonSides)
-        for (i in 0 until cfg.nestedPolygons) {
-            innerPaths += polygonPath(cfg.basePolygonSides + 1, r * (0.15f - i * 0.035f).coerceAtLeast(0.06f), -90f)
-        }
+        // CP2/CP-C: the class's distinct central silhouette leads (the middle group), and the
+        // data-driven rank overlay adds only small nested inner detail on top — no full-size rank
+        // polygon that would blur the class shape. The two are kept as separate addressable layers.
+        val central = classCentralPaths(classGeo.central, r, cfg.basePolygonSides)
+        val overlay =
+            (0 until cfg.nestedPolygons).map { i ->
+                polygonPath(cfg.basePolygonSides + 1, r * (0.15f - i * 0.035f).coerceAtLeast(0.06f), -90f)
+            }
+        innerPaths += central
+        innerPaths += overlay
+        middleGroup = SigilMiddleGroup(supportRing = supportGlyphRing(r), central = central)
+        rankOverlay = overlay
     } else {
         // Legacy (current production) construction — unchanged.
         innerPaths += polygonPath(cfg.basePolygonSides, r * 0.34f, -90f)
@@ -243,6 +269,8 @@ fun buildOrnateGeometry(
                 proficiencyIndex = proficiencyIndex,
                 proficiencyGlyph = style.proficiencyGlyph ?: MedallionGlyph.DISCIPLINE_SQUARES,
             ),
+        middleGroup = middleGroup,
+        rankOverlay = rankOverlay,
     )
 }
 

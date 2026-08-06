@@ -204,7 +204,7 @@
     <ID>LongParameterList:OnboardingViewModel.kt$OnboardingViewModel$( private val onboardingRepository: OnboardingRepository, private val playerRepository: PlayerRepository, private val classRepository: ClassRepository, private val questTemplateRepository: QuestTemplateRepository, private val ageClassifier: AgeSafetyClassifier, private val affinityAssessor: ClassAffinityAssessor, private val planGenerator: InitialQuestPlanGenerator, private val assessmentSuggester: AssessmentQuestSuggester, private val initialQuestSchedule: CreateInitialQuestScheduleUseCase, )</ID>
     <ID>LongParameterList:OrnateSigil.kt$( state: OrnateSigilState, anim: OrnateSigilAnimation, geo: OrnateSigilGeometry, center: Offset, minimal: Boolean, frameMotion: Boolean, rotationProfile: SigilRotationProfile, opacityProfile: SigilOpacityProfile, stationaryOverlay: Boolean, classGeometry: Boolean, internalGlow: Boolean, )</ID>
     <ID>LongParameterList:OrnateSigil.kt$( state: OrnateSigilState, animation: OrnateSigilAnimation, semanticDescription: String, modifier: Modifier = Modifier, simplified: Boolean = false, minimal: Boolean = false, frameMotion: Boolean = true, rotationProfile: SigilRotationProfile = SigilRotationProfile.LEGACY, opacityProfile: SigilOpacityProfile = SigilOpacityProfile.LEGACY, stationaryOverlay: Boolean = false, classGeometry: Boolean = false, internalGlow: Boolean = false, )</ID>
-    <ID>LongParameterList:OrnateSigilGeometry.kt$OrnateSigilGeometry$( val radius: Float, val innerPaths: List&lt;Path&gt;, val connectors: List&lt;Pair&lt;Offset, Offset&gt;&gt;, val arcs: List&lt;ArcSpec&gt;, val motif: Path, val motifTicks: Int, val medallionCenters: List&lt;Offset&gt;, val medallionRadius: Float, val proficiencyIndex: Int, /** The static per-class core anchor (CP2). Null for the legacy/undifferentiated geometry. */ val coreAnchor: Path? = null, /** CP-B: the addressable outer-instrumentation layer set (static rings + isolated medallions + live XP rings). */ val instrumentation: SigilInstrumentation = SigilInstrumentation(emptyList(), emptyList()), )</ID>
+    <ID>LongParameterList:OrnateSigilGeometry.kt$OrnateSigilGeometry$( val radius: Float, val innerPaths: List&lt;Path&gt;, val connectors: List&lt;Pair&lt;Offset, Offset&gt;&gt;, val arcs: List&lt;ArcSpec&gt;, val motif: Path, val motifTicks: Int, val medallionCenters: List&lt;Offset&gt;, val medallionRadius: Float, val proficiencyIndex: Int, /** The static per-class core anchor (CP2). Null for the legacy/undifferentiated geometry. */ val coreAnchor: Path? = null, /** CP-B: the addressable outer-instrumentation layer set (static rings + isolated medallions + live XP rings). */ val instrumentation: SigilInstrumentation = SigilInstrumentation(emptyList(), emptyList()), /** CP-C: the per-class rotating middle group (support ring + central structure). Null for legacy. */ val middleGroup: SigilMiddleGroup? = null, /** CP-C: the data-driven rank-detail overlay, composed on top of the middle group (procedural). */ val rankOverlay: List&lt;Path&gt; = emptyList(), )</ID>
     <ID>LongParameterList:PlayerDao.kt$PlayerDao$( userId: String, ageSafetyCategory: String, socialVisibility: String, partyPresenceEnabled: Boolean, strangerDiscoveryEnabled: Boolean, updatedAt: Long, )</ID>
     <ID>LongParameterList:ProgressionEngines.kt$( userId: String, type: ProgressionRecommendationType, readiness: TrainingReadiness, exerciseId: String?, questTemplateId: String?, currentPrescriptionId: String?, proposed: ExercisePrescription?, proposedTarget: Int?, autoSafeAdaptation: Boolean, now: Long, )</ID>
     <ID>LongParameterList:ProgressionEngines.kt$ExerciseProgressionEngine$( userId: String, prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), equipmentKey: String? = null, autoSafeAdaptation: Boolean = false, now: Long = System.currentTimeMillis(), )</ID>
@@ -482,11 +482,13 @@
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.38f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.3f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.45f</ID>
+    <ID>MagicNumber:OrnateSigilGeometry.kt$0.46f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.55f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.5f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.6f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.7f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.9f</ID>
+    <ID>MagicNumber:OrnateSigilGeometry.kt$12</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$140f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$16</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$160f</ID>
@@ -783,11 +785,13 @@
     <ID>MaxLineLength:ClassRewardFlowTest.kt$ClassRewardFlowTest$assertTrue(types.none { it == ProgressionEventType.CLASS_XP_GAINED || it == ProgressionEventType.PROFICIENCY_GAINED })</ID>
     <ID>MaxLineLength:ClassRewardFlowTest.kt$ClassRewardFlowTest$db.playerDao().upsertProfile(UserProfileEntity(id = "u_mage", displayName = "Mage", createdAt = 0, updatedAt = 0))</ID>
     <ID>MaxLineLength:ClassRewardFlowTest.kt$ClassRewardFlowTest$db.playerDao().upsertProfile(UserProfileEntity(id = "u_none", displayName = "None", createdAt = 0, updatedAt = 0))</ID>
+    <ID>MaxLineLength:ClassSigilGeometryTest.kt$ClassSigilGeometryTest$assertEquals("class silhouette is rank-invariant", monkLow.middleGroup!!.central.size, monkHigh.middleGroup!!.central.size)</ID>
     <ID>MaxLineLength:ClassSigilGeometryTest.kt$ClassSigilGeometryTest$assertEquals(CentralStructure.FIVE_POINT_STAR, ClassSigilGeometryCatalog.forVariant(StatusClassVariant.BERSERKER).central)</ID>
     <ID>MaxLineLength:ClassSigilGeometryTest.kt$ClassSigilGeometryTest$assertEquals(CentralStructure.ROSETTE, ClassSigilGeometryCatalog.forVariant(StatusClassVariant.MAGICIAN).central)</ID>
     <ID>MaxLineLength:ClassSigilGeometryTest.kt$ClassSigilGeometryTest$assertEquals(CoreAnchorShape.SPIKE_STAR_4, ClassSigilGeometryCatalog.forVariant(StatusClassVariant.BERSERKER).anchor)</ID>
     <ID>MaxLineLength:ClassSigilGeometryTest.kt$ClassSigilGeometryTest$assertNotNull("class-distinct build has a core anchor", geometry(StatusClassVariant.BERSERKER, classDistinct = true).coreAnchor)</ID>
     <ID>MaxLineLength:ClassSigilGeometryTest.kt$ClassSigilGeometryTest$assertNull("legacy build has no core anchor", geometry(StatusClassVariant.BERSERKER, classDistinct = false).coreAnchor)</ID>
+    <ID>MaxLineLength:ClassSigilGeometryTest.kt$ClassSigilGeometryTest$assertNull("legacy build has no middle group", geometry(StatusClassVariant.BERSERKER, classDistinct = false).middleGroup)</ID>
     <ID>MaxLineLength:ContributionEligibilityEvaluator.kt$ContributionEligibilityEvaluator$return ContributionEligibility(MemberActivityState.DISCONNECTED, false, "Party member reconnecting.")</ID>
     <ID>MaxLineLength:ContributionEligibilityEvaluator.kt$ContributionEligibilityEvaluator$return ContributionEligibility(MemberActivityState.PAUSED, false, "Party member contribution paused.")</ID>
     <ID>MaxLineLength:ContributionEligibilityEvaluator.kt$ContributionEligibilityEvaluator$return ContributionEligibility(MemberActivityState.SAFETY_PAUSED, false, "Party member contribution paused.")</ID>
@@ -934,6 +938,7 @@
     <ID>MaxLineLength:OrnateSigil.kt$drawCircle(StatusPalette.cyan.copy(alpha = 0.95f), radius = 4.5f, center = Offset(0f, -geo.radius * 0.4f))</ID>
     <ID>MaxLineLength:OrnateSigil.kt$drawPath(anchor, accentBlend(state.variant).copy(alpha = anchorAlpha), style = Stroke(width = centralWeight))</ID>
     <ID>MaxLineLength:OrnateSigil.kt$drawPath(geo.motif, StatusPalette.cyanSoft.copy(alpha = a * w.outerMotif), style = Stroke(width = 1f, cap = StrokeCap.Round))</ID>
+    <ID>MaxLineLength:OrnateSigil.kt$drawPath(mg.supportRing, StatusPalette.cyanSoft.copy(alpha = a * w.arcs), style = Stroke(width = 1f, cap = StrokeCap.Round))</ID>
     <ID>MaxLineLength:OrnateSigil.kt$primaryRing?.let { ringTrack(it.radius(geo.radius), StatusPalette.cyan.copy(alpha = glowE * 0.6f), weight = 7f) }</ID>
     <ID>MaxLineLength:OrnateSigil.kt$primaryRing?.let { ringTrack(it.radius(geo.radius), StatusPalette.infoLine.copy(alpha = a * w.ringPrimary), weight = it.weight) }</ID>
     <ID>MaxLineLength:OrnateSigil.kt$secondaryRing?.let { ringTrack(it.radius(geo.radius), StatusPalette.cyanSoft.copy(alpha = glowE * 0.45f), weight = 5f) }</ID>

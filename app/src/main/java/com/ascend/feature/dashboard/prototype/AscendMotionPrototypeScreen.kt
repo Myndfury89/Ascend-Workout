@@ -37,6 +37,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
@@ -232,6 +233,7 @@ private fun MotionReviewViewport(
                             classRingTrim = motion.classXpFill.value,
                             medallionPulse = motion.attrPulse.map { it.value },
                             proficiencyPulse = motion.proficiencyPulse.value,
+                            wave = motion.wave.value,
                         ),
                     semanticDescription = "${data.variant.displayName} ceremonial sigil, ${data.rankLabel}.",
                     modifier = Modifier.fillMaxWidth().aspectRatio(1f),
@@ -243,6 +245,19 @@ private fun MotionReviewViewport(
                     internalGlow = controller.sigilRefined && controller.sigilGlow,
                     warmAccents = controller.sigilRefined,
                 )
+                // CP3 level-up beat: the breakthrough burst radiates from the sigil centre during a
+                // major-unlock flash (Charge lead-in → Breakthrough → settle as the flash recedes).
+                if (data.majorUnlock && motion.eventFlash.value > 0.01f) {
+                    BreakthroughBurst(
+                        accent = accent,
+                        pulse = motion.eventFlash.value,
+                        mode = controller.burstMode,
+                        modifier =
+                            Modifier
+                                .size((SIGIL_SIZE_DP * 0.62f).dp)
+                                .graphicsLayer { alpha = motion.eventFlash.value },
+                    )
+                }
                 Box(Modifier.align(Alignment.TopCenter)) {
                     EventOverlayChip(data.overlay, accent, motion.overlayReveal.value, motion.eventFlash.value)
                 }

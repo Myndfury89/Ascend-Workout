@@ -212,6 +212,24 @@ class StatusPrototypeRenderTest {
     }
 
     @Test
+    fun `the sigil renders the attribute center-out wave mid-expansion`() {
+        compose.setContent {
+            AscendTheme(darkTheme = true) {
+                OrnateSigil(
+                    ornateState(true),
+                    ornateAnim().copy(wave = 0.5f),
+                    "Wave seal.",
+                    Modifier.size(240.dp),
+                    rotationProfile = SigilRotationProfile.CEREMONIAL_MIDDLE,
+                    opacityProfile = SigilOpacityProfile.RING_FORWARD,
+                    classGeometry = true,
+                )
+            }
+        }
+        compose.onNodeWithContentDescription("Wave seal.", substring = true).assertExists()
+    }
+
+    @Test
     fun `the ornate sigil renders in minimal effects mode`() {
         compose.setContent {
             AscendTheme(darkTheme = true) {

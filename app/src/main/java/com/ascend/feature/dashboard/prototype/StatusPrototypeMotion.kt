@@ -1,6 +1,7 @@
 package com.ascend.feature.dashboard.prototype
 
 import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Stable
 import com.ascend.core.designsystem.motion.AscendEasing
 import com.ascend.core.designsystem.motion.AscendMotionTokens
@@ -31,6 +32,7 @@ class StatusPrototypeMotion(attributeCount: Int) {
     val proficiencyPulse = Animatable(1f)
     val overlayReveal = Animatable(0f)
     val eventFlash = Animatable(0f)
+    val wave = Animatable(0f)
 
     val attrReveal = List(attributeCount) { Animatable(0f) }
     val attrValue = List(attributeCount) { Animatable(0f) }
@@ -109,7 +111,10 @@ class StatusPrototypeMotion(attributeCount: Int) {
         when (data.overlay.kind) {
             StatusOverlayKind.ATTRIBUTE -> {
                 val idx = data.attributes.indexOfFirst { it.emphasized }.coerceAtLeast(0)
-                pulse(attrPulse.getOrNull(idx), motion)
+                coroutineScope {
+                    launch { pulse(attrPulse.getOrNull(idx), motion) }
+                    launch { playAttributeWave(idx, motion) }
+                }
             }
             StatusOverlayKind.PROFICIENCY -> pulse(proficiencyPulse, motion)
             StatusOverlayKind.QUEST_PROGRESS, StatusOverlayKind.QUEST_COMPLETE -> pulse(questPulse, motion)
@@ -128,6 +133,24 @@ class StatusPrototypeMotion(attributeCount: Int) {
         anim ?: return
         anim.animateTo(PULSE_PEAK, motion.tween(AscendMotionTokens.QUICK, AscendEasing.emphasize))
         anim.animateTo(1f, motion.tween(AscendMotionTokens.STANDARD, AscendEasing.pulse))
+    }
+
+    /**
+     * The attribute center-out wave: expands 0→1 with the attribute's personality, then settles to 0
+     * (invisible). Reduced motion skips the kinetic wave — the flat medallion brighten is the cue.
+     */
+    private suspend fun playAttributeWave(
+        index: Int,
+        motion: MotionSpec,
+    ) {
+        if (motion.reducedMotion) return
+        val profile = AttributeWaveCatalog.forIndex(index)
+        wave.snapTo(0f)
+        wave.animateTo(
+            1f,
+            tween(durationMillis = (profile.durationMs * motion.speedScale).toInt().coerceAtLeast(1), easing = profile.easing),
+        )
+        wave.snapTo(0f)
     }
 
     private suspend fun flash(motion: MotionSpec) {
@@ -150,6 +173,7 @@ class StatusPrototypeMotion(attributeCount: Int) {
         proficiencyPulse.snapTo(1f)
         overlayReveal.snapTo(0f)
         eventFlash.snapTo(0f)
+        wave.snapTo(0f)
         attrReveal.forEach { it.snapTo(0f) }
         attrValue.forEach { it.snapTo(0f) }
         attrPulse.forEach { it.snapTo(1f) }

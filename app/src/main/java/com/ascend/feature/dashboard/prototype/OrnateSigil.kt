@@ -227,6 +227,13 @@ private fun DrawScope.drawOrnateSigil(
             drawMedallionGlyph(m.glyph, m.center, mRadius * 0.7f, color.copy(alpha = mAlpha), weight = weight * 0.7f)
         }
 
+        // CP3 — attribute center-out wave: a thin circle scaling from the centre out toward the ring
+        // structure and fading as it expands. Stationary (never rotates); restrained, not a flash.
+        if (anim.wave > 0.001f && anim.wave < 0.999f) {
+            val waveRadius = geo.radius * AttributeWaveCatalog.REACH_FRACTION * anim.wave
+            drawCircle(accent.copy(alpha = 0.5f * (1f - anim.wave)), radius = waveRadius, center = Offset.Zero, style = Stroke(width = 2f))
+        }
+
         // Debug-only review aid: mark which layers are stationary vs rotating. Fixed dots sit on the
         // structural rings (they never move); the bright dot rides the ceremonial middle (it orbits).
         if (stationaryOverlay) {

@@ -334,6 +334,8 @@ data class OrnateSigilAnimation(
     val classRingTrim: Float,
     val medallionPulse: List<Float>,
     val proficiencyPulse: Float,
+    /** CP3 attribute center-out wave progress (0 = idle; 0→1 expands from centre and fades out). */
+    val wave: Float = 0f,
 )
 
 /**

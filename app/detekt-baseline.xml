@@ -273,6 +273,7 @@
     <ID>MagicNumber:AscendMotionPrototypeScreen.kt$0.01f</ID>
     <ID>MagicNumber:AscendMotionPrototypeScreen.kt$0.3f</ID>
     <ID>MagicNumber:AscendMotionPrototypeScreen.kt$0.5f</ID>
+    <ID>MagicNumber:AscendMotionPrototypeScreen.kt$0.62f</ID>
     <ID>MagicNumber:AscendMotionPrototypeScreen.kt$0.7f</ID>
     <ID>MagicNumber:AscendMotionPrototypeScreen.kt$0xFF10141C</ID>
     <ID>MagicNumber:AscendMotionPrototypeScreen.kt$0xFF12172B</ID>
@@ -296,6 +297,12 @@
     <ID>MagicNumber:AttributeProgressCalculator.kt$AttributeConfig$0.8</ID>
     <ID>MagicNumber:AttributeProgressCalculator.kt$AttributeConfig$1.3</ID>
     <ID>MagicNumber:AttributeProgressCalculator.kt$AttributeConfig$1.6</ID>
+    <ID>MagicNumber:AttributeWave.kt$AttributeWaveCatalog$3</ID>
+    <ID>MagicNumber:AttributeWave.kt$AttributeWaveCatalog$420</ID>
+    <ID>MagicNumber:AttributeWave.kt$AttributeWaveCatalog$460</ID>
+    <ID>MagicNumber:AttributeWave.kt$AttributeWaveCatalog$520</ID>
+    <ID>MagicNumber:AttributeWave.kt$AttributeWaveCatalog$800</ID>
+    <ID>MagicNumber:AttributeWave.kt$AttributeWaveCatalog$950</ID>
     <ID>MagicNumber:BreakthroughBurst.kt$0.06f</ID>
     <ID>MagicNumber:BreakthroughBurst.kt$0.15f</ID>
     <ID>MagicNumber:BreakthroughBurst.kt$0.18f</ID>
@@ -445,6 +452,7 @@
     <ID>MagicNumber:OnboardingComponents.kt$OnboardingPalette$0xFFEAF0FF</ID>
     <ID>MagicNumber:OnboardingPickers.kt$11</ID>
     <ID>MagicNumber:OnboardingPickers.kt$5</ID>
+    <ID>MagicNumber:OrnateSigil.kt$0.001f</ID>
     <ID>MagicNumber:OrnateSigil.kt$0.12f</ID>
     <ID>MagicNumber:OrnateSigil.kt$0.18f</ID>
     <ID>MagicNumber:OrnateSigil.kt$0.34f</ID>
@@ -455,6 +463,7 @@
     <ID>MagicNumber:OrnateSigil.kt$0.72f</ID>
     <ID>MagicNumber:OrnateSigil.kt$0.7f</ID>
     <ID>MagicNumber:OrnateSigil.kt$0.8f</ID>
+    <ID>MagicNumber:OrnateSigil.kt$0.999f</ID>
     <ID>MagicNumber:OrnateSigil.kt$0.9f</ID>
     <ID>MagicNumber:OrnateSigil.kt$1.25f</ID>
     <ID>MagicNumber:OrnateSigil.kt$1.2f</ID>
@@ -945,6 +954,7 @@
     <ID>MaxLineLength:OnboardingViewModelTest.kt$OnboardingViewModelTest$assertNull("no profile is created for a below-minimum-age user", runBlocking { db.playerDao().getProfile(LOCAL_USER_ID) })</ID>
     <ID>MaxLineLength:OnboardingViewModelTest.kt$OnboardingViewModelTest$vm.updateDraft { it.copy(currentWeightKg = 95.0, heightCm = 180.0, weightUnit = com.ascend.core.common.WeightUnit.KILOGRAMS) }</ID>
     <ID>MaxLineLength:OrnateSigil.kt$drawCircle(StatusPalette.cyan.copy(alpha = 0.95f), radius = 4.5f, center = Offset(0f, -geo.radius * 0.4f))</ID>
+    <ID>MaxLineLength:OrnateSigil.kt$drawCircle(accent.copy(alpha = 0.5f * (1f - anim.wave)), radius = waveRadius, center = Offset.Zero, style = Stroke(width = 2f))</ID>
     <ID>MaxLineLength:OrnateSigil.kt$drawPath(geo.motif, StatusPalette.cyanSoft.copy(alpha = a * w.outerMotif), style = Stroke(width = 1f, cap = StrokeCap.Round))</ID>
     <ID>MaxLineLength:OrnateSigil.kt$drawPath(mg.supportRing, StatusPalette.cyanSoft.copy(alpha = a * w.arcs), style = Stroke(width = 1f, cap = StrokeCap.Round))</ID>
     <ID>MaxLineLength:OrnateSigil.kt$primaryRing?.let { ringTrack(it.radius(geo.radius), StatusPalette.cyan.copy(alpha = glowE * 0.6f), weight = 7f) }</ID>
@@ -1108,6 +1118,7 @@
     <ID>MaxLineLength:StatusPrototypeControls.kt$ToggleRow("Stationary-layer overlay", controller.stationaryOverlay) { controller.stationaryOverlay = it }</ID>
     <ID>MaxLineLength:StatusPrototypeMotion.kt$StatusPrototypeMotion$attrValue[i].animateTo(line.value.toFloat(), motion.tween(AscendMotionTokens.STANDARD, AscendEasing.settle))</ID>
     <ID>MaxLineLength:StatusPrototypeMotion.kt$StatusPrototypeMotion$frameEnergy.animateTo(1f, motion.tween(frameToken, if (everyday) AscendEasing.settle else AscendEasing.emphasize))</ID>
+    <ID>MaxLineLength:StatusPrototypeMotion.kt$StatusPrototypeMotion$tween(durationMillis = (profile.durationMs * motion.speedScale).toInt().coerceAtLeast(1), easing = profile.easing)</ID>
     <ID>MaxLineLength:StatusPrototypePanelContent.kt$Text("${data.questProgress} / ${data.questTarget}", color = StatusPalette.textMuted, fontSize = 12.sp, maxLines = 1)</ID>
     <ID>MaxLineLength:StatusPrototypePanelContent.kt$Text(data.title, color = StatusPalette.textMuted, fontSize = 12.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)</ID>
     <ID>MaxLineLength:StatusPrototypePanelContent.kt$Text(text.uppercase(), color = StatusPalette.label, fontSize = 11.sp, letterSpacing = 2.sp, textAlign = TextAlign.Start)</ID>

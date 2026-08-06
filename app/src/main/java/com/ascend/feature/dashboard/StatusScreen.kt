@@ -47,6 +47,8 @@ import com.ascend.feature.dashboard.prototype.OrnateSigilAnimation
 import com.ascend.feature.dashboard.prototype.OrnateSigilState
 import com.ascend.feature.dashboard.prototype.ProficiencyBlock
 import com.ascend.feature.dashboard.prototype.ProgressionBars
+import com.ascend.feature.dashboard.prototype.SigilOpacityProfile
+import com.ascend.feature.dashboard.prototype.SigilRotationProfile
 import com.ascend.feature.dashboard.prototype.StatusAtmosphere
 import com.ascend.feature.dashboard.prototype.StatusClassVariant
 import com.ascend.feature.dashboard.prototype.StatusFog
@@ -54,7 +56,7 @@ import com.ascend.feature.dashboard.prototype.StatusPalette
 import com.ascend.feature.dashboard.prototype.StatusParticleField
 import com.ascend.feature.dashboard.prototype.StatusPrototypeData
 import com.ascend.feature.dashboard.prototype.StatusPrototypeMotion
-import com.ascend.feature.dashboard.prototype.StatusSigilVariant
+import com.ascend.feature.dashboard.prototype.classAccent
 import com.ascend.feature.dashboard.prototype.sigilDescription
 
 private const val ATTRIBUTE_COUNT = 5
@@ -92,7 +94,8 @@ fun StatusScreen(
         )
     val reduced = state.reducedMotion
     val motionSpec = MotionSpec(reducedMotion = reduced)
-    val accent = StatusSigilVariant.of(data.variant).core
+    // Adopted refined direction: warm Berserker (handoff hue ~25); Monk/Magician unchanged.
+    val accent = classAccent(data.variant, warm = true)
 
     val motion = remember { StatusPrototypeMotion(ATTRIBUTE_COUNT) }
 
@@ -231,6 +234,14 @@ private fun StatusPanelContent(
                     .aspectRatio(1f)
                     .offset(y = (-28).dp),
             frameMotion = ambient,
+            // Adopted refined sigil: class-distinct central geometry + core anchor + 12-mark support
+            // ring, only the ceremonial middle rotates, rings-forward opacity, restrained internal
+            // glow, and the warm Berserker treatment. Reduced motion still stops all rotation/drift.
+            rotationProfile = SigilRotationProfile.CEREMONIAL_MIDDLE,
+            opacityProfile = SigilOpacityProfile.RING_FORWARD,
+            classGeometry = true,
+            internalGlow = true,
+            warmAccents = true,
         )
         Column(Modifier.fillMaxWidth().padding(24.dp)) {
             IdentityBlock(data, accent, motion.levelReveal.value)

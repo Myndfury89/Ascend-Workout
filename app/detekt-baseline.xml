@@ -400,8 +400,8 @@
     <ID>MagicNumber:OrnateSigil.kt$6f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.028f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.02f</ID>
+    <ID>MagicNumber:OrnateSigilGeometry.kt$0.035f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.03f</ID>
-    <ID>MagicNumber:OrnateSigilGeometry.kt$0.045f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.04f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.05f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.06f</ID>
@@ -409,20 +409,20 @@
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.085f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.08f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.09f</ID>
+    <ID>MagicNumber:OrnateSigilGeometry.kt$0.10f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.11f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.13f</ID>
+    <ID>MagicNumber:OrnateSigilGeometry.kt$0.14f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.15f</ID>
-    <ID>MagicNumber:OrnateSigilGeometry.kt$0.19f</ID>
-    <ID>MagicNumber:OrnateSigilGeometry.kt$0.1f</ID>
-    <ID>MagicNumber:OrnateSigilGeometry.kt$0.20f</ID>
+    <ID>MagicNumber:OrnateSigilGeometry.kt$0.17f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.22f</ID>
-    <ID>MagicNumber:OrnateSigilGeometry.kt$0.24f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.28f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.2f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.30f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.32f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.34f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.35f</ID>
+    <ID>MagicNumber:OrnateSigilGeometry.kt$0.38f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.3f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.45f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.55f</ID>
@@ -439,7 +439,6 @@
     <ID>MagicNumber:OrnateSigilGeometry.kt$200f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$20f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$3</ID>
-    <ID>MagicNumber:OrnateSigilGeometry.kt$30f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$360f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$36f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$4</ID>
@@ -870,7 +869,6 @@
     <ID>MaxLineLength:OrnateSigilGeometry.kt$drawArc(color, 200f, 160f, false, topLeft = center + Offset(-u * 0.5f, -u * 0.5f), size = Size(u, u), style = s)</ID>
     <ID>MaxLineLength:OrnateSigilGeometry.kt$drawArc(color, 20f, 140f, false, topLeft = center + Offset(-u * 0.5f, -u * 0.2f), size = Size(u, u), style = s)</ID>
     <ID>MaxLineLength:OrnateSigilGeometry.kt$drawArc(color, 20f, 160f, false, topLeft = center + Offset(-u * 0.3f, -u * 0.3f), size = Size(u * 0.6f, u * 0.6f), style = s)</ID>
-    <ID>MaxLineLength:OrnateSigilGeometry.kt$innerPaths += polygonPath(cfg.basePolygonSides, r * 0.30f, -90f + (i + 1) * (180f / (cfg.rotatedPolygons + 1)))</ID>
     <ID>MaxLineLength:OrnateSigilGeometry.kt$innerPaths += polygonPath(cfg.basePolygonSides, r * 0.34f, -90f + (i + 1) * (180f / (cfg.rotatedPolygons + 1)))</ID>
     <ID>MaxLineLength:OrnateSigilGeometry.kt$innerPaths += starPath(cfg.basePolygonSides, r * (0.30f - layer * 0.04f), r * (0.15f - layer * 0.02f).coerceAtLeast(0.05f), rot)</ID>
     <ID>MaxLineLength:OrnateSigilMapping.kt$/** e.g. "Gold-rank Monk seal. Player level progress 72 percent. Class level progress 44 percent. Discipline recently increased." */</ID>

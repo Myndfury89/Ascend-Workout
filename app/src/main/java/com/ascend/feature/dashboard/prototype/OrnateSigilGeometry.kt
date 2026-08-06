@@ -56,29 +56,33 @@ private fun classCentralPaths(
     sides: Int,
 ): List<Path> =
     when (structure) {
-        // Berserker — a bold five-point star with a second, offset intersecting star for angular force.
+        // Berserker — one bold five-point star with long sharp spikes (aggressive, 5-fold), grounded
+        // by a small inner pentagon so it never reads as a generic many-pointed star.
         CentralStructure.FIVE_POINT_STAR ->
             listOf(
-                starPath(5, r * 0.34f, r * 0.13f, -90f),
-                starPath(5, r * 0.20f, r * 0.075f, -90f + 36f),
+                starPath(5, r * 0.38f, r * 0.10f, -90f),
+                polygonPath(5, r * 0.14f, -90f + 36f),
             )
-        // Monk — two interlocking triangles (hexagram) plus a thin third triangle: disciplined symmetry.
+        // Monk — a flat-sided hexagon (the distinctive read) enclosing an inscribed hexagram: 6-fold
+        // disciplined symmetry, calm and geometric rather than spiky.
         CentralStructure.HEXAGRAM ->
             listOf(
-                polygonPath(3, r * 0.32f, -90f),
-                polygonPath(3, r * 0.32f, 90f),
-                polygonPath(3, r * 0.24f, 30f),
+                polygonPath(6, r * 0.30f, -90f),
+                polygonPath(3, r * 0.28f, -90f),
+                polygonPath(3, r * 0.28f, 90f),
             )
-        // Magician — four overlapping circles forming a rosette, with a small central circle.
+        // Magician — an all-curves six-petal rosette inside a bounding circle: flowing, circular,
+        // no straight lines anywhere.
         CentralStructure.ROSETTE ->
             buildList {
-                val off = r * 0.13f
-                val cr = r * 0.19f
-                for (k in 0 until 4) {
-                    val a = -Math.PI / 2 + Math.PI / 2 * k
+                val petals = 6
+                val off = r * 0.17f
+                val cr = r * 0.17f
+                for (k in 0 until petals) {
+                    val a = -Math.PI / 2 + 2.0 * Math.PI * k / petals
                     add(circlePath(Offset((cos(a) * off).toFloat(), (sin(a) * off).toFloat()), cr))
                 }
-                add(circlePath(Offset.Zero, r * 0.1f))
+                add(circlePath(Offset.Zero, r * 0.30f))
             }
         // Neutral — the legacy polygon + star look, so an unselected class stays understated.
         CentralStructure.LAYERED_POLYGON ->
@@ -145,14 +149,11 @@ fun buildOrnateGeometry(
     val innerPaths = mutableListOf<Path>()
 
     if (key.classDistinct) {
-        // CP2: the class's distinct central silhouette leads; rank adds complexity around it without
-        // muddying the class read (nested + rotated polygons kept restrained).
+        // CP2: the class's distinct central silhouette leads and must dominate the read. Rank adds
+        // only small nested inner detail — no full-size rank polygon that would blur the class shape.
         innerPaths += classCentralPaths(classGeo.central, r, cfg.basePolygonSides)
         for (i in 0 until cfg.nestedPolygons) {
-            innerPaths += polygonPath(cfg.basePolygonSides + 1, r * (0.20f - i * 0.045f).coerceAtLeast(0.08f), -90f)
-        }
-        for (i in 0 until cfg.rotatedPolygons) {
-            innerPaths += polygonPath(cfg.basePolygonSides, r * 0.30f, -90f + (i + 1) * (180f / (cfg.rotatedPolygons + 1)))
+            innerPaths += polygonPath(cfg.basePolygonSides + 1, r * (0.15f - i * 0.035f).coerceAtLeast(0.06f), -90f)
         }
     } else {
         // Legacy (current production) construction — unchanged.

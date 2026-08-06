@@ -219,7 +219,7 @@ data class SigilOpacityWeights(
         val RingForward =
             SigilOpacityWeights(
                 aura = 0.05f, outerMotif = 0.28f, ringPrimary = 1.55f, ringSecondary = 1.15f,
-                centralCap = 0.55f, connectors = 0.30f, arcs = 0.28f,
+                centralCap = 0.64f, connectors = 0.30f, arcs = 0.28f,
                 playerMult = 3.0f, playerCap = 0.97f, playerGlow = 0.25f, playerFinalCap = 1.0f,
                 classMult = 2.6f, classCap = 0.90f, classFinalCap = 0.97f,
                 medallionMult = 0.9f, medallionFinalCap = 0.80f,

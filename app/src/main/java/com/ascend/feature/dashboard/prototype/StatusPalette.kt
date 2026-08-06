@@ -20,6 +20,10 @@ object StatusPalette {
     val indigo = Color(0xFF3B2E8C)
     val indigoDeep = Color(0xFF1C1740)
 
+    // Warm class energy (Berserker) — a controlled red-orange (handoff hue ~25), not neon.
+    val ember = Color(0xFFF9744F)
+    val emberSoft = Color(0xFFFF9E7E)
+
     // Highlight + information.
     val cyan = Color(0xFF4FE3FF)
     val cyanSoft = Color(0xFF7FE9FF)

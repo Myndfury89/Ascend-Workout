@@ -84,7 +84,8 @@ fun AscendMotionPrototypeScreen(
         )
     val reduced = controller.reducedMotion || data.reducedMotion
     val motionSpec = MotionSpec(reducedMotion = reduced, speedScale = controller.motionSpeed.scale)
-    val accent = StatusSigilVariant.of(controller.variant).core
+    // Refined prototype warms Berserker to a red-orange (handoff hue ~25); Monk/Magician unchanged.
+    val accent = classAccent(controller.variant, controller.sigilRefined)
 
     val motion = remember { StatusPrototypeMotion(ATTRIBUTE_COUNT) }
     LaunchedEffect(controller.stateId, controller.variant, controller.replayKey, reduced, controller.entranceMode) {
@@ -239,6 +240,7 @@ private fun MotionReviewViewport(
                     stationaryOverlay = controller.stationaryOverlay,
                     classGeometry = controller.sigilRefined,
                     internalGlow = controller.sigilRefined && controller.sigilGlow,
+                    warmAccents = controller.sigilRefined,
                 )
                 Box(Modifier.align(Alignment.TopCenter)) {
                     EventOverlayChip(data.overlay, accent, motion.overlayReveal.value, motion.eventFlash.value)

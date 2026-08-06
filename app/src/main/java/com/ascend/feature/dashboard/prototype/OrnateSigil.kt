@@ -44,6 +44,7 @@ fun OrnateSigil(
     stationaryOverlay: Boolean = false,
     classGeometry: Boolean = false,
     internalGlow: Boolean = false,
+    warmAccents: Boolean = false,
 ) {
     val density = LocalDensity.current
     BoxWithConstraints(modifier) {
@@ -56,7 +57,7 @@ fun OrnateSigil(
             val center = Offset(size.width / 2f, size.height / 2f)
             drawOrnateSigil(
                 state, animation, geometry, center, minimal, frameMotion,
-                rotationProfile, opacityProfile, stationaryOverlay, classGeometry, internalGlow,
+                rotationProfile, opacityProfile, stationaryOverlay, classGeometry, internalGlow, warmAccents,
             )
         }
     }
@@ -75,6 +76,7 @@ private fun DrawScope.drawOrnateSigil(
     stationaryOverlay: Boolean,
     classGeometry: Boolean,
     internalGlow: Boolean,
+    warmAccents: Boolean,
 ) {
     val assembly = anim.assembly.coerceIn(0f, 1f)
     // A brief opacity bump mid-assembly (25–35%), settling back to the restrained default.
@@ -94,7 +96,8 @@ private fun DrawScope.drawOrnateSigil(
     // areas never bloom out. Rendered as WIDE FAINT under-strokes beneath the crisp lines, so line
     // quality and shape are always preserved inside the glow. Concentrated on rings + central geometry.
     val glowE = if (internalGlow) (op * 0.7f + anim.glow * 0.6f).coerceAtMost(0.34f) else 0f
-    val accent = accentBlend(state.variant)
+    val accent = accentBlend(state.variant, warmAccents)
+    val proficiencyColor = classAccent(state.variant, warmAccents)
 
     translate(center.x, center.y) {
         // Layer 1 — background ornament (faintest): a soft aura.
@@ -151,7 +154,7 @@ private fun DrawScope.drawOrnateSigil(
                 val la = if (newest) (a * 1.2f + anim.glow * 0.3f) else a
                 drawPath(
                     path,
-                    accentBlend(state.variant).copy(alpha = la.coerceAtMost(w.centralCap)),
+                    accent.copy(alpha = la.coerceAtMost(w.centralCap)),
                     style = Stroke(width = centralWeight),
                 )
             }
@@ -168,7 +171,7 @@ private fun DrawScope.drawOrnateSigil(
         if (classGeometry) {
             geo.coreAnchor?.let { anchor ->
                 val anchorAlpha = (a * 1.5f).coerceAtMost((w.centralCap + 0.12f).coerceAtMost(0.9f))
-                drawPath(anchor, accentBlend(state.variant).copy(alpha = anchorAlpha), style = Stroke(width = centralWeight))
+                drawPath(anchor, accent.copy(alpha = anchorAlpha), style = Stroke(width = centralWeight))
             }
         }
         // Inner detail arcs — reversed parallax against the middle under the ceremonial rule.
@@ -216,7 +219,7 @@ private fun DrawScope.drawOrnateSigil(
         // the brightest temporary element, and each medallion's colour is swappable independently.
         geo.instrumentation.medallions.forEach { m ->
             val pulse = if (m.isProficiency) anim.proficiencyPulse else anim.medallionPulse.getOrElse(m.pulseIndex) { 1f }
-            val color = medallionColor(m.role.ordinal, m.isProficiency, state.variant)
+            val color = medallionColor(m.role.ordinal, m.isProficiency, proficiencyColor)
             val extra = ((pulse - 1f) / 0.18f).coerceIn(0f, 1f) * 0.45f
             val mAlpha = (a * w.medallionMult + extra).coerceAtMost(w.medallionFinalCap)
             val mRadius = geo.medallionRadius * (if (m.isProficiency) 1.25f else 1f) * pulse
@@ -273,21 +276,26 @@ private fun DrawScope.ringArc(
     )
 }
 
-private fun accentBlend(variant: StatusClassVariant): Color =
-    when (variant) {
-        StatusClassVariant.BERSERKER -> StatusPalette.violetBright
-        StatusClassVariant.MONK -> StatusPalette.cyanSoft
-        StatusClassVariant.MAGICIAN -> StatusPalette.violet
-        StatusClassVariant.NEUTRAL -> StatusPalette.infoLine
+private fun accentBlend(
+    variant: StatusClassVariant,
+    warm: Boolean,
+): Color =
+    when {
+        // Refined-prototype warm treatment: Berserker's linework reads red-orange, not violet.
+        warm && variant == StatusClassVariant.BERSERKER -> StatusPalette.ember
+        variant == StatusClassVariant.BERSERKER -> StatusPalette.violetBright
+        variant == StatusClassVariant.MONK -> StatusPalette.cyanSoft
+        variant == StatusClassVariant.MAGICIAN -> StatusPalette.violet
+        else -> StatusPalette.infoLine
     }
 
 private fun medallionColor(
     index: Int,
     proficiency: Boolean,
-    variant: StatusClassVariant,
+    proficiencyColor: Color,
 ): Color =
     if (proficiency) {
-        StatusSigilVariant.of(variant).core
+        proficiencyColor
     } else {
         AttributeAccent[AttributeOrder.getOrElse(index) { "Discipline" }] ?: StatusPalette.infoLine
     }

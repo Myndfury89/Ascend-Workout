@@ -24,3 +24,13 @@ enum class StatusSigilVariant(val core: Color) {
             }
     }
 }
+
+/**
+ * The class accent, with the refined-prototype warm treatment. When [warm] is set, **Berserker reads
+ * as a controlled red-orange** ([StatusPalette.ember], handoff hue ~25) instead of amber — Monk and
+ * Magician are unchanged. [warm] is off by default, so production keeps the current accents.
+ */
+fun classAccent(
+    variant: StatusClassVariant,
+    warm: Boolean,
+): Color = if (warm && variant == StatusClassVariant.BERSERKER) StatusPalette.ember else StatusSigilVariant.of(variant).core

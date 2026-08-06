@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: oklch(0.13 0.014 258); }
+  a { color: oklch(0.74 0.15 250); }
+  a:hover { color: oklch(0.82 0.13 250); }
+  @keyframes ascendFlash { 0% { background: oklch(0.74 0.15 250 / 0.55); } 100% { background: transparent; } }
+  @keyframes ascendDrift { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
+  @keyframes sigilSpinCW { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes sigilSpinCCW { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-thumb { background: oklch(0.34 0.02 258); border-radius: 4px; }
+</style>
+<script src="./android-frame.jsx"></script>
+</helmet>
+
+<div style="{{ styles.root }}">
+
+  <div style="{{ styles.headerBar }}">
+    <div>
+      <div style="{{ styles.h1 }}">ASCEND — MOTION SYSTEM</div>
+      <div style="{{ styles.h1sub }}">v1 · portrait-first fitness RPG · assemble / charge / lock / ascend</div>
+    </div>
+    <div style="{{ styles.frameToggleWrap }}">
+      <button style="{{ frameModeBtnStyle.framed }}" onClick="{{ setFrameFramed }}">FRAMED</button>
+      <button style="{{ frameModeBtnStyle.canvas }}" onClick="{{ setFrameCanvas }}">CANVAS</button>
+    </div>
+  </div>
+
+  <div style="{{ styles.mainRow }}">
+
+    <div style="{{ styles.stageCol }}">
+      <sc-if value="{{ frameFramed }}" hint-placeholder-val="{{ true }}">
+        <x-import component-from-global-scope="AndroidDevice" from="./android-frame.jsx" dark="{{ true }}" width="{{ 412 }}" height="{{ 892 }}" hint-size="412,892">
+          <div style="{{ styles.appCanvasWrap }}">
+            <div style="{{ screen.wrap }}">
+              <div style="{{ screen.glow }}"></div>
+              <div style="{{ screen.railTop }}"></div>
+              <div style="{{ screen.railBottom }}"></div>
+              <div style="{{ screen.panelTrace }}"></div>
+              <sc-for list="{{ screen.corners }}" as="cn" hint-placeholder-count="4">
+                <div style="{{ cn.style }}"></div>
+              </sc-for>
+              <div style="{{ screen.shockwave }}"></div>
+              <div style="{{ screen.headerRow }}">
+                <div style="{{ screen.wordmark }}">ASCEND</div>
+                <div style="{{ screen.rankChip }}">IRON RANK</div>
+              </div>
+              <div style="{{ screen.sigilZone }}">
+                <svg width="300" height="300" style="{{ screen.svgStyle }}">
+                  <g style="{{ screen.spinOuter }}">
+                    <circle cx="150" cy="150" r="145" fill="none" stroke="{{ screen.bezelStroke }}" stroke-width="1"></circle>
+                    <circle cx="150" cy="150" r="136" fill="none" stroke="{{ screen.bezelStroke }}" stroke-width="0.6" opacity="0.6"></circle>
+                    <sc-for list="{{ screen.spokes }}" as="sp" hint-placeholder-count="16">
+                      <line x1="{{ sp.x1 }}" y1="{{ sp.y1 }}" x2="{{ sp.x2 }}" y2="{{ sp.y2 }}" stroke="{{ screen.accent }}" stroke-width="0.6" style="{{ sp.style }}"></line>
+                    </sc-for>
+                    <sc-for list="{{ screen.dots }}" as="dt" hint-placeholder-count="28">
+                      <circle cx="{{ dt.cx }}" cy="{{ dt.cy }}" r="1.4" fill="{{ screen.accent }}" style="{{ dt.style }}"></circle>
+                    </sc-for>
+                    <circle cx="150" cy="150" r="130" fill="none" stroke="{{ screen.lineSoft }}" stroke-width="2" opacity="0.5"></circle>
+                    <circle cx="150" cy="150" r="130" fill="none" stroke="{{ screen.accent }}" stroke-width="2.5" stroke-linecap="round" transform="rotate(-90 150 150)" stroke-dasharray="{{ screen.outerCirc }}" stroke-dashoffset="{{ screen.outerOffset }}" style="{{ screen.outerRingStyle }}"></circle>
+                  </g>
+                  <g style="{{ screen.spinDots2 }}">
+                    <sc-for list="{{ screen.dots2 }}" as="du" hint-placeholder-count="40">
+                      <circle cx="{{ du.cx }}" cy="{{ du.cy }}" r="1" fill="{{ screen.accent }}" style="{{ du.style }}"></circle>
+                    </sc-for>
+                  </g>
+                  <g style="{{ screen.spinGlyphs }}">
+                    <sc-for list="{{ screen.glyphs }}" as="g" hint-placeholder-count="8">
+                      <sc-if value="{{ g.isCircle }}" hint-placeholder-val="{{ true }}">
+                        <circle cx="{{ g.cx }}" cy="{{ g.cy }}" r="4" fill="none" stroke="{{ screen.accent }}" stroke-width="1.5" style="{{ g.style }}"></circle>
+                      </sc-if>
+                      <sc-if value="{{ g.notCircle }}" hint-placeholder-val="{{ false }}">
+                        <rect x="{{ g.x }}" y="{{ g.y }}" width="7" height="7" fill="none" stroke="{{ screen.accent }}" stroke-width="1.5" transform="{{ g.rotateAttr }}" style="{{ g.style }}"></rect>
+                      </sc-if>
+                    </sc-for>
+                  </g>
+                  <g style="{{ screen.spinInner }}">
+                    <circle cx="150" cy="150" r="100" fill="none" stroke="{{ screen.lineSoft }}" stroke-width="2" opacity="0.5"></circle>
+                    <circle cx="150" cy="150" r="100" fill="none" stroke="{{ screen.classAccent }}" stroke-width="2.5" stroke-linecap="round" transform="rotate(-90 150 150)" stroke-dasharray="{{ screen.innerCirc }}" stroke-dashoffset="{{ screen.innerOffset }}" style="{{ screen.innerRingStyle }}"></circle>
+                  </g>
+                  <g style="{{ screen.spinGlyphs2 }}">
+                    <sc-for list="{{ screen.glyphs2 }}" as="g3" hint-placeholder-count="12">
+                      <sc-if value="{{ g3.isCircle }}" hint-placeholder-val="{{ true }}">
+                        <circle cx="{{ g3.cx }}" cy="{{ g3.cy }}" r="{{ g3.r }}" fill="none" stroke="{{ screen.classAccent }}" stroke-width="1.1" style="{{ g3.style }}"></circle>
+                      </sc-if>
+                      <sc-if value="{{ g3.notCircle }}" hint-placeholder-val="{{ false }}">
+                        <rect x="{{ g3.x }}" y="{{ g3.y }}" width="5" height="5" fill="none" stroke="{{ screen.classAccent }}" stroke-width="1.1" transform="{{ g3.rotateAttr }}" style="{{ g3.style }}"></rect>
+                      </sc-if>
+                    </sc-for>
+                  </g>
+                  <g style="{{ screen.hexSpin }}">
+                    <g style="{{ screen.hexStyle }}">
+                      <sc-if value="{{ screen.isMonk }}" hint-placeholder-val="{{ true }}">
+                        <polygon points="{{ screen.hexPoly1 }}" fill="none" stroke="{{ screen.classAccent }}" stroke-width="1.3"></polygon>
+                        <polygon points="{{ screen.hexPoly2 }}" fill="none" stroke="{{ screen.classAccent }}" stroke-width="1.3"></polygon>
+                        <polygon points="{{ screen.hexPoly3 }}" fill="none" stroke="{{ screen.accent }}" stroke-width="1"></polygon>
+                      </sc-if>
+                      <sc-if value="{{ screen.isBerserker }}" hint-placeholder-val="{{ false }}">
+                        <polygon points="{{ screen.berserkerStar }}" fill="none" stroke="{{ screen.classAccent }}" stroke-width="{{ screen.berserkerStarStroke }}"></polygon>
+                      </sc-if>
+                      <sc-if value="{{ screen.isMagician }}" hint-placeholder-val="{{ false }}">
+                        <sc-for list="{{ screen.magicianRings }}" as="mr" hint-placeholder-count="4">
+                          <circle cx="{{ mr.cx }}" cy="{{ mr.cy }}" r="{{ mr.r }}" fill="none" stroke="{{ screen.classAccent }}" stroke-width="1.1"></circle>
+                        </sc-for>
+                      </sc-if>
+                    </g>
+                  </g>
+                  <g style="{{ screen.anchorStyle }}">
+                    <sc-if value="{{ screen.isMonk }}" hint-placeholder-val="{{ true }}">
+                      <polygon points="{{ screen.monkAnchor }}" fill="none" stroke="{{ screen.anchorStroke }}" stroke-width="{{ screen.anchorStrokeWidth }}"></polygon>
+                    </sc-if>
+                    <sc-if value="{{ screen.isBerserker }}" hint-placeholder-val="{{ false }}">
+                      <polygon points="{{ screen.berserkerAnchor }}" fill="none" stroke="{{ screen.anchorStroke }}" stroke-width="{{ screen.anchorStrokeWidth }}"></polygon>
+                    </sc-if>
+                    <sc-if value="{{ screen.isMagician }}" hint-placeholder-val="{{ false }}">
+                      <circle cx="150" cy="150" r="{{ screen.magicianAnchorR }}" fill="none" stroke="{{ screen.anchorStroke }}" stroke-width="{{ screen.anchorStrokeWidth }}"></circle>
+                    </sc-if>
+                  </g>
+                  <circle cx="150" cy="150" r="140" fill="none" stroke="{{ screen.classAccent }}" stroke-width="1" style="{{ screen.centerWave }}"></circle>
+                  <sc-for list="{{ screen.breakthroughBurst }}" as="bb" hint-placeholder-count="12">
+                    <line x1="{{ bb.x1 }}" y1="{{ bb.y1 }}" x2="{{ bb.x2 }}" y2="{{ bb.y2 }}" stroke="{{ screen.classAccent }}" stroke-width="1" style="{{ bb.style }}"></line>
+                  </sc-for>
+                </svg>
+                <sc-for list="{{ screen.medallions }}" as="m" hint-placeholder-count="4">
+                  <div style="{{ m.style }}">{{ m.label }}</div>
+                </sc-for>
+                <sc-for list="{{ screen.decorMedallions }}" as="dm" hint-placeholder-count="4">
+                  <div style="{{ dm.style }}"></div>
+                </sc-for>
+                <div style="{{ screen.pulse }}"></div>
+                <sc-for list="{{ screen.particles }}" as="pt" hint-placeholder-count="6">
+                  <div style="{{ pt.style }}"></div>
+                </sc-for>
+              </div>
+              <div style="{{ screen.classBadgeWrap }}">
+                <div style="{{ screen.classBadge }}"></div>
+                <div style="{{ screen.classLabel }}">{{ screen.classText }}</div>
+              </div>
+              <div style="{{ screen.identityName }}">AREN VALE</div>
+              <div style="{{ screen.identityLevel }}">{{ screen.identityLevelText }}</div>
+              <div style="{{ screen.breakthroughWrap }}">
+                <div style="{{ screen.breakthroughLabel }}">THRESHOLD SURPASSED</div>
+                <div style="{{ screen.breakthroughValue }}">LV 13</div>
+              </div>
+              <div style="{{ screen.skillCard }}">
+                <div style="{{ screen.skillIcon }}"></div>
+                <div style="{{ screen.skillName }}">{{ screen.skillLabelText }}</div>
+                <div style="{{ screen.skillStatus }}">{{ screen.skillStatusText }}</div>
+              </div>
+              <div style="{{ screen.statRow }}">
+                <sc-for list="{{ screen.chips }}" as="c" hint-placeholder-count="4">
+                  <div style="{{ c.style }}">
+                    <div style="{{ c.labelStyle }}">{{ c.label }}</div>
+                    <div style="{{ c.valueStyle }}">{{ c.value }}</div>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="{{ screen.dockRow }}">
+                <sc-for list="{{ screen.dock }}" as="dk" hint-placeholder-count="4">
+                  <div style="{{ dk.style }}">
+                    <div style="{{ dk.iconStyle }}"></div>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="{{ screen.reducedFlash }}"></div>
+              <div style="{{ screen.timingLabel }}">{{ screen.timingText }}</div>
+              <div style="{{ screen.audioMarker }}">{{ screen.audioText }}</div>
+            </div>
+          </div>
+        </x-import>
+      </sc-if>
+      <sc-if value="{{ frameCanvas }}" hint-placeholder-val="{{ false }}">
+        <div style="{{ styles.canvasWrap }}">
+          <div style="{{ styles.canvasLabel }}">CANVAS — MOTION REVIEW (unframed, 412×828)</div>
+          <div style="{{ screen.wrap }}">
+            <div style="{{ screen.glow }}"></div>
+            <div style="{{ screen.railTop }}"></div>
+            <div style="{{ screen.railBottom }}"></div>
+            <div style="{{ screen.panelTrace }}"></div>
+            <sc-for list="{{ screen.corners }}" as="cn2" hint-placeholder-count="4">
+              <div style="{{ cn2.style }}"></div>
+            </sc-for>
+            <div style="{{ screen.shockwave }}"></div>
+            <div style="{{ screen.headerRow }}">
+              <div style="{{ screen.wordmark }}">ASCEND</div>
+              <div style="{{ screen.rankChip }}">IRON RANK</div>
+            </div>
+            <div style="{{ screen.sigilZone }}">
+              <svg width="300" height="300" style="{{ screen.svgStyle }}">
+                <g style="{{ screen.spinOuter }}">
+                  <circle cx="150" cy="150" r="145" fill="none" stroke="{{ screen.bezelStroke }}" stroke-width="1"></circle>
+                  <circle cx="150" cy="150" r="136" fill="none" stroke="{{ screen.bezelStroke }}" stroke-width="0.6" opacity="0.6"></circle>
+                  <sc-for list="{{ screen.spokes }}" as="spC" hint-placeholder-count="16">
+                    <line x1="{{ spC.x1 }}" y1="{{ spC.y1 }}" x2="{{ spC.x2 }}" y2="{{ spC.y2 }}" stroke="{{ screen.accent }}" stroke-width="0.6" style="{{ spC.style }}"></line>
+                  </sc-for>
+                  <sc-for list="{{ screen.dots }}" as="dt2" hint-placeholder-count="28">
+                    <circle cx="{{ dt2.cx }}" cy="{{ dt2.cy }}" r="1.4" fill="{{ screen.accent }}" style="{{ dt2.style }}"></circle>
+                  </sc-for>
+                  <circle cx="150" cy="150" r="130" fill="none" stroke="{{ screen.lineSoft }}" stroke-width="2" opacity="0.5"></circle>
+                  <circle cx="150" cy="150" r="130" fill="none" stroke="{{ screen.accent }}" stroke-width="2.5" stroke-linecap="round" transform="rotate(-90 150 150)" stroke-dasharray="{{ screen.outerCirc }}" stroke-dashoffset="{{ screen.outerOffset }}" style="{{ screen.outerRingStyle }}"></circle>
+                </g>
+                <g style="{{ screen.spinDots2 }}">
+                  <sc-for list="{{ screen.dots2 }}" as="duC" hint-placeholder-count="40">
+                    <circle cx="{{ duC.cx }}" cy="{{ duC.cy }}" r="1" fill="{{ screen.accent }}" style="{{ duC.style }}"></circle>
+                  </sc-for>
+                </g>
+                <g style="{{ screen.spinGlyphs }}">
+                  <sc-for list="{{ screen.glyphs }}" as="g2" hint-placeholder-count="8">
+                    <sc-if value="{{ g2.isCircle }}" hint-placeholder-val="{{ true }}">
+                      <circle cx="{{ g2.cx }}" cy="{{ g2.cy }}" r="4" fill="none" stroke="{{ screen.accent }}" stroke-width="1.5" style="{{ g2.style }}"></circle>
+                    </sc-if>
+                    <sc-if value="{{ g2.notCircle }}" hint-placeholder-val="{{ false }}">
+                      <rect x="{{ g2.x }}" y="{{ g2.y }}" width="7" height="7" fill="none" stroke="{{ screen.accent }}" stroke-width="1.5" transform="{{ g2.rotateAttr }}" style="{{ g2.style }}"></rect>
+                    </sc-if>
+                  </sc-for>
+                </g>
+                <g style="{{ screen.spinInner }}">
+                  <circle cx="150" cy="150" r="100" fill="none" stroke="{{ screen.lineSoft }}" stroke-width="2" opacity="0.5"></circle>
+                  <circle cx="150" cy="150" r="100" fill="none" stroke="{{ screen.classAccent }}" stroke-width="2.5" stroke-linecap="round" transform="rotate(-90 150 150)" stroke-dasharray="{{ screen.innerCirc }}" stroke-dashoffset="{{ screen.innerOffset }}" style="{{ screen.innerRingStyle }}"></circle>
+                </g>
+                <g style="{{ screen.spinGlyphs2 }}">
+                  <sc-for list="{{ screen.glyphs2 }}" as="g4" hint-placeholder-count="12">
+                    <sc-if value="{{ g4.isCircle }}" hint-placeholder-val="{{ true }}">
+                      <circle cx="{{ g4.cx }}" cy="{{ g4.cy }}" r="{{ g4.r }}" fill="none" stroke="{{ screen.classAccent }}" stroke-width="1.1" style="{{ g4.style }}"></circle>
+                    </sc-if>
+                    <sc-if value="{{ g4.notCircle }}" hint-placeholder-val="{{ false }}">
+                      <rect x="{{ g4.x }}" y="{{ g4.y }}" width="5" height="5" fill="none" stroke="{{ screen.classAccent }}" stroke-width="1.1" transform="{{ g4.rotateAttr }}" style="{{ g4.style }}"></rect>
+                    </sc-if>
+                  </sc-for>
+                </g>
+                <g style="{{ screen.hexSpin }}">
+                  <g style="{{ screen.hexStyle }}">
+                    <sc-if value="{{ screen.isMonk }}" hint-placeholder-val="{{ true }}">
+                      <polygon points="{{ screen.hexPoly1 }}" fill="none" stroke="{{ screen.classAccent }}" stroke-width="1.3"></polygon>
+                      <polygon points="{{ screen.hexPoly2 }}" fill="none" stroke="{{ screen.classAccent }}" stroke-width="1.3"></polygon>
+                      <polygon points="{{ screen.hexPoly3 }}" fill="none" stroke="{{ screen.accent }}" stroke-width="1"></polygon>
+                    </sc-if>
+                    <sc-if value="{{ screen.isBerserker }}" hint-placeholder-val="{{ false }}">
+                      <polygon points="{{ screen.berserkerStar }}" fill="none" stroke="{{ screen.classAccent }}" stroke-width="{{ screen.berserkerStarStroke }}"></polygon>
+                    </sc-if>
+                    <sc-if value="{{ screen.isMagician }}" hint-placeholder-val="{{ false }}">
+                      <sc-for list="{{ screen.magicianRings }}" as="mrC" hint-placeholder-count="4">
+                        <circle cx="{{ mrC.cx }}" cy="{{ mrC.cy }}" r="{{ mrC.r }}" fill="none" stroke="{{ screen.classAccent }}" stroke-width="1.1"></circle>
+                      </sc-for>
+                    </sc-if>
+                  </g>
+                </g>
+                <g style="{{ screen.anchorStyle }}">
+                  <sc-if value="{{ screen.isMonk }}" hint-placeholder-val="{{ true }}">
+                    <polygon points="{{ screen.monkAnchor }}" fill="none" stroke="{{ screen.anchorStroke }}" stroke-width="{{ screen.anchorStrokeWidth }}"></polygon>
+                  </sc-if>
+                  <sc-if value="{{ screen.isBerserker }}" hint-placeholder-val="{{ false }}">
+                    <polygon points="{{ screen.berserkerAnchor }}" fill="none" stroke="{{ screen.anchorStroke }}" stroke-width="{{ screen.anchorStrokeWidth }}"></polygon>
+                  </sc-if>
+                  <sc-if value="{{ screen.isMagician }}" hint-placeholder-val="{{ false }}">
+                    <circle cx="150" cy="150" r="{{ screen.magicianAnchorR }}" fill="none" stroke="{{ screen.anchorStroke }}" stroke-width="{{ screen.anchorStrokeWidth }}"></circle>
+                  </sc-if>
+                </g>
+                <circle cx="150" cy="150" r="140" fill="none" stroke="{{ screen.classAccent }}" stroke-width="1" style="{{ screen.centerWave }}"></circle>
+                <sc-for list="{{ screen.breakthroughBurst }}" as="bbC" hint-placeholder-count="12">
+                  <line x1="{{ bbC.x1 }}" y1="{{ bbC.y1 }}" x2="{{ bbC.x2 }}" y2="{{ bbC.y2 }}" stroke="{{ screen.classAccent }}" stroke-width="1" style="{{ bbC.style }}"></line>
+                </sc-for>
+              </svg>
+              <sc-for list="{{ screen.medallions }}" as="m2" hint-placeholder-count="4">
+                <div style="{{ m2.style }}">{{ m2.label }}</div>
+              </sc-for>
+              <sc-for list="{{ screen.decorMedallions }}" as="dm2" hint-placeholder-count="4">
+                <div style="{{ dm2.style }}"></div>
+              </sc-for>
+              <div style="{{ screen.pulse }}"></div>
+              <sc-for list="{{ screen.particles }}" as="pt2" hint-placeholder-count="6">
+                <div style="{{ pt2.style }}"></div>
+              </sc-for>
+            </div>
+            <div style="{{ screen.classBadgeWrap }}">
+              <div style="{{ screen.classBadge }}"></div>
+              <div style="{{ screen.classLabel }}">{{ screen.classText }}</div>
+            </div>
+            <div style="{{ screen.identityName }}">AREN VALE</div>
+            <div style="{{ screen.identityLevel }}">{{ screen.identityLevelText }}</div>
+            <div style="{{ screen.breakthroughWrap }}">
+              <div style="{{ screen.breakthroughLabel }}">THRESHOLD SURPASSED</div>
+              <div style="{{ screen.breakthroughValue }}">LV 13</div>
+            </div>
+            <div style="{{ screen.skillCard }}">
+              <div style="{{ screen.skillIcon }}"></div>
+              <div style="{{ screen.skillName }}">{{ screen.skillLabelText }}</div>
+              <div style="{{ screen.skillStatus }}">{{ screen.skillStatusText }}</div>
+            </div>
+            <div style="{{ screen.statRow }}">
+              <sc-for list="{{ screen.chips }}" as="c2" hint-placeholder-count="4">
+                <div style="{{ c2.style }}">
+                  <div style="{{ c2.labelStyle }}">{{ c2.label }}</div>
+                  <div style="{{ c2.valueStyle }}">{{ c2.value }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="{{ screen.dockRow }}">
+              <sc-for list="{{ screen.dock }}" as="dk2" hint-placeholder-count="4">
+                <div style="{{ dk2.style }}">
+                  <div style="{{ dk2.iconStyle }}"></div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="{{ screen.reducedFlash }}"></div>
+            <div style="{{ screen.timingLabel }}">{{ screen.timingText }}</div>
+            <div style="{{ screen.audioMarker }}">{{ screen.audioText }}</div>
+          </div>
+        </div>
+      </sc-if>
+
+      <div style="{{ styles.notesBlock }}">
+        <button style="{{ styles.notesToggle }}" onClick="{{ toggleNotes }}">{{ notesToggleLabel }} — JETPACK COMPOSE IMPLEMENTATION NOTES</button>
+        <sc-if value="{{ showNotes }}" hint-placeholder-val="{{ false }}">
+          <div style="{{ styles.notesPanel }}">
+            <sc-for list="{{ composeNotes }}" as="row" hint-placeholder-count="4">
+              <div style="{{ styles.noteRow }}">
+                <div style="{{ styles.noteEffect }}">{{ row.effect }}</div>
+                <div style="{{ styles.noteGrid }}">
+                  <div><span style="{{ styles.noteKey }}">primitive</span> {{ row.primitive }}</div>
+                  <div><span style="{{ styles.noteKey }}">token</span> {{ row.token }}</div>
+                  <div><span style="{{ styles.noteKey }}">easing</span> {{ row.easing }}</div>
+                  <div><span style="{{ styles.noteKey }}">props</span> {{ row.props }}</div>
+                  <div><span style="{{ styles.noteKey }}">cached path</span> {{ row.cached }}</div>
+                  <div><span style="{{ styles.noteKey }}">class</span> {{ row.classification }}</div>
+                  <div><span style="{{ styles.noteKey }}">perf risk</span> {{ row.risk }}</div>
+                  <div><span style="{{ styles.noteKey }}">reduced motion</span> {{ row.reduced }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+
+    <div style="{{ styles.rail }}">
+      <div style="{{ styles.railTitle }}">MOTION CONSOLE</div>
+
+      <div style="{{ styles.railSection }}">
+        <div style="{{ styles.railLabel }}">VERB LAB — isolated feel test</div>
+        <div style="{{ styles.verbRow }}">
+          <sc-for list="{{ verbs }}" as="v" hint-placeholder-count="4">
+            <button style="{{ v.btnStyle }}" onClick="{{ v.play }}">{{ v.name }}</button>
+          </sc-for>
+        </div>
+        <div style="{{ styles.verbPreviewWrap }}">
+          <div style="{{ verbPreviewStyle }}"></div>
+          <div style="{{ styles.verbPreviewLabel }}">{{ verbPreviewLabel }}</div>
+        </div>
+      </div>
+
+      <div style="{{ styles.railSection }}">
+        <div style="{{ styles.railLabel }}">TIER</div>
+        <div style="{{ styles.segRow }}">
+          <sc-for list="{{ tiers }}" as="t" hint-placeholder-count="4">
+            <button style="{{ t.btnStyle }}" onClick="{{ t.select }}">{{ t.name }}</button>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="{{ styles.railSection }}">
+        <div style="{{ styles.railLabel }}">DEMO</div>
+        <div style="{{ styles.demoList }}">
+          <sc-for list="{{ demos }}" as="d" hint-placeholder-count="6">
+            <button style="{{ d.btnStyle }}" onClick="{{ d.select }}">
+              <span style="{{ styles.demoName }}">{{ d.name }}</span>
+              <span style="{{ styles.demoTier }}">{{ d.tierLabel }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="{{ styles.railSection }}">
+        <div style="{{ styles.railLabel }}">PLAYBACK</div>
+        <div style="{{ styles.playRow }}">
+          <button style="{{ styles.replayBtn }}" onClick="{{ replay }}">▶ REPLAY</button>
+          <button style="{{ styles.pauseBtn }}" onClick="{{ togglePause }}">{{ pauseLabel }}</button>
+        </div>
+        <sc-if value="{{ isChain }}" hint-placeholder-val="{{ false }}">
+          <button style="{{ styles.chainBtn }}" onClick="{{ replay }}">↻ REPLAY CHAIN (repeat test)</button>
+        </sc-if>
+        <div style="{{ styles.phaseReadout }}">{{ phaseReadout }}</div>
+      </div>
+
+      <div style="{{ styles.railSection }}">
+        <div style="{{ styles.railLabel }}">SPEED</div>
+        <div style="{{ styles.segRow }}">
+          <sc-for list="{{ speeds }}" as="s" hint-placeholder-count="3">
+            <button style="{{ s.btnStyle }}" onClick="{{ s.select }}">{{ s.name }}</button>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="{{ styles.railSection }}">
+        <div style="{{ styles.railLabel }}">MOTION</div>
+        <div style="{{ styles.segRow }}">
+          <button style="{{ motionBtnStyle.normal }}" onClick="{{ setNormalMotion }}">NORMAL</button>
+          <button style="{{ motionBtnStyle.reduced }}" onClick="{{ setReducedMotion }}">REDUCED</button>
+        </div>
+      </div>
+
+      <sc-if value="{{ showClassVariant }}" hint-placeholder-val="{{ false }}">
+        <div style="{{ styles.railSection }}">
+          <div style="{{ styles.railLabel }}">CLASS VARIANT</div>
+          <div style="{{ styles.segRow }}">
+            <sc-for list="{{ classes }}" as="c" hint-placeholder-count="3">
+              <button style="{{ c.btnStyle }}" onClick="{{ c.select }}">{{ c.name }}</button>
+            </sc-for>
+          </div>
+          <div style="{{ styles.railNote }}">{{ classNote }}</div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ showSkillVariant }}" hint-placeholder-val="{{ false }}">
+        <div style="{{ styles.railSection }}">
+          <div style="{{ styles.railLabel }}">SKILL VARIANT</div>
+          <div style="{{ styles.demoList }}">
+            <sc-for list="{{ skills }}" as="sk" hint-placeholder-count="4">
+              <button style="{{ sk.btnStyle }}" onClick="{{ sk.select }}">{{ sk.name }}</button>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ showAttributeVariant }}" hint-placeholder-val="{{ false }}">
+        <div style="{{ styles.railSection }}">
+          <div style="{{ styles.railLabel }}">ATTRIBUTE VARIANT</div>
+          <div style="{{ styles.segRow }}">
+            <sc-for list="{{ attributes }}" as="a" hint-placeholder-count="3">
+              <button style="{{ a.btnStyle }}" onClick="{{ a.select }}">{{ a.name }}</button>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <div style="{{ styles.railSection }}">
+        <div style="{{ styles.railLabel }}">OVERLAYS</div>
+        <div style="{{ styles.toggleCol }}">
+          <button style="{{ toggleBtnStyle.timing }}" onClick="{{ toggleTiming }}">{{ timingToggleLabel }} TIMING LABELS</button>
+          <button style="{{ toggleBtnStyle.audio }}" onClick="{{ toggleAudio }}">{{ audioToggleLabel }} AUDIO / HAPTIC HOOKS</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="{{ styles.specSection }}">
+    <div style="{{ styles.specTitle }}">MOTION SPEC — REFERENCE</div>
+
+    <div style="{{ styles.specGrid }}">
+      <div style="{{ styles.specCard }}">
+        <div style="{{ styles.specCardTitle }}">Motion verbs</div>
+        <div style="{{ styles.specLine }}"><b>Assemble</b> — geometry, panels, sigils form from fragments and traced lines.</div>
+        <div style="{{ styles.specLine }}"><b>Charge</b> — energy gathers before an important progression event.</div>
+        <div style="{{ styles.specLine }}"><b>Lock</b> — values and results snap into a final precise state.</div>
+        <div style="{{ styles.specLine }}"><b>Ascend</b> — rank geometry and identity elements permanently gain complexity.</div>
+      </div>
+
+      <div style="{{ styles.specCard }}">
+        <div style="{{ styles.specCardTitle }}">Timing tokens (validated defaults)</div>
+        <div style="{{ styles.tokenRow }}"><span>ASSEMBLE</span><span>850ms</span><span>cubic-bezier(0.16,1,0.3,1)</span></div>
+        <div style="{{ styles.tokenRow }}"><span>CHARGE</span><span>1100ms</span><span>cubic-bezier(0.65,0,0.35,1)</span></div>
+        <div style="{{ styles.tokenRow }}"><span>LOCK</span><span>380ms</span><span>cubic-bezier(0.34,1.56,0.64,1)</span></div>
+        <div style="{{ styles.tokenRow }}"><span>ASCEND</span><span>2200ms</span><span>cubic-bezier(0.22,1,0.36,1)</span></div>
+        <div style="{{ styles.tokenRow }}"><span>REDUCED</span><span>140ms</span><span>linear cross-fade</span></div>
+        <div style="{{ styles.specNote }}">Charge is the least validated token — re-check feel at real particle counts / on-device frame rate.</div>
+      </div>
+
+      <div style="{{ styles.specCard }}">
+        <div style="{{ styles.specCardTitle }}">Tiers</div>
+        <div style="{{ styles.specLine }}"><b>Everyday</b> 200–700ms — status, nav, forms, quest progress. Lock is the reference.</div>
+        <div style="{{ styles.specLine }}"><b>Reward</b> 700–1500ms — quest complete, PR, attribute up, XP. Charge is the reference. Reduced motion still needs a non-kinetic cue.</div>
+        <div style="{{ styles.specLine }}"><b>Ascension</b> 1500–3000ms, rare — class pick, skill unlock, level milestone, rank promotion. Assemble + Ascend are the reference.</div>
+      </div>
+
+      <div style="{{ styles.specCard }}">
+        <div style="{{ styles.specCardTitle }}">Event priority</div>
+        <div style="{{ styles.specLine }}">1. Ascension interrupts Reward and Everyday.</div>
+        <div style="{{ styles.specLine }}">2. Reward interrupts Everyday, never Ascension.</div>
+        <div style="{{ styles.specLine }}">3. Concurrent Reward events queue and settle sequentially into the sigil.</div>
+        <div style="{{ styles.specLine }}">4. Everyday motion never blocks input; Ascension may hold input briefly for readability.</div>
+      </div>
+
+      <div style="{{ styles.specCard }}">
+        <div style="{{ styles.specCardTitle }}">Reduced motion</div>
+        <div style="{{ styles.specLine }}">All four verbs collapse to a single 140ms linear cross-fade. No rotation, fog, fragment assembly, or large scale. Final values render immediately.</div>
+        <div style="{{ styles.specLine }}">Reward-tier events still emit a brief non-kinetic cue — a flat color pulse here — so a personal record never reads as silence.</div>
+      </div>
+
+      <div style="{{ styles.specCard }}">
+        <div style="{{ styles.specCardTitle }}">Class sigil language (production: Berserker / Monk / Magician)</div>
+        <div style="{{ styles.specLine }}"><b>Berserker</b> — 4-point spike-star core anchor, single bold star-polygon middle layer, heavier stroke weight, slowest/heaviest drift. No square forms.</div>
+        <div style="{{ styles.specLine }}"><b>Monk</b> — hexagon core anchor, balanced two-triangle hexagram middle layer, even stroke weight, moderate measured drift.</div>
+        <div style="{{ styles.specLine }}"><b>Magician</b> — circular core anchor, four overlapping flowing rings as the middle layer, thinnest stroke, fastest and lightest drift (reversed direction).</div>
+        <div style="{{ styles.specNote }}">Future direction (not yet fully animated): Assassin — lean asymmetric blade-facets, quick sharp micro-pulses. Fighter — compact mixed polygon/ring core, rhythmic alternating pulses. Ranger — open long arc sweeps, sustained outward-pathing drift. Guardian — layered concentric shield-rings, slow reinforcing pulses.</div>
+      </div>
+
+      <div style="{{ styles.specCard }}">
+        <div style="{{ styles.specCardTitle }}">Performance posture</div>
+        <div style="{{ styles.specLine }}">Everyday / Reward: real-time procedural motion on alpha, translation, scale, path-trim — cheap per-frame cost.</div>
+        <div style="{{ styles.specLine }}">Ascension: glow / bloom / fragment assembly are pre-authored (AnimatedVectorDrawable or composited sprite sequence), not recomputed live. One glow source per screen; secondary elements react via color + scale only.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const TOKENS = {
+  assemble: { dur: 850, ease: 'cubic-bezier(0.16,1,0.3,1)', label: 'ASSEMBLE' },
+  charge: { dur: 1100, ease: 'cubic-bezier(0.65,0,0.35,1)', label: 'CHARGE' },
+  lock: { dur: 380, ease: 'cubic-bezier(0.34,1.56,0.64,1)', label: 'LOCK' },
+  ascend: { dur: 2200, ease: 'cubic-bezier(0.22,1,0.36,1)', label: 'ASCEND' },
+  reduced: { dur: 140, ease: 'linear', label: 'REDUCED' },
+};
+const SPEED_MULT = { fast: 0.55, standard: 1, cinematic: 1.6 };
+const CLASS_HUE = { berserker: 25, monk: 165, magician: 285 };
+const ACCENT_HUE = 250;
+const acc = (h, l = 0.74, c = 0.15) => `oklch(${l} ${c} ${h})`;
+
+const SEQ = {
+  entrance: ['idle', 'wake', 'trace', 'sigil', 'text', 'settle'],
+  sigil: ['idle', 'playerRing', 'classRing', 'rankGeometry', 'medallions', 'classMedallion', 'settle'],
+  attribute: ['idle', 'exit', 'lock', 'illuminate', 'pulse', 'settle'],
+  levelup: ['idle', 'ringComplete', 'particlesPull', 'breakthrough', 'shockwave', 'railsBrighten', 'lock', 'settle'],
+  skill: ['idle', 'reveal', 'lock', 'settle'],
+  chain: ['idle', 'attrExit', 'attrLock', 'charge', 'breakthrough', 'lock', 'settle'],
+};
+const PHASE_TOKEN = {
+  wake: 'assemble', trace: 'assemble', sigil: 'assemble', text: 'lock', settle: 'assemble',
+  playerRing: 'assemble', classRing: 'assemble', rankGeometry: 'assemble', medallions: 'assemble', classMedallion: 'lock',
+  exit: 'lock', lock: 'lock', illuminate: 'lock', pulse: 'lock',
+  ringComplete: 'charge', particlesPull: 'charge', breakthrough: 'ascend', shockwave: 'assemble', railsBrighten: 'lock',
+  reveal: 'assemble',
+  attrExit: 'lock', attrLock: 'lock', charge: 'charge',
+  idle: 'assemble',
+};
+
+class Component extends DCLogic {
+  state = {
+    demo: 'sigil', phase: 'settle', tier: 'all',
+    frame: 'framed', speed: 'standard', reduced: false,
+    cls: 'monk', skill: 'perception', attr: 'strength',
+    showNotes: false, showTiming: true, showAudio: true,
+    paused: false, verbPreview: null,
+  };
+
+  componentDidMount() { this._timers = []; }
+  componentWillUnmount() { this._clear(); }
+  _clear() { (this._timers || []).forEach(clearTimeout); this._timers = []; }
+
+  dur(tokenKey) {
+    if (this.state.reduced) return TOKENS.reduced.dur;
+    return Math.round(TOKENS[tokenKey].dur * SPEED_MULT[this.state.speed]);
+  }
+  ease(tokenKey) { return this.state.reduced ? TOKENS.reduced.ease : TOKENS[tokenKey].ease; }
+  css(tokenKey, props) {
+    const t = `${this.dur(tokenKey)}ms ${this.ease(tokenKey)}`;
+    return props.map(p => `${p} ${t}`).join(', ');
+  }
+
+  runSequence(demoKey) {
+    this._clear();
+    const seq = this.state.reduced ? ['idle', 'settle'] : SEQ[demoKey];
+    const finalPhase = seq[seq.length - 1];
+    this.setState({ demo: demoKey, phase: seq[0], paused: false });
+    let elapsed = 0;
+    seq.slice(1).forEach((phase, i) => {
+      const tokenKey = this.state.reduced ? 'reduced' : (PHASE_TOKEN[phase] || 'assemble');
+      elapsed += this.dur(tokenKey);
+      const t = setTimeout(() => {
+        if (this.state.paused) return;
+        this.setState({ phase });
+      }, elapsed);
+      this._timers.push(t);
+    });
+  }
+
+  playVerbPreview(key) {
+    this.setState({ verbPreview: 'off' });
+    requestAnimationFrame(() => {
+      this.setState({ verbPreview: key });
+      setTimeout(() => this.setState(s => (s.verbPreview === key ? { verbPreview: 'settle-' + key } : {})), this.dur(key));
+    });
+  }
+
+  composeNotesFor(demo) {
+    const rows = {
+      entrance: [
+        { effect: 'Radial wake + sweep', primitive: 'Brush radial-gradient alpha, translate on a gradient layer', token: 'ASSEMBLE 850ms', easing: 'expo decelerate', props: 'alpha, translateX', cached: 'no', classification: 'Safe procedural Compose', risk: 'low', reduced: '140ms cross-fade to idle background' },
+        { effect: 'Panel edge trace', primitive: 'Canvas + PathEffect.dashPathEffect on cached Path', token: 'ASSEMBLE 850ms', easing: 'expo decelerate', props: 'path phase', cached: 'yes — Path built once, phase animated', classification: 'Cached Canvas path', risk: 'medium', reduced: 'skip, show static border' },
+        { effect: 'Sigil concentric assembly', primitive: 'Canvas rings + AnimatedVectorDrawable for rank glyph', token: 'ASSEMBLE 850ms', easing: 'expo decelerate', props: 'strokeDashOffset, scale, alpha', cached: 'yes', classification: 'Pre-authored vector sequence candidate', risk: 'medium — profile on mid-range', reduced: 'static seal at rest opacity' },
+      ],
+      sigil: [
+        { effect: 'Player / class XP ring trace', primitive: 'Canvas drawArc with animated sweepAngle, cached Path per ring', token: 'ASSEMBLE 850ms', easing: 'expo decelerate', props: 'sweepAngle, alpha', cached: 'yes', classification: 'Cached Canvas path', risk: 'low', reduced: 'ring appears at rest % immediately' },
+        { effect: 'Rank geometry assembly', primitive: 'AnimatedVectorDrawable (per-rank authored) or Compose Path morph for lower ranks', token: 'ASSEMBLE 850ms', easing: 'expo decelerate', props: 'scale, rotationZ, alpha', cached: 'yes', classification: 'AnimatedVectorDrawable candidate', risk: 'medium', reduced: 'fade to final geometry' },
+        { effect: 'Attribute medallions stagger', primitive: 'Compose AnimatedVisibility per medallion, staggered via delay', token: 'ASSEMBLE 850ms (staggered)', easing: 'expo decelerate', props: 'scale, alpha', cached: 'n/a', classification: 'Safe procedural Compose', risk: 'low', reduced: 'all appear together, no stagger' },
+        { effect: 'Class medallion lock', primitive: 'Compose spring(dampingRatio=MediumBouncy) or tween matching overshoot bezier', token: 'LOCK 380ms', easing: 'snap overshoot', props: 'scale, alpha', cached: 'n/a', classification: 'Safe procedural Compose', risk: 'low', reduced: 'snap to final, no overshoot' },
+      ],
+      attribute: [
+        { effect: 'Old value exit', primitive: 'Compose AnimatedContent slide+fade', token: '150ms (prep, not a core verb)', easing: 'ease-out', props: 'translateY, alpha', cached: 'n/a', classification: 'Safe procedural Compose', risk: 'low', reduced: 'omit, cross-fade only' },
+        { effect: 'New value lock', primitive: 'Compose tween(easing = CubicBezier(0.34,1.56,0.64,1))', token: 'LOCK 380ms', easing: 'snap overshoot', props: 'scale, translateY', cached: 'n/a', classification: 'Safe procedural Compose', risk: 'low', reduced: '140ms fade + flat color pulse (required cue)' },
+        { effect: 'Medallion illuminate', primitive: 'animateColor on flat fill, no blur', token: 'LOCK 380ms', easing: 'snap overshoot', props: 'color', cached: 'n/a', classification: 'Safe procedural Compose', risk: 'low', reduced: 'color pulse retained — this IS the non-kinetic cue' },
+        { effect: 'Pulse to sigil', primitive: 'Compose Canvas, single circle translated along cached straight-line path', token: '400ms', easing: 'ease-out', props: 'translateX/Y, alpha', cached: 'yes', classification: 'Cached Canvas path', risk: 'low', reduced: 'omit' },
+      ],
+      levelup: [
+        { effect: 'XP ring completion', primitive: 'Cached arc Path, sweepAngle to 360', token: 'CHARGE 1100ms', easing: 'ease in-out', props: 'sweepAngle', cached: 'yes', classification: 'Cached Canvas path', risk: 'low', reduced: 'ring shown complete immediately' },
+        { effect: 'Particles pull inward', primitive: 'Compose Canvas, N cached dot positions lerped toward center', token: 'CHARGE 1100ms', easing: 'ease in-out', props: 'translateX/Y, alpha', cached: 'positions cached, path recomputed per frame only for lerp t', classification: 'Requires real-device profiling', risk: 'medium-high at high particle count', reduced: 'omit entirely' },
+        { effect: 'Breakthrough level expansion', primitive: 'Pre-authored vector sequence (AnimatedVectorDrawable) for numeral + seal flare', token: 'ASCEND 2200ms', easing: 'slow decelerate', props: 'scale, alpha, (pre-baked glow)', cached: 'yes — pre-authored', classification: 'Pre-authored vector sequence candidate', risk: 'medium', reduced: '140ms fade to final numeral + cue' },
+        { effect: 'Shockwave ring', primitive: 'Canvas circle, cached Path, scale animated', token: '600ms (assemble-family easing)', easing: 'expo decelerate', props: 'scale, alpha', cached: 'yes', classification: 'Cached Canvas path', risk: 'low', reduced: 'omit' },
+        { effect: 'Rails brighten + final lock', primitive: 'Flat color/alpha tween + tween for chip scale', token: 'LOCK 380ms', easing: 'snap overshoot', props: 'alpha, color, scale', cached: 'n/a', classification: 'Safe procedural Compose', risk: 'low', reduced: 'final state immediately, cue retained' },
+      ],
+      skill: [
+        { effect: 'Reveal (scan / compress / breath / align)', primitive: 'Per-variant: clip-path reveal (Perception), scale compress+snap (Strength Boost), radius pulse (Breath Control), point+line draw (Body Awareness)', token: 'ASSEMBLE 850ms (Breath Control uses CHARGE 1100ms ×2 half-cycles)', easing: 'expo decelerate / ease in-out', props: 'clip, scale, radius, path phase', cached: 'Body Awareness lines cached', classification: 'Pre-authored vector sequence candidate', risk: 'medium', reduced: 'fade to unlocked glyph + cue' },
+        { effect: 'Name / icon lock', primitive: 'Compose tween snap overshoot', token: 'LOCK 380ms', easing: 'snap overshoot', props: 'scale, alpha', cached: 'n/a', classification: 'Safe procedural Compose', risk: 'low', reduced: '140ms fade' },
+      ],
+      chain: [
+        { effect: 'Attribute exit + lock', primitive: 'see Attribute increase notes above', token: 'LOCK 380ms', easing: 'snap overshoot', props: 'translateY, scale', cached: 'n/a', classification: 'Safe procedural Compose', risk: 'low', reduced: 'cue only' },
+        { effect: 'Charge gather', primitive: 'Radial alpha ramp on pre-baked glow sprite + Canvas particle convergence', token: 'CHARGE 1100ms', easing: 'ease in-out', props: 'alpha, scale, translate', cached: 'glow pre-baked; particle positions cached', classification: 'Requires real-device profiling', risk: 'medium-high', reduced: 'omit, jump to breakthrough cue' },
+        { effect: 'Breakthrough + final lock', primitive: 'see Level-up notes above', token: 'ASCEND 2200ms → LOCK 380ms', easing: 'slow decelerate → snap overshoot', props: 'scale, alpha, color', cached: 'yes', classification: 'Pre-authored vector sequence candidate', risk: 'medium', reduced: '140ms fade + cue, final values immediate' },
+      ],
+    };
+    return rows[demo] || [];
+  }
+
+  renderVals() {
+    const s = this.state;
+    const ink = 'oklch(0.96 0.01 258)', inkDim = 'oklch(0.66 0.02 258)', inkFaint = 'oklch(0.46 0.02 258)';
+    const bg = 'oklch(0.13 0.014 258)', bgPanel = 'oklch(0.185 0.016 258)', bgPanel2 = 'oklch(0.23 0.018 258)';
+    const line = 'oklch(0.34 0.02 258)', lineSoft = 'oklch(0.26 0.02 258)';
+    const accent = acc(ACCENT_HUE);
+    const classHue = CLASS_HUE[s.cls];
+    const classAccent = acc(classHue);
+    const mono = "'JetBrains Mono', ui-monospace, monospace";
+    const sans = "'Space Grotesk', system-ui, sans-serif";
+    const phase = s.phase, demo = s.demo, tokenKey = PHASE_TOKEN[phase] || 'assemble';
+
+    // ---------- generic style helpers ----------
+    const btn = (active, opts = {}) => ({
+      fontFamily: mono, fontSize: opts.fs || 11, letterSpacing: 0.5, textTransform: 'uppercase',
+      padding: opts.pad || '8px 10px', borderRadius: 6, cursor: 'pointer',
+      border: `1px solid ${active ? accent : line}`,
+      background: active ? 'oklch(0.74 0.15 250 / 0.14)' : 'transparent',
+      color: active ? accent : inkDim, transition: 'all 150ms ease', textAlign: 'left',
+      display: 'flex', flexDirection: opts.col ? 'column' : 'row', gap: 2, alignItems: opts.col ? 'flex-start' : 'center',
+      justifyContent: opts.between ? 'space-between' : 'flex-start', width: opts.full ? '100%' : 'auto',
+    });
+
+    // ---------- root / chrome ----------
+    const styles = {
+      root: { minHeight: '100vh', background: bg, color: ink, fontFamily: sans, padding: '28px 32px 60px', boxSizing: 'border-box' },
+      headerBar: { display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 24, flexWrap: 'wrap', gap: 12 },
+      h1: { fontSize: 15, fontWeight: 600, letterSpacing: 1.5 },
+      h1sub: { fontSize: 12, color: inkFaint, marginTop: 4, fontFamily: mono },
+      frameToggleWrap: { display: 'flex', gap: 6 },
+      mainRow: { display: 'flex', gap: 28, alignItems: 'flex-start', flexWrap: 'wrap' },
+      stageCol: { display: 'flex', flexDirection: 'column', gap: 16, flex: '0 0 auto' },
+      appCanvasWrap: { width: '100%', height: '100%', background: bg },
+      canvasWrap: { width: 412, background: bg, border: `1px solid ${line}`, borderRadius: 4, padding: '10px 0 0' },
+      canvasLabel: { fontFamily: mono, fontSize: 10, color: inkFaint, textAlign: 'center', marginBottom: 8, letterSpacing: 0.5 },
+      notesBlock: { width: 412 },
+      notesToggle: { width: '100%', textAlign: 'left', fontFamily: mono, fontSize: 10, letterSpacing: 0.5, color: inkDim, background: 'transparent', border: `1px solid ${lineSoft}`, borderRadius: 6, padding: '8px 10px', cursor: 'pointer' },
+      notesPanel: { border: `1px solid ${lineSoft}`, borderTop: 'none', borderRadius: '0 0 6px 6px', padding: 10, display: 'flex', flexDirection: 'column', gap: 10, maxHeight: 360, overflow: 'auto' },
+      noteRow: { border: `1px solid ${lineSoft}`, borderRadius: 6, padding: 10, background: bgPanel },
+      noteEffect: { fontSize: 12, fontWeight: 600, color: ink, marginBottom: 6 },
+      noteGrid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 4, fontFamily: mono, fontSize: 10.5, color: inkDim, lineHeight: 1.5 },
+      noteKey: { color: inkFaint, marginRight: 4 },
+      rail: { width: 320, flex: '0 0 320px', background: bgPanel, border: `1px solid ${lineSoft}`, borderRadius: 8, padding: 16, display: 'flex', flexDirection: 'column', gap: 18, position: 'sticky', top: 20 },
+      railTitle: { fontSize: 12, fontWeight: 600, letterSpacing: 1.5, color: accent, fontFamily: mono },
+      railSection: { display: 'flex', flexDirection: 'column', gap: 8 },
+      railLabel: { fontSize: 10, letterSpacing: 1, color: inkFaint, fontFamily: mono },
+      railNote: { fontSize: 10.5, color: inkFaint, lineHeight: 1.4 },
+      verbRow: { display: 'flex', gap: 6 },
+      verbPreviewWrap: { display: 'flex', alignItems: 'center', gap: 10, height: 48, background: bg, borderRadius: 6, border: `1px solid ${lineSoft}`, padding: '0 14px' },
+      verbPreviewLabel: { fontFamily: mono, fontSize: 10, color: inkFaint },
+      segRow: { display: 'flex', gap: 6, flexWrap: 'wrap' },
+      demoList: { display: 'flex', flexDirection: 'column', gap: 6 },
+      demoName: { fontSize: 11.5 },
+      demoTier: { fontSize: 9, color: inkFaint },
+      playRow: { display: 'flex', gap: 6 },
+      replayBtn: btn(true, { full: false }),
+      pauseBtn: btn(false),
+      chainBtn: { ...btn(true), width: '100%', marginTop: 4, borderColor: classAccent, color: classAccent, background: 'oklch(0.74 0.15 250 / 0.10)' },
+      phaseReadout: { fontFamily: mono, fontSize: 10.5, color: inkDim, marginTop: 4, lineHeight: 1.5 },
+      toggleCol: { display: 'flex', flexDirection: 'column', gap: 6 },
+      specSection: { marginTop: 48, borderTop: `1px solid ${lineSoft}`, paddingTop: 28 },
+      specTitle: { fontSize: 12, fontWeight: 600, letterSpacing: 1.5, color: accent, fontFamily: mono, marginBottom: 16 },
+      specGrid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 },
+      specCard: { background: bgPanel, border: `1px solid ${lineSoft}`, borderRadius: 8, padding: 16 },
+      specCardTitle: { fontSize: 12, fontWeight: 600, marginBottom: 10, color: ink },
+      specLine: { fontSize: 12, color: inkDim, lineHeight: 1.6, marginBottom: 6 },
+      specNote: { fontSize: 11, color: inkFaint, marginTop: 6, fontStyle: 'italic' },
+      tokenRow: { display: 'flex', justifyContent: 'space-between', fontFamily: mono, fontSize: 11, color: inkDim, padding: '4px 0', borderBottom: `1px solid ${lineSoft}` },
+    };
+
+    // ---------- geometry helpers ----------
+    const ringPoints = (n, r, cx = 150, cy = 150) => {
+      const pts = [];
+      for (let i = 0; i < n; i++) {
+        const a = (Math.PI * 2 * i) / n - Math.PI / 2;
+        pts.push({ cx: +(cx + r * Math.cos(a)).toFixed(1), cy: +(cy + r * Math.sin(a)).toFixed(1) });
+      }
+      return pts;
+    };
+    const trianglePoints = (r, rotDeg, cx = 150, cy = 150) => {
+      const pts = [];
+      for (let i = 0; i < 3; i++) {
+        const a = (Math.PI * 2 * i) / 3 - Math.PI / 2 + (rotDeg * Math.PI) / 180;
+        pts.push(`${(cx + r * Math.cos(a)).toFixed(1)},${(cy + r * Math.sin(a)).toFixed(1)}`);
+      }
+      return pts.join(' ');
+    };
+    const regularPolygonPoints = (nSides, r, rotDeg = 0, cx = 150, cy = 150) => {
+      const pts = [];
+      for (let i = 0; i < nSides; i++) {
+        const a = (Math.PI * 2 * i) / nSides - Math.PI / 2 + (rotDeg * Math.PI) / 180;
+        pts.push(`${(cx + r * Math.cos(a)).toFixed(1)},${(cy + r * Math.sin(a)).toFixed(1)}`);
+      }
+      return pts.join(' ');
+    };
+    const starPoints = (nSpikes, rOuter, rInner, rotDeg = 0, cx = 150, cy = 150) => {
+      const pts = [];
+      const total = nSpikes * 2;
+      for (let i = 0; i < total; i++) {
+        const r = i % 2 === 0 ? rOuter : rInner;
+        const a = (Math.PI * 2 * i) / total - Math.PI / 2 + (rotDeg * Math.PI) / 180;
+        pts.push(`${(cx + r * Math.cos(a)).toFixed(1)},${(cy + r * Math.sin(a)).toFixed(1)}`);
+      }
+      return pts.join(' ');
+    };
+
+    // ---------- app screen (persistent status composition) ----------
+    const T = (k, props) => this.css(k, props);
+    const reduced = s.reduced;
+    const on = (set) => set.has(phase);
+
+    const glowOn = on(new Set(['wake', 'trace', 'sigil', 'text', 'settle', 'playerRing', 'classRing', 'rankGeometry', 'medallions', 'classMedallion', 'ringComplete', 'particlesPull', 'breakthrough', 'shockwave', 'railsBrighten', 'lock', 'charge']));
+    const railBright = on(new Set(['trace', 'sigil', 'ringComplete', 'breakthrough', 'shockwave', 'railsBrighten', 'charge']));
+    const cornersOn = phase !== 'idle';
+    const panelTraceOn = on(new Set(['trace', 'sigil', 'text', 'settle', 'playerRing', 'classRing', 'rankGeometry', 'medallions', 'classMedallion', 'ringComplete', 'particlesPull', 'breakthrough', 'shockwave', 'railsBrighten', 'lock']));
+
+    // rings
+    const R_OUT = 130, R_IN = 100, CIRC_OUT = 2 * Math.PI * R_OUT, CIRC_IN = 2 * Math.PI * R_IN;
+    const playerPct = 0.72, classPct = 0.44;
+    const ringsAssembled = on(new Set(['sigil', 'text', 'settle', 'playerRing', 'classRing', 'rankGeometry', 'medallions', 'classMedallion', 'ringComplete', 'particlesPull', 'breakthrough', 'shockwave', 'railsBrighten', 'lock', 'charge']));
+    const playerRingOn = ringsAssembled || demo !== 'entrance' && phase !== 'idle' && demo !== 'sigil';
+    const restOpacity = (demo === 'entrance' && phase === 'settle') || (demo === 'sigil' && phase === 'settle') ? 0.4 : 0.6;
+    const eventfulPhase = ['wake', 'trace', 'sigil', 'text', 'playerRing', 'classRing', 'rankGeometry', 'medallions', 'classMedallion', 'ringComplete', 'particlesPull', 'breakthrough', 'shockwave', 'railsBrighten', 'lock', 'charge', 'illuminate', 'pulse'].includes(phase);
+    const sigilBaseOpacity = phase === 'idle' ? 0 : eventfulPhase ? 0.62 : 0.24;
+
+    const outerDashoffset = (demo === 'sigil')
+      ? (on(new Set(['idle'])) ? CIRC_OUT : on(new Set(['playerRing'])) ? CIRC_OUT * (1 - playerPct) : CIRC_OUT * (1 - playerPct))
+      : (phase === 'idle' ? CIRC_OUT : CIRC_OUT * (1 - playerPct));
+    const innerDashoffset = (demo === 'sigil')
+      ? (on(new Set(['idle', 'playerRing'])) ? CIRC_IN : CIRC_IN * (1 - classPct))
+      : (phase === 'idle' ? CIRC_IN : CIRC_IN * (1 - classPct));
+
+    const chargeGather = phase === 'charge' || phase === 'ringComplete' || phase === 'particlesPull';
+    const breakthroughOn = phase === 'breakthrough';
+
+    const rankScale = phase === 'idle' ? 0 : (on(new Set(['playerRing', 'classRing'])) && demo === 'sigil') ? 0 : 1;
+    const rankRotate = s.cls === 'berserker' ? (rankScale ? 0 : 15) : s.cls === 'magician' ? (rankScale ? 0 : -35) : 0;
+
+    const medallionsOn = phase === 'idle' ? false : !(demo === 'sigil' && on(new Set(['playerRing', 'classRing', 'rankGeometry'])));
+    const medallionStagger = s.cls === 'berserker' ? 60 : s.cls === 'magician' ? 130 : 90;
+
+    const classMedallionLocked = phase === 'idle' ? false : !(demo === 'sigil' && phase !== 'classMedallion' && phase !== 'settle' && !medallionsOn === false && ['playerRing', 'classRing', 'rankGeometry', 'medallions'].includes(phase));
+    const classLocked = phase === 'idle' ? false : !(demo === 'sigil' && ['playerRing', 'classRing', 'rankGeometry', 'medallions'].includes(phase));
+
+    const shockwaveOn = phase === 'shockwave';
+    const particlesIn = phase === 'particlesPull' || phase === 'charge';
+
+    // attribute center-out wave — personality per attribute (firmer/faster for strength, longer sustained for endurance, precise clean for control)
+    const waveActive = (phase === 'illuminate' || phase === 'pulse');
+    const WAVE_CFG = {
+      strength: { dur: 420, ease: 'cubic-bezier(0.34,1.56,0.64,1)' },
+      endurance: { dur: 950, ease: 'ease-in-out' },
+      control: { dur: 520, ease: 'cubic-bezier(0.16,1,0.3,1)' },
+    };
+    const waveCfg = WAVE_CFG[s.attr] || WAVE_CFG.control;
+
+    // level-up breakthrough radial burst (non-square ceremonial burst, not a boxy popup)
+    const burstActive = phase === 'breakthrough' || phase === 'shockwave';
+
+    // stat chips
+    const strVal = (demo === 'attribute' || demo === 'chain') ? (['idle', 'exit'].includes(phase) ? 18 : 19) : 18;
+    const strHigh = (demo === 'attribute' || demo === 'chain') && phase !== 'idle';
+    const strLockPulse = phase === 'lock' || phase === 'attrLock';
+    const lvlVal = (demo === 'levelup' || demo === 'chain') && ['breakthrough', 'shockwave', 'railsBrighten', 'lock', 'settle'].includes(phase) ? 13 : 12;
+    const lvlHigh = (demo === 'levelup' || demo === 'chain') && phase !== 'idle';
+    const breakthroughVisible = (demo === 'levelup' || demo === 'chain') && ['breakthrough', 'shockwave'].includes(phase);
+
+    // skill dock
+    const SKILLS = ['perception', 'strength', 'breath', 'awareness'];
+    const SKILL_LABEL = { perception: 'PERCEPTION', strength: 'STRENGTH BOOST', breath: 'BREATH CONTROL', awareness: 'BODY AWARENESS' };
+    const skillUnlocking = demo === 'skill';
+    const skillRevealVisible = skillUnlocking && ['reveal', 'lock'].includes(phase);
+    const skillLockedFinal = skillUnlocking && (phase === 'lock' || phase === 'settle');
+
+    const hexOn = phase !== 'idle' && !(demo === 'sigil' && ['playerRing', 'classRing'].includes(phase));
+    const hexRotate = hexOn ? 0 : -40;
+    const hexScale = hexOn ? 1 : 0;
+    const dotsOn = phase !== 'idle';
+    const glyphsOn = medallionsOn;
+
+    const dotsArr = ringPoints(28, 138).map((p, i) => ({
+      cx: p.cx, cy: p.cy,
+      style: { opacity: dotsOn ? 0.32 : 0, transition: T('assemble', ['opacity']), transitionDelay: dotsOn ? `${(i % 14) * 14}ms` : '0ms' },
+    }));
+    const dots2Arr = ringPoints(40, 122).map((p, i) => ({
+      cx: p.cx, cy: p.cy,
+      style: { opacity: dotsOn ? 0.22 : 0, transition: T('assemble', ['opacity']), transitionDelay: dotsOn ? `${(i % 20) * 10}ms` : '0ms' },
+    }));
+    const glyphsArr = ringPoints(8, 115).map((p, i) => {
+      const isCircle = i % 2 === 0;
+      const st = { opacity: glyphsOn ? 0.7 : 0, transform: glyphsOn ? 'scale(1)' : 'scale(0.3)', transformOrigin: `${p.cx}px ${p.cy}px`, transition: T('assemble', ['opacity', 'transform']), transitionDelay: glyphsOn ? `${i * medallionStagger}ms` : '0ms' };
+      return isCircle
+        ? { isCircle: true, notCircle: false, cx: p.cx, cy: p.cy, style: st }
+        : { isCircle: false, notCircle: true, x: +(p.cx - 3.5).toFixed(1), y: +(p.cy - 3.5).toFixed(1), rotateAttr: `rotate(45 ${p.cx} ${p.cy})`, style: st };
+    });
+    const glyphs2Arr = ringPoints(12, 92).map((p, i) => {
+      const isCircle = i % 3 === 0;
+      const st = { opacity: glyphsOn ? 0.5 : 0, transform: glyphsOn ? 'scale(1)' : 'scale(0.3)', transformOrigin: `${p.cx}px ${p.cy}px`, transition: T('assemble', ['opacity', 'transform']), transitionDelay: glyphsOn ? `${i * (medallionStagger * 0.6)}ms` : '0ms' };
+      return isCircle
+        ? { isCircle: true, notCircle: false, cx: p.cx, cy: p.cy, r: 2.6, style: st }
+        : { isCircle: false, notCircle: true, x: +(p.cx - 2.5).toFixed(1), y: +(p.cy - 2.5).toFixed(1), rotateAttr: `rotate(45 ${p.cx} ${p.cy})`, style: st };
+    });
+    const spokesArr = ringPoints(16, 1).map((_, i) => {
+      const a = (Math.PI * 2 * i) / 16 - Math.PI / 2;
+      const x1 = +(150 + 100 * Math.cos(a)).toFixed(1), y1 = +(150 + 100 * Math.sin(a)).toFixed(1);
+      const x2 = +(150 + 145 * Math.cos(a)).toFixed(1), y2 = +(150 + 145 * Math.sin(a)).toFixed(1);
+      return { x1, y1, x2, y2, style: { opacity: dotsOn ? 0.16 : 0.05, transition: T('assemble', ['opacity']) } };
+    });
+    const spinOn = !reduced;
+    const spinStyle = (name, secs) => ({ animation: spinOn ? `${name} ${secs}s linear infinite` : 'none', transformOrigin: '150px 150px' });
+    const decorMedallions = [45, 135, 225, 315].map((deg, i) => {
+      const a = (deg * Math.PI) / 180;
+      const cx = 150 + 118 * Math.cos(a), cy = 150 + 118 * Math.sin(a);
+      return {
+        style: {
+          position: 'absolute', left: cx - 9, top: cy - 9, width: 18, height: 18, transform: `rotate(45deg) scale(${medallionsOn ? 1 : 0})`,
+          border: `1.3px solid ${accent}`, opacity: medallionsOn ? 0.55 : 0, transitionDelay: medallionsOn ? `${(i + 4) * medallionStagger}ms` : '0ms',
+          transition: T('assemble', ['transform', 'opacity']),
+        },
+      };
+    });
+
+    const screen = {
+      accent, classAccent, lineSoft,
+      wrap: { width: 412, height: 828, background: bg, position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', alignItems: 'center', fontFamily: sans, boxSizing: 'border-box' },
+      glow: { position: 'absolute', inset: 0, background: `radial-gradient(circle at 50% 42%, oklch(0.74 0.15 ${classHue} / ${glowOn ? 0.16 : 0.05}) 0%, transparent 60%)`, transition: T(tokenKey, ['background']), pointerEvents: 'none' },
+      railTop: { position: 'absolute', top: 26, left: 24, right: 24, height: 1, background: railBright ? classAccent : line, opacity: railBright ? 0.9 : 0.5, boxShadow: railBright ? `0 0 8px ${classAccent}` : 'none', transition: T(tokenKey, ['background', 'opacity', 'box-shadow']) },
+      railBottom: { position: 'absolute', bottom: 26, left: 24, right: 24, height: 1, background: railBright ? classAccent : line, opacity: railBright ? 0.9 : 0.5, boxShadow: railBright ? `0 0 8px ${classAccent}` : 'none', transition: T(tokenKey, ['background', 'opacity', 'box-shadow']) },
+      panelTrace: { position: 'absolute', inset: 14, border: `1px solid ${line}`, borderRadius: 4, opacity: panelTraceOn ? 0.55 : 0, transform: panelTraceOn ? 'scale(1)' : 'scale(0.97)', transition: T(tokenKey, ['opacity', 'transform']) },
+      corners: [[16, 16, 0], [396 - 18, 16, 90], [16, 812 - 18, 270], [396 - 18, 812 - 18, 180]].map(([x, y, rot]) => ({
+        style: { position: 'absolute', left: x, top: y, width: 18, height: 18, borderTop: `2px solid ${accent}`, borderLeft: `2px solid ${accent}`, transform: `rotate(${rot}deg) scale(${cornersOn ? 1 : 0.4})`, opacity: cornersOn ? 0.8 : 0, transition: T('assemble', ['transform', 'opacity']) },
+      })),
+      shockwave: { position: 'absolute', top: '40%', left: '50%', width: 40, height: 40, borderRadius: '50%', border: `1.5px solid ${classAccent}`, transform: `translate(-50%,-50%) scale(${shockwaveOn ? 9 : 0.3})`, opacity: shockwaveOn ? 0 : 0, transition: shockwaveOn ? 'transform 620ms cubic-bezier(0.16,1,0.3,1), opacity 620ms cubic-bezier(0.16,1,0.3,1)' : 'none', pointerEvents: 'none' },
+      headerRow: { width: '100%', boxSizing: 'border-box', padding: '44px 28px 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' },
+      wordmark: { fontFamily: mono, fontSize: 11, letterSpacing: 3, color: inkFaint },
+      rankChip: { fontFamily: mono, fontSize: 10, letterSpacing: 1, padding: '4px 8px', borderRadius: 3, border: `1px solid ${railBright ? classAccent : lineSoft}`, color: railBright ? classAccent : inkFaint, transition: T(tokenKey, ['border', 'color']) },
+      sigilZone: { position: 'relative', width: 300, height: 300, marginTop: 18, flexShrink: 0 },
+      svgStyle: { position: 'absolute', inset: 0, opacity: sigilBaseOpacity, transition: T(tokenKey, ['opacity']) },
+      bezelStroke: lineSoft,
+      outerCirc: CIRC_OUT, outerOffset: outerDashoffset, outerRingStyle: { transition: T('assemble', ['stroke-dashoffset']) },
+      innerCirc: CIRC_IN, innerOffset: innerDashoffset, innerRingStyle: { transition: T('assemble', ['stroke-dashoffset']) },
+      dots: dotsArr, dots2: dots2Arr, glyphs: glyphsArr, glyphs2: glyphs2Arr, spokes: spokesArr, decorMedallions,
+      // outer progress instrumentation (XP rings, tick dots, border motif, medallion glyph ring) — stationary, always readable
+      spinOuter: {}, spinDots2: {}, spinGlyphs: {}, spinInner: {},
+      // ceremonial middle layer only — slow, restrained ambient rotation; disabled under reduced motion
+      spinGlyphs2: spinStyle('sigilSpinCW', 150),
+      hexStyle: { transform: `rotate(${hexRotate}deg) scale(${hexScale})`, transformOrigin: '150px 150px', opacity: hexScale ? 0.85 : 0, transition: T('assemble', ['transform', 'opacity']) },
+      hexSpin: spinStyle(s.cls === 'magician' ? 'sigilSpinCW' : 'sigilSpinCCW', s.cls === 'berserker' ? 260 : s.cls === 'magician' ? 170 : 210),
+      // Monk — even two-triangle hexagram, refined/balanced
+      hexPoly1: trianglePoints(78, 0), hexPoly2: trianglePoints(78, 60), hexPoly3: trianglePoints(62, 30),
+      // Berserker — fewer, bolder spikes, heavier stroke, forceful silhouette
+      berserkerStar: starPoints(5, 88, 30, 0), berserkerStarStroke: s.cls === 'berserker' ? 2.6 : 2,
+      // Magician — flowing overlapping circular arcs instead of hard points
+      magicianRings: [
+        { cx: 150, cy: 128, r: 42 }, { cx: 131, cy: 161, r: 42 }, { cx: 169, cy: 161, r: 42 }, { cx: 150, cy: 148, r: 68 },
+      ],
+      isBerserker: s.cls === 'berserker', isMonk: s.cls === 'monk', isMagician: s.cls === 'magician',
+      // static core anchor (non-square per class): berserker = sharp 4-point spike star, monk = hexagon, magician = ringed circle
+      anchorStyle: {
+        transform: `rotate(${rankRotate}deg) scale(${rankScale * (breakthroughOn ? 1.5 : 1)})`, transformOrigin: '150px 150px',
+        opacity: rankScale ? 1 : 0,
+        filter: breakthroughOn ? `drop-shadow(0 0 8px ${classAccent})` : 'none',
+        transition: T(demo === 'sigil' ? 'assemble' : (breakthroughOn ? 'ascend' : 'assemble'), ['transform', 'opacity', 'filter']),
+      },
+      anchorStroke: breakthroughOn || chargeGather ? classAccent : accent,
+      anchorStrokeWidth: s.cls === 'berserker' ? 2.4 : s.cls === 'magician' ? 1.3 : 1.8,
+      berserkerAnchor: starPoints(4, 34, 12, 0),
+      monkAnchor: regularPolygonPoints(6, 30, 0),
+      magicianAnchorR: 26,
+      centerWave: {
+        transform: `scale(${waveActive ? 1 : 0})`, transformOrigin: '150px 150px',
+        opacity: waveActive ? 0 : 0.5,
+        transition: `transform ${waveCfg.dur}ms ${waveCfg.ease}, opacity ${waveCfg.dur}ms ${waveCfg.ease}`,
+      },
+      breakthroughBurst: Array.from({ length: 12 }).map((_, i) => {
+        const a = (Math.PI * 2 * i) / 12 - Math.PI / 2;
+        const x1 = +(150 + 22 * Math.cos(a)).toFixed(1), y1 = +(150 + 22 * Math.sin(a)).toFixed(1);
+        const x2 = +(150 + (burstActive ? 165 : 22) * Math.cos(a)).toFixed(1), y2 = +(150 + (burstActive ? 165 : 22) * Math.sin(a)).toFixed(1);
+        return { x1, y1, x2, y2, style: { opacity: burstActive ? 0.55 : 0, transition: T('ascend', ['x2', 'y2', 'opacity']) } };
+      }),
+      medallions: [
+        { pos: [150, 30], key: 'STR', hi: strHigh }, { pos: [270, 150], key: 'END', hi: false },
+        { pos: [150, 270], key: 'LVL', hi: lvlHigh }, { pos: [30, 150], key: 'CTL', hi: false },
+      ].map((m, i) => ({
+        label: m.key,
+        style: {
+          position: 'absolute', left: m.pos[0] - 13, top: m.pos[1] - 13, width: 26, height: 26, borderRadius: '50%',
+          border: `1.5px solid ${m.hi && (strLockPulse || phase === 'illuminate' || phase === 'pulse' || phase === 'breakthrough') ? classAccent : line}`,
+          background: m.hi && (phase === 'illuminate' || phase === 'pulse') ? 'oklch(0.74 0.15 250 / 0.18)' : bgPanel2,
+          display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: mono, fontSize: 7.5, color: m.hi ? classAccent : inkFaint,
+          transform: `scale(${medallionsOn ? 1 : 0})`, opacity: medallionsOn ? 1 : 0,
+          transitionDelay: medallionsOn ? `${i * medallionStagger}ms` : '0ms', transition: T('assemble', ['transform', 'opacity', 'border', 'background']),
+        },
+      })),
+      pulse: { position: 'absolute', left: 150 - 4, top: (phase === 'pulse') ? 150 - 4 : 30 - 4, width: 8, height: 8, borderRadius: '50%', background: classAccent, opacity: phase === 'pulse' ? 0 : (phase === 'illuminate' ? 1 : 0), transition: 'left 420ms cubic-bezier(0.34,1.56,0.64,1), top 420ms cubic-bezier(0.34,1.56,0.64,1), opacity 420ms ease-out', boxShadow: `0 0 6px ${classAccent}` },
+      particles: [[40, 40], [260, 40], [40, 260], [260, 260], [150, 10], [150, 290]].map((p) => ({
+        style: { position: 'absolute', left: (particlesIn ? 150 : p[0]) - 2, top: (particlesIn ? 150 : p[1]) - 2, width: 4, height: 4, borderRadius: '50%', background: classAccent, opacity: (demo === 'levelup' || demo === 'chain') && phase !== 'idle' ? (particlesIn ? 0.2 : 0.7) : 0, transition: T('charge', ['left', 'top', 'opacity']) },
+      })),
+      classBadgeWrap: { display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, marginTop: 6 },
+      classBadge: { width: 34, height: 34, transform: `rotate(45deg) scale(${classLocked ? 1 : 0})`, border: `2px solid ${classAccent}`, opacity: classLocked ? 1 : 0, boxShadow: classLocked && (phase === 'classMedallion') ? `0 0 10px ${classAccent}` : 'none', transition: T('lock', ['transform', 'opacity', 'box-shadow']) },
+      classLabel: { fontFamily: mono, fontSize: 10, letterSpacing: 1.5, color: classAccent, opacity: classLocked ? 1 : 0, transition: T('lock', ['opacity']) },
+      classText: s.cls.toUpperCase(),
+      identityName: { marginTop: 14, fontSize: 18, fontWeight: 600 },
+      identityLevel: { fontFamily: mono, fontSize: 11, color: inkFaint, marginTop: 2 },
+      identityLevelText: `LEVEL ${lvlVal} · IRON RANK`,
+      breakthroughWrap: { position: 'absolute', top: '38%', left: '50%', transform: `translate(-50%,-50%) scale(${breakthroughVisible ? 1 : 0.8})`, opacity: breakthroughVisible ? 1 : 0, textAlign: 'center', pointerEvents: 'none', transition: T('ascend', ['opacity', 'transform']) },
+      breakthroughLabel: { fontFamily: mono, fontSize: 11, letterSpacing: 3, color: classAccent, marginBottom: 6 },
+      breakthroughValue: { fontSize: 52, fontWeight: 700, color: ink, textShadow: `0 0 30px ${classAccent}` },
+      skillCard: {
+        position: 'absolute', top: '34%', left: '50%', width: 220, transform: `translate(-50%,-50%) scale(${skillRevealVisible ? 1 : 0.85})`,
+        opacity: skillRevealVisible ? 1 : 0, background: bgPanel2, border: `1px solid ${classAccent}`, borderRadius: 8, padding: 18, textAlign: 'center',
+        transition: T(s.skill === 'breath' ? 'charge' : 'assemble', ['opacity', 'transform']), boxShadow: `0 0 24px oklch(0.74 0.15 ${classHue} / 0.25)`,
+      },
+      skillIcon: {
+        width: 40, height: 40, margin: '0 auto 10px',
+        ...(s.skill === 'perception' ? { borderRadius: '50%', border: `2px solid ${accent}` }
+          : s.skill === 'strength' ? { transform: 'rotate(45deg)', border: `2px solid ${accent}` }
+          : s.skill === 'breath' ? { borderRadius: '50%', border: `2px solid ${accent}`, transform: `scale(${phase === 'reveal' ? 1.15 : 1})`, transition: T('charge', ['transform']) }
+          : { border: `2px solid ${accent}` }),
+      },
+      skillName: { fontFamily: mono, fontSize: 12, letterSpacing: 1, color: ink },
+      skillLabelText: SKILL_LABEL[s.skill],
+      skillStatus: { fontFamily: mono, fontSize: 9.5, color: inkFaint, marginTop: 4 },
+      skillStatusText: skillLockedFinal ? 'UNLOCKED' : 'UNLOCKING…',
+      statRow: { display: 'flex', gap: 10, marginTop: 22 },
+      chips: [
+        { label: 'STR', val: strVal, hi: strHigh }, { label: 'END', val: 42, hi: false },
+        { label: 'CTL', val: 30, hi: false }, { label: 'LVL', val: lvlVal, hi: lvlHigh },
+      ].map((c) => ({
+        label: c.label, value: c.val,
+        style: { background: bgPanel2, border: `1px solid ${c.hi && phase !== 'idle' && phase !== 'settle' ? classAccent : lineSoft}`, borderRadius: 6, padding: '8px 12px', minWidth: 54, textAlign: 'center', transform: c.hi && (phase === 'lock' || phase === 'attrLock') ? 'translateY(-2px) scale(1.04)' : 'translateY(0) scale(1)', transition: T('lock', ['border', 'transform']) },
+        labelStyle: { fontFamily: mono, fontSize: 8.5, color: inkFaint, letterSpacing: 1 },
+        valueStyle: { fontSize: 17, fontWeight: 600, color: c.hi && phase !== 'idle' ? classAccent : ink, marginTop: 2 },
+      })),
+      dockRow: { display: 'flex', gap: 8, marginTop: 20 },
+      dock: SKILLS.map((sk) => ({
+        style: { width: 44, height: 44, borderRadius: 8, border: `1px solid ${skillUnlocking && s.skill === sk && skillLockedFinal ? classAccent : lineSoft}`, background: skillUnlocking && s.skill === sk && skillLockedFinal ? 'oklch(0.74 0.15 250 / 0.14)' : bgPanel2, display: 'flex', alignItems: 'center', justifyContent: 'center', transition: T('lock', ['border', 'background']) },
+        iconStyle: sk === 'perception' ? { width: 12, height: 12, borderRadius: '50%', border: `1.5px solid ${inkFaint}` }
+          : sk === 'strength' ? { width: 11, height: 11, transform: 'rotate(45deg)', border: `1.5px solid ${inkFaint}` }
+          : sk === 'breath' ? { width: 14, height: 14, borderRadius: '50%', border: `1.5px solid ${inkFaint}` }
+          : { width: 12, height: 12, backgroundImage: `radial-gradient(circle, ${inkFaint} 1.4px, transparent 1.4px)`, backgroundSize: '6px 6px' },
+      })),
+      reducedFlash: { position: 'absolute', inset: 0, pointerEvents: 'none', animation: (reduced && phase === 'settle' && ['attribute', 'skill', 'chain'].includes(demo)) ? 'ascendFlash 320ms ease-out' : 'none' },
+      timingLabel: { position: 'absolute', bottom: 8, left: 0, right: 0, textAlign: 'center', fontFamily: mono, fontSize: 9.5, color: accent, letterSpacing: 0.5, opacity: s.showTiming ? 0.85 : 0 },
+      timingText: `${phase.toUpperCase()} · ${(TOKENS[tokenKey] || TOKENS.reduced).label} · ${this.dur(tokenKey)}ms`,
+      audioMarker: { position: 'absolute', top: 44, left: '50%', transform: 'translateX(-50%)', fontFamily: mono, fontSize: 8.5, color: inkFaint, letterSpacing: 0.5, opacity: (s.showAudio && phase !== 'idle') ? 1 : 0 },
+      audioText: this._audioMarker(demo, phase),
+    };
+
+    // ---------- rail data ----------
+    const verbsList = [
+      { key: 'assemble', name: 'ASSEMBLE' }, { key: 'charge', name: 'CHARGE' },
+      { key: 'lock', name: 'LOCK' }, { key: 'ascend', name: 'ASCEND' },
+    ].map(v => ({
+      name: v.name,
+      btnStyle: { ...btn(s.verbPreview === v.key), flex: 1, justifyContent: 'center' },
+      play: () => this.playVerbPreview(v.key),
+    }));
+
+    const tiersList = [
+      { key: 'all', name: 'ALL' }, { key: 'everyday', name: 'EVERYDAY' },
+      { key: 'reward', name: 'REWARD' }, { key: 'ascension', name: 'ASCENSION' },
+    ].map(t => ({ name: t.name, btnStyle: btn(s.tier === t.key), select: () => this.setState({ tier: t.key }) }));
+
+    const DEMO_META = {
+      entrance: { name: 'Status entrance', tier: 'everyday' },
+      sigil: { name: 'Sigil assembly', tier: 'ascension' },
+      attribute: { name: 'Attribute increase', tier: 'reward' },
+      levelup: { name: 'Level-up', tier: 'ascension' },
+      skill: { name: 'Skill unlock', tier: 'reward' },
+      chain: { name: 'Chained: attribute → charge → breakthrough', tier: 'ascension' },
+    };
+    const demosList = Object.keys(DEMO_META).filter(k => s.tier === 'all' || DEMO_META[k].tier === s.tier).map(k => ({
+      name: DEMO_META[k].name, tierLabel: DEMO_META[k].tier.toUpperCase(),
+      btnStyle: btn(s.demo === k, { col: true, between: false, full: true }),
+      select: () => this.runSequence(k),
+    }));
+
+    const speedsList = ['fast', 'standard', 'cinematic'].map(sp => ({
+      name: sp.toUpperCase(), btnStyle: btn(s.speed === sp), select: () => this.setState({ speed: sp }),
+    }));
+
+    const classesList = ['berserker', 'monk', 'magician'].map(c => ({
+      name: c.toUpperCase(), btnStyle: btn(s.cls === c, { fs: 10 }), select: () => this.setState({ cls: c }),
+    }));
+
+    const skillsList = SKILLS.map(sk => ({
+      name: SKILL_LABEL[sk], btnStyle: btn(s.skill === sk, { fs: 10, full: true }), select: () => this.setState({ skill: sk }),
+    }));
+
+    const attributesList = [
+      { key: 'strength', name: 'STRENGTH' }, { key: 'endurance', name: 'ENDURANCE' }, { key: 'control', name: 'CONTROL' },
+    ].map(a => ({ name: a.name, btnStyle: btn(s.attr === a.key, { fs: 9.5 }), select: () => this.setState({ attr: a.key }) }));
+
+    const CLASS_NOTE = {
+      berserker: 'Heavier angular assembly, fast stagger, snap overshoot on rank geometry.',
+      monk: 'Balanced mirrored construction, symmetric timing, no overshoot.',
+      magician: 'Flowing arcs — rank geometry rotates in from -35°, medallions trail in slowly.',
+    };
+
+    const verbPreviewKey = s.verbPreview;
+    const isVerbActive = verbPreviewKey && !verbPreviewKey.startsWith('settle') && verbPreviewKey !== 'off';
+    const verbPreviewStyle = {
+      width: 22, height: 22,
+      background: verbPreviewKey === 'lock' || verbPreviewKey === 'settle-lock' ? accent : 'transparent',
+      border: `2px solid ${accent}`, borderRadius: verbPreviewKey && verbPreviewKey.includes('ascend') ? 4 : '50%',
+      transform: isVerbActive
+        ? (verbPreviewKey === 'assemble' ? 'scale(1) rotate(0deg)' : verbPreviewKey === 'charge' ? 'scale(1.3)' : verbPreviewKey === 'lock' ? 'scale(1.15)' : 'scale(1.6) rotate(45deg)')
+        : (verbPreviewKey === 'off' ? 'scale(0)' : 'scale(0.4)'),
+      opacity: verbPreviewKey === 'off' ? 0 : 1,
+      transition: verbPreviewKey && verbPreviewKey !== 'off' ? T(verbPreviewKey.replace('settle-', ''), ['transform', 'background', 'opacity', 'border-radius']) : 'none',
+    };
+    const verbPreviewLabel = verbPreviewKey ? `${(verbPreviewKey.replace('settle-', '')).toUpperCase()} · ${this.dur(verbPreviewKey.replace('settle-', ''))}ms` : 'select a verb';
+
+    return {
+      styles,
+      screen,
+      frameFramed: s.frame === 'framed', frameCanvas: s.frame === 'canvas',
+      setFrameFramed: () => this.setState({ frame: 'framed' }),
+      setFrameCanvas: () => this.setState({ frame: 'canvas' }),
+      frameModeBtnStyle: { framed: btn(s.frame === 'framed'), canvas: btn(s.frame === 'canvas') },
+      showNotes: s.showNotes, toggleNotes: () => this.setState(st => ({ showNotes: !st.showNotes })),
+      notesToggleLabel: s.showNotes ? '▾' : '▸',
+      composeNotes: this.composeNotesFor(s.demo),
+      verbs: verbsList, verbPreviewStyle, verbPreviewLabel,
+      tiers: tiersList, demos: demosList,
+      replay: () => this.runSequence(s.demo),
+      togglePause: () => this.setState(st => ({ paused: !st.paused })),
+      pauseLabel: s.paused ? '▶ RESUME' : '⏸ PAUSE',
+      isChain: s.demo === 'chain',
+      phaseReadout: `demo: ${s.demo} · phase: ${phase} · verb: ${(TOKENS[tokenKey] || TOKENS.reduced).label}`,
+      speeds: speedsList,
+      motionBtnStyle: { normal: btn(!s.reduced), reduced: btn(s.reduced) },
+      setNormalMotion: () => this.setState({ reduced: false }),
+      setReducedMotion: () => this.setState({ reduced: true }),
+      showClassVariant: s.demo === 'sigil' || s.demo === 'chain',
+      classes: classesList, classNote: CLASS_NOTE[s.cls],
+      showSkillVariant: s.demo === 'skill', skills: skillsList,
+      showAttributeVariant: s.demo === 'attribute' || s.demo === 'chain', attributes: attributesList,
+      toggleBtnStyle: { timing: btn(s.showTiming, { full: true }), audio: btn(s.showAudio, { full: true }) },
+      toggleTiming: () => this.setState(st => ({ showTiming: !st.showTiming })),
+      toggleAudio: () => this.setState(st => ({ showAudio: !st.showAudio })),
+      timingToggleLabel: s.showTiming ? '☑' : '☐',
+      audioToggleLabel: s.showAudio ? '☑' : '☐',
+    };
+  }
+
+  _audioMarker(demo, phase) {
+    const map = {
+      lock: '[SFX: lock_snap_01] [HAPTIC: sharp/light]',
+      attrLock: '[SFX: lock_snap_01] [HAPTIC: sharp/light]',
+      charge: '[SFX: charge_rise_loop] [HAPTIC: rising/medium]',
+      breakthrough: '[SFX: ascend_swell] [HAPTIC: heavy/long]',
+      illuminate: '[SFX: medallion_chime] [HAPTIC: light]',
+      classMedallion: '[SFX: lock_snap_02] [HAPTIC: medium]',
+      reveal: '[SFX: reveal_shimmer] [HAPTIC: light]',
+      shockwave: '[SFX: shockwave_pass] [HAPTIC: medium]',
+      railsBrighten: '[SFX: rails_hum] [HAPTIC: none]',
+      wake: '[SFX: system_wake] [HAPTIC: none]',
+      trace: '[SFX: trace_hum] [HAPTIC: none]',
+    };
+    return map[phase] || '[SFX: none] [HAPTIC: none]';
+  }
+}
+
+</script>
+</body>
+</html>

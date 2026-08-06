@@ -1,5 +1,15 @@
 # Status Motion System
 
+> **Authoritative spec:** the detailed ceremonial-sigil + motion design — timing
+> tokens, easing curves, sigil layer structure, event choreography, reduced-motion
+> rules, and the **asset-export checklist** — lives in the handoff at
+> [`docs/design/ascend-motion-system/README.md`](docs/design/ascend-motion-system/README.md)
+> (review prototype: `docs/design/ascend-motion-system/Ascend Motion System.dc.html`,
+> reference only — it needs its bundled `support.js` to render). **That handoff is the
+> source of truth for the sigil/motion spec; this file documents how the app implements
+> it and must not restate or contradict those values.** Sigil geometry classification for
+> the asset-export work: [`docs/design/ascend-motion-system/geometry-classification.md`](docs/design/ascend-motion-system/geometry-classification.md).
+
 The Status screen's game‑feel layer. It sits **on top of** the existing (already
 tested) progression engine and quest flow — it adds motion, not new progression
 rules. The current build ships an **interactive prototype on fake data**; the

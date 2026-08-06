@@ -34,6 +34,18 @@
     <ID>FunctionNaming:AscendMotionPrototypeScreen.kt$@OptIn(ExperimentalLayoutApi::class) @Composable private fun AttributeChips( data: StatusPrototypeData, activeIndex: Int, )</ID>
     <ID>FunctionNaming:AscendMotionPrototypeScreen.kt$@OptIn(ExperimentalLayoutApi::class) @Composable private fun SkillDock(controller: PrototypeReviewController)</ID>
     <ID>FunctionNaming:AscendRoot.kt$@Composable fun AscendRoot(viewModel: RootGateViewModel = hiltViewModel())</ID>
+    <ID>FunctionNaming:AscendedCharacterViewport.kt$@Composable fun AscendedCharacterViewport( state: AscendedState, modifier: Modifier = Modifier, seams: Boolean = false, )</ID>
+    <ID>FunctionNaming:AscendedLayers.kt$@Composable fun AscendedFieldBackground( sweep: Float, running: Boolean, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:AscendedLayers.kt$@Composable fun AuraLayer( state: AscendedState, accent: Color, pulse: Float, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:AscendedLayers.kt$@Composable fun ClassSilhouetteLayer( state: AscendedState, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:AscendedLayers.kt$@Composable fun EquipmentOverlayLayer( state: AscendedState, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:AscendedLayers.kt$@Composable fun FloorSigilLayer( accent: Color, rotation: Float, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:AscendedLayers.kt$@Composable fun SkillManifestationLayer( state: AscendedState, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:AscendedReviewControls.kt$@Composable fun AscendedReviewControls( bodyBase: BodyBase, reducedMotion: Boolean, seams: Boolean, onBodyBase: (BodyBase) -&gt; Unit, onReducedMotion: (Boolean) -&gt; Unit, onSeams: (Boolean) -&gt; Unit, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:AscendedReviewControls.kt$@Composable private fun BaseToggle( label: String, selected: Boolean, onClick: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:BaseMannequin.kt$@Composable fun BaseMannequin( bodyBase: BodyBase, modifier: Modifier = Modifier, seams: Boolean = false, )</ID>
+    <ID>FunctionNaming:BaseMannequin.kt$@Composable fun FemaleBaseMannequin( modifier: Modifier = Modifier, seams: Boolean = false, )</ID>
+    <ID>FunctionNaming:BaseMannequin.kt$@Composable fun MaleBaseMannequin( modifier: Modifier = Modifier, seams: Boolean = false, )</ID>
     <ID>FunctionNaming:BreakthroughBurst.kt$@Composable fun BreakthroughBurst( accent: Color, pulse: Float, mode: BurstMode, modifier: Modifier = Modifier, )</ID>
     <ID>FunctionNaming:BreakthroughBurst.kt$@Composable private fun ProceduralBurst( accent: Color, pulse: Float, modifier: Modifier, )</ID>
     <ID>FunctionNaming:Buttons.kt$@Composable fun PrimaryActionButton( text: String, onClick: () -&gt; Unit, modifier: Modifier = Modifier, enabled: Boolean = true, )</ID>
@@ -170,6 +182,9 @@
     <ID>FunctionNaming:WeightUnitSelector.kt$@Composable fun WeightUnitSelector( selected: WeightUnit, onSelect: (WeightUnit) -&gt; Unit, modifier: Modifier = Modifier, )</ID>
     <ID>FunctionNaming:WorkoutScreen.kt$@Composable fun WorkoutScreen( onLogWorkout: () -&gt; Unit, modifier: Modifier = Modifier, viewModel: WorkoutsViewModel = hiltViewModel(), )</ID>
     <ID>FunctionNaming:WorkoutScreen.kt$@Composable private fun WorkoutListCard(workout: Workout)</ID>
+    <ID>FunctionNaming:YourAscendedPrototypeScreen.kt$@Composable fun YourAscendedPrototypeScreen(modifier: Modifier = Modifier)</ID>
+    <ID>FunctionNaming:YourAscendedPrototypeScreen.kt$@Composable private fun AscendedHeader(state: AscendedState)</ID>
+    <ID>FunctionNaming:YourAscendedPrototypeScreen.kt$@Composable private fun HeaderStat( label: String, value: String, )</ID>
     <ID>FunctionOnlyReturningConstant:OrnateSigilModels.kt$SigilRotationProfile$@Suppress("unused") fun progressRotation(rot: Float): Float</ID>
     <ID>LongMethod:ActiveQuestScreen.kt$@OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class) @Composable internal fun ActiveQuestContent( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
     <ID>LongMethod:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$override fun migrate(db: SupportSQLiteDatabase)</ID>
@@ -190,6 +205,7 @@
     <ID>LongParameterList:ActiveQuestScreen.kt$( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
     <ID>LongParameterList:AdaptiveIntervalRedistributionTest.kt$AdaptiveIntervalRedistributionTest$( dailyTarget: Int = 200, progress: Int = 30, leftover: Int = 20, futures: List&lt;FutureInterval&gt; = listOf(future("a", 50, 10), future("b", 50, 20), future("c", 50, 30)), preference: RedistributionPreference = RedistributionPreference.EVEN, timeRemaining: Long = 1000, quietHours: List&lt;Pair&lt;Long, Long&gt;&gt; = emptyList(), maxSetSize: Int = Int.MAX_VALUE, maxIntervalTarget: Int = Int.MAX_VALUE, fatigue: Int? = null, auto: Boolean = false, safety: ProgressionSafetyState = ProgressionSafetyState.OK, now: Long = 5, )</ID>
     <ID>LongParameterList:AscendMotionPrototypeScreen.kt$( data: StatusPrototypeData, controller: PrototypeReviewController, accent: Color, motion: StatusPrototypeMotion, rotation: Float, reduced: Boolean, motionSpec: MotionSpec, modifier: Modifier = Modifier, )</ID>
+    <ID>LongParameterList:AscendedReviewControls.kt$( bodyBase: BodyBase, reducedMotion: Boolean, seams: Boolean, onBodyBase: (BodyBase) -&gt; Unit, onReducedMotion: (Boolean) -&gt; Unit, onSeams: (Boolean) -&gt; Unit, modifier: Modifier = Modifier, )</ID>
     <ID>LongParameterList:BodyweightProgressionCalculator.kt$BodyweightProgressionCalculator$( private val repCalculator: RepProgressionCalculator, private val setCalculator: SetProgressionCalculator, private val restCalculator: RestProgressionCalculator, private val assistanceCalculator: AssistanceProgressionCalculator, private val externalLoadCalculator: ExternalLoadProgressionCalculator, private val tempoCalculator: TempoProgressionCalculator, private val variationEngine: ExerciseVariationProgressionEngine, )</ID>
     <ID>LongParameterList:ClassAffinityAssessorTest.kt$ClassAffinityAssessorTest$( goal: PrimaryGoal, prefs: Set&lt;ActivityPreference&gt; = emptySet(), experience: Map&lt;ActivityDomain, ExperienceLevel&gt; = emptyMap(), sex: OptionalSex = OptionalSex.NOT_SET, age: AgeSafetyCategory = AgeSafetyCategory.ADULT, limitations: Set&lt;Limitation&gt; = emptySet(), body: BodyMetrics = BodyMetrics(), )</ID>
     <ID>LongParameterList:ClassRecommendationRationaleTest.kt$ClassRecommendationRationaleTest$( goal: PrimaryGoal = PrimaryGoal.STRENGTH, secondary: List&lt;PrimaryGoal&gt; = emptyList(), prefs: Set&lt;ActivityPreference&gt; = emptySet(), env: TrainingEnvironment? = null, sex: OptionalSex = OptionalSex.NOT_SET, age: AgeSafetyCategory = AgeSafetyCategory.ADULT, limitations: Set&lt;Limitation&gt; = emptySet(), body: BodyMetrics = BodyMetrics(), )</ID>
@@ -296,6 +312,21 @@
     <ID>MagicNumber:AscendMotionPrototypeScreen.kt$360f</ID>
     <ID>MagicNumber:AscendMotionPrototypeScreen.kt$9000</ID>
     <ID>MagicNumber:AscendRoot.kt$RootGateViewModel$5_000</ID>
+    <ID>MagicNumber:AscendedCharacterViewport.kt$2600</ID>
+    <ID>MagicNumber:AscendedCharacterViewport.kt$60_000</ID>
+    <ID>MagicNumber:AscendedCharacterViewport.kt$9000</ID>
+    <ID>MagicNumber:AscendedLayers.kt$0.045f</ID>
+    <ID>MagicNumber:AscendedLayers.kt$0.08f</ID>
+    <ID>MagicNumber:AscendedLayers.kt$0.30f</ID>
+    <ID>MagicNumber:AscendedLayers.kt$0.42f</ID>
+    <ID>MagicNumber:AscendedLayers.kt$0.4f</ID>
+    <ID>MagicNumber:AscendedLayers.kt$0.5f</ID>
+    <ID>MagicNumber:AscendedLayers.kt$0.7f</ID>
+    <ID>MagicNumber:AscendedLayers.kt$0.82f</ID>
+    <ID>MagicNumber:AscendedLayers.kt$0.9f</ID>
+    <ID>MagicNumber:AscendedLayers.kt$1.4f</ID>
+    <ID>MagicNumber:AscendedLayers.kt$12</ID>
+    <ID>MagicNumber:AscendedReviewControls.kt$0xFF10151F</ID>
     <ID>MagicNumber:AssessmentInputs.kt$SessionDuration.MIN_20_30$30</ID>
     <ID>MagicNumber:AssessmentInputs.kt$SessionDuration.MIN_30_45$45</ID>
     <ID>MagicNumber:AssessmentInputs.kt$SessionDuration.MIN_45_60$60</ID>
@@ -314,6 +345,9 @@
     <ID>MagicNumber:AttributeWave.kt$AttributeWaveCatalog$520</ID>
     <ID>MagicNumber:AttributeWave.kt$AttributeWaveCatalog$800</ID>
     <ID>MagicNumber:AttributeWave.kt$AttributeWaveCatalog$950</ID>
+    <ID>MagicNumber:BaseMannequin.kt$0xFF0A0D16</ID>
+    <ID>MagicNumber:BaseMannequin.kt$1.1f</ID>
+    <ID>MagicNumber:BaseMannequin.kt$1.6f</ID>
     <ID>MagicNumber:BreakthroughBurst.kt$0.06f</ID>
     <ID>MagicNumber:BreakthroughBurst.kt$0.15f</ID>
     <ID>MagicNumber:BreakthroughBurst.kt$0.18f</ID>
@@ -451,6 +485,27 @@
     <ID>MagicNumber:LogWorkoutScreen.kt$5</ID>
     <ID>MagicNumber:LogWorkoutScreen.kt$6</ID>
     <ID>MagicNumber:LogWorkoutViewModel.kt$LogWorkoutViewModel$5_000</ID>
+    <ID>MagicNumber:MannequinGeometry.kt$MannequinGeometry$0.005f</ID>
+    <ID>MagicNumber:MannequinGeometry.kt$MannequinGeometry$0.008f</ID>
+    <ID>MagicNumber:MannequinGeometry.kt$MannequinGeometry$0.012f</ID>
+    <ID>MagicNumber:MannequinGeometry.kt$MannequinGeometry$0.015f</ID>
+    <ID>MagicNumber:MannequinGeometry.kt$MannequinGeometry$0.01f</ID>
+    <ID>MagicNumber:MannequinGeometry.kt$MannequinGeometry$0.025f</ID>
+    <ID>MagicNumber:MannequinGeometry.kt$MannequinGeometry$0.02f</ID>
+    <ID>MagicNumber:MannequinGeometry.kt$MannequinGeometry$0.03f</ID>
+    <ID>MagicNumber:MannequinGeometry.kt$MannequinGeometry$0.04f</ID>
+    <ID>MagicNumber:MannequinGeometry.kt$MannequinGeometry$0.050f</ID>
+    <ID>MagicNumber:MannequinGeometry.kt$MannequinGeometry$0.05f</ID>
+    <ID>MagicNumber:MannequinGeometry.kt$MannequinGeometry$0.06f</ID>
+    <ID>MagicNumber:MannequinGeometry.kt$MannequinGeometry$0.070f</ID>
+    <ID>MagicNumber:MannequinGeometry.kt$MannequinGeometry$0.55f</ID>
+    <ID>MagicNumber:MannequinGeometry.kt$MannequinGeometry$0.6f</ID>
+    <ID>MagicNumber:MannequinGeometry.kt$MannequinGeometry$0.7f</ID>
+    <ID>MagicNumber:MannequinGeometry.kt$MannequinGeometry$0.85f</ID>
+    <ID>MagicNumber:MannequinGeometry.kt$MannequinGeometry$0.8f</ID>
+    <ID>MagicNumber:MannequinGeometry.kt$MannequinGeometry$0.92f</ID>
+    <ID>MagicNumber:MannequinGeometry.kt$MannequinGeometry$0.95f</ID>
+    <ID>MagicNumber:MannequinGeometry.kt$MannequinGeometry$0.9f</ID>
     <ID>MagicNumber:OnboardingClassSelection.kt$0.06f</ID>
     <ID>MagicNumber:OnboardingClassSelection.kt$3</ID>
     <ID>MagicNumber:OnboardingComponents.kt$OnboardingPalette$0xFF06070E</ID>
@@ -712,6 +767,7 @@
     <ID>MagicNumber:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$100f</ID>
     <ID>MagicNumber:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$60</ID>
     <ID>MagicNumber:WorkoutsViewModel.kt$WorkoutsViewModel$5_000</ID>
+    <ID>MagicNumber:YourAscendedPrototypeScreen.kt$0.56f</ID>
     <ID>MatchingDeclarationName:Attributes.kt$AttributeType</ID>
     <ID>MatchingDeclarationName:EdgeLitStatusPanel.kt$EdgeLightSegment</ID>
     <ID>MatchingDeclarationName:OnboardingComponents.kt$OnboardingPalette</ID>
@@ -790,6 +846,7 @@
     <ID>MaxLineLength:AscendMotionPrototypeScreen.kt$fun</ID>
     <ID>MaxLineLength:AscendMotionPrototypeScreen.kt$if (controller.showAudioHaptic) Text("♪ cue · ⌁ haptic", color = accent.copy(alpha = 0.8f), fontSize = 11.sp)</ID>
     <ID>MaxLineLength:AscendMotionPrototypeScreen.kt$return "${controller.motionVerb.name} · ${ms}ms · ${controller.tier.name.lowercase()} · ×${controller.motionSpeed.label}"</ID>
+    <ID>MaxLineLength:AscendedCharacterViewport.kt$private</ID>
     <ID>MaxLineLength:BodyweightProgressionCalculator.kt$BodyweightProgressionCalculator$all.filterNot { it.dimension == ProgressionDimension.TEMPO || it.dimension == ProgressionDimension.RANGE_OF_MOTION }</ID>
     <ID>MaxLineLength:BodyweightProgressionCalculator.kt$BodyweightProgressionCalculator$out += variationEngine.advanceCandidates(context.graph, context.currentVariationId, context.variationInput)</ID>
     <ID>MaxLineLength:BodyweightProgressionCalculators.kt$AssistanceProgressionCalculator$if (safetyBlocked(checkIn)) return maintain("Keep current assistance — recover first", ProgressionDimension.ASSISTANCE)</ID>
@@ -945,6 +1002,13 @@
     <ID>MaxLineLength:IntervalGenerationTest.kt$IntervalGenerationTest$assertEquals(listOf(50, 50, 25), distribution.distribute(125, 0, IntervalDistributionStrategy.PREFERRED_SET_SIZE, 50))</ID>
     <ID>MaxLineLength:IntervalProgressTest.kt$IntervalProgressTest$reminders.shouldRemind(active, now = 50, questComplete = false, notificationsEnabled = true, quietHours = listOf(40L to 60L))</ID>
     <ID>MaxLineLength:LogWorkoutViewModel.kt$LogWorkoutViewModel$private fun ObjectiveType.isRepBased(): Boolean</ID>
+    <ID>MaxLineLength:MannequinGeometry.kt$MannequinGeometry$listOf(o(CX + 0.02f, ANKLE), o(CX + p.ankleHalf + 0.01f, ANKLE), o(CX + p.ankleHalf + 0.03f, FOOT_BOT), o(CX + 0.015f, FOOT_BOT))</ID>
+    <ID>MaxLineLength:MannequinGeometry.kt$MannequinGeometry$listOf(o(CX + 0.02f, KNEE_TOP), o(CX + p.kneeHalf + 0.01f, KNEE_TOP), o(CX + p.kneeHalf, KNEE_BOT), o(CX + 0.02f, KNEE_BOT))</ID>
+    <ID>MaxLineLength:MannequinGeometry.kt$MannequinGeometry$listOf(o(CX - 0.03f, CHEST_TOP + 0.02f), o(CX + 0.03f, CHEST_TOP + 0.02f), o(CX + 0.02f, ABS_TOP), o(CX - 0.02f, ABS_TOP))</ID>
+    <ID>MaxLineLength:MannequinGeometry.kt$MannequinGeometry$return listOf(o(CX + xi, SHOULDER + 0.03f), o(CX + xo, SHOULDER + 0.04f), o(CX + xo + 0.008f, ELBOW), o(CX + xi + 0.012f, ELBOW))</ID>
+    <ID>MaxLineLength:MannequinGeometry.kt$MannequinGeometry$return listOf(o(CX - 0.95f * w, ABS_TOP), o(CX + 0.95f * w, ABS_TOP), o(CX + 0.9f * w, ABS_MID), o(CX - 0.9f * w, ABS_MID))</ID>
+    <ID>MaxLineLength:MannequinGeometry.kt$MannequinGeometry$return listOf(o(CX - 0.9f * w, ABS_MID), o(CX + 0.9f * w, ABS_MID), o(CX + 0.8f * w, ABS_BOT), o(CX - 0.8f * w, ABS_BOT))</ID>
+    <ID>MaxLineLength:MannequinGeometry.kt$MannequinGeometry$return listOf(o(CX - w, ABS_BOT), o(CX + w, ABS_BOT), o(CX + 0.06f, CROTCH - 0.01f), o(CX, CROTCH), o(CX - 0.06f, CROTCH - 0.01f))</ID>
     <ID>MaxLineLength:MulticlassRewardCalculator.kt$MulticlassRewardCalculator$val primary = contribution(primaryDef, ClassSlot.PRIMARY, allocation = 1.0, activityTags, basePlayerXp, baseMagnitude)</ID>
     <ID>MaxLineLength:OnboardingClassCardRenderTest.kt$OnboardingClassCardRenderTest$favoredTags = setOf(com.ascend.core.model.ActivityTags.AQUATIC, com.ascend.core.model.ActivityTags.STEADY_STATE_CARDIO)</ID>
     <ID>MaxLineLength:OnboardingClassSelection.kt$Icon(Icons.Filled.Check, contentDescription = null, tint = OnboardingPalette.accent, modifier = Modifier.size(18.dp))</ID>
@@ -1255,6 +1319,7 @@
     <ID>TooManyFunctions:DataModule.kt$DataModule</ID>
     <ID>TooManyFunctions:DatabaseModule.kt$DatabaseModule</ID>
     <ID>TooManyFunctions:DungeonPrototypeController.kt$DungeonPrototypeController</ID>
+    <ID>TooManyFunctions:MannequinGeometry.kt$MannequinGeometry</ID>
     <ID>TooManyFunctions:OnboardingClassSelection.kt$com.ascend.feature.onboarding.OnboardingClassSelection.kt</ID>
     <ID>TooManyFunctions:OnboardingDao.kt$OnboardingDao</ID>
     <ID>TooManyFunctions:OnboardingMappers.kt$com.ascend.core.data.mapper.OnboardingMappers.kt</ID>

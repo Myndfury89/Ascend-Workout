@@ -35,6 +35,21 @@
         </activity>
 
         <!--
+          Debug-only launcher for the "Your Ascended" character-avatar prototype (CP1: male/female
+          base mannequins). Fake data only; no Hilt / no production wiring / no schema. Debug only.
+        -->
+        <activity
+            android:name="com.ascend.prototype.YourAscendedPrototypeActivity"
+            android:exported="true"
+            android:label="Ascend Your Ascended"
+            android:theme="@style/Theme.Ascend">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--
           Debug-only launcher for the fake party Dungeon prototype. Entirely simulated — no
           Bluetooth, no nearby users, no networking. Never present in release.
         -->

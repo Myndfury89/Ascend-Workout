@@ -27,7 +27,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
@@ -55,6 +57,7 @@ import com.ascend.feature.dashboard.prototype.SigilRotationProfile
 import com.ascend.feature.dashboard.prototype.StatusAtmosphere
 import com.ascend.feature.dashboard.prototype.StatusClassVariant
 import com.ascend.feature.dashboard.prototype.StatusFog
+import com.ascend.feature.dashboard.prototype.StatusOverlayKind
 import com.ascend.feature.dashboard.prototype.StatusPalette
 import com.ascend.feature.dashboard.prototype.StatusParticleField
 import com.ascend.feature.dashboard.prototype.StatusPrototypeData
@@ -157,6 +160,28 @@ fun StatusScreen(
             )
             Spacer(Modifier.height(28.dp))
         }
+
+        // The Daily Quest completion window — a non-modal floating overlay driven by the SAME drained
+        // batch (data.questComplete), assembled by the motion layer. It neither blocks input nor the
+        // queue (markConsumed already ran after the plan); the optional dismiss only hides it locally
+        // and changes no rewards or queue state. Reset per batch so a new completion shows again.
+        val questSummary = data.questComplete
+        if (questSummary != null) {
+            var questDismissed by remember(state.pendingBatch) { mutableStateOf(false) }
+            val questReveal = if (questDismissed) 0f else motion.questWindowReveal.value
+            if (questReveal > 0.001f) {
+                Box(Modifier.fillMaxSize().padding(horizontal = 20.dp), contentAlignment = Alignment.Center) {
+                    QuestCompleteHud(
+                        summary = questSummary,
+                        accent = accent,
+                        reveal = questReveal,
+                        pulse = if (reduced) 1f else motion.questWindowPulse.value,
+                        onDismiss = { questDismissed = true },
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                }
+            }
+        }
     }
 }
 
@@ -192,8 +217,12 @@ private fun StatusFramedPanel(
         if (motion.recognitionCue.value > 0.001f) {
             Box(Modifier.matchParentSize().background(accent.copy(alpha = motion.recognitionCue.value * 0.16f)))
         }
-        Box(Modifier.align(Alignment.TopCenter).padding(top = 8.dp)) {
-            EventOverlayChip(data.overlay, accent, motion.overlayReveal.value, motion.eventFlash.value)
+        // The Quest Complete window carries the quest identity itself, so the small overlay chip is
+        // suppressed for a quest-only batch (a quest that also levels/ranks up still shows that chip).
+        if (data.overlay.kind != StatusOverlayKind.QUEST_COMPLETE) {
+            Box(Modifier.align(Alignment.TopCenter).padding(top = 8.dp)) {
+                EventOverlayChip(data.overlay, accent, motion.overlayReveal.value, motion.eventFlash.value)
+            }
         }
     }
 }

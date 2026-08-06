@@ -40,6 +40,11 @@ class StatusPrototypeMotion(attributeCount: Int) {
      *  (especially a personal record) is never silent when all kinetic motion is collapsed. */
     val recognitionCue = Animatable(0f)
 
+    /** Quest Complete HUD window: [questWindowReveal] is its assemble (0..1); [questWindowPulse] is
+     *  the single restrained energy pulse that travels through the panel as it locks in. */
+    val questWindowReveal = Animatable(0f)
+    val questWindowPulse = Animatable(1f)
+
     val attrReveal = List(attributeCount) { Animatable(0f) }
     val attrValue = List(attributeCount) { Animatable(0f) }
     val attrPulse = List(attributeCount) { Animatable(1f) }
@@ -101,9 +106,17 @@ class StatusPrototypeMotion(attributeCount: Int) {
         proficiencyReveal.animateTo(1f, motion.tween(AscendMotionTokens.QUICK))
         questFill.animateTo(data.questFraction, motion.tween(AscendMotionTokens.STANDARD, AscendEasing.settle))
 
-        // 5. The event beat (fake — no reward logic). The overlay always reveals (quick in everyday
-        // open). Reward-tier emphasis (the attribute center-out wave + medallion/quest pulse) fires in
-        // BOTH modes — a Reward cue is never silent; the cinematic Ascension flash stays major-only.
+        // 5. The event beat (fake — no reward logic). A quest completion plays its own ordered plan
+        // (Quest Complete window first, then the resulting Ascension); every other batch keeps the
+        // single-overlay path unchanged.
+        val quest = data.presentationPlan?.questComplete
+        if (quest != null) {
+            playQuestCompletionPlan(data, motion, everyday)
+            return
+        }
+        // The overlay always reveals (quick in everyday open). Reward-tier emphasis (the attribute
+        // center-out wave + medallion/quest pulse) fires in BOTH modes — a Reward cue is never silent;
+        // the cinematic Ascension flash stays major-only.
         if (data.overlay.kind != StatusOverlayKind.NONE) {
             val overlayToken = if (everyday) AscendMotionTokens.QUICK else AscendMotionTokens.STANDARD
             overlayReveal.animateTo(1f, motion.tween(overlayToken, AscendEasing.emphasize))
@@ -113,6 +126,51 @@ class StatusPrototypeMotion(attributeCount: Int) {
         // Reduced motion collapses every kinetic beat to nothing, so a Reward event would be silent.
         // Emit the required brief flat recognition cue instead (a real duration, bypassing collapse).
         if (motion.reducedMotion && isRewardOverlay(data.overlay.kind)) playRecognitionCue()
+    }
+
+    /**
+     * The quest-completion plan: Quest Complete window (Reward-tier) → brief settle → the resulting
+     * Ascension beat (rank / player level / class level) when the same batch crossed one. Ordinary
+     * XP/attribute beats are NOT replayed — they are summarised inside the window. Under reduced
+     * motion the window resolves instantly with a readable dwell + the flat recognition cue, and any
+     * Ascension collapses to its immediate value (never a full Ascension-length animation).
+     */
+    private suspend fun playQuestCompletionPlan(
+        data: StatusPrototypeData,
+        motion: MotionSpec,
+        everyday: Boolean,
+    ) {
+        playQuestWindowBeat(motion, everyday)
+        val ascension = data.presentationPlan?.ascensionOverlay ?: return
+        delay(QUEST_SETTLE_MS)
+        val overlayToken = if (everyday) AscendMotionTokens.QUICK else AscendMotionTokens.STANDARD
+        overlayReveal.animateTo(1f, motion.tween(overlayToken, AscendEasing.emphasize))
+        // data.overlay == the Ascension overlay for a quest batch (panelOverlay prefers it), so the
+        // existing Ascension flash + breakthrough burst fire here — after the quest window, not instead.
+        if (ascension.kind != StatusOverlayKind.NONE && !everyday) playAscensionFlash(data, motion)
+    }
+
+    /** Assemble the Quest Complete window, one restrained energy pulse, a readable dwell, then fade. */
+    private suspend fun playQuestWindowBeat(
+        motion: MotionSpec,
+        everyday: Boolean,
+    ) {
+        questWindowReveal.snapTo(0f)
+        questWindowPulse.snapTo(1f)
+        if (motion.reducedMotion) {
+            // No assembly travel / scaling / pulse — final content immediately, plus the flat cue.
+            questWindowReveal.snapTo(1f)
+            playRecognitionCue()
+            delay(QUEST_WINDOW_DWELL_MS)
+            questWindowReveal.snapTo(0f)
+            return
+        }
+        val revealToken = if (everyday) AscendMotionTokens.STANDARD else AscendMotionTokens.DELIBERATE
+        questWindowReveal.animateTo(1f, motion.tween(revealToken, AscendEasing.emphasize))
+        questWindowPulse.animateTo(QUEST_PULSE_PEAK, motion.tween(AscendMotionTokens.QUICK, AscendEasing.emphasize))
+        questWindowPulse.animateTo(1f, motion.tween(AscendMotionTokens.STANDARD, AscendEasing.pulse))
+        delay(QUEST_WINDOW_DWELL_MS)
+        questWindowReveal.animateTo(0f, motion.tween(AscendMotionTokens.STANDARD, AscendEasing.settle))
     }
 
     /** Reward-tier cue: the attribute center-out wave + medallion pulse, or a proficiency/quest pulse. */
@@ -209,6 +267,8 @@ class StatusPrototypeMotion(attributeCount: Int) {
         eventFlash.snapTo(0f)
         wave.snapTo(0f)
         recognitionCue.snapTo(0f)
+        questWindowReveal.snapTo(0f)
+        questWindowPulse.snapTo(1f)
         attrReveal.forEach { it.snapTo(0f) }
         attrValue.forEach { it.snapTo(0f) }
         attrPulse.forEach { it.snapTo(1f) }
@@ -216,6 +276,14 @@ class StatusPrototypeMotion(attributeCount: Int) {
 
     private companion object {
         const val PULSE_PEAK = 1.18f
+        const val QUEST_PULSE_PEAK = 1.15f
+
+        /** How long the Quest Complete window holds, readable, before it settles away. Kept short so
+         *  several quests completing close together stay satisfying rather than tedious. */
+        const val QUEST_WINDOW_DWELL_MS = 1200L
+
+        /** The brief settle between the Quest Complete window and any following Ascension beat. */
+        const val QUEST_SETTLE_MS = 220L
     }
 }
 

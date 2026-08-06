@@ -4,11 +4,16 @@ import com.ascend.core.model.AttributeType
 import com.ascend.core.model.ProgressionEvent
 import com.ascend.core.model.ProgressionEventType
 import com.ascend.core.model.Rank
+import com.ascend.core.model.XpSourceType
 import com.ascend.feature.dashboard.prototype.AttributeLine
+import com.ascend.feature.dashboard.prototype.AttributeReward
+import com.ascend.feature.dashboard.prototype.QuestCompletionSummary
 import com.ascend.feature.dashboard.prototype.RankTier
 import com.ascend.feature.dashboard.prototype.StatusClassVariant
 import com.ascend.feature.dashboard.prototype.StatusEventOverlay
 import com.ascend.feature.dashboard.prototype.StatusOverlayKind
+import com.ascend.feature.dashboard.prototype.StatusPresentationPlan
+import com.ascend.feature.dashboard.prototype.StatusPresentationStep
 import com.ascend.feature.dashboard.prototype.StatusPrototypeData
 import com.ascend.feature.dashboard.prototype.StatusPrototypeStateId
 
@@ -105,6 +110,74 @@ object StatusComposition {
                 it.type == ProgressionEventType.CLASS_LEVEL_UP
         }
 
+    /**
+     * The ordered presentation for one drained batch. A **quest-sourced** batch (identified by
+     * `sourceType`, never by XP/attribute types) presents Quest Complete first — carrying the real
+     * quest title (`label`), identity (`sourceId`), and a reward summary built only from the batch's
+     * deltas — then the resulting Ascension beat (rank / player level / class level) when the same
+     * batch crossed one, so the Ascension is preserved rather than discarded. Ordinary XP/attribute
+     * beats are NOT replayed separately for a quest batch; they are summarised inside the window.
+     * Every non-quest batch is a single step wrapping [overlayFor] — identical to prior behaviour.
+     */
+    fun planFor(batch: List<ProgressionEvent>): StatusPresentationPlan {
+        val steps =
+            when {
+                batch.isEmpty() -> listOf(StatusPresentationStep(NONE_OVERLAY))
+                batch.none { it.sourceType.isQuestSource() } -> listOf(StatusPresentationStep(overlayFor(batch)))
+                else -> questCompletionSteps(batch)
+            }
+        return StatusPresentationPlan(steps)
+    }
+
+    /** Quest Complete (with the deltas-only summary) first, then the resulting Ascension beat if any. */
+    private fun questCompletionSteps(batch: List<ProgressionEvent>): List<StatusPresentationStep> {
+        val title = batch.firstNotNullOfOrNull { it.label }?.takeIf { it.isNotBlank() } ?: "Daily Quest"
+        val changedAttribute =
+            batch.firstOrNull { it.type == ProgressionEventType.ATTRIBUTE_CHANGED && it.attribute != null }?.attribute
+        val summary =
+            QuestCompletionSummary(
+                questId = batch.firstOrNull()?.sourceId.orEmpty(),
+                title = title,
+                xpGained = batch.filter { it.type == ProgressionEventType.XP_GAINED }.sumOf { it.delta }.clampToInt(),
+                attributeGains =
+                    batch
+                        .filter { it.type == ProgressionEventType.ATTRIBUTE_CHANGED && it.attribute != null && it.delta > 0 }
+                        .map { AttributeReward(it.attribute!!.displayName, it.delta.clampToInt()) },
+            )
+        val questStep =
+            StatusPresentationStep(
+                overlay =
+                    StatusEventOverlay(
+                        StatusOverlayKind.QUEST_COMPLETE,
+                        "Quest complete",
+                        title,
+                        emphasizedAttribute = changedAttribute?.displayName,
+                    ),
+                questComplete = summary,
+            )
+        val ascension = ascensionOverlayOrNull(batch)?.let { StatusPresentationStep(it) }
+        return listOfNotNull(questStep, ascension)
+    }
+
+    /** The single Ascension beat that follows a quest completion (highest tier present), or none. */
+    private fun ascensionOverlayOrNull(batch: List<ProgressionEvent>): StatusEventOverlay? {
+        val types = batch.mapTo(HashSet()) { it.type }
+        return when {
+            ProgressionEventType.RANK_UP in types ->
+                StatusEventOverlay(StatusOverlayKind.RANK_PROMOTION, "Rank promotion", "A new rank seal is forged")
+            ProgressionEventType.LEVEL_UP in types ->
+                StatusEventOverlay(StatusOverlayKind.PLAYER_LEVEL_UP, "Level up", "Your level rises")
+            ProgressionEventType.CLASS_LEVEL_UP in types ->
+                StatusEventOverlay(StatusOverlayKind.CLASS_LEVEL_UP, "Class level up", "Your class advances")
+            else -> null
+        }
+    }
+
+    private fun XpSourceType.isQuestSource(): Boolean =
+        this == XpSourceType.QUEST_COMPLETION ||
+            this == XpSourceType.QUEST_PARTIAL ||
+            this == XpSourceType.QUEST_OVER_COMPLETION
+
     fun map(
         hunterName: String,
         domain: StatusDomain,
@@ -112,7 +185,10 @@ object StatusComposition {
         batch: List<ProgressionEvent>,
         reducedMotion: Boolean,
     ): StatusPrototypeData {
-        val overlay = overlayFor(batch)
+        val plan = planFor(batch)
+        // The panel renders one overlay (chip / flash / burst): the Ascension beat when present, else
+        // the batch's own overlay. The Quest Complete window is driven separately from plan.questComplete.
+        val overlay = plan.panelOverlay
         val hasClass = classInfo.variant != StatusClassVariant.NEUTRAL
         val attributes =
             AttributeType.entries.map { type ->
@@ -163,6 +239,7 @@ object StatusComposition {
             rankTier = tierOf(domain.rank),
             activeMedallionIndex = activeMedallion,
             showProficiencyMedallion = hasClass,
+            presentationPlan = plan,
         )
     }
 

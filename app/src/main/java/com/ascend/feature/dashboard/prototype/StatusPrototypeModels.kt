@@ -115,7 +115,13 @@ data class StatusPrototypeData(
     val rankTier: RankTier,
     val activeMedallionIndex: Int,
     val showProficiencyMedallion: Boolean,
+    // The ordered presentation for a drained real batch (null for the fake prototype + entrance
+    // replays, which keep the legacy single-overlay path). Only production map() populates it.
+    val presentationPlan: StatusPresentationPlan? = null,
 ) {
+    /** The completed quest in the current batch, if any — drives the production Quest Complete HUD. */
+    val questComplete: QuestCompletionSummary? get() = presentationPlan?.questComplete
+
     val questRemaining: Int get() = (questTarget - questProgress).coerceAtLeast(0)
     val playerXpFraction: Float get() = fraction(playerXpInLevel, playerXpForLevel)
     val classXpFraction: Float get() = fraction(classXpInLevel, classXpForLevel)

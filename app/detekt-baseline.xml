@@ -110,6 +110,10 @@
     <ID>FunctionNaming:OrnateSigil.kt$@Composable fun OrnateSigil( state: OrnateSigilState, animation: OrnateSigilAnimation, semanticDescription: String, modifier: Modifier = Modifier, simplified: Boolean = false, minimal: Boolean = false, frameMotion: Boolean = true, rotationProfile: SigilRotationProfile = SigilRotationProfile.LEGACY, opacityProfile: SigilOpacityProfile = SigilOpacityProfile.LEGACY, stationaryOverlay: Boolean = false, classGeometry: Boolean = false, internalGlow: Boolean = false, warmAccents: Boolean = false, )</ID>
     <ID>FunctionNaming:Placeholder.kt$@Composable fun CenteredPlaceholder( title: String, message: String, icon: ImageVector, modifier: Modifier = Modifier, )</ID>
     <ID>FunctionNaming:ProgressScreen.kt$@Composable fun ProgressScreen(modifier: Modifier = Modifier)</ID>
+    <ID>FunctionNaming:QuestCompleteHud.kt$@Composable fun QuestCompleteHud( summary: QuestCompletionSummary, accent: Color, reveal: Float, pulse: Float, modifier: Modifier = Modifier, onDismiss: (() -&gt; Unit)? = null, )</ID>
+    <ID>FunctionNaming:QuestCompleteHud.kt$@Composable private fun ContinueChip( accent: Color, pulse: Float, onDismiss: () -&gt; Unit, )</ID>
+    <ID>FunctionNaming:QuestCompleteHud.kt$@Composable private fun QuestCompleteCrest( accent: Color, pulse: Float, )</ID>
+    <ID>FunctionNaming:QuestCompleteHud.kt$@Composable private fun RewardStat( accent: Color, label: String, value: String, )</ID>
     <ID>FunctionNaming:QuestsScreen.kt$@Composable fun QuestsScreen( onQuestClick: (String) -&gt; Unit, modifier: Modifier = Modifier, viewModel: QuestsViewModel = hiltViewModel(), )</ID>
     <ID>FunctionNaming:QuestsScreen.kt$@Composable private fun QuestListCard( quest: Quest, onClick: () -&gt; Unit, )</ID>
     <ID>FunctionNaming:RevisedStatusPrototypeScreen.kt$@Composable fun RevisedStatusPrototypeScreen( modifier: Modifier = Modifier, controller: PrototypeReviewController = rememberPrototypeReviewController(), )</ID>
@@ -218,6 +222,8 @@
     <ID>LongParameterList:ProgressionEventFactory.kt$ProgressionEventFactory$( userId: String, sourceType: XpSourceType, sourceId: String, before: ProgressionSnapshot, after: ProgressionSnapshot, classChanges: List&lt;ClassEventInput&gt; = emptyList(), label: String? = null, now: Long = System.currentTimeMillis(), )</ID>
     <ID>LongParameterList:ProgressionEventPublisher.kt$ProgressionEventPublisher$( userId: String, sourceType: XpSourceType, sourceId: String, label: String?, playerBefore: ProgressionSnapshot, playerAfter: ProgressionSnapshot, breakdown: RewardBreakdown, )</ID>
     <ID>LongParameterList:ProgressionEventQueueTest.kt$ProgressionEventQueueTest$( batchId: String, sequence: Int, type: ProgressionEventType, attribute: AttributeType? = null, from: Long = 0, to: Long = 0, )</ID>
+    <ID>LongParameterList:QuestCompleteHud.kt$( summary: QuestCompletionSummary, accent: Color, reveal: Float, pulse: Float, modifier: Modifier = Modifier, onDismiss: (() -&gt; Unit)? = null, )</ID>
+    <ID>LongParameterList:QuestCompletionPresentationTest.kt$QuestCompletionPresentationTest$( type: ProgressionEventType, sourceType: XpSourceType = XpSourceType.QUEST_COMPLETION, attribute: AttributeType? = null, from: Long = 0, to: Long = 0, label: String? = "200 Push-Ups", sourceId: String = "q1", seq: Int = 0, )</ID>
     <ID>LongParameterList:QuestIntervalRedistributionEngine.kt$QuestIntervalRedistributionEngine$( action: AdaptiveIntervalAction, summary: String, reasons: List&lt;String&gt;, leftoverFlexible: Int = 0, requiresConfirmation: Boolean = true, safety: ProgressionSafetyState = ProgressionSafetyState.OK, )</ID>
     <ID>LongParameterList:QuestRepository.kt$QuestRepository$( objectiveId: String, value: Double, source: ProgressSource = ProgressSource.MANUAL, note: String? = null, perceivedEffort: Int? = null, sourceApplication: String? = null, externalRecordId: String? = null, )</ID>
     <ID>LongParameterList:QuestRepositoryImpl.kt$QuestRepositoryImpl$( private val db: AscendDatabase, private val questDao: QuestDao, private val exerciseDao: ExerciseDao, private val progressionRepository: ProgressionRepository, private val xpCalculator: XpCalculator, private val attributeCalculator: AttributeProgressCalculator, private val classRewardApplier: ClassRewardApplier, private val eventPublisher: ProgressionEventPublisher, )</ID>
@@ -540,6 +546,10 @@
     <ID>MagicNumber:PrototypeReviewModels.kt$MotionSpeed.FAST$0.65f</ID>
     <ID>MagicNumber:PrototypeReviewModels.kt$RotationPace.AMBIENT$200_000</ID>
     <ID>MagicNumber:PrototypeReviewModels.kt$RotationPace.REVIEW$24_000</ID>
+    <ID>MagicNumber:QuestCompleteHud.kt$0.32f</ID>
+    <ID>MagicNumber:QuestCompleteHud.kt$0.7f</ID>
+    <ID>MagicNumber:QuestCompleteHud.kt$3</ID>
+    <ID>MagicNumber:QuestCompleteHud.kt$5</ID>
     <ID>MagicNumber:QuestViewModel.kt$QuestViewModel$5_000</ID>
     <ID>MagicNumber:QuestsViewModel.kt$QuestsViewModel$5_000</ID>
     <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$0.5f</ID>
@@ -1075,6 +1085,13 @@
     <ID>MaxLineLength:PrototypeReviewModels.kt$EffectsQuality$FULL -&gt; EffectsConfig(particleQuality = 1f, sigilIdle = true, scan = true, glowPulses = true, scanQuality = 1f)</ID>
     <ID>MaxLineLength:PrototypeReviewModels.kt$EffectsQuality$MINIMAL -&gt; EffectsConfig(particleQuality = 0f, sigilIdle = false, scan = false, glowPulses = false, scanQuality = 0f)</ID>
     <ID>MaxLineLength:PrototypeReviewModels.kt$EffectsQuality$SIMPLIFIED -&gt; EffectsConfig(particleQuality = 0.4f, sigilIdle = true, scan = true, glowPulses = true, scanQuality = 0.5f)</ID>
+    <ID>MaxLineLength:QuestCompleteHud.kt$drawRoundRect(accent.copy(alpha = 0.6f + 0.3f * pulse), cornerRadius = radius, style = Stroke(width = 1.5f))</ID>
+    <ID>MaxLineLength:QuestCompletionPipelineTest.kt$QuestCompletionPipelineTest$ProgressionRepositoryImpl(db, db.playerDao(), db.xpDao(), db.attributeDao(), LevelCalculator(), RankCalculator())</ID>
+    <ID>MaxLineLength:QuestCompletionPipelineTest.kt$QuestCompletionPipelineTest$db.playerDao().upsertProfile(UserProfileEntity(id = LOCAL_USER_ID, displayName = "Tester", createdAt = 0, updatedAt = 0))</ID>
+    <ID>MaxLineLength:QuestCompletionPresentationTest.kt$QuestCompletionPresentationTest$ev(ProgressionEventType.ATTRIBUTE_CHANGED, attribute = AttributeType.STRENGTH, from = 0, to = 6, seq = 1)</ID>
+    <ID>MaxLineLength:QuestCompletionPresentationTest.kt$QuestCompletionPresentationTest$ev(ProgressionEventType.ATTRIBUTE_CHANGED, attribute = AttributeType.STRENGTH, from = 0, to = 8, seq = 1)</ID>
+    <ID>MaxLineLength:QuestCompletionPresentationTest.kt$QuestCompletionPresentationTest$ev(ProgressionEventType.ATTRIBUTE_CHANGED, attribute = AttributeType.STRENGTH, from = 10, to = 40, seq = 1)</ID>
+    <ID>MaxLineLength:QuestCompletionPresentationTest.kt$QuestCompletionPresentationTest$val batch = listOf(ev(ProgressionEventType.XP_GAINED, sourceType = XpSourceType.WORKOUT_COMPLETION, from = 0, to = 120))</ID>
     <ID>MaxLineLength:QuestDao.kt$QuestDao$"SELECT q.id AS questId, q.status AS status, o.targetValue AS target, o.currentValue AS current, q.createdAt AS createdAt "</ID>
     <ID>MaxLineLength:QuestIntervalDao.kt$QuestIntervalDao$@Query("UPDATE quest_interval SET currentValue = :value, status = :status, completedAt = :completedAt WHERE id = :intervalId")</ID>
     <ID>MaxLineLength:QuestIntervalDaoTest.kt$QuestIntervalDaoTest$QuestEntity(id = "q1", userId = "u1", title = "200 Push-Ups", questType = "ACCUMULATION", createdAt = 0, updatedAt = 0)</ID>
@@ -1126,6 +1143,7 @@
     <ID>MaxLineLength:SkillRepositoryImpl.kt$SkillRepositoryImpl$override suspend fun playerSkills(userId: String): List&lt;PlayerSkill&gt;</ID>
     <ID>MaxLineLength:SkillRepositoryImpl.kt$SkillRepositoryImpl$val retained = transferableResolver.retainedAfterSwitch(current, definitionsById, newClassId).map { it.skillId }.toSet()</ID>
     <ID>MaxLineLength:StatusAtmosphere.kt$brush = Brush.radialGradient(listOf(b.tint.copy(alpha = 0.05f * effectsQuality), Color.Transparent), Offset(cx, cy), r)</ID>
+    <ID>MaxLineLength:StatusComposition.kt$StatusComposition$.</ID>
     <ID>MaxLineLength:StatusEnergyFrame.kt$colors = listOf(Color.Transparent, StatusPalette.violet.copy(alpha = 0.16f * bright), Color.Transparent)</ID>
     <ID>MaxLineLength:StatusEnergyFrame.kt$drawLine(StatusPalette.cyanSoft.copy(alpha = 0.5f * bright), Offset(tx, y), Offset(tx, y + dir * 6f), strokeWidth = 1f)</ID>
     <ID>MaxLineLength:StatusEnergyFrame.kt$drawLine(StatusPalette.indigo.copy(alpha = 0.5f * e), Offset(sideX, railY), Offset(sideX, h - railY), strokeWidth = 1.5f)</ID>

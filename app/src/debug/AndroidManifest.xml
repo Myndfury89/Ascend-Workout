@@ -4,6 +4,21 @@
     <application>
 
         <!--
+          Debug-only launcher for the HTML-faithful motion-review prototype (the corrected,
+          sigil-dominant review viewport). Its own icon "Ascend Motion Prototype"; debug only.
+        -->
+        <activity
+            android:name="com.ascend.prototype.AscendMotionPrototypeActivity"
+            android:exported="true"
+            android:label="Ascend Motion Prototype"
+            android:theme="@style/Theme.Ascend">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--
           Debug-only launcher for the revised Status motion prototype. Exported with its own
           LAUNCHER entry so it installs as a separate icon in debug builds; never present in
           release. No Hilt / no production wiring.

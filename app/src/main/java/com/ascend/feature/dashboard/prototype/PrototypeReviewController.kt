@@ -40,6 +40,24 @@ class PrototypeReviewController {
     var stationaryOverlay by mutableStateOf(false)
     var rotationPace by mutableStateOf(RotationPace.REVIEW)
 
+    // Motion-review viewport knobs (the HTML-faithful AscendMotionPrototypeScreen).
+    var frameMode by mutableStateOf(FrameMode.FRAMED)
+    var motionVerb by mutableStateOf(com.ascend.core.designsystem.motion.MotionVerb.LOCK)
+    var tier by mutableStateOf(com.ascend.core.designsystem.motion.MotionTier.REWARD)
+    var skillVariant by mutableStateOf(PrototypeSkill.PERCEPTION)
+    var attributeVariant by mutableStateOf(0)
+    var showTimingLabels by mutableStateOf(true)
+    var showAudioHaptic by mutableStateOf(true)
+    var showImplNotes by mutableStateOf(false)
+
+    var chainedReplayKey by mutableIntStateOf(0)
+        private set
+
+    /** Trigger a chained progression demo (attribute increase → level-up), observed by the screen. */
+    fun chainedReplay() {
+        chainedReplayKey++
+    }
+
     /** The rotation-layering profile implied by [sigilRefined] (proposed = ceremonial-middle only). */
     val rotationProfile: SigilRotationProfile
         get() = if (sigilRefined) SigilRotationProfile.CEREMONIAL_MIDDLE else SigilRotationProfile.LEGACY

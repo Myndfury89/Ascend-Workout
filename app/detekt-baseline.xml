@@ -20,6 +20,17 @@
     <ID>FunctionNaming:ActiveQuestScreen.kt$@Composable private fun CustomAddDialog( onAdd: (Int) -&gt; Unit, onDismiss: () -&gt; Unit, )</ID>
     <ID>FunctionNaming:ActiveQuestScreen.kt$@OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class) @Composable internal fun ActiveQuestContent( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
     <ID>FunctionNaming:AscendApp.kt$@Composable fun AscendApp()</ID>
+    <ID>FunctionNaming:AscendMotionPrototypeScreen.kt$@Composable fun AscendMotionPrototypeScreen( modifier: Modifier = Modifier, controller: PrototypeReviewController = rememberMotionPrototypeController(), )</ID>
+    <ID>FunctionNaming:AscendMotionPrototypeScreen.kt$@Composable private fun Action( label: String, modifier: Modifier = Modifier, onClick: () -&gt; Unit, )</ID>
+    <ID>FunctionNaming:AscendMotionPrototypeScreen.kt$@Composable private fun Chip( label: String, accent: Color, )</ID>
+    <ID>FunctionNaming:AscendMotionPrototypeScreen.kt$@Composable private fun ImplNote(text: String)</ID>
+    <ID>FunctionNaming:AscendMotionPrototypeScreen.kt$@Composable private fun Label(text: String)</ID>
+    <ID>FunctionNaming:AscendMotionPrototypeScreen.kt$@Composable private fun MotionReviewExtraControls( controller: PrototypeReviewController, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:AscendMotionPrototypeScreen.kt$@Composable private fun MotionReviewViewport( data: StatusPrototypeData, controller: PrototypeReviewController, accent: Color, motion: StatusPrototypeMotion, rotation: Float, reduced: Boolean, motionSpec: MotionSpec, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:AscendMotionPrototypeScreen.kt$@Composable private fun ToggleChip( label: String, checked: Boolean, onChange: (Boolean) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:AscendMotionPrototypeScreen.kt$@OptIn(ExperimentalLayoutApi::class) @Composable private fun &lt;T&gt; SelectRow( options: List&lt;T&gt;, selected: T, label: (T) -&gt; String, onSelect: (T) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:AscendMotionPrototypeScreen.kt$@OptIn(ExperimentalLayoutApi::class) @Composable private fun AttributeChips( data: StatusPrototypeData, activeIndex: Int, )</ID>
+    <ID>FunctionNaming:AscendMotionPrototypeScreen.kt$@OptIn(ExperimentalLayoutApi::class) @Composable private fun SkillDock(controller: PrototypeReviewController)</ID>
     <ID>FunctionNaming:AscendRoot.kt$@Composable fun AscendRoot(viewModel: RootGateViewModel = hiltViewModel())</ID>
     <ID>FunctionNaming:Buttons.kt$@Composable fun PrimaryActionButton( text: String, onClick: () -&gt; Unit, modifier: Modifier = Modifier, enabled: Boolean = true, )</ID>
     <ID>FunctionNaming:Buttons.kt$@Composable fun QuickProgressButton( label: String, onClick: () -&gt; Unit, modifier: Modifier = Modifier, enabled: Boolean = true, )</ID>
@@ -142,6 +153,8 @@
     <ID>FunctionOnlyReturningConstant:OrnateSigilModels.kt$SigilRotationProfile$@Suppress("unused") fun progressRotation(rot: Float): Float</ID>
     <ID>LongMethod:ActiveQuestScreen.kt$@OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class) @Composable internal fun ActiveQuestContent( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
     <ID>LongMethod:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$override fun migrate(db: SupportSQLiteDatabase)</ID>
+    <ID>LongMethod:AscendMotionPrototypeScreen.kt$@Composable fun AscendMotionPrototypeScreen( modifier: Modifier = Modifier, controller: PrototypeReviewController = rememberMotionPrototypeController(), )</ID>
+    <ID>LongMethod:AscendMotionPrototypeScreen.kt$@Composable private fun MotionReviewViewport( data: StatusPrototypeData, controller: PrototypeReviewController, accent: Color, motion: StatusPrototypeMotion, rotation: Float, reduced: Boolean, motionSpec: MotionSpec, modifier: Modifier = Modifier, )</ID>
     <ID>LongMethod:FakeStatusPrototype.kt$FakeStatusPrototype$fun dataFor( stateId: StatusPrototypeStateId, variant: StatusClassVariant, reducedMotion: Boolean, forceSecondary: Boolean = false, weightUnit: com.ascend.core.common.WeightUnit = com.ascend.core.common.WeightUnit.KILOGRAMS, ): StatusPrototypeData</ID>
     <ID>LongMethod:LogWorkoutScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable private fun AddSetSection( exercises: List&lt;Exercise&gt;, weightUnit: WeightUnit, onAddSet: (Exercise, Int, Double?) -&gt; Unit, )</ID>
     <ID>LongMethod:LogWorkoutScreen.kt$@OptIn(ExperimentalMaterial3Api::class, androidx.compose.foundation.layout.ExperimentalLayoutApi::class) @Composable internal fun LogWorkoutContent( state: LogWorkoutUiState, onBack: () -&gt; Unit, onTitleChange: (String) -&gt; Unit, onDifficultyChange: (Difficulty) -&gt; Unit, onAddSet: (Exercise, Int, Double?) -&gt; Unit, onDeleteSet: (String) -&gt; Unit, onFinish: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, weightUnit: WeightUnit = WeightUnit.KILOGRAMS, onWeightUnitChange: (WeightUnit) -&gt; Unit = {}, )</ID>
@@ -155,6 +168,7 @@
     <ID>LongMethod:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$override suspend fun completeWorkout(workoutId: String): CompleteWorkoutResult</ID>
     <ID>LongParameterList:ActiveQuestScreen.kt$( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
     <ID>LongParameterList:AdaptiveIntervalRedistributionTest.kt$AdaptiveIntervalRedistributionTest$( dailyTarget: Int = 200, progress: Int = 30, leftover: Int = 20, futures: List&lt;FutureInterval&gt; = listOf(future("a", 50, 10), future("b", 50, 20), future("c", 50, 30)), preference: RedistributionPreference = RedistributionPreference.EVEN, timeRemaining: Long = 1000, quietHours: List&lt;Pair&lt;Long, Long&gt;&gt; = emptyList(), maxSetSize: Int = Int.MAX_VALUE, maxIntervalTarget: Int = Int.MAX_VALUE, fatigue: Int? = null, auto: Boolean = false, safety: ProgressionSafetyState = ProgressionSafetyState.OK, now: Long = 5, )</ID>
+    <ID>LongParameterList:AscendMotionPrototypeScreen.kt$( data: StatusPrototypeData, controller: PrototypeReviewController, accent: Color, motion: StatusPrototypeMotion, rotation: Float, reduced: Boolean, motionSpec: MotionSpec, modifier: Modifier = Modifier, )</ID>
     <ID>LongParameterList:BodyweightProgressionCalculator.kt$BodyweightProgressionCalculator$( private val repCalculator: RepProgressionCalculator, private val setCalculator: SetProgressionCalculator, private val restCalculator: RestProgressionCalculator, private val assistanceCalculator: AssistanceProgressionCalculator, private val externalLoadCalculator: ExternalLoadProgressionCalculator, private val tempoCalculator: TempoProgressionCalculator, private val variationEngine: ExerciseVariationProgressionEngine, )</ID>
     <ID>LongParameterList:ClassAffinityAssessorTest.kt$ClassAffinityAssessorTest$( goal: PrimaryGoal, prefs: Set&lt;ActivityPreference&gt; = emptySet(), experience: Map&lt;ActivityDomain, ExperienceLevel&gt; = emptyMap(), sex: OptionalSex = OptionalSex.NOT_SET, age: AgeSafetyCategory = AgeSafetyCategory.ADULT, limitations: Set&lt;Limitation&gt; = emptySet(), body: BodyMetrics = BodyMetrics(), )</ID>
     <ID>LongParameterList:ClassRecommendationRationaleTest.kt$ClassRecommendationRationaleTest$( goal: PrimaryGoal = PrimaryGoal.STRENGTH, secondary: List&lt;PrimaryGoal&gt; = emptyList(), prefs: Set&lt;ActivityPreference&gt; = emptySet(), env: TrainingEnvironment? = null, sex: OptionalSex = OptionalSex.NOT_SET, age: AgeSafetyCategory = AgeSafetyCategory.ADULT, limitations: Set&lt;Limitation&gt; = emptySet(), body: BodyMetrics = BodyMetrics(), )</ID>
@@ -241,6 +255,15 @@
     <ID>MagicNumber:AscendMotion.kt$MotionTier.REWARD$700</ID>
     <ID>MagicNumber:AscendMotion.kt$VerbSpeed.CINEMATIC$1.6f</ID>
     <ID>MagicNumber:AscendMotion.kt$VerbSpeed.FAST$0.55f</ID>
+    <ID>MagicNumber:AscendMotionPrototypeScreen.kt$0.5f</ID>
+    <ID>MagicNumber:AscendMotionPrototypeScreen.kt$0xFF10141C</ID>
+    <ID>MagicNumber:AscendMotionPrototypeScreen.kt$0xFF12172B</ID>
+    <ID>MagicNumber:AscendMotionPrototypeScreen.kt$0xFF20264A</ID>
+    <ID>MagicNumber:AscendMotionPrototypeScreen.kt$0xFF2A335A</ID>
+    <ID>MagicNumber:AscendMotionPrototypeScreen.kt$1400</ID>
+    <ID>MagicNumber:AscendMotionPrototypeScreen.kt$3</ID>
+    <ID>MagicNumber:AscendMotionPrototypeScreen.kt$360f</ID>
+    <ID>MagicNumber:AscendMotionPrototypeScreen.kt$9000</ID>
     <ID>MagicNumber:AscendRoot.kt$RootGateViewModel$5_000</ID>
     <ID>MagicNumber:AssessmentInputs.kt$SessionDuration.MIN_20_30$30</ID>
     <ID>MagicNumber:AssessmentInputs.kt$SessionDuration.MIN_30_45$45</ID>
@@ -662,6 +685,17 @@
     <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$db.execSQL("CREATE INDEX IF NOT EXISTS `index_quest_checkpoint_questId` ON `quest_checkpoint` (`questId`)")</ID>
     <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$db.execSQL("DROP INDEX IF EXISTS `index_class_proficiency_transaction_proficiencyKey_transactionType_sourceType_sourceId`")</ID>
     <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$db.execSQL("DROP INDEX IF EXISTS `index_class_xp_transaction_classId_transactionType_sourceType_sourceId`")</ID>
+    <ID>MaxLineLength:AscendMotionPrototypeScreen.kt$.</ID>
+    <ID>MaxLineLength:AscendMotionPrototypeScreen.kt$SelectRow</ID>
+    <ID>MaxLineLength:AscendMotionPrototypeScreen.kt$SelectRow(MotionTier.entries, controller.tier, { it.name.lowercase().replaceFirstChar(Char::uppercase) }) { controller.tier = it }</ID>
+    <ID>MaxLineLength:AscendMotionPrototypeScreen.kt$StatusPrototypeControls(controller = controller, modifier = Modifier.widthIn(max = VIEWPORT_MAX_WIDTH_DP.dp).fillMaxWidth())</ID>
+    <ID>MaxLineLength:AscendMotionPrototypeScreen.kt$Text("${line.value}", color = StatusPalette.textPrimary, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)</ID>
+    <ID>MaxLineLength:AscendMotionPrototypeScreen.kt$Text(data.variant.displayName, color = StatusPalette.textPrimary, fontSize = 18.sp, fontWeight = FontWeight.SemiBold)</ID>
+    <ID>MaxLineLength:AscendMotionPrototypeScreen.kt$Text(label(option), color = if (on) StatusPalette.textPrimary else StatusPalette.textMuted, fontSize = 11.sp)</ID>
+    <ID>MaxLineLength:AscendMotionPrototypeScreen.kt$Text(skill.displayName, color = if (selected) StatusPalette.textPrimary else StatusPalette.textMuted, fontSize = 11.sp)</ID>
+    <ID>MaxLineLength:AscendMotionPrototypeScreen.kt$fun</ID>
+    <ID>MaxLineLength:AscendMotionPrototypeScreen.kt$if (controller.showAudioHaptic) Text("♪ cue · ⌁ haptic", color = accent.copy(alpha = 0.8f), fontSize = 11.sp)</ID>
+    <ID>MaxLineLength:AscendMotionPrototypeScreen.kt$return "${controller.motionVerb.name} · ${ms}ms · ${controller.tier.name.lowercase()} · ×${controller.motionSpeed.label}"</ID>
     <ID>MaxLineLength:BodyweightProgressionCalculator.kt$BodyweightProgressionCalculator$all.filterNot { it.dimension == ProgressionDimension.TEMPO || it.dimension == ProgressionDimension.RANGE_OF_MOTION }</ID>
     <ID>MaxLineLength:BodyweightProgressionCalculator.kt$BodyweightProgressionCalculator$out += variationEngine.advanceCandidates(context.graph, context.currentVariationId, context.variationInput)</ID>
     <ID>MaxLineLength:BodyweightProgressionCalculators.kt$AssistanceProgressionCalculator$if (safetyBlocked(checkIn)) return maintain("Keep current assistance — recover first", ProgressionDimension.ASSISTANCE)</ID>
@@ -1095,6 +1129,7 @@
     <ID>TooManyFunctions:AdaptiveTrainingDao.kt$AdaptiveTrainingDao</ID>
     <ID>TooManyFunctions:AdaptiveTrainingMappers.kt$com.ascend.core.data.mapper.AdaptiveTrainingMappers.kt</ID>
     <ID>TooManyFunctions:AscendDatabase.kt$AscendDatabase : RoomDatabase</ID>
+    <ID>TooManyFunctions:AscendMotionPrototypeScreen.kt$com.ascend.feature.dashboard.prototype.AscendMotionPrototypeScreen.kt</ID>
     <ID>TooManyFunctions:CardioProgressionCalculators.kt$CardioProgressionCalculator</ID>
     <ID>TooManyFunctions:ClassDao.kt$ClassDao</ID>
     <ID>TooManyFunctions:ClassRepository.kt$ClassRepository</ID>

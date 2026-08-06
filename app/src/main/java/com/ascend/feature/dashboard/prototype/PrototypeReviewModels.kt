@@ -58,6 +58,24 @@ enum class RotationPace(val label: String, val periodMs: Int) {
     AMBIENT("Ambient 200s", 200_000),
 }
 
+/** Whether the review viewport draws its ceremonial energy frame (FRAMED) or a bare canvas. */
+enum class FrameMode(val label: String) {
+    FRAMED("Framed"),
+    CANVAS("Canvas"),
+}
+
+/** The four reviewable Skills for the Skill dock (full unlock-menu choreography is CP4). */
+enum class PrototypeSkill(
+    val displayName: String,
+    val category: String,
+    val effect: String,
+) {
+    PERCEPTION("Perception", "Awareness", "Surfaces hidden training insight"),
+    STRENGTH_BOOST("Strength Boost", "Power", "Amplifies force output"),
+    BREATH_CONTROL("Breath Control", "Endurance", "Sustains output under load"),
+    BODY_AWARENESS("Body Awareness", "Control", "Sharpens movement precision"),
+}
+
 /** Simulated device-width category for legibility review; null width fills the container. */
 enum class DeviceWidth(val label: String, val widthDp: Int?) {
     COMPACT("Small phone", 340),

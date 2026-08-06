@@ -187,6 +187,11 @@ private fun StatusFramedPanel(
         ) {
             StatusPanelContent(data, accent, motion, rotation, ambient)
         }
+        // Reduced-motion recognition cue: a brief flat accent flash across the panel so a Reward event
+        // (e.g. a personal record) is never silent when all kinetic motion is collapsed.
+        if (motion.recognitionCue.value > 0.001f) {
+            Box(Modifier.matchParentSize().background(accent.copy(alpha = motion.recognitionCue.value * 0.16f)))
+        }
         Box(Modifier.align(Alignment.TopCenter).padding(top = 8.dp)) {
             EventOverlayChip(data.overlay, accent, motion.overlayReveal.value, motion.eventFlash.value)
         }

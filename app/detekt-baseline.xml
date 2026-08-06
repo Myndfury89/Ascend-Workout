@@ -4,6 +4,7 @@
   <CurrentIssues>
     <ID>ComplexCondition:BodyweightProgressionCalculators.kt$TempoProgressionCalculator$!hasVariationControl || !s.allAtLeastMin || s.anyFailure || !s.effortAcceptable</ID>
     <ID>CyclomaticComplexMethod:ActiveQuestScreen.kt$@OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class) @Composable internal fun ActiveQuestContent( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
+    <ID>CyclomaticComplexMethod:AscendMotionPrototypeScreen.kt$@Composable fun AscendMotionPrototypeScreen( modifier: Modifier = Modifier, controller: PrototypeReviewController = rememberMotionPrototypeController(), )</ID>
     <ID>CyclomaticComplexMethod:BodyweightProgressionCalculators.kt$BodyweightSignals.Companion$fun from( prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn, config: BodyweightProgressionConfig, ): BodyweightSignals</ID>
     <ID>CyclomaticComplexMethod:ExerciseVariationProgressionEngine.kt$ExerciseVariationProgressionEngine$private fun evaluateEdge( graph: ExerciseVariationGraph, edge: ExerciseVariationProgressionEdge, input: VariationReadinessInput, ): EdgeEligibility</ID>
     <ID>CyclomaticComplexMethod:FakeStatusPrototype.kt$FakeStatusPrototype$fun dataFor( stateId: StatusPrototypeStateId, variant: StatusClassVariant, reducedMotion: Boolean, forceSecondary: Boolean = false, weightUnit: com.ascend.core.common.WeightUnit = com.ascend.core.common.WeightUnit.KILOGRAMS, ): StatusPrototypeData</ID>
@@ -15,6 +16,7 @@
     <ID>CyclomaticComplexMethod:ProgressionRewardService.kt$ProgressionRewardCalculator$fun rewardFor( milestoneType: ProgressionMilestoneType, primaryAttribute: AttributeType?, ): ProgressionRewardSpec</ID>
     <ID>CyclomaticComplexMethod:QuestRepositoryImpl.kt$QuestRepositoryImpl$override suspend fun completeQuest(questId: String): CompleteQuestResult</ID>
     <ID>CyclomaticComplexMethod:RevisedStatusPrototypeScreen.kt$@Composable fun RevisedStatusPrototypeScreen( modifier: Modifier = Modifier, controller: PrototypeReviewController = rememberPrototypeReviewController(), )</ID>
+    <ID>CyclomaticComplexMethod:StatusPrototypeMotion.kt$StatusPrototypeMotion$suspend fun play( data: StatusPrototypeData, motion: MotionSpec, entranceMode: EntranceMode = EntranceMode.MAJOR_EVENT, )</ID>
     <ID>CyclomaticComplexMethod:TrainingReadinessCalculator.kt$TrainingReadinessCalculator$fun evaluateResistance( sessions: List&lt;SessionPerformance&gt;, prescription: ExercisePrescription, checkIn: ReadinessCheckIn = ReadinessCheckIn(), now: Long = System.currentTimeMillis(), ): TrainingReadiness</ID>
     <ID>FunctionNaming:ActiveQuestScreen.kt$@Composable fun ActiveQuestScreen( onBack: () -&gt; Unit, modifier: Modifier = Modifier, viewModel: QuestViewModel = hiltViewModel(), )</ID>
     <ID>FunctionNaming:ActiveQuestScreen.kt$@Composable private fun CustomAddDialog( onAdd: (Int) -&gt; Unit, onDismiss: () -&gt; Unit, )</ID>
@@ -272,6 +274,7 @@
     <ID>MagicNumber:AscendMotion.kt$MotionTier.REWARD$700</ID>
     <ID>MagicNumber:AscendMotion.kt$VerbSpeed.CINEMATIC$1.6f</ID>
     <ID>MagicNumber:AscendMotion.kt$VerbSpeed.FAST$0.55f</ID>
+    <ID>MagicNumber:AscendMotionPrototypeScreen.kt$0.001f</ID>
     <ID>MagicNumber:AscendMotionPrototypeScreen.kt$0.01f</ID>
     <ID>MagicNumber:AscendMotionPrototypeScreen.kt$0.3f</ID>
     <ID>MagicNumber:AscendMotionPrototypeScreen.kt$0.5f</ID>
@@ -668,6 +671,7 @@
     <ID>MagicNumber:StatusPrototypePanelContent.kt$0xFFE8735A</ID>
     <ID>MagicNumber:StatusPrototypePreviews.kt$0.98f</ID>
     <ID>MagicNumber:StatusPrototypePreviews.kt$5</ID>
+    <ID>MagicNumber:StatusScreen.kt$0.001f</ID>
     <ID>MagicNumber:StatusScreen.kt$0.01f</ID>
     <ID>MagicNumber:StatusScreen.kt$0.55f</ID>
     <ID>MagicNumber:StatusScreen.kt$0.5f</ID>

@@ -1,10 +1,12 @@
 package com.ascend.feature.dashboard.prototype
 
 import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Stable
 import com.ascend.core.designsystem.motion.AscendEasing
 import com.ascend.core.designsystem.motion.AscendMotionTokens
+import com.ascend.core.designsystem.motion.AscendVerb
 import com.ascend.core.designsystem.motion.MotionSpec
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
@@ -33,6 +35,10 @@ class StatusPrototypeMotion(attributeCount: Int) {
     val overlayReveal = Animatable(0f)
     val eventFlash = Animatable(0f)
     val wave = Animatable(0f)
+
+    /** Reduced-motion recognition cue: a brief flat, non-kinetic panel flash so a Reward event
+     *  (especially a personal record) is never silent when all kinetic motion is collapsed. */
+    val recognitionCue = Animatable(0f)
 
     val attrReveal = List(attributeCount) { Animatable(0f) }
     val attrValue = List(attributeCount) { Animatable(0f) }
@@ -104,6 +110,9 @@ class StatusPrototypeMotion(attributeCount: Int) {
         }
         playRewardEmphasis(data, motion)
         if (!everyday) playAscensionFlash(data, motion)
+        // Reduced motion collapses every kinetic beat to nothing, so a Reward event would be silent.
+        // Emit the required brief flat recognition cue instead (a real duration, bypassing collapse).
+        if (motion.reducedMotion && isRewardOverlay(data.overlay.kind)) playRecognitionCue()
     }
 
     /** Reward-tier cue: the attribute center-out wave + medallion pulse, or a proficiency/quest pulse. */
@@ -166,6 +175,18 @@ class StatusPrototypeMotion(attributeCount: Int) {
         wave.snapTo(0f)
     }
 
+    /**
+     * The reduced-motion recognition cue: a flat non-kinetic flash over [AscendVerb.RECOGNITION_CUE_MS]
+     * (up then down, linear). Uses a raw tween on purpose — it must have a real duration even when
+     * reduced motion collapses every other tween to zero. No scale, no movement — alpha only.
+     */
+    private suspend fun playRecognitionCue() {
+        val half = (AscendVerb.RECOGNITION_CUE_MS / 2).coerceAtLeast(1)
+        recognitionCue.snapTo(0f)
+        recognitionCue.animateTo(1f, tween(durationMillis = half, easing = LinearEasing))
+        recognitionCue.animateTo(0f, tween(durationMillis = half, easing = LinearEasing))
+    }
+
     private suspend fun flash(motion: MotionSpec) {
         eventFlash.snapTo(0f)
         eventFlash.animateTo(1f, motion.tween(AscendMotionTokens.QUICK, AscendEasing.emphasize))
@@ -187,6 +208,7 @@ class StatusPrototypeMotion(attributeCount: Int) {
         overlayReveal.snapTo(0f)
         eventFlash.snapTo(0f)
         wave.snapTo(0f)
+        recognitionCue.snapTo(0f)
         attrReveal.forEach { it.snapTo(0f) }
         attrValue.forEach { it.snapTo(0f) }
         attrPulse.forEach { it.snapTo(1f) }
@@ -196,3 +218,11 @@ class StatusPrototypeMotion(attributeCount: Int) {
         const val PULSE_PEAK = 1.18f
     }
 }
+
+/** Reward-tier overlays that must never be silent — they get the recognition cue under reduced motion. */
+internal fun isRewardOverlay(kind: StatusOverlayKind): Boolean =
+    kind == StatusOverlayKind.ATTRIBUTE ||
+        kind == StatusOverlayKind.PROFICIENCY ||
+        kind == StatusOverlayKind.QUEST_PROGRESS ||
+        kind == StatusOverlayKind.QUEST_COMPLETE ||
+        kind == StatusOverlayKind.PERSONAL_RECORD

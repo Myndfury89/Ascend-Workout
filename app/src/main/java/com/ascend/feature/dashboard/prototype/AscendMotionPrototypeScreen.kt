@@ -176,6 +176,11 @@ fun AscendMotionPrototypeScreen(
                 )
             }
         }
+
+        // Reduced-motion recognition cue: a brief flat accent flash so a Reward event is never silent.
+        if (motion.recognitionCue.value > 0.001f) {
+            Box(Modifier.fillMaxSize().background(accent.copy(alpha = motion.recognitionCue.value * 0.14f)))
+        }
     }
 }
 

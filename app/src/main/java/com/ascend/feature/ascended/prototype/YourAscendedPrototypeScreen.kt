@@ -21,53 +21,63 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.ascend.feature.ascended.prototype.controls.AscendedReviewControls
-import com.ascend.feature.ascended.prototype.model.AscendedState
+import com.ascend.feature.ascended.prototype.body.BaseMannequin
+import com.ascend.feature.ascended.prototype.body.ClassSilhouetteFigure
+import com.ascend.feature.ascended.prototype.controls.ClassReviewControls
+import com.ascend.feature.ascended.prototype.model.AscendedClass
 import com.ascend.feature.ascended.prototype.model.BodyBase
-import com.ascend.feature.ascended.prototype.model.FakeAscended
-import com.ascend.feature.dashboard.prototype.StatusPalette
 
 /**
- * The debug-only "Your Ascended" review prototype (CP1). A portrait HUD: a header, the dominant
- * character field (the layered mannequin viewport), and the review controls. Deterministic fake
- * data only — no repositories, no navigation, no physiology, no schema. The male/female toggle
- * switches only the mannequin body base; everything else (fake identity) stays identical so the two
- * bases can be reviewed apples-to-apples.
+ * The debug-only "Your Ascended" review prototype — CP2: the flat class-silhouette shape-language
+ * pass. On a clean LIGHT review background (per the shape-language brief) so the dark cut-paper
+ * figures read by silhouette. Switch between the seven classes (plus the CP1 anatomical Base) and
+ * the male/female body base; toggle silhouette-only and shape-layer review. Deterministic — no
+ * repositories, no navigation, no physiology, no schema. Integrating these figures onto the dark
+ * holographic Your Ascended field (value inversion) is a later checkpoint.
  */
+private val REVIEW_BG = Color(0xFFEDEBE6)
+private val REVIEW_INK = Color(0xFF23262E)
+private val REVIEW_MUTED = Color(0xFF6A6E78)
+
 @Composable
 fun YourAscendedPrototypeScreen(modifier: Modifier = Modifier) {
     var bodyBase by remember { mutableStateOf(BodyBase.MALE) }
+    var selectedClass by remember { mutableStateOf<AscendedClass?>(AscendedClass.MAGICIAN) }
+    var silhouetteOnly by remember { mutableStateOf(false) }
+    var showLayers by remember { mutableStateOf(false) }
     var reducedMotion by remember { mutableStateOf(false) }
-    var seams by remember { mutableStateOf(false) }
 
-    val state =
-        remember(bodyBase, reducedMotion) {
-            FakeAscended.base(bodyBase).copy(reducedMotion = reducedMotion)
-        }
-
-    Box(modifier.fillMaxSize().background(StatusPalette.groundDeep)) {
+    Box(modifier.fillMaxSize().background(REVIEW_BG)) {
         Column(
             Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            AscendedHeader(state)
+            ReviewHeader(selectedClass, bodyBase)
             Spacer(Modifier.height(12.dp))
-            AscendedCharacterViewport(
-                state = state,
-                seams = seams,
-                modifier = Modifier.fillMaxWidth().aspectRatio(0.56f),
-            )
+            Box(Modifier.fillMaxWidth().aspectRatio(0.62f), contentAlignment = Alignment.Center) {
+                val figureModifier = Modifier.fillMaxSize()
+                if (selectedClass != null) {
+                    ClassSilhouetteFigure(selectedClass!!, bodyBase, figureModifier, silhouetteOnly, showLayers)
+                } else {
+                    BaseMannequin(bodyBase, figureModifier, seams = showLayers)
+                }
+            }
             Spacer(Modifier.height(16.dp))
-            AscendedReviewControls(
+            ClassReviewControls(
+                selectedClass = selectedClass,
                 bodyBase = bodyBase,
+                silhouetteOnly = silhouetteOnly,
+                showLayers = showLayers,
                 reducedMotion = reducedMotion,
-                seams = seams,
+                onSelectClass = { selectedClass = it },
                 onBodyBase = { bodyBase = it },
+                onSilhouetteOnly = { silhouetteOnly = it },
+                onShowLayers = { showLayers = it },
                 onReducedMotion = { reducedMotion = it },
-                onSeams = { seams = it },
             )
             Spacer(Modifier.height(28.dp))
         }
@@ -75,32 +85,30 @@ fun YourAscendedPrototypeScreen(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun AscendedHeader(state: AscendedState) {
+private fun ReviewHeader(
+    selectedClass: AscendedClass?,
+    bodyBase: BodyBase,
+) {
     Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-        Text("YOUR ASCENDED", color = StatusPalette.label, fontSize = 12.sp, letterSpacing = 4.sp)
+        Text("YOUR ASCENDED", color = REVIEW_MUTED, fontSize = 12.sp, letterSpacing = 4.sp)
         Spacer(Modifier.height(6.dp))
-        Text("Kaiden", color = StatusPalette.textPrimary, fontSize = 24.sp, fontWeight = FontWeight.SemiBold)
-        Spacer(Modifier.height(2.dp))
-        // Base state is class-neutral — the class is only suggested, not yet expressed.
-        Text("Unbound · The Unawakened", color = StatusPalette.violetBright, fontSize = 13.sp)
-        Spacer(Modifier.height(8.dp))
+        Text(selectedClass?.displayName ?: "Base Mannequin", color = REVIEW_INK, fontSize = 24.sp, fontWeight = FontWeight.SemiBold)
+        Spacer(Modifier.height(4.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            HeaderStat("LEVEL", "1")
-            HeaderStat("RANK", "Iron")
-            HeaderStat("STAGE", state.stage.displayName)
-            HeaderStat("BASE", state.bodyBase.name)
+            Stat("BASE", bodyBase.name)
+            Stat("STAGE", "Base")
+            Stat("SET", if (selectedClass?.production == false) "Preview" else "Live")
         }
     }
 }
 
 @Composable
-private fun HeaderStat(
+private fun Stat(
     label: String,
     value: String,
 ) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(value, color = StatusPalette.textPrimary, fontSize = 14.sp, fontWeight = FontWeight.Medium)
-        Spacer(Modifier.height(2.dp))
-        Text(label, color = StatusPalette.label, fontSize = 9.sp, letterSpacing = 1.5.sp)
+        Text(value, color = REVIEW_INK, fontSize = 13.sp, fontWeight = FontWeight.Medium)
+        Text(label, color = REVIEW_MUTED, fontSize = 9.sp, letterSpacing = 1.5.sp)
     }
 }

@@ -51,6 +51,13 @@
     <ID>FunctionNaming:Buttons.kt$@Composable fun PrimaryActionButton( text: String, onClick: () -&gt; Unit, modifier: Modifier = Modifier, enabled: Boolean = true, )</ID>
     <ID>FunctionNaming:Buttons.kt$@Composable fun QuickProgressButton( label: String, onClick: () -&gt; Unit, modifier: Modifier = Modifier, enabled: Boolean = true, )</ID>
     <ID>FunctionNaming:CalendarScreen.kt$@Composable fun CalendarScreen(modifier: Modifier = Modifier)</ID>
+    <ID>FunctionNaming:ClassReviewControls.kt$@Composable fun ClassReviewControls( selectedClass: AscendedClass?, bodyBase: BodyBase, silhouetteOnly: Boolean, showLayers: Boolean, reducedMotion: Boolean, onSelectClass: (AscendedClass?) -&gt; Unit, onBodyBase: (BodyBase) -&gt; Unit, onSilhouetteOnly: (Boolean) -&gt; Unit, onShowLayers: (Boolean) -&gt; Unit, onReducedMotion: (Boolean) -&gt; Unit, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:ClassReviewControls.kt$@Composable private fun ClassRow( choices: List&lt;AscendedClass?&gt;, selected: AscendedClass?, onSelect: (AscendedClass?) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:ClassReviewControls.kt$@Composable private fun Label(text: String)</ID>
+    <ID>FunctionNaming:ClassReviewControls.kt$@Composable private fun StageChip( label: String, active: Boolean, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:ClassReviewControls.kt$@Composable private fun SwitchRow( label: String, checked: Boolean, onChange: (Boolean) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:ClassReviewControls.kt$@Composable private fun Toggle( label: String, selected: Boolean, onClick: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:ClassSilhouetteFigure.kt$@Composable fun ClassSilhouetteFigure( ascendedClass: AscendedClass, bodyBase: BodyBase, modifier: Modifier = Modifier, silhouetteOnly: Boolean = false, showLayers: Boolean = false, )</ID>
     <ID>FunctionNaming:DungeonPrototypeEncounter.kt$@Composable internal fun EncounterSection(controller: DungeonPrototypeController)</ID>
     <ID>FunctionNaming:DungeonPrototypeEncounter.kt$@OptIn(ExperimentalLayoutApi::class) @Composable internal fun DebugFooter(controller: DungeonPrototypeController)</ID>
     <ID>FunctionNaming:DungeonPrototypeEncounter.kt$@OptIn(ExperimentalLayoutApi::class) @Composable private fun MemberRow( controller: DungeonPrototypeController, memberId: String, )</ID>
@@ -183,13 +190,16 @@
     <ID>FunctionNaming:WorkoutScreen.kt$@Composable fun WorkoutScreen( onLogWorkout: () -&gt; Unit, modifier: Modifier = Modifier, viewModel: WorkoutsViewModel = hiltViewModel(), )</ID>
     <ID>FunctionNaming:WorkoutScreen.kt$@Composable private fun WorkoutListCard(workout: Workout)</ID>
     <ID>FunctionNaming:YourAscendedPrototypeScreen.kt$@Composable fun YourAscendedPrototypeScreen(modifier: Modifier = Modifier)</ID>
-    <ID>FunctionNaming:YourAscendedPrototypeScreen.kt$@Composable private fun AscendedHeader(state: AscendedState)</ID>
-    <ID>FunctionNaming:YourAscendedPrototypeScreen.kt$@Composable private fun HeaderStat( label: String, value: String, )</ID>
+    <ID>FunctionNaming:YourAscendedPrototypeScreen.kt$@Composable private fun ReviewHeader( selectedClass: AscendedClass?, bodyBase: BodyBase, )</ID>
+    <ID>FunctionNaming:YourAscendedPrototypeScreen.kt$@Composable private fun Stat( label: String, value: String, )</ID>
     <ID>FunctionOnlyReturningConstant:OrnateSigilModels.kt$SigilRotationProfile$@Suppress("unused") fun progressRotation(rot: Float): Float</ID>
     <ID>LongMethod:ActiveQuestScreen.kt$@OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class) @Composable internal fun ActiveQuestContent( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
     <ID>LongMethod:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$override fun migrate(db: SupportSQLiteDatabase)</ID>
     <ID>LongMethod:AscendMotionPrototypeScreen.kt$@Composable fun AscendMotionPrototypeScreen( modifier: Modifier = Modifier, controller: PrototypeReviewController = rememberMotionPrototypeController(), )</ID>
     <ID>LongMethod:AscendMotionPrototypeScreen.kt$@Composable private fun MotionReviewViewport( data: StatusPrototypeData, controller: PrototypeReviewController, accent: Color, motion: StatusPrototypeMotion, rotation: Float, reduced: Boolean, motionSpec: MotionSpec, modifier: Modifier = Modifier, )</ID>
+    <ID>LongMethod:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$private fun fighter(base: BodyBase): List&lt;SilhouetteShape&gt;</ID>
+    <ID>LongMethod:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$private fun guardian(base: BodyBase): List&lt;SilhouetteShape&gt;</ID>
+    <ID>LongMethod:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$private fun ranger(base: BodyBase): List&lt;SilhouetteShape&gt;</ID>
     <ID>LongMethod:FakeStatusPrototype.kt$FakeStatusPrototype$fun dataFor( stateId: StatusPrototypeStateId, variant: StatusClassVariant, reducedMotion: Boolean, forceSecondary: Boolean = false, weightUnit: com.ascend.core.common.WeightUnit = com.ascend.core.common.WeightUnit.KILOGRAMS, ): StatusPrototypeData</ID>
     <ID>LongMethod:LogWorkoutScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable private fun AddSetSection( exercises: List&lt;Exercise&gt;, weightUnit: WeightUnit, onAddSet: (Exercise, Int, Double?) -&gt; Unit, )</ID>
     <ID>LongMethod:LogWorkoutScreen.kt$@OptIn(ExperimentalMaterial3Api::class, androidx.compose.foundation.layout.ExperimentalLayoutApi::class) @Composable internal fun LogWorkoutContent( state: LogWorkoutUiState, onBack: () -&gt; Unit, onTitleChange: (String) -&gt; Unit, onDifficultyChange: (Difficulty) -&gt; Unit, onAddSet: (Exercise, Int, Double?) -&gt; Unit, onDeleteSet: (String) -&gt; Unit, onFinish: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, weightUnit: WeightUnit = WeightUnit.KILOGRAMS, onWeightUnitChange: (WeightUnit) -&gt; Unit = {}, )</ID>
@@ -210,7 +220,10 @@
     <ID>LongParameterList:ClassAffinityAssessorTest.kt$ClassAffinityAssessorTest$( goal: PrimaryGoal, prefs: Set&lt;ActivityPreference&gt; = emptySet(), experience: Map&lt;ActivityDomain, ExperienceLevel&gt; = emptyMap(), sex: OptionalSex = OptionalSex.NOT_SET, age: AgeSafetyCategory = AgeSafetyCategory.ADULT, limitations: Set&lt;Limitation&gt; = emptySet(), body: BodyMetrics = BodyMetrics(), )</ID>
     <ID>LongParameterList:ClassRecommendationRationaleTest.kt$ClassRecommendationRationaleTest$( goal: PrimaryGoal = PrimaryGoal.STRENGTH, secondary: List&lt;PrimaryGoal&gt; = emptyList(), prefs: Set&lt;ActivityPreference&gt; = emptySet(), env: TrainingEnvironment? = null, sex: OptionalSex = OptionalSex.NOT_SET, age: AgeSafetyCategory = AgeSafetyCategory.ADULT, limitations: Set&lt;Limitation&gt; = emptySet(), body: BodyMetrics = BodyMetrics(), )</ID>
     <ID>LongParameterList:ClassRepositoryImpl.kt$ClassRepositoryImpl$( userId: String, slot: ClassSlot, newClassId: String?, reason: String?, source: ClassChangeSource, ts: Long, )</ID>
+    <ID>LongParameterList:ClassReviewControls.kt$( selectedClass: AscendedClass?, bodyBase: BodyBase, silhouetteOnly: Boolean, showLayers: Boolean, reducedMotion: Boolean, onSelectClass: (AscendedClass?) -&gt; Unit, onBodyBase: (BodyBase) -&gt; Unit, onSilhouetteOnly: (Boolean) -&gt; Unit, onShowLayers: (Boolean) -&gt; Unit, onReducedMotion: (Boolean) -&gt; Unit, modifier: Modifier = Modifier, )</ID>
     <ID>LongParameterList:ClassRewardApplier.kt$ClassRewardApplier$( userId: String, basePlayerXp: Long, baseAttributeDistribution: Map&lt;AttributeType, Long&gt;, activityTags: Set&lt;String&gt;, sourceType: XpSourceType, sourceId: String, )</ID>
+    <ID>LongParameterList:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$( half: Float, topY: Float, outerHalf: Float, botY: Float, tone: SilhouetteTone, leftName: String, rightName: String, )</ID>
+    <ID>LongParameterList:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$( name: String, tone: SilhouetteTone, cx: Float, cy: Float, r: Float, thickness: Float, )</ID>
     <ID>LongParameterList:EdgeLitStatusPanel.kt$( accent: Color, materialize: Float, scan: Float, modifier: Modifier = Modifier, effectsQuality: Float = 1f, selfFraming: Boolean = false, frameEnergy: Float = 0f, framePulse: Float = 0f, frameRotation: Float = 0f, frameMotion: Boolean = false, content: @Composable BoxScope.() -&gt; Unit, )</ID>
     <ID>LongParameterList:EdgeLitStatusPanel.kt$( origin: Offset, sx: Float, sy: Float, bright: Float, rotation: Float, motion: Boolean, )</ID>
     <ID>LongParameterList:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$( id: String, exerciseId: String, name: String, tier: Int, description: String, assistanceType: AssistanceType = AssistanceType.NONE, assistanceValue: Double? = null, rom: Int = 4, externalLoad: Boolean = false, )</ID>
@@ -367,6 +380,132 @@
     <ID>MagicNumber:ClassCatalog.kt$ClassCatalog$1.50</ID>
     <ID>MagicNumber:ClassModels.kt$ClassRecommendationInput.Companion$3</ID>
     <ID>MagicNumber:ClassRecommendationEngine.kt$ClassRecommendationEngine$3</ID>
+    <ID>MagicNumber:ClassReviewControls.kt$0xFF23262E</ID>
+    <ID>MagicNumber:ClassReviewControls.kt$0xFF3A3D45</ID>
+    <ID>MagicNumber:ClassReviewControls.kt$0xFF6A6E78</ID>
+    <ID>MagicNumber:ClassReviewControls.kt$0xFFAAAEB6</ID>
+    <ID>MagicNumber:ClassReviewControls.kt$0xFFF2F3F5</ID>
+    <ID>MagicNumber:ClassReviewControls.kt$0xFFFFFFFF</ID>
+    <ID>MagicNumber:ClassSilhouette.kt$SilhouetteTone.DARK$0.24f</ID>
+    <ID>MagicNumber:ClassSilhouette.kt$SilhouetteTone.LIGHT$0.62f</ID>
+    <ID>MagicNumber:ClassSilhouette.kt$SilhouetteTone.MEDIUM$0.42f</ID>
+    <ID>MagicNumber:ClassSilhouette.kt$SilhouetteTone.SILHOUETTE$0.10f</ID>
+    <ID>MagicNumber:ClassSilhouetteFigure.kt$0.55f</ID>
+    <ID>MagicNumber:ClassSilhouetteFigure.kt$0.75f</ID>
+    <ID>MagicNumber:ClassSilhouetteFigure.kt$0.85f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.005f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.012f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.015f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.01f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.025f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.028f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.02f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.030f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.032f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.034f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.036f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.038f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.03f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.040f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.045f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.04f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.055f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.05f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.06f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.075f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.07f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.085f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.08f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.095f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.09f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.100f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.105f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.10f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.115f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.11f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.125f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.12f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.135f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.13f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.140f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.145f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.14f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.150f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.155f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.15f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.165f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.16f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.175f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.17f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.180f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.185f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.18f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.190f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.19f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.20f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.215f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.225f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.22f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.235f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.245f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.24f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.255f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.25f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.26f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.275f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.27f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.285f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.28f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.29f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.300f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.30f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.315f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.31f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.32f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.33f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.34f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.35f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.36f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.37f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.40f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.43f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.44f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.46f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.47f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.48f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.50f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.51f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.52f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.53f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.545f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.54f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.55f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.56f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.57f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.585f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.58f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.60f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.61f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.62f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.63f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.70f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.72f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.74f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.82f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.85f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.86f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.87f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.90f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.92f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.93f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.94f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$1.14f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$15</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$16</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$4.0</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$5</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$6</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$8</ID>
     <ID>MagicNumber:Color.kt$0xFF00201C</ID>
     <ID>MagicNumber:Color.kt$0xFF0B0E14</ID>
     <ID>MagicNumber:Color.kt$0xFF0E3B37</ID>
@@ -767,7 +906,10 @@
     <ID>MagicNumber:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$100f</ID>
     <ID>MagicNumber:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$60</ID>
     <ID>MagicNumber:WorkoutsViewModel.kt$WorkoutsViewModel$5_000</ID>
-    <ID>MagicNumber:YourAscendedPrototypeScreen.kt$0.56f</ID>
+    <ID>MagicNumber:YourAscendedPrototypeScreen.kt$0.62f</ID>
+    <ID>MagicNumber:YourAscendedPrototypeScreen.kt$0xFF23262E</ID>
+    <ID>MagicNumber:YourAscendedPrototypeScreen.kt$0xFF6A6E78</ID>
+    <ID>MagicNumber:YourAscendedPrototypeScreen.kt$0xFFEDEBE6</ID>
     <ID>MatchingDeclarationName:Attributes.kt$AttributeType</ID>
     <ID>MatchingDeclarationName:EdgeLitStatusPanel.kt$EdgeLightSegment</ID>
     <ID>MatchingDeclarationName:OnboardingComponents.kt$OnboardingPalette</ID>
@@ -894,6 +1036,7 @@
     <ID>MaxLineLength:ClassRepositoryImpl.kt$ClassRepositoryImpl$primaryStartedAt = if (changed(current?.primaryClassId, primaryClassId)) ts else current?.primaryStartedAt</ID>
     <ID>MaxLineLength:ClassRepositoryImpl.kt$ClassRepositoryImpl$secondaryStartedAt = if (changed(current?.secondaryClassId, secondaryClassId)) ts else current?.secondaryStartedAt</ID>
     <ID>MaxLineLength:ClassRepositoryTest.kt$ClassRepositoryTest$db.playerDao().upsertProfile(UserProfileEntity(id = userId, displayName = "Tester", createdAt = 0, updatedAt = 0))</ID>
+    <ID>MaxLineLength:ClassReviewControls.kt$ClassRow(listOf(null, AscendedClass.MAGICIAN, AscendedClass.BERSERKER, AscendedClass.MONK), selectedClass, onSelectClass)</ID>
     <ID>MaxLineLength:ClassRewardApplier.kt$ClassRewardApplier$?:</ID>
     <ID>MaxLineLength:ClassRewardApplier.kt$ClassRewardApplier$classRepository.awardProficiency(userId, def.uniqueProficiencyKey, contribution.uniqueProficiencyGain, sourceType, sourceId)</ID>
     <ID>MaxLineLength:ClassRewardFlowTest.kt$ClassRewardFlowTest$ProgressionRepositoryImpl(db, db.playerDao(), db.xpDao(), db.attributeDao(), LevelCalculator(), RankCalculator())</ID>
@@ -907,6 +1050,26 @@
     <ID>MaxLineLength:ClassSigilGeometryTest.kt$ClassSigilGeometryTest$assertNotNull("class-distinct build has a core anchor", geometry(StatusClassVariant.BERSERKER, classDistinct = true).coreAnchor)</ID>
     <ID>MaxLineLength:ClassSigilGeometryTest.kt$ClassSigilGeometryTest$assertNull("legacy build has no core anchor", geometry(StatusClassVariant.BERSERKER, classDistinct = false).coreAnchor)</ID>
     <ID>MaxLineLength:ClassSigilGeometryTest.kt$ClassSigilGeometryTest$assertNull("legacy build has no middle group", geometry(StatusClassVariant.BERSERKER, classDistinct = false).middleGroup)</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$p(CX - 0.01f, 0.15f)</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("armL", SilhouetteTone.SILHOUETTE, p(CX - 0.20f, 0.33f), p(CX - 0.30f, 0.36f), p(CX - 0.29f, 0.60f), p(CX - 0.19f, 0.58f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("armR", SilhouetteTone.SILHOUETTE, p(CX + 0.20f, 0.33f), p(CX + 0.30f, 0.36f), p(CX + 0.29f, 0.60f), p(CX + 0.19f, 0.58f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("axeHead", SilhouetteTone.MEDIUM, p(CX + 0.30f, 0.35f), p(CX + 0.40f, 0.40f), p(CX + 0.40f, 0.52f), p(CX + 0.30f, 0.50f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("belt", SilhouetteTone.DARK, p(CX - waist, 0.52f), p(CX + waist, 0.52f), p(CX + waist, 0.57f), p(CX - waist, 0.57f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("beltWrap", SilhouetteTone.MEDIUM, p(CX - waist, 0.56f), p(CX + waist, 0.56f), p(CX + waist, 0.62f), p(CX - waist, 0.62f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("bladeR", SilhouetteTone.LIGHT, p(CX + 0.10f, 0.52f), p(CX + 0.13f, 0.52f), p(CX + 0.15f, 0.70f), p(CX + 0.12f, 0.70f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("clothStrip", SilhouetteTone.DARK, p(CX - 0.02f, 0.50f), p(CX + 0.03f, 0.50f), p(CX + 0.06f, 0.74f), p(CX + 0.02f, 0.74f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("hatCone", SilhouetteTone.SILHOUETTE, p(CX + 0.015f, 0.030f), p(CX + 0.105f, 0.155f), p(CX - 0.105f, 0.155f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("hood", SilhouetteTone.DARK, p(CX - 0.06f, 0.20f), p(CX + 0.06f, 0.20f), p(CX + 0.05f, 0.30f), p(CX - 0.05f, 0.30f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("prayerHands", SilhouetteTone.LIGHT, p(CX, 0.36f), p(CX + 0.045f, 0.44f), p(CX, 0.50f), p(CX - 0.045f, 0.44f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("quiver", SilhouetteTone.DARK, p(CX + 0.10f, 0.25f), p(CX + 0.145f, 0.25f), p(CX + 0.135f, 0.44f), p(CX + 0.09f, 0.44f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("robeBody", SilhouetteTone.DARK, p(CX - sh, 0.235f), p(CX + sh, 0.235f), p(CX + hem, 0.92f), p(CX - hem, 0.92f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("sash", SilhouetteTone.MEDIUM, p(CX - sh, 0.50f), p(CX + sh, 0.50f), p(CX + sh, 0.55f), p(CX - sh, 0.55f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("scarf", SilhouetteTone.MEDIUM, p(CX + 0.05f, 0.28f), p(CX + 0.26f, 0.235f), p(CX + 0.27f, 0.275f), p(CX + 0.06f, 0.33f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("torso", SilhouetteTone.DARK, p(CX - sh, 0.29f), p(CX + sh, 0.29f), p(CX + waist, 0.55f), p(CX - waist, 0.55f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("torso", SilhouetteTone.SILHOUETTE, p(CX - sh, 0.275f), p(CX + sh, 0.275f), p(CX + waist, 0.55f), p(CX - waist, 0.55f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("torso", SilhouetteTone.SILHOUETTE, p(CX - sh, 0.28f), p(CX + sh, 0.28f), p(CX + waist, 0.56f), p(CX - waist, 0.56f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteRenderTest.kt$ClassSilhouetteRenderTest$ClassSilhouetteFigure(AscendedClass.GUARDIAN, BodyBase.FEMALE, Modifier.size(160.dp, 280.dp), silhouetteOnly = true)</ID>
+    <ID>MaxLineLength:ClassSilhouetteRenderTest.kt$ClassSilhouetteRenderTest$ClassSilhouetteFigure(AscendedClass.RANGER, BodyBase.MALE, Modifier.size(160.dp, 280.dp), showLayers = true)</ID>
     <ID>MaxLineLength:ContributionEligibilityEvaluator.kt$ContributionEligibilityEvaluator$return ContributionEligibility(MemberActivityState.DISCONNECTED, false, "Party member reconnecting.")</ID>
     <ID>MaxLineLength:ContributionEligibilityEvaluator.kt$ContributionEligibilityEvaluator$return ContributionEligibility(MemberActivityState.PAUSED, false, "Party member contribution paused.")</ID>
     <ID>MaxLineLength:ContributionEligibilityEvaluator.kt$ContributionEligibilityEvaluator$return ContributionEligibility(MemberActivityState.SAFETY_PAUSED, false, "Party member contribution paused.")</ID>
@@ -1280,6 +1443,7 @@
     <ID>MaxLineLength:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$override fun observeWorkout(workoutId: String): Flow&lt;Workout?&gt;</ID>
     <ID>MaxLineLength:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$override suspend fun getWorkout(workoutId: String): Workout?</ID>
     <ID>MaxLineLength:WorkoutsViewModel.kt$WorkoutsViewModel$workoutRepository.observeWorkoutsForUser(uid).map { WorkoutsUiState(isLoading = false, workouts = it) }</ID>
+    <ID>MaxLineLength:YourAscendedPrototypeScreen.kt$Text(selectedClass?.displayName ?: "Base Mannequin", color = REVIEW_INK, fontSize = 24.sp, fontWeight = FontWeight.SemiBold)</ID>
     <ID>MayBeConst:OnboardingSteps.kt$private val SAFETY_NOTE = "Stop exercising and seek appropriate help if you experience chest pain, faintness, severe " + "shortness of breath, sharp pain, or signs of injury."</ID>
     <ID>ReturnCount:BodyweightProgressionCalculators.kt$AssistanceProgressionCalculator$fun evaluate( prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), ): ProgressionCandidate</ID>
     <ID>ReturnCount:BodyweightProgressionCalculators.kt$ExternalLoadProgressionCalculator$fun evaluate( prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), externalLoadSupported: Boolean = false, ): ProgressionCandidate</ID>
@@ -1316,6 +1480,7 @@
     <ID>TooManyFunctions:ClassDao.kt$ClassDao</ID>
     <ID>TooManyFunctions:ClassRepository.kt$ClassRepository</ID>
     <ID>TooManyFunctions:ClassRepositoryImpl.kt$ClassRepositoryImpl : ClassRepository</ID>
+    <ID>TooManyFunctions:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry</ID>
     <ID>TooManyFunctions:DataModule.kt$DataModule</ID>
     <ID>TooManyFunctions:DatabaseModule.kt$DatabaseModule</ID>
     <ID>TooManyFunctions:DungeonPrototypeController.kt$DungeonPrototypeController</ID>

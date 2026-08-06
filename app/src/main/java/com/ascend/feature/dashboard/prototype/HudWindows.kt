@@ -42,12 +42,13 @@ fun HudReviewWindow(
     reveal: Float,
     pulse: Float,
     modifier: Modifier = Modifier,
+    burstMode: BurstMode = BurstMode.PROCEDURAL,
 ) {
     when (kind) {
         HudWindowKind.NONE -> Unit
         HudWindowKind.QUEST -> QuestWindow(accent, reveal, pulse, modifier)
         HudWindowKind.ACHIEVEMENT -> AchievementWindow(accent, reveal, pulse, modifier)
-        HudWindowKind.LEVEL_UP -> LevelUpWindow(accent, reveal, pulse, modifier)
+        HudWindowKind.LEVEL_UP -> LevelUpWindow(accent, reveal, pulse, burstMode, modifier)
         HudWindowKind.SKILL_UNLOCK -> SkillUnlockWindow(accent, reveal, pulse, modifier)
     }
 }
@@ -107,6 +108,7 @@ private fun LevelUpWindow(
     accent: Color,
     reveal: Float,
     pulse: Float,
+    burstMode: BurstMode,
     modifier: Modifier,
 ) {
     HudPanel(
@@ -121,7 +123,7 @@ private fun LevelUpWindow(
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 // The ceremonial burst is radial line geometry, never a square box.
                 Box(contentAlignment = Alignment.Center) {
-                    RadialBurst(accent, pulse, size = 120.dp)
+                    BreakthroughBurst(accent, pulse, burstMode, Modifier.size(120.dp))
                     Text("6", color = StatusPalette.textPrimary, fontSize = 52.sp, fontWeight = FontWeight.Bold)
                 }
                 Spacer(Modifier.height(4.dp))
@@ -278,32 +280,5 @@ private fun HudCrest(
         }
         path.close()
         drawPath(path, StatusPalette.cyanSoft.copy(alpha = 0.7f + 0.3f * pulse), style = Stroke(width = 1.2f))
-    }
-}
-
-/** The level-up ceremonial burst: radial line rays (never a box) that brighten with the pulse. */
-@Composable
-private fun RadialBurst(
-    accent: Color,
-    pulse: Float,
-    size: androidx.compose.ui.unit.Dp,
-) {
-    Canvas(Modifier.size(size)) {
-        val c = Offset(this.size.width / 2f, this.size.height / 2f)
-        val rays = 12
-        val inner = this.size.minDimension * 0.18f
-        val outer = this.size.minDimension * (0.42f + 0.06f * pulse)
-        for (i in 0 until rays) {
-            val a = 2.0 * Math.PI * i / rays
-            val dir = Offset(cos(a).toFloat(), sin(a).toFloat())
-            drawLine(
-                accent.copy(alpha = 0.35f + 0.25f * pulse),
-                c + dir * inner,
-                c + dir * outer,
-                strokeWidth = 2f,
-                cap = StrokeCap.Round,
-            )
-        }
-        drawCircle(StatusPalette.cyan.copy(alpha = 0.25f + 0.2f * pulse), radius = inner, style = Stroke(width = 1.5f))
     }
 }

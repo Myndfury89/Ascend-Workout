@@ -64,6 +64,17 @@ enum class FrameMode(val label: String) {
     CANVAS("Canvas"),
 }
 
+/**
+ * The level-up breakthrough burst implementation, for the CP-D comparison. [PROCEDURAL] recomputes
+ * the 12 rays in Canvas every frame; [PRE_AUTHORED] animates scale/alpha/tint over a burst geometry
+ * authored once as an [androidx.compose.ui.graphics.vector.ImageVector] (an Ascension-tier
+ * pre-authored asset per the handoff — not recomputed per frame, no new dependency).
+ */
+enum class BurstMode(val label: String) {
+    PROCEDURAL("Procedural"),
+    PRE_AUTHORED("Pre-authored"),
+}
+
 /** The reviewable HUD windows overlaid on the viewport (protocol-style menu panels). */
 enum class HudWindowKind(val label: String) {
     NONE("None"),

@@ -170,6 +170,7 @@ fun AscendMotionPrototypeScreen(
                     reveal = windowReveal,
                     pulse = windowPulse,
                     modifier = Modifier.widthIn(max = 380.dp).fillMaxWidth(),
+                    burstMode = controller.burstMode,
                 )
             }
         }
@@ -393,6 +394,9 @@ private fun MotionReviewExtraControls(
     ) {
         Label("HUD window")
         SelectRow(HudWindowKind.entries, controller.reviewWindow, { it.label }) { controller.reviewWindow = it }
+
+        Label("Level-up burst")
+        SelectRow(BurstMode.entries, controller.burstMode, { it.label }) { controller.burstMode = it }
 
         Label("Framing")
         SelectRow(FrameMode.entries, controller.frameMode, { it.label }) { controller.frameMode = it }

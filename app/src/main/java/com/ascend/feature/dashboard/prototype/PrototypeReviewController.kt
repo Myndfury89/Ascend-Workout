@@ -54,6 +54,7 @@ class PrototypeReviewController {
     var particlesOn by mutableStateOf(true)
     var sigilGlow by mutableStateOf(true)
     var reviewWindow by mutableStateOf(HudWindowKind.NONE)
+    var burstMode by mutableStateOf(BurstMode.PROCEDURAL)
 
     var chainedReplayKey by mutableIntStateOf(0)
         private set

@@ -9,6 +9,14 @@ import androidx.compose.ui.geometry.Offset
  * polygons + a value layer); Compose Path construction lives in the renderer.
  */
 
+/**
+ * Fidelity of a class figure. [BLOCKOUT] is the CP2 low-fidelity massing study; [REFINED] is the
+ * CP3 silhouette-refinement pass (more intentional polygons, taper, overlap, negative space, layered
+ * garment/armour masses) — still a flat 2D cutout, still no faces or surface detail. Both are kept
+ * so the review can compare them directly.
+ */
+enum class SilhouetteFidelity { BLOCKOUT, REFINED }
+
 /** The limited grayscale value system: near-black silhouette, charcoal, medium, and one light accent. */
 enum class SilhouetteTone(val value: Float) {
     SILHOUETTE(0.10f),

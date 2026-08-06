@@ -24,10 +24,12 @@ fun ClassSilhouetteFigure(
     ascendedClass: AscendedClass,
     bodyBase: BodyBase,
     modifier: Modifier = Modifier,
+    fidelity: SilhouetteFidelity = SilhouetteFidelity.BLOCKOUT,
     silhouetteOnly: Boolean = false,
     showLayers: Boolean = false,
+    outlineOnly: Boolean = false,
 ) {
-    val figure = remember(ascendedClass, bodyBase) { ClassSilhouetteGeometry.build(ascendedClass, bodyBase) }
+    val figure = remember(ascendedClass, bodyBase, fidelity) { ClassSilhouetteGeometry.build(ascendedClass, bodyBase, fidelity) }
     val description =
         "${ascendedClass.displayName} class silhouette, ${bodyBase.name.lowercase()} base, front-facing."
     Canvas(modifier.semantics { contentDescription = description }) {
@@ -41,11 +43,23 @@ fun ClassSilhouetteFigure(
                     }
                     close()
                 }
-            val tone = if (silhouetteOnly) SilhouetteTone.SILHOUETTE.value else shape.tone.value
-            drawPath(path, Color(tone, tone, tone))
-            if (showLayers && !silhouetteOnly) {
-                drawPath(path, color = Color(0.0f, 0.75f, 0.85f, 0.55f), style = Stroke(width = 1.5f))
+            if (outlineOnly) {
+                // Contour-only: judge the silhouette edge and compare fidelities.
+                drawPath(path, color = Color(0.08f, 0.08f, 0.10f, 0.9f), style = Stroke(width = 1.4f))
+            } else {
+                val tone = if (silhouetteOnly) SilhouetteTone.SILHOUETTE.value else shape.tone.value
+                drawPath(path, Color(tone, tone, tone))
+                if (showLayers && !silhouetteOnly) {
+                    drawPath(path, color = Color(0.0f, 0.75f, 0.85f, 0.55f), style = Stroke(width = 1.5f))
+                }
             }
         }
     }
 }
+
+/** The shape count of a class figure at a given fidelity — surfaced in the CP3 review controls. */
+fun classShapeCount(
+    ascendedClass: AscendedClass,
+    bodyBase: BodyBase,
+    fidelity: SilhouetteFidelity,
+): Int = ClassSilhouetteGeometry.build(ascendedClass, bodyBase, fidelity).shapes.size

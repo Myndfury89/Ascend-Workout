@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ascend.feature.ascended.prototype.body.SilhouetteFidelity
 import com.ascend.feature.ascended.prototype.model.AscendedClass
 import com.ascend.feature.ascended.prototype.model.BodyBase
 import com.ascend.feature.ascended.prototype.model.EvolutionStage
@@ -44,6 +45,15 @@ fun ClassReviewControls(
     onShowLayers: (Boolean) -> Unit,
     onReducedMotion: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
+    // CP3 review additions (defaulted so earlier call sites/tests stay valid).
+    fidelity: SilhouetteFidelity = SilhouetteFidelity.BLOCKOUT,
+    compare: Boolean = false,
+    outlineOnly: Boolean = false,
+    shapeCount: Int = 0,
+    refinedAvailable: Boolean = false,
+    onFidelity: (SilhouetteFidelity) -> Unit = {},
+    onCompare: (Boolean) -> Unit = {},
+    onOutline: (Boolean) -> Unit = {},
 ) {
     Surface(color = Color(0xFFFFFFFF), shape = MaterialTheme.shapes.medium, modifier = modifier.fillMaxWidth()) {
         Column(Modifier.padding(16.dp)) {
@@ -74,6 +84,25 @@ fun ClassReviewControls(
             }
 
             Spacer(Modifier.height(16.dp))
+            Label(if (refinedAvailable) "FIDELITY · $shapeCount shapes" else "FIDELITY · $shapeCount shapes (blockout only)")
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                Toggle(
+                    "CP2 Blockout",
+                    fidelity == SilhouetteFidelity.BLOCKOUT,
+                    { onFidelity(SilhouetteFidelity.BLOCKOUT) },
+                    Modifier.weight(1f),
+                )
+                Toggle(
+                    "Refined Base",
+                    fidelity == SilhouetteFidelity.REFINED,
+                    { onFidelity(SilhouetteFidelity.REFINED) },
+                    Modifier.weight(1f),
+                )
+            }
+
+            Spacer(Modifier.height(16.dp))
+            SwitchRow("Compare blockout vs refined", compare, onCompare)
+            SwitchRow("Outline only", outlineOnly, onOutline)
             SwitchRow("Silhouette only", silhouetteOnly, onSilhouetteOnly)
             SwitchRow("Show shape layers", showLayers, onShowLayers)
             SwitchRow("Reduced motion", reducedMotion, onReducedMotion)

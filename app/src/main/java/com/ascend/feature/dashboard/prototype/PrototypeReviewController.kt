@@ -50,6 +50,11 @@ class PrototypeReviewController {
     var showAudioHaptic by mutableStateOf(true)
     var showImplNotes by mutableStateOf(false)
 
+    // HUD refinement knobs: ambient particles, internal sigil glow, and the overlaid HUD window.
+    var particlesOn by mutableStateOf(true)
+    var sigilGlow by mutableStateOf(true)
+    var reviewWindow by mutableStateOf(HudWindowKind.NONE)
+
     var chainedReplayKey by mutableIntStateOf(0)
         private set
 

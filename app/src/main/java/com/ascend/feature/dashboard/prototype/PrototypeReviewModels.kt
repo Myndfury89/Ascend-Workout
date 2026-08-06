@@ -64,6 +64,15 @@ enum class FrameMode(val label: String) {
     CANVAS("Canvas"),
 }
 
+/** The reviewable HUD windows overlaid on the viewport (protocol-style menu panels). */
+enum class HudWindowKind(val label: String) {
+    NONE("None"),
+    QUEST("Daily Quest"),
+    ACHIEVEMENT("Achievement"),
+    LEVEL_UP("Level up"),
+    SKILL_UNLOCK("Skill unlock"),
+}
+
 /** The four reviewable Skills for the Skill dock (full unlock-menu choreography is CP4). */
 enum class PrototypeSkill(
     val displayName: String,

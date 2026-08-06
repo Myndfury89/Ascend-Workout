@@ -3,8 +3,10 @@ package com.ascend.feature.dashboard.prototype
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -112,8 +114,29 @@ fun AscendMotionPrototypeScreen(
         label = "sweep",
     )
 
+    // Ambient particles/fog — faint, alive, and readability-safe; fully off under reduced motion,
+    // minimal effects, or the particles toggle.
+    val particlesRunning = !reduced && controller.particlesOn && controller.effectsQuality != EffectsQuality.MINIMAL
+    val particleQuality = if (particlesRunning) 0.7f else 0f
+
+    // The overlaid HUD window assembles in when selected and breathes with a slow living pulse.
+    val windowOpen = controller.reviewWindow != HudWindowKind.NONE
+    val windowReveal by animateFloatAsState(
+        targetValue = if (windowOpen) 1f else 0f,
+        animationSpec = if (reduced) snap() else tween(AscendVerb.ASSEMBLE_MS, easing = LinearEasing),
+        label = "windowReveal",
+    )
+    val windowPulse by infinite.animateFloat(
+        0.3f,
+        if (reduced) 0.3f else 1f,
+        infiniteRepeatable(tween(2600, easing = LinearEasing), RepeatMode.Reverse),
+        label = "windowPulse",
+    )
+
     Box(modifier.fillMaxSize().background(StatusPalette.groundDeep)) {
         StatusAtmosphere(sweep = sweep)
+        StatusFog(running = particlesRunning, effectsQuality = if (particlesRunning) 0.6f else 0f)
+        StatusParticleField(running = particlesRunning, effectsQuality = particleQuality)
         Column(
             Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 12.dp, vertical = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -133,6 +156,21 @@ fun AscendMotionPrototypeScreen(
             Spacer(Modifier.height(12.dp))
             StatusPrototypeControls(controller = controller, modifier = Modifier.widthIn(max = VIEWPORT_MAX_WIDTH_DP.dp).fillMaxWidth())
             Spacer(Modifier.height(28.dp))
+        }
+
+        // Overlaid HUD window (protocol menu) — the background subtly dims behind it, then the panel
+        // assembles and breathes. Dismiss by selecting "None" in the Window control.
+        if (windowReveal > 0.01f) {
+            Box(Modifier.fillMaxSize().background(Color.Black.copy(alpha = 0.4f * windowReveal)))
+            Box(Modifier.fillMaxSize().padding(24.dp), contentAlignment = Alignment.Center) {
+                HudReviewWindow(
+                    kind = controller.reviewWindow,
+                    accent = accent,
+                    reveal = windowReveal,
+                    pulse = windowPulse,
+                    modifier = Modifier.widthIn(max = 380.dp).fillMaxWidth(),
+                )
+            }
         }
     }
 }
@@ -200,6 +238,7 @@ private fun MotionReviewViewport(
                     opacityProfile = controller.opacityProfile,
                     stationaryOverlay = controller.stationaryOverlay,
                     classGeometry = controller.sigilRefined,
+                    internalGlow = controller.sigilRefined && controller.sigilGlow,
                 )
                 Box(Modifier.align(Alignment.TopCenter)) {
                     EventOverlayChip(data.overlay, accent, motion.overlayReveal.value, motion.eventFlash.value)
@@ -350,6 +389,9 @@ private fun MotionReviewExtraControls(
             .background(ConsoleFill)
             .padding(16.dp),
     ) {
+        Label("HUD window")
+        SelectRow(HudWindowKind.entries, controller.reviewWindow, { it.label }) { controller.reviewWindow = it }
+
         Label("Framing")
         SelectRow(FrameMode.entries, controller.frameMode, { it.label }) { controller.frameMode = it }
 
@@ -369,6 +411,10 @@ private fun MotionReviewExtraControls(
         SelectRow((0 until ATTRIBUTE_COUNT).toList(), controller.attributeVariant, { AttrShortNames.getOrElse(it) { "A$it" } }) {
             controller.attributeVariant = it
         }
+
+        Label("Energy")
+        ToggleChip("Ambient particles", controller.particlesOn) { controller.particlesOn = it }
+        ToggleChip("Sigil internal glow", controller.sigilGlow) { controller.sigilGlow = it }
 
         Label("Review")
         ToggleChip("Timing labels", controller.showTimingLabels) { controller.showTimingLabels = it }

@@ -43,6 +43,7 @@ fun OrnateSigil(
     opacityProfile: SigilOpacityProfile = SigilOpacityProfile.LEGACY,
     stationaryOverlay: Boolean = false,
     classGeometry: Boolean = false,
+    internalGlow: Boolean = false,
 ) {
     val density = LocalDensity.current
     BoxWithConstraints(modifier) {
@@ -55,7 +56,7 @@ fun OrnateSigil(
             val center = Offset(size.width / 2f, size.height / 2f)
             drawOrnateSigil(
                 state, animation, geometry, center, minimal, frameMotion,
-                rotationProfile, opacityProfile, stationaryOverlay, classGeometry,
+                rotationProfile, opacityProfile, stationaryOverlay, classGeometry, internalGlow,
             )
         }
     }
@@ -73,6 +74,7 @@ private fun DrawScope.drawOrnateSigil(
     opacityProfile: SigilOpacityProfile,
     stationaryOverlay: Boolean,
     classGeometry: Boolean,
+    internalGlow: Boolean,
 ) {
     val assembly = anim.assembly.coerceIn(0f, 1f)
     // A brief opacity bump mid-assembly (25–35%), settling back to the restrained default.
@@ -88,10 +90,29 @@ private fun DrawScope.drawOrnateSigil(
     val weight = style.lineWeight
     // Class-distinct central strokes carry the per-class weight emphasis (Berserker heaviest).
     val centralWeight = if (classGeometry) weight * classCat.strokeScale else weight
+    // Controlled internal glow: rises with the settled opacity + event glow, hard-capped so bright
+    // areas never bloom out. Rendered as WIDE FAINT under-strokes beneath the crisp lines, so line
+    // quality and shape are always preserved inside the glow. Concentrated on rings + central geometry.
+    val glowE = if (internalGlow) (op * 0.7f + anim.glow * 0.6f).coerceAtMost(0.34f) else 0f
+    val accent = accentBlend(state.variant)
 
     translate(center.x, center.y) {
         // Layer 1 — background ornament (faintest): a soft aura.
         drawCircle(StatusPalette.violet.copy(alpha = a * w.aura), radius = geo.radius * 0.92f, center = Offset.Zero)
+
+        // Internal glow bed — a soft radial pool of energy around the central geometry only.
+        if (glowE > 0f) {
+            drawCircle(
+                brush =
+                    androidx.compose.ui.graphics.Brush.radialGradient(
+                        colors = listOf(accent.copy(alpha = glowE * 0.5f), Color.Transparent),
+                        center = Offset.Zero,
+                        radius = geo.radius * 0.4f,
+                    ),
+                radius = geo.radius * 0.4f,
+                center = Offset.Zero,
+            )
+        }
 
         // Layer 2 — outer border motif (ornament). Rotates only under the legacy profile; the
         // ceremonial rule keeps the outer frame stationary.
@@ -99,11 +120,22 @@ private fun DrawScope.drawOrnateSigil(
             drawPath(geo.motif, StatusPalette.cyanSoft.copy(alpha = a * w.outerMotif), style = Stroke(width = 1f, cap = StrokeCap.Round))
         }
         // Structural ring tracks — stationary instrumentation, highest ornamental opacity in RingForward.
+        // A wide faint under-stroke gives each major ring a luminous halo without washing out the crisp line.
+        if (glowE > 0f) {
+            ringTrack(geo.radius * 0.72f, StatusPalette.cyan.copy(alpha = glowE * 0.6f), weight = 7f)
+            ringTrack(geo.radius * 0.6f, StatusPalette.cyanSoft.copy(alpha = glowE * 0.45f), weight = 5f)
+        }
         ringTrack(geo.radius * 0.72f, StatusPalette.infoLine.copy(alpha = a * w.ringPrimary), weight = 2f)
         ringTrack(geo.radius * 0.6f, StatusPalette.cyanSoft.copy(alpha = a * w.ringSecondary), weight = 1.4f, dashed = true)
 
         // Layer 3 — ceremonial middle geometry (the only drifting layer under the ceremonial rule).
         rotate(rotationProfile.middleRotation(baseRot), pivot = Offset.Zero) {
+            // Wide faint under-stroke for the central class geometry — softly energized from within.
+            if (glowE > 0f) {
+                geo.innerPaths.forEach { path ->
+                    drawPath(path, accent.copy(alpha = glowE * 0.5f), style = Stroke(width = centralWeight * 3f))
+                }
+            }
             geo.innerPaths.forEachIndexed { i, path ->
                 val newest = state.newRankLayer && i >= geo.innerPaths.lastIndex - 1
                 val la = if (newest) (a * 1.2f + anim.glow * 0.3f) else a

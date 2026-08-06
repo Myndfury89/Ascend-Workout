@@ -218,11 +218,11 @@ data class SigilOpacityWeights(
         /** Rings forward: structural rings dominate, central medium, ornament faint. */
         val RingForward =
             SigilOpacityWeights(
-                aura = 0.05f, outerMotif = 0.28f, ringPrimary = 1.55f, ringSecondary = 1.15f,
+                aura = 0.05f, outerMotif = 0.28f, ringPrimary = 2.1f, ringSecondary = 1.6f,
                 centralCap = 0.64f, connectors = 0.30f, arcs = 0.28f,
-                playerMult = 3.0f, playerCap = 0.97f, playerGlow = 0.25f, playerFinalCap = 1.0f,
-                classMult = 2.6f, classCap = 0.90f, classFinalCap = 0.97f,
-                medallionMult = 0.9f, medallionFinalCap = 0.80f,
+                playerMult = 3.4f, playerCap = 0.99f, playerGlow = 0.25f, playerFinalCap = 1.0f,
+                classMult = 3.0f, classCap = 0.95f, classFinalCap = 1.0f,
+                medallionMult = 1.7f, medallionFinalCap = 0.97f,
             )
     }
 }

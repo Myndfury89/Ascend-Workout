@@ -84,16 +84,55 @@ enum class HudWindowKind(val label: String) {
     SKILL_UNLOCK("Skill unlock"),
 }
 
-/** The four reviewable Skills for the Skill dock (full unlock-menu choreography is CP4). */
+/** CP4: each Skill's unlock reveal personality — all resolve into the same digital-menu presentation. */
+enum class SkillRevealStyle {
+    SCAN, // Perception — a scan/clip reveal (info-discovery)
+    COMPRESS_SNAP, // Strength Boost — compress then snap (structured force)
+    BREATH_CYCLES, // Breath Control — expand/contract half-cycles (controlled pacing)
+    POINTS_ALIGN, // Body Awareness — four points align (precise symmetry)
+}
+
+/** The four reviewable Skills for the Skill dock + unlock menu. */
 enum class PrototypeSkill(
     val displayName: String,
     val category: String,
     val effect: String,
+    val unlockCondition: String,
+    val affinity: String,
+    val revealStyle: SkillRevealStyle,
 ) {
-    PERCEPTION("Perception", "Awareness", "Surfaces hidden training insight"),
-    STRENGTH_BOOST("Strength Boost", "Power", "Amplifies force output"),
-    BREATH_CONTROL("Breath Control", "Endurance", "Sustains output under load"),
-    BODY_AWARENESS("Body Awareness", "Control", "Sharpens movement precision"),
+    PERCEPTION(
+        "Perception",
+        "Awareness",
+        "Surfaces hidden training insight — readiness and cues earlier.",
+        "15 min sustained cardio",
+        "Magician",
+        SkillRevealStyle.SCAN,
+    ),
+    STRENGTH_BOOST(
+        "Strength Boost",
+        "Power",
+        "Amplifies force output on heavy efforts.",
+        "A verified PR or load progression",
+        "Berserker",
+        SkillRevealStyle.COMPRESS_SNAP,
+    ),
+    BREATH_CONTROL(
+        "Breath Control",
+        "Endurance",
+        "Sustains output under load through paced breathing.",
+        "20 min sustained effort",
+        "Magician",
+        SkillRevealStyle.BREATH_CYCLES,
+    ),
+    BODY_AWARENESS(
+        "Body Awareness",
+        "Control",
+        "Sharpens movement precision and control.",
+        "Bodyweight tempo + mobility work",
+        "Monk",
+        SkillRevealStyle.POINTS_ALIGN,
+    ),
 }
 
 /** Simulated device-width category for legibility review; null width fills the container. */

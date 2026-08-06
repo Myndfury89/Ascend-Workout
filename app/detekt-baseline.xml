@@ -49,14 +49,14 @@
     <ID>FunctionNaming:EdgeLitStatusPanel.kt$@Composable fun EdgeLitStatusPanel( accent: Color, materialize: Float, scan: Float, modifier: Modifier = Modifier, effectsQuality: Float = 1f, selfFraming: Boolean = false, frameEnergy: Float = 0f, framePulse: Float = 0f, frameRotation: Float = 0f, frameMotion: Boolean = false, content: @Composable BoxScope.() -&gt; Unit, )</ID>
     <ID>FunctionNaming:HudPanel.kt$@Composable fun HudDivider( accent: Color, reveal: Float, modifier: Modifier = Modifier, )</ID>
     <ID>FunctionNaming:HudPanel.kt$@Composable fun HudPanel( accent: Color, reveal: Float, pulse: Float, modifier: Modifier = Modifier, title: String? = null, subtitle: String? = null, crest: (@Composable () -&gt; Unit)? = null, footer: String? = null, content: @Composable ColumnScope.() -&gt; Unit, )</ID>
-    <ID>FunctionNaming:HudWindows.kt$@Composable fun HudReviewWindow( kind: HudWindowKind, accent: Color, reveal: Float, pulse: Float, modifier: Modifier = Modifier, burstMode: BurstMode = BurstMode.PROCEDURAL, )</ID>
+    <ID>FunctionNaming:HudWindows.kt$@Composable fun HudReviewWindow( kind: HudWindowKind, accent: Color, reveal: Float, pulse: Float, modifier: Modifier = Modifier, burstMode: BurstMode = BurstMode.PROCEDURAL, skill: PrototypeSkill = PrototypeSkill.PERCEPTION, )</ID>
     <ID>FunctionNaming:HudWindows.kt$@Composable private fun AchievementWindow( accent: Color, reveal: Float, pulse: Float, modifier: Modifier, )</ID>
     <ID>FunctionNaming:HudWindows.kt$@Composable private fun HudCrest( accent: Color, pulse: Float, )</ID>
     <ID>FunctionNaming:HudWindows.kt$@Composable private fun LevelUpWindow( accent: Color, reveal: Float, pulse: Float, burstMode: BurstMode, modifier: Modifier, )</ID>
     <ID>FunctionNaming:HudWindows.kt$@Composable private fun ObjectiveRow( accent: Color, name: String, current: Int, target: Int, pulse: Float, )</ID>
     <ID>FunctionNaming:HudWindows.kt$@Composable private fun QuestWindow( accent: Color, reveal: Float, pulse: Float, modifier: Modifier, )</ID>
     <ID>FunctionNaming:HudWindows.kt$@Composable private fun RewardChip( accent: Color, label: String, pulse: Float, )</ID>
-    <ID>FunctionNaming:HudWindows.kt$@Composable private fun SkillUnlockWindow( accent: Color, reveal: Float, pulse: Float, modifier: Modifier, )</ID>
+    <ID>FunctionNaming:HudWindows.kt$@Composable private fun SkillUnlockWindow( skill: PrototypeSkill, accent: Color, reveal: Float, pulse: Float, modifier: Modifier, )</ID>
     <ID>FunctionNaming:HudWindows.kt$@Composable private fun StatColumn( accent: Color, label: String, value: String, )</ID>
     <ID>FunctionNaming:LogWorkoutScreen.kt$@Composable fun LogWorkoutScreen( onBack: () -&gt; Unit, modifier: Modifier = Modifier, viewModel: LogWorkoutViewModel = hiltViewModel(), )</ID>
     <ID>FunctionNaming:LogWorkoutScreen.kt$@Composable private fun LoggedSetRow( index: Int, set: WorkoutSet, weightUnit: WeightUnit, onDelete: () -&gt; Unit, )</ID>
@@ -112,6 +112,7 @@
     <ID>FunctionNaming:QuestsScreen.kt$@Composable private fun QuestListCard( quest: Quest, onClick: () -&gt; Unit, )</ID>
     <ID>FunctionNaming:RevisedStatusPrototypeScreen.kt$@Composable fun RevisedStatusPrototypeScreen( modifier: Modifier = Modifier, controller: PrototypeReviewController = rememberPrototypeReviewController(), )</ID>
     <ID>FunctionNaming:RevisedStatusPrototypeScreen.kt$@Composable private fun PanelContent( data: StatusPrototypeData, accent: Color, motion: StatusPrototypeMotion, rotation: Float, controller: PrototypeReviewController, frameMotion: Boolean, zone: (String) -&gt; Modifier, )</ID>
+    <ID>FunctionNaming:SkillCrest.kt$@Composable fun SkillCrest( skill: PrototypeSkill, accent: Color, reveal: Float, pulse: Float, modifier: Modifier = Modifier, )</ID>
     <ID>FunctionNaming:StatusAtmosphere.kt$@Composable fun StatusAtmosphere( sweep: Float, modifier: Modifier = Modifier, )</ID>
     <ID>FunctionNaming:StatusAtmosphere.kt$@Composable fun StatusFog( running: Boolean, modifier: Modifier = Modifier, effectsQuality: Float = 1f, )</ID>
     <ID>FunctionNaming:StatusAtmosphere.kt$@Composable fun StatusParticleField( running: Boolean, modifier: Modifier = Modifier, effectsQuality: Float = 1f, )</ID>
@@ -193,7 +194,7 @@
     <ID>LongParameterList:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$( source: String, destination: String, reps: Int, sets: Int, rpe: Double? = null, classUnlock: String? = null, )</ID>
     <ID>LongParameterList:ExerciseVariationGraphTest.kt$ExerciseVariationGraphTest$( exposures: Int = 2, reps: Int = 12, sets: Int = 3, rpe: Double? = 7.0, rir: Int? = null, assistance: Double? = null, rom: Int? = 5, tempo: Boolean = true, failures: Int = 0, safety: ProgressionSafetyState = ProgressionSafetyState.OK, unlocks: Set&lt;String&gt; = emptySet(), )</ID>
     <ID>LongParameterList:HudPanel.kt$( accent: Color, reveal: Float, pulse: Float, modifier: Modifier = Modifier, title: String? = null, subtitle: String? = null, crest: (@Composable () -&gt; Unit)? = null, footer: String? = null, content: @Composable ColumnScope.() -&gt; Unit, )</ID>
-    <ID>LongParameterList:HudWindows.kt$( kind: HudWindowKind, accent: Color, reveal: Float, pulse: Float, modifier: Modifier = Modifier, burstMode: BurstMode = BurstMode.PROCEDURAL, )</ID>
+    <ID>LongParameterList:HudWindows.kt$( kind: HudWindowKind, accent: Color, reveal: Float, pulse: Float, modifier: Modifier = Modifier, burstMode: BurstMode = BurstMode.PROCEDURAL, skill: PrototypeSkill = PrototypeSkill.PERCEPTION, )</ID>
     <ID>LongParameterList:InitialQuestPlanGenerator.kt$InitialQuestPlanGenerator$( candidate: QuestPlanCandidate, band: DifficultyBand, conservative: Boolean, durationFactor: Double, limitations: Set&lt;com.ascend.core.model.onboarding.Limitation&gt;, equipment: Set&lt;com.ascend.core.model.onboarding.Equipment&gt;, safetyAdjustments: MutableList&lt;String&gt;, )</ID>
     <ID>LongParameterList:InitialQuestPlanGeneratorTest.kt$InitialQuestPlanGeneratorTest$( frequency: TrainingFrequency = TrainingFrequency.THREE_TO_FOUR_WEEKLY, equipment: Set&lt;Equipment&gt; = emptySet(), environment: TrainingEnvironment = TrainingEnvironment.HOME, availability: Availability = Availability(trainingDays = TrainingDaysPerWeek.THREE), limitations: Set&lt;Limitation&gt; = emptySet(), age: AgeSafetyCategory = AgeSafetyCategory.ADULT, goal: PrimaryGoal = PrimaryGoal.GENERAL_HEALTH, )</ID>
     <ID>LongParameterList:InitialQuestPlanGeneratorTest.kt$InitialQuestPlanGeneratorTest$( id: String, min: Int, max: Int, default: Int, step: Int, prefSet: Int, minSet: Int, warn: Int, unit: String = "reps", )</ID>
@@ -551,6 +552,28 @@
     <ID>MagicNumber:SkillCatalog.kt$SkillCatalog$0.15</ID>
     <ID>MagicNumber:SkillCatalog.kt$SkillCatalog$1.1</ID>
     <ID>MagicNumber:SkillCatalog.kt$SkillCatalog$1.15</ID>
+    <ID>MagicNumber:SkillCrest.kt$0.12f</ID>
+    <ID>MagicNumber:SkillCrest.kt$0.14f</ID>
+    <ID>MagicNumber:SkillCrest.kt$0.25f</ID>
+    <ID>MagicNumber:SkillCrest.kt$0.28f</ID>
+    <ID>MagicNumber:SkillCrest.kt$0.34f</ID>
+    <ID>MagicNumber:SkillCrest.kt$0.35f</ID>
+    <ID>MagicNumber:SkillCrest.kt$0.3f</ID>
+    <ID>MagicNumber:SkillCrest.kt$0.55f</ID>
+    <ID>MagicNumber:SkillCrest.kt$0.5f</ID>
+    <ID>MagicNumber:SkillCrest.kt$0.6f</ID>
+    <ID>MagicNumber:SkillCrest.kt$0.7f</ID>
+    <ID>MagicNumber:SkillCrest.kt$0.85f</ID>
+    <ID>MagicNumber:SkillCrest.kt$0.999f</ID>
+    <ID>MagicNumber:SkillCrest.kt$0.9f</ID>
+    <ID>MagicNumber:SkillCrest.kt$1.25f</ID>
+    <ID>MagicNumber:SkillCrest.kt$1.2f</ID>
+    <ID>MagicNumber:SkillCrest.kt$1.5f</ID>
+    <ID>MagicNumber:SkillCrest.kt$1.6f</ID>
+    <ID>MagicNumber:SkillCrest.kt$140f</ID>
+    <ID>MagicNumber:SkillCrest.kt$200f</ID>
+    <ID>MagicNumber:SkillCrest.kt$20f</ID>
+    <ID>MagicNumber:SkillCrest.kt$3f</ID>
     <ID>MagicNumber:SoloReadinessEvaluator.kt$SoloReadinessConfig$10</ID>
     <ID>MagicNumber:SoloReadinessEvaluator.kt$SoloReadinessConfig$60</ID>
     <ID>MagicNumber:StatusAtmosphere.kt$0.03f</ID>

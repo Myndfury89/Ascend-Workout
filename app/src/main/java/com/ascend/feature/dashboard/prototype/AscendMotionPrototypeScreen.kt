@@ -172,6 +172,7 @@ fun AscendMotionPrototypeScreen(
                     pulse = windowPulse,
                     modifier = Modifier.widthIn(max = 380.dp).fillMaxWidth(),
                     burstMode = controller.burstMode,
+                    skill = controller.skillVariant,
                 )
             }
         }

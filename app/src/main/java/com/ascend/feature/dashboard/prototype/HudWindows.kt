@@ -43,13 +43,14 @@ fun HudReviewWindow(
     pulse: Float,
     modifier: Modifier = Modifier,
     burstMode: BurstMode = BurstMode.PROCEDURAL,
+    skill: PrototypeSkill = PrototypeSkill.PERCEPTION,
 ) {
     when (kind) {
         HudWindowKind.NONE -> Unit
         HudWindowKind.QUEST -> QuestWindow(accent, reveal, pulse, modifier)
         HudWindowKind.ACHIEVEMENT -> AchievementWindow(accent, reveal, pulse, modifier)
         HudWindowKind.LEVEL_UP -> LevelUpWindow(accent, reveal, pulse, burstMode, modifier)
-        HudWindowKind.SKILL_UNLOCK -> SkillUnlockWindow(accent, reveal, pulse, modifier)
+        HudWindowKind.SKILL_UNLOCK -> SkillUnlockWindow(skill, accent, reveal, pulse, modifier)
     }
 }
 
@@ -143,6 +144,7 @@ private fun LevelUpWindow(
 
 @Composable
 private fun SkillUnlockWindow(
+    skill: PrototypeSkill,
     accent: Color,
     reveal: Float,
     pulse: Float,
@@ -155,21 +157,22 @@ private fun SkillUnlockWindow(
         modifier = modifier,
         title = "SKILL UNLOCKED",
         subtitle = "New system function online",
-        crest = { HudCrest(accent, pulse) },
+        crest = { SkillCrest(skill, accent, reveal, pulse, Modifier.size(28.dp)) },
         footer = "SYSTEM · transferable across every path",
     ) {
-        Text("Perception", color = StatusPalette.textPrimary, fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
-        Text("Awareness · Skill Lv 1", color = accent, fontSize = 12.sp)
+        // The focal crest carries the per-skill reveal personality (scan / snap / breath / align).
+        Box(Modifier.fillMaxWidth().padding(vertical = 4.dp), contentAlignment = Alignment.Center) {
+            SkillCrest(skill, accent, reveal, pulse, Modifier.size(72.dp))
+        }
+        Spacer(Modifier.height(8.dp))
+        Text(skill.displayName, color = StatusPalette.textPrimary, fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
+        Text("${skill.category} · Skill Lv 1", color = accent, fontSize = 12.sp)
         Spacer(Modifier.height(10.dp))
-        Text(
-            "Surfaces hidden training insight — reveals readiness and progression cues earlier.",
-            color = StatusPalette.textMuted,
-            fontSize = 13.sp,
-        )
+        Text(skill.effect, color = StatusPalette.textMuted, fontSize = 13.sp)
         Spacer(Modifier.height(12.dp))
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            StatColumn(accent, "UNLOCKED BY", "15 min cardio")
-            StatColumn(accent, "AFFINITY", "Magician")
+            StatColumn(accent, "UNLOCKED BY", skill.unlockCondition)
+            StatColumn(accent, "AFFINITY", skill.affinity)
         }
         Spacer(Modifier.height(14.dp))
         RewardChip(accent, "CONTINUE ▸", pulse)

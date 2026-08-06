@@ -42,17 +42,21 @@ fun OrnateSigil(
     rotationProfile: SigilRotationProfile = SigilRotationProfile.LEGACY,
     opacityProfile: SigilOpacityProfile = SigilOpacityProfile.LEGACY,
     stationaryOverlay: Boolean = false,
+    classGeometry: Boolean = false,
 ) {
     val density = LocalDensity.current
     BoxWithConstraints(modifier) {
         val radiusPx = with(density) { min(maxWidth.toPx(), maxHeight.toPx()) } / 2f
         val bucket = radiusBucket(radiusPx)
-        val key = state.geometryKey(simplified, minimal)
+        val key = state.geometryKey(simplified, minimal, classGeometry)
         val geometry = remember(key, bucket) { buildOrnateGeometry(key, bucket.toFloat()) }
 
         Canvas(Modifier.matchParentSize().semantics { contentDescription = semanticDescription }) {
             val center = Offset(size.width / 2f, size.height / 2f)
-            drawOrnateSigil(state, animation, geometry, center, minimal, frameMotion, rotationProfile, opacityProfile, stationaryOverlay)
+            drawOrnateSigil(
+                state, animation, geometry, center, minimal, frameMotion,
+                rotationProfile, opacityProfile, stationaryOverlay, classGeometry,
+            )
         }
     }
 }
@@ -68,16 +72,22 @@ private fun DrawScope.drawOrnateSigil(
     rotationProfile: SigilRotationProfile,
     opacityProfile: SigilOpacityProfile,
     stationaryOverlay: Boolean,
+    classGeometry: Boolean,
 ) {
     val assembly = anim.assembly.coerceIn(0f, 1f)
     // A brief opacity bump mid-assembly (25–35%), settling back to the restrained default.
     val bump = sin(assembly * Math.PI.toFloat()).coerceIn(0f, 1f)
     val op = state.settledOpacity + (OrnateSigilState.ASSEMBLY_PEAK_OPACITY - state.settledOpacity) * bump
     val a = op * assembly
-    val baseRot = if (frameMotion) anim.rotation else 0f
+    val classCat = ClassSigilGeometryCatalog.forVariant(state.variant)
+    // Per-class rotation feel (CP2): signed factor sets speed + direction (Magician reverses).
+    val baseRot0 = if (frameMotion) anim.rotation else 0f
+    val baseRot = if (classGeometry) baseRot0 * classCat.rotationFactor else baseRot0
     val w = opacityProfile.weights
     val style = SigilClassStyleCatalog.styleFor(state.variant)
     val weight = style.lineWeight
+    // Class-distinct central strokes carry the per-class weight emphasis (Berserker heaviest).
+    val centralWeight = if (classGeometry) weight * classCat.strokeScale else weight
 
     translate(center.x, center.y) {
         // Layer 1 — background ornament (faintest): a soft aura.
@@ -97,10 +107,22 @@ private fun DrawScope.drawOrnateSigil(
             geo.innerPaths.forEachIndexed { i, path ->
                 val newest = state.newRankLayer && i >= geo.innerPaths.lastIndex - 1
                 val la = if (newest) (a * 1.2f + anim.glow * 0.3f) else a
-                drawPath(path, accentBlend(state.variant).copy(alpha = la.coerceAtMost(w.centralCap)), style = Stroke(width = weight))
+                drawPath(
+                    path,
+                    accentBlend(state.variant).copy(alpha = la.coerceAtMost(w.centralCap)),
+                    style = Stroke(width = centralWeight),
+                )
             }
             geo.connectors.forEach { (p0, p1) ->
                 drawLine(StatusPalette.violetBright.copy(alpha = a * w.connectors), p0, p1, strokeWidth = weight * 0.7f)
+            }
+        }
+        // Static per-class core anchor (CP2) — holds the eye while the middle drifts. Slightly
+        // emphasized and never rotated; only present in the class-distinct geometry.
+        if (classGeometry) {
+            geo.coreAnchor?.let { anchor ->
+                val anchorAlpha = (a * 1.5f).coerceAtMost((w.centralCap + 0.12f).coerceAtMost(0.9f))
+                drawPath(anchor, accentBlend(state.variant).copy(alpha = anchorAlpha), style = Stroke(width = centralWeight))
             }
         }
         // Inner detail arcs — reversed parallax against the middle under the ceremonial rule.

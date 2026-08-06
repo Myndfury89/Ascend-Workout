@@ -10,6 +10,8 @@
     <ID>CyclomaticComplexMethod:GoalAffinityMapping.kt$GoalAffinityMapping$fun preferenceTags(pref: ActivityPreference): Set&lt;String&gt;</ID>
     <ID>CyclomaticComplexMethod:OnboardingScreen.kt$@Composable private fun StepScaffold( state: OnboardingUiState, viewModel: OnboardingViewModel, )</ID>
     <ID>CyclomaticComplexMethod:OnboardingViewModel.kt$OnboardingViewModel$private fun validate(state: OnboardingUiState): String?</ID>
+    <ID>CyclomaticComplexMethod:OrnateSigil.kt$@Suppress("LongMethod") // one cohesive draw pass; splitting layers would spread shared state. private fun DrawScope.drawOrnateSigil( state: OrnateSigilState, anim: OrnateSigilAnimation, geo: OrnateSigilGeometry, center: Offset, minimal: Boolean, frameMotion: Boolean, rotationProfile: SigilRotationProfile, opacityProfile: SigilOpacityProfile, stationaryOverlay: Boolean, classGeometry: Boolean, )</ID>
+    <ID>CyclomaticComplexMethod:OrnateSigilGeometry.kt$fun buildOrnateGeometry( key: SigilGeometryKey, radiusPx: Float, ): OrnateSigilGeometry</ID>
     <ID>CyclomaticComplexMethod:ProgressionRewardService.kt$ProgressionRewardCalculator$fun rewardFor( milestoneType: ProgressionMilestoneType, primaryAttribute: AttributeType?, ): ProgressionRewardSpec</ID>
     <ID>CyclomaticComplexMethod:QuestRepositoryImpl.kt$QuestRepositoryImpl$override suspend fun completeQuest(questId: String): CompleteQuestResult</ID>
     <ID>CyclomaticComplexMethod:RevisedStatusPrototypeScreen.kt$@Composable fun RevisedStatusPrototypeScreen( modifier: Modifier = Modifier, controller: PrototypeReviewController = rememberPrototypeReviewController(), )</ID>
@@ -79,7 +81,7 @@
     <ID>FunctionNaming:OnboardingSteps.kt$@Composable fun TrainingBackgroundStep( draft: OnboardingDraft, onDraft: ((OnboardingDraft) -&gt; OnboardingDraft) -&gt; Unit, )</ID>
     <ID>FunctionNaming:OnboardingSteps.kt$@Composable private fun DarkNumberField( label: String, initial: String, onValue: (String) -&gt; Unit, )</ID>
     <ID>FunctionNaming:OnboardingSteps.kt$@Composable private fun ReviewLine( label: String, value: String, )</ID>
-    <ID>FunctionNaming:OrnateSigil.kt$@Composable fun OrnateSigil( state: OrnateSigilState, animation: OrnateSigilAnimation, semanticDescription: String, modifier: Modifier = Modifier, simplified: Boolean = false, minimal: Boolean = false, frameMotion: Boolean = true, rotationProfile: SigilRotationProfile = SigilRotationProfile.LEGACY, opacityProfile: SigilOpacityProfile = SigilOpacityProfile.LEGACY, stationaryOverlay: Boolean = false, )</ID>
+    <ID>FunctionNaming:OrnateSigil.kt$@Composable fun OrnateSigil( state: OrnateSigilState, animation: OrnateSigilAnimation, semanticDescription: String, modifier: Modifier = Modifier, simplified: Boolean = false, minimal: Boolean = false, frameMotion: Boolean = true, rotationProfile: SigilRotationProfile = SigilRotationProfile.LEGACY, opacityProfile: SigilOpacityProfile = SigilOpacityProfile.LEGACY, stationaryOverlay: Boolean = false, classGeometry: Boolean = false, )</ID>
     <ID>FunctionNaming:Placeholder.kt$@Composable fun CenteredPlaceholder( title: String, message: String, icon: ImageVector, modifier: Modifier = Modifier, )</ID>
     <ID>FunctionNaming:ProgressScreen.kt$@Composable fun ProgressScreen(modifier: Modifier = Modifier)</ID>
     <ID>FunctionNaming:QuestsScreen.kt$@Composable fun QuestsScreen( onQuestClick: (String) -&gt; Unit, modifier: Modifier = Modifier, viewModel: QuestsViewModel = hiltViewModel(), )</ID>
@@ -173,9 +175,9 @@
     <ID>LongParameterList:OnboardingComponents.kt$( title: String, subtitle: String?, progressIndex: Int, progressTotal: Int, onBack: (() -&gt; Unit)?, onNext: (() -&gt; Unit)?, nextLabel: String = "Next", onSkip: (() -&gt; Unit)? = null, validationError: String? = null, content: @Composable () -&gt; Unit, )</ID>
     <ID>LongParameterList:OnboardingPickers.kt$( title: String, error: String?, onClear: () -&gt; Unit, onCancel: () -&gt; Unit, onConfirm: () -&gt; Unit, content: @Composable () -&gt; Unit, )</ID>
     <ID>LongParameterList:OnboardingViewModel.kt$OnboardingViewModel$( private val onboardingRepository: OnboardingRepository, private val playerRepository: PlayerRepository, private val classRepository: ClassRepository, private val questTemplateRepository: QuestTemplateRepository, private val ageClassifier: AgeSafetyClassifier, private val affinityAssessor: ClassAffinityAssessor, private val planGenerator: InitialQuestPlanGenerator, private val assessmentSuggester: AssessmentQuestSuggester, private val initialQuestSchedule: CreateInitialQuestScheduleUseCase, )</ID>
-    <ID>LongParameterList:OrnateSigil.kt$( state: OrnateSigilState, anim: OrnateSigilAnimation, geo: OrnateSigilGeometry, center: Offset, minimal: Boolean, frameMotion: Boolean, rotationProfile: SigilRotationProfile, opacityProfile: SigilOpacityProfile, stationaryOverlay: Boolean, )</ID>
-    <ID>LongParameterList:OrnateSigil.kt$( state: OrnateSigilState, animation: OrnateSigilAnimation, semanticDescription: String, modifier: Modifier = Modifier, simplified: Boolean = false, minimal: Boolean = false, frameMotion: Boolean = true, rotationProfile: SigilRotationProfile = SigilRotationProfile.LEGACY, opacityProfile: SigilOpacityProfile = SigilOpacityProfile.LEGACY, stationaryOverlay: Boolean = false, )</ID>
-    <ID>LongParameterList:OrnateSigilGeometry.kt$OrnateSigilGeometry$( val radius: Float, val innerPaths: List&lt;Path&gt;, val connectors: List&lt;Pair&lt;Offset, Offset&gt;&gt;, val arcs: List&lt;ArcSpec&gt;, val motif: Path, val motifTicks: Int, val medallionCenters: List&lt;Offset&gt;, val medallionRadius: Float, val proficiencyIndex: Int, )</ID>
+    <ID>LongParameterList:OrnateSigil.kt$( state: OrnateSigilState, anim: OrnateSigilAnimation, geo: OrnateSigilGeometry, center: Offset, minimal: Boolean, frameMotion: Boolean, rotationProfile: SigilRotationProfile, opacityProfile: SigilOpacityProfile, stationaryOverlay: Boolean, classGeometry: Boolean, )</ID>
+    <ID>LongParameterList:OrnateSigil.kt$( state: OrnateSigilState, animation: OrnateSigilAnimation, semanticDescription: String, modifier: Modifier = Modifier, simplified: Boolean = false, minimal: Boolean = false, frameMotion: Boolean = true, rotationProfile: SigilRotationProfile = SigilRotationProfile.LEGACY, opacityProfile: SigilOpacityProfile = SigilOpacityProfile.LEGACY, stationaryOverlay: Boolean = false, classGeometry: Boolean = false, )</ID>
+    <ID>LongParameterList:OrnateSigilGeometry.kt$OrnateSigilGeometry$( val radius: Float, val innerPaths: List&lt;Path&gt;, val connectors: List&lt;Pair&lt;Offset, Offset&gt;&gt;, val arcs: List&lt;ArcSpec&gt;, val motif: Path, val motifTicks: Int, val medallionCenters: List&lt;Offset&gt;, val medallionRadius: Float, val proficiencyIndex: Int, /** The static per-class core anchor (CP2). Null for the legacy/undifferentiated geometry. */ val coreAnchor: Path? = null, )</ID>
     <ID>LongParameterList:PlayerDao.kt$PlayerDao$( userId: String, ageSafetyCategory: String, socialVisibility: String, partyPresenceEnabled: Boolean, strangerDiscoveryEnabled: Boolean, updatedAt: Long, )</ID>
     <ID>LongParameterList:ProgressionEngines.kt$( userId: String, type: ProgressionRecommendationType, readiness: TrainingReadiness, exerciseId: String?, questTemplateId: String?, currentPrescriptionId: String?, proposed: ExercisePrescription?, proposedTarget: Int?, autoSafeAdaptation: Boolean, now: Long, )</ID>
     <ID>LongParameterList:ProgressionEngines.kt$ExerciseProgressionEngine$( userId: String, prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), equipmentKey: String? = null, autoSafeAdaptation: Boolean = false, now: Long = System.currentTimeMillis(), )</ID>
@@ -380,6 +382,7 @@
     <ID>MagicNumber:OnboardingComponents.kt$OnboardingPalette$0xFFEAF0FF</ID>
     <ID>MagicNumber:OnboardingPickers.kt$11</ID>
     <ID>MagicNumber:OnboardingPickers.kt$5</ID>
+    <ID>MagicNumber:OrnateSigil.kt$0.12f</ID>
     <ID>MagicNumber:OrnateSigil.kt$0.18f</ID>
     <ID>MagicNumber:OrnateSigil.kt$0.3f</ID>
     <ID>MagicNumber:OrnateSigil.kt$0.45f</ID>
@@ -388,21 +391,33 @@
     <ID>MagicNumber:OrnateSigil.kt$0.72f</ID>
     <ID>MagicNumber:OrnateSigil.kt$0.7f</ID>
     <ID>MagicNumber:OrnateSigil.kt$0.8f</ID>
+    <ID>MagicNumber:OrnateSigil.kt$0.9f</ID>
     <ID>MagicNumber:OrnateSigil.kt$1.25f</ID>
     <ID>MagicNumber:OrnateSigil.kt$1.2f</ID>
+    <ID>MagicNumber:OrnateSigil.kt$1.5f</ID>
     <ID>MagicNumber:OrnateSigil.kt$4f</ID>
     <ID>MagicNumber:OrnateSigil.kt$5f</ID>
     <ID>MagicNumber:OrnateSigil.kt$6f</ID>
+    <ID>MagicNumber:OrnateSigilGeometry.kt$0.028f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.02f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.03f</ID>
+    <ID>MagicNumber:OrnateSigilGeometry.kt$0.045f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.04f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.05f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.06f</ID>
+    <ID>MagicNumber:OrnateSigilGeometry.kt$0.075f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.085f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.08f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.09f</ID>
+    <ID>MagicNumber:OrnateSigilGeometry.kt$0.11f</ID>
+    <ID>MagicNumber:OrnateSigilGeometry.kt$0.13f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.15f</ID>
+    <ID>MagicNumber:OrnateSigilGeometry.kt$0.19f</ID>
+    <ID>MagicNumber:OrnateSigilGeometry.kt$0.1f</ID>
+    <ID>MagicNumber:OrnateSigilGeometry.kt$0.20f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.22f</ID>
+    <ID>MagicNumber:OrnateSigilGeometry.kt$0.24f</ID>
+    <ID>MagicNumber:OrnateSigilGeometry.kt$0.28f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.2f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.30f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$0.32f</ID>
@@ -424,8 +439,13 @@
     <ID>MagicNumber:OrnateSigilGeometry.kt$200f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$20f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$3</ID>
+    <ID>MagicNumber:OrnateSigilGeometry.kt$30f</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$360f</ID>
+    <ID>MagicNumber:OrnateSigilGeometry.kt$36f</ID>
+    <ID>MagicNumber:OrnateSigilGeometry.kt$4</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$45f</ID>
+    <ID>MagicNumber:OrnateSigilGeometry.kt$5</ID>
+    <ID>MagicNumber:OrnateSigilGeometry.kt$6</ID>
     <ID>MagicNumber:OrnateSigilGeometry.kt$90f</ID>
     <ID>MagicNumber:OrnateSigilMapping.kt$100</ID>
     <ID>MagicNumber:OrnateSigilModels.kt$4f</ID>
@@ -696,6 +716,11 @@
     <ID>MaxLineLength:ClassRewardFlowTest.kt$ClassRewardFlowTest$assertTrue(types.none { it == ProgressionEventType.CLASS_XP_GAINED || it == ProgressionEventType.PROFICIENCY_GAINED })</ID>
     <ID>MaxLineLength:ClassRewardFlowTest.kt$ClassRewardFlowTest$db.playerDao().upsertProfile(UserProfileEntity(id = "u_mage", displayName = "Mage", createdAt = 0, updatedAt = 0))</ID>
     <ID>MaxLineLength:ClassRewardFlowTest.kt$ClassRewardFlowTest$db.playerDao().upsertProfile(UserProfileEntity(id = "u_none", displayName = "None", createdAt = 0, updatedAt = 0))</ID>
+    <ID>MaxLineLength:ClassSigilGeometryTest.kt$ClassSigilGeometryTest$assertEquals(CentralStructure.FIVE_POINT_STAR, ClassSigilGeometryCatalog.forVariant(StatusClassVariant.BERSERKER).central)</ID>
+    <ID>MaxLineLength:ClassSigilGeometryTest.kt$ClassSigilGeometryTest$assertEquals(CentralStructure.ROSETTE, ClassSigilGeometryCatalog.forVariant(StatusClassVariant.MAGICIAN).central)</ID>
+    <ID>MaxLineLength:ClassSigilGeometryTest.kt$ClassSigilGeometryTest$assertEquals(CoreAnchorShape.SPIKE_STAR_4, ClassSigilGeometryCatalog.forVariant(StatusClassVariant.BERSERKER).anchor)</ID>
+    <ID>MaxLineLength:ClassSigilGeometryTest.kt$ClassSigilGeometryTest$assertNotNull("class-distinct build has a core anchor", geometry(StatusClassVariant.BERSERKER, classDistinct = true).coreAnchor)</ID>
+    <ID>MaxLineLength:ClassSigilGeometryTest.kt$ClassSigilGeometryTest$assertNull("legacy build has no core anchor", geometry(StatusClassVariant.BERSERKER, classDistinct = false).coreAnchor)</ID>
     <ID>MaxLineLength:ContributionEligibilityEvaluator.kt$ContributionEligibilityEvaluator$return ContributionEligibility(MemberActivityState.DISCONNECTED, false, "Party member reconnecting.")</ID>
     <ID>MaxLineLength:ContributionEligibilityEvaluator.kt$ContributionEligibilityEvaluator$return ContributionEligibility(MemberActivityState.PAUSED, false, "Party member contribution paused.")</ID>
     <ID>MaxLineLength:ContributionEligibilityEvaluator.kt$ContributionEligibilityEvaluator$return ContributionEligibility(MemberActivityState.SAFETY_PAUSED, false, "Party member contribution paused.")</ID>
@@ -836,9 +861,8 @@
     <ID>MaxLineLength:OnboardingViewModelTest.kt$OnboardingViewModelTest$assertNull("no profile is created for a below-minimum-age user", runBlocking { db.playerDao().getProfile(LOCAL_USER_ID) })</ID>
     <ID>MaxLineLength:OnboardingViewModelTest.kt$OnboardingViewModelTest$vm.updateDraft { it.copy(currentWeightKg = 95.0, heightCm = 180.0, weightUnit = com.ascend.core.common.WeightUnit.KILOGRAMS) }</ID>
     <ID>MaxLineLength:OrnateSigil.kt$drawCircle(StatusPalette.cyan.copy(alpha = 0.95f), radius = 4.5f, center = Offset(0f, -geo.radius * 0.4f))</ID>
-    <ID>MaxLineLength:OrnateSigil.kt$drawOrnateSigil(state, animation, geometry, center, minimal, frameMotion, rotationProfile, opacityProfile, stationaryOverlay)</ID>
+    <ID>MaxLineLength:OrnateSigil.kt$drawPath(anchor, accentBlend(state.variant).copy(alpha = anchorAlpha), style = Stroke(width = centralWeight))</ID>
     <ID>MaxLineLength:OrnateSigil.kt$drawPath(geo.motif, StatusPalette.cyanSoft.copy(alpha = a * w.outerMotif), style = Stroke(width = 1f, cap = StrokeCap.Round))</ID>
-    <ID>MaxLineLength:OrnateSigil.kt$drawPath(path, accentBlend(state.variant).copy(alpha = la.coerceAtMost(w.centralCap)), style = Stroke(width = weight))</ID>
     <ID>MaxLineLength:OrnateSigil.kt$ringTrack(geo.radius * 0.6f, StatusPalette.cyanSoft.copy(alpha = a * w.ringSecondary), weight = 1.4f, dashed = true)</ID>
     <ID>MaxLineLength:OrnateSigil.kt$style = Stroke(width = weight, pathEffect = if (dashed) PathEffect.dashPathEffect(floatArrayOf(4f, 6f)) else null)</ID>
     <ID>MaxLineLength:OrnateSigil.kt$val classFill = (op * w.classMult).coerceAtMost(w.classCap) + anim.proficiencyPulse.minus(1f).coerceAtLeast(0f) * 0.8f</ID>
@@ -846,8 +870,13 @@
     <ID>MaxLineLength:OrnateSigilGeometry.kt$drawArc(color, 200f, 160f, false, topLeft = center + Offset(-u * 0.5f, -u * 0.5f), size = Size(u, u), style = s)</ID>
     <ID>MaxLineLength:OrnateSigilGeometry.kt$drawArc(color, 20f, 140f, false, topLeft = center + Offset(-u * 0.5f, -u * 0.2f), size = Size(u, u), style = s)</ID>
     <ID>MaxLineLength:OrnateSigilGeometry.kt$drawArc(color, 20f, 160f, false, topLeft = center + Offset(-u * 0.3f, -u * 0.3f), size = Size(u * 0.6f, u * 0.6f), style = s)</ID>
+    <ID>MaxLineLength:OrnateSigilGeometry.kt$innerPaths += polygonPath(cfg.basePolygonSides, r * 0.30f, -90f + (i + 1) * (180f / (cfg.rotatedPolygons + 1)))</ID>
+    <ID>MaxLineLength:OrnateSigilGeometry.kt$innerPaths += polygonPath(cfg.basePolygonSides, r * 0.34f, -90f + (i + 1) * (180f / (cfg.rotatedPolygons + 1)))</ID>
     <ID>MaxLineLength:OrnateSigilGeometry.kt$innerPaths += starPath(cfg.basePolygonSides, r * (0.30f - layer * 0.04f), r * (0.15f - layer * 0.02f).coerceAtLeast(0.05f), rot)</ID>
     <ID>MaxLineLength:OrnateSigilMapping.kt$/** e.g. "Gold-rank Monk seal. Player level progress 72 percent. Class level progress 44 percent. Discipline recently increased." */</ID>
+    <ID>MaxLineLength:OrnateSigilModels.kt$ClassSigilGeometryCatalog$ClassSigilGeometry(CentralStructure.HEXAGRAM, CoreAnchorShape.HEXAGON, strokeScale = 1.0f, rotationFactor = 0.95f)</ID>
+    <ID>MaxLineLength:OrnateSigilModels.kt$ClassSigilGeometryCatalog$ClassSigilGeometry(CentralStructure.LAYERED_POLYGON, CoreAnchorShape.RING_DOT, strokeScale = 1.0f, rotationFactor = 1.0f)</ID>
+    <ID>MaxLineLength:OrnateSigilModels.kt$ClassSigilGeometryCatalog$ClassSigilGeometry(CentralStructure.ROSETTE, CoreAnchorShape.CIRCLE, strokeScale = 0.85f, rotationFactor = -1.18f)</ID>
     <ID>MaxLineLength:OrnateSigilModels.kt$RankGeometryCatalog$RankTier.APEX to RankGeometryConfig(basePolygonSides = 9, starLayers = 3, rotatedPolygons = 3, nestedPolygons = 2, radialConnectors = 10, segmentedArcs = 8, motifTicks = 40)</ID>
     <ID>MaxLineLength:OrnateSigilModels.kt$RankGeometryCatalog$RankTier.ASCENDANT to RankGeometryConfig(basePolygonSides = 8, starLayers = 3, rotatedPolygons = 2, nestedPolygons = 2, radialConnectors = 8, segmentedArcs = 6, motifTicks = 36)</ID>
     <ID>MaxLineLength:OrnateSigilModels.kt$RankGeometryCatalog$RankTier.BRONZE to RankGeometryConfig(basePolygonSides = 5, starLayers = 1, rotatedPolygons = 1, nestedPolygons = 0, radialConnectors = 0, segmentedArcs = 2, motifTicks = 20)</ID>
@@ -1083,6 +1112,7 @@
     <ID>TooManyFunctions:OnboardingRepositoryImpl.kt$OnboardingRepositoryImpl : OnboardingRepository</ID>
     <ID>TooManyFunctions:OnboardingSteps.kt$com.ascend.feature.onboarding.OnboardingSteps.kt</ID>
     <ID>TooManyFunctions:OnboardingViewModel.kt$OnboardingViewModel : ViewModel</ID>
+    <ID>TooManyFunctions:OrnateSigilGeometry.kt$com.ascend.feature.dashboard.prototype.OrnateSigilGeometry.kt</ID>
     <ID>TooManyFunctions:PlayerDao.kt$PlayerDao</ID>
     <ID>TooManyFunctions:ProgressionRecommendationRepository.kt$ProgressionRecommendationRepository</ID>
     <ID>TooManyFunctions:ProgressionRecommendationRepositoryImpl.kt$ProgressionRecommendationRepositoryImpl : ProgressionRecommendationRepository</ID>

@@ -1,6 +1,7 @@
 package com.ascend.feature.dashboard.prototype
 
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
@@ -36,7 +37,68 @@ class OrnateSigilGeometry(
     val medallionCenters: List<Offset>,
     val medallionRadius: Float,
     val proficiencyIndex: Int,
+    /** The static per-class core anchor (CP2). Null for the legacy/undifferentiated geometry. */
+    val coreAnchor: Path? = null,
 )
+
+private fun circlePath(
+    center: Offset,
+    radius: Float,
+): Path = Path().apply { addOval(Rect(center.x - radius, center.y - radius, center.x + radius, center.y + radius)) }
+
+/**
+ * The distinct central rotating structure for a class (CP2). Shape language only — each reads
+ * differently in monochrome. [sides] feeds the neutral/legacy polygon fallback.
+ */
+private fun classCentralPaths(
+    structure: CentralStructure,
+    r: Float,
+    sides: Int,
+): List<Path> =
+    when (structure) {
+        // Berserker — a bold five-point star with a second, offset intersecting star for angular force.
+        CentralStructure.FIVE_POINT_STAR ->
+            listOf(
+                starPath(5, r * 0.34f, r * 0.13f, -90f),
+                starPath(5, r * 0.20f, r * 0.075f, -90f + 36f),
+            )
+        // Monk — two interlocking triangles (hexagram) plus a thin third triangle: disciplined symmetry.
+        CentralStructure.HEXAGRAM ->
+            listOf(
+                polygonPath(3, r * 0.32f, -90f),
+                polygonPath(3, r * 0.32f, 90f),
+                polygonPath(3, r * 0.24f, 30f),
+            )
+        // Magician — four overlapping circles forming a rosette, with a small central circle.
+        CentralStructure.ROSETTE ->
+            buildList {
+                val off = r * 0.13f
+                val cr = r * 0.19f
+                for (k in 0 until 4) {
+                    val a = -Math.PI / 2 + Math.PI / 2 * k
+                    add(circlePath(Offset((cos(a) * off).toFloat(), (sin(a) * off).toFloat()), cr))
+                }
+                add(circlePath(Offset.Zero, r * 0.1f))
+            }
+        // Neutral — the legacy polygon + star look, so an unselected class stays understated.
+        CentralStructure.LAYERED_POLYGON ->
+            listOf(
+                polygonPath(sides, r * 0.32f, -90f),
+                starPath(sides, r * 0.28f, r * 0.13f, -90f),
+            )
+    }
+
+/** The small static core anchor per class (CP2). No squares/diamonds. */
+private fun coreAnchorPath(
+    anchor: CoreAnchorShape,
+    r: Float,
+): Path =
+    when (anchor) {
+        CoreAnchorShape.SPIKE_STAR_4 -> starPath(4, r * 0.11f, r * 0.028f, -90f)
+        CoreAnchorShape.HEXAGON -> polygonPath(6, r * 0.085f, -90f)
+        CoreAnchorShape.CIRCLE -> circlePath(Offset.Zero, r * 0.075f)
+        CoreAnchorShape.RING_DOT -> circlePath(Offset.Zero, r * 0.05f)
+    }
 
 private fun polygonPath(
     sides: Int,
@@ -78,23 +140,33 @@ fun buildOrnateGeometry(
 ): OrnateSigilGeometry {
     val cfg = RankGeometryCatalog.configFor(key.rankTier)
     val style = SigilClassStyleCatalog.styleFor(key.variant)
+    val classGeo = ClassSigilGeometryCatalog.forVariant(key.variant)
     val r = radiusPx
     val innerPaths = mutableListOf<Path>()
 
-    // Base polygon.
-    innerPaths += polygonPath(cfg.basePolygonSides, r * 0.34f, -90f)
-    // Interlocking star layers.
-    for (layer in 0 until cfg.starLayers) {
-        val rot = -90f + layer * 18f
-        innerPaths += starPath(cfg.basePolygonSides, r * (0.30f - layer * 0.04f), r * (0.15f - layer * 0.02f).coerceAtLeast(0.05f), rot)
-    }
-    // Rotated extra polygons.
-    for (i in 0 until cfg.rotatedPolygons) {
-        innerPaths += polygonPath(cfg.basePolygonSides, r * 0.34f, -90f + (i + 1) * (180f / (cfg.rotatedPolygons + 1)))
-    }
-    // Nested finer polygons.
-    for (i in 0 until cfg.nestedPolygons) {
-        innerPaths += polygonPath(cfg.basePolygonSides + 1, r * (0.22f - i * 0.05f).coerceAtLeast(0.08f), -90f)
+    if (key.classDistinct) {
+        // CP2: the class's distinct central silhouette leads; rank adds complexity around it without
+        // muddying the class read (nested + rotated polygons kept restrained).
+        innerPaths += classCentralPaths(classGeo.central, r, cfg.basePolygonSides)
+        for (i in 0 until cfg.nestedPolygons) {
+            innerPaths += polygonPath(cfg.basePolygonSides + 1, r * (0.20f - i * 0.045f).coerceAtLeast(0.08f), -90f)
+        }
+        for (i in 0 until cfg.rotatedPolygons) {
+            innerPaths += polygonPath(cfg.basePolygonSides, r * 0.30f, -90f + (i + 1) * (180f / (cfg.rotatedPolygons + 1)))
+        }
+    } else {
+        // Legacy (current production) construction — unchanged.
+        innerPaths += polygonPath(cfg.basePolygonSides, r * 0.34f, -90f)
+        for (layer in 0 until cfg.starLayers) {
+            val rot = -90f + layer * 18f
+            innerPaths += starPath(cfg.basePolygonSides, r * (0.30f - layer * 0.04f), r * (0.15f - layer * 0.02f).coerceAtLeast(0.05f), rot)
+        }
+        for (i in 0 until cfg.rotatedPolygons) {
+            innerPaths += polygonPath(cfg.basePolygonSides, r * 0.34f, -90f + (i + 1) * (180f / (cfg.rotatedPolygons + 1)))
+        }
+        for (i in 0 until cfg.nestedPolygons) {
+            innerPaths += polygonPath(cfg.basePolygonSides + 1, r * (0.22f - i * 0.05f).coerceAtLeast(0.08f), -90f)
+        }
     }
 
     // Radial connectors from the inner geometry out toward the ring.
@@ -161,6 +233,7 @@ fun buildOrnateGeometry(
         medallionCenters = centers,
         medallionRadius = medallionRadius,
         proficiencyIndex = proficiencyIndex,
+        coreAnchor = if (key.classDistinct) coreAnchorPath(classGeo.anchor, r) else null,
     )
 }
 

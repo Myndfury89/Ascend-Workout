@@ -265,6 +265,7 @@ private fun PanelContent(
             rotationProfile = controller.rotationProfile,
             opacityProfile = controller.opacityProfile,
             stationaryOverlay = controller.stationaryOverlay,
+            classGeometry = controller.sigilRefined,
         )
         Column(Modifier.fillMaxWidth().padding(24.dp)) {
             Box(zone("Identity + rank")) { IdentityBlock(data, accent, motion.levelReveal.value) }

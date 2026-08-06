@@ -187,6 +187,31 @@ class StatusPrototypeRenderTest {
     }
 
     @Test
+    fun `each class renders its distinct central geometry and core anchor`() {
+        val variants = listOf(StatusClassVariant.BERSERKER, StatusClassVariant.MONK, StatusClassVariant.MAGICIAN)
+        compose.setContent {
+            AscendTheme(darkTheme = true) {
+                androidx.compose.foundation.layout.Column {
+                    variants.forEach { variant ->
+                        OrnateSigil(
+                            OrnateSigilState(RankTier.GOLD, variant, 0.6f, 0.4f, 2, showProficiency = true),
+                            ornateAnim(),
+                            "${variant.displayName} seal.",
+                            Modifier.size(200.dp),
+                            rotationProfile = SigilRotationProfile.CEREMONIAL_MIDDLE,
+                            opacityProfile = SigilOpacityProfile.RING_FORWARD,
+                            classGeometry = true,
+                        )
+                    }
+                }
+            }
+        }
+        variants.forEach { variant ->
+            compose.onNodeWithContentDescription("${variant.displayName} seal.", substring = true).assertExists()
+        }
+    }
+
+    @Test
     fun `the ornate sigil renders in minimal effects mode`() {
         compose.setContent {
             AscendTheme(darkTheme = true) {

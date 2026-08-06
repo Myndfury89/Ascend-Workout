@@ -119,14 +119,24 @@ private fun DrawScope.drawOrnateSigil(
         rotate(rotationProfile.outerMotifRotation(baseRot), pivot = Offset.Zero) {
             drawPath(geo.motif, StatusPalette.cyanSoft.copy(alpha = a * w.outerMotif), style = Stroke(width = 1f, cap = StrokeCap.Round))
         }
-        // Structural ring tracks — stationary instrumentation, highest ornamental opacity in RingForward.
-        // A wide faint under-stroke gives each major ring a luminous halo without washing out the crisp line.
+        // Structural ring tracks (CP-B: addressable instrumentation layers) — stationary, highest
+        // ornamental opacity in RingForward. A wide faint under-stroke gives each major ring a
+        // luminous halo without washing out the crisp line.
+        val primaryRing = geo.instrumentation.ring(SigilRingRole.STRUCTURAL_PRIMARY)
+        val secondaryRing = geo.instrumentation.ring(SigilRingRole.STRUCTURAL_SECONDARY)
         if (glowE > 0f) {
-            ringTrack(geo.radius * 0.72f, StatusPalette.cyan.copy(alpha = glowE * 0.6f), weight = 7f)
-            ringTrack(geo.radius * 0.6f, StatusPalette.cyanSoft.copy(alpha = glowE * 0.45f), weight = 5f)
+            primaryRing?.let { ringTrack(it.radius(geo.radius), StatusPalette.cyan.copy(alpha = glowE * 0.6f), weight = 7f) }
+            secondaryRing?.let { ringTrack(it.radius(geo.radius), StatusPalette.cyanSoft.copy(alpha = glowE * 0.45f), weight = 5f) }
         }
-        ringTrack(geo.radius * 0.72f, StatusPalette.infoLine.copy(alpha = a * w.ringPrimary), weight = 2f)
-        ringTrack(geo.radius * 0.6f, StatusPalette.cyanSoft.copy(alpha = a * w.ringSecondary), weight = 1.4f, dashed = true)
+        primaryRing?.let { ringTrack(it.radius(geo.radius), StatusPalette.infoLine.copy(alpha = a * w.ringPrimary), weight = it.weight) }
+        secondaryRing?.let {
+            ringTrack(
+                it.radius(geo.radius),
+                StatusPalette.cyanSoft.copy(alpha = a * w.ringSecondary),
+                weight = it.weight,
+                dashed = it.dashed,
+            )
+        }
 
         // Layer 3 — ceremonial middle geometry (the only drifting layer under the ceremonial rule).
         rotate(rotationProfile.middleRotation(baseRot), pivot = Offset.Zero) {
@@ -174,42 +184,40 @@ private fun DrawScope.drawOrnateSigil(
             }
         }
 
-        // Layer 4 — active progress segments (stationary instrumentation). Player ring solid; class
-        // ring dashed and inner — distinguishable by position, pattern, and thickness, not colour alone.
-        val playerFill = (op * w.playerMult).coerceAtMost(w.playerCap) + anim.glow * w.playerGlow
-        ringArc(
-            geo.radius * 0.72f,
-            anim.playerRingTrim * assembly,
-            StatusPalette.infoLine.copy(alpha = playerFill.coerceAtMost(w.playerFinalCap)),
-            weight = 3f,
-        )
-        state.classRing?.let {
-            val classFill = (op * w.classMult).coerceAtMost(w.classCap) + anim.proficiencyPulse.minus(1f).coerceAtLeast(0f) * 0.8f
+        // Layer 4 — live progress rings (CP-B: separate, never-flattened trim-driven layers). Player
+        // ring solid; class ring dashed and inner — distinguishable by position, pattern, and thickness.
+        geo.instrumentation.ring(SigilRingRole.PLAYER_XP)?.let { ring ->
+            val playerFill = (op * w.playerMult).coerceAtMost(w.playerCap) + anim.glow * w.playerGlow
             ringArc(
-                geo.radius * 0.6f,
-                anim.classRingTrim * assembly,
-                StatusPalette.cyanSoft.copy(alpha = classFill.coerceAtMost(w.classFinalCap)),
-                weight = 1.8f,
-                dashed = true,
+                ring.radius(geo.radius),
+                anim.playerRingTrim * assembly,
+                StatusPalette.infoLine.copy(alpha = playerFill.coerceAtMost(w.playerFinalCap)),
+                weight = ring.weight,
             )
         }
+        if (state.classRing != null) {
+            geo.instrumentation.ring(SigilRingRole.CLASS_XP)?.let { ring ->
+                val classFill = (op * w.classMult).coerceAtMost(w.classCap) + anim.proficiencyPulse.minus(1f).coerceAtLeast(0f) * 0.8f
+                ringArc(
+                    ring.radius(geo.radius),
+                    anim.classRingTrim * assembly,
+                    StatusPalette.cyanSoft.copy(alpha = classFill.coerceAtMost(w.classFinalCap)),
+                    weight = ring.weight,
+                    dashed = ring.dashed,
+                )
+            }
+        }
 
-        // Layer 5 — medallions (stationary). Base moderate; the pulsing one is the brightest temporary element.
-        geo.medallionCenters.forEachIndexed { i, c ->
-            val isProficiency = i == geo.proficiencyIndex
-            val pulse = if (isProficiency) anim.proficiencyPulse else anim.medallionPulse.getOrElse(i) { 1f }
-            val glyph =
-                if (isProficiency) {
-                    style.proficiencyGlyph ?: MedallionGlyph.DISCIPLINE_SQUARES
-                } else {
-                    MedallionGlyph.attributeGlyphs.getOrElse(i) { MedallionGlyph.DISCIPLINE_SQUARES }
-                }
-            val color = medallionColor(i, isProficiency, state.variant)
+        // Layer 5 — medallions (CP-B: isolated addressable layers). Base moderate; the pulsing one is
+        // the brightest temporary element, and each medallion's colour is swappable independently.
+        geo.instrumentation.medallions.forEach { m ->
+            val pulse = if (m.isProficiency) anim.proficiencyPulse else anim.medallionPulse.getOrElse(m.pulseIndex) { 1f }
+            val color = medallionColor(m.role.ordinal, m.isProficiency, state.variant)
             val extra = ((pulse - 1f) / 0.18f).coerceIn(0f, 1f) * 0.45f
             val mAlpha = (a * w.medallionMult + extra).coerceAtMost(w.medallionFinalCap)
-            val mRadius = geo.medallionRadius * (if (isProficiency) 1.25f else 1f) * pulse
-            drawMedallionRing(c, mRadius, color.copy(alpha = mAlpha * 0.7f), weight = 1.2f)
-            drawMedallionGlyph(glyph, c, mRadius * 0.7f, color.copy(alpha = mAlpha), weight = weight * 0.7f)
+            val mRadius = geo.medallionRadius * (if (m.isProficiency) 1.25f else 1f) * pulse
+            drawMedallionRing(m.center, mRadius, color.copy(alpha = mAlpha * 0.7f), weight = 1.2f)
+            drawMedallionGlyph(m.glyph, m.center, mRadius * 0.7f, color.copy(alpha = mAlpha), weight = weight * 0.7f)
         }
 
         // Debug-only review aid: mark which layers are stationary vs rotating. Fixed dots sit on the

@@ -39,6 +39,8 @@ class OrnateSigilGeometry(
     val proficiencyIndex: Int,
     /** The static per-class core anchor (CP2). Null for the legacy/undifferentiated geometry. */
     val coreAnchor: Path? = null,
+    /** CP-B: the addressable outer-instrumentation layer set (static rings + isolated medallions + live XP rings). */
+    val instrumentation: SigilInstrumentation = SigilInstrumentation(emptyList(), emptyList()),
 )
 
 private fun circlePath(
@@ -235,6 +237,12 @@ fun buildOrnateGeometry(
         medallionRadius = medallionRadius,
         proficiencyIndex = proficiencyIndex,
         coreAnchor = if (key.classDistinct) coreAnchorPath(classGeo.anchor, r) else null,
+        instrumentation =
+            SigilInstrumentation.build(
+                centers = centers,
+                proficiencyIndex = proficiencyIndex,
+                proficiencyGlyph = style.proficiencyGlyph ?: MedallionGlyph.DISCIPLINE_SQUARES,
+            ),
     )
 }
 

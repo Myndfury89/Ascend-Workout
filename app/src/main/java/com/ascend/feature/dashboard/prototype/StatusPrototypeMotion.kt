@@ -95,16 +95,19 @@ class StatusPrototypeMotion(attributeCount: Int) {
         proficiencyReveal.animateTo(1f, motion.tween(AscendMotionTokens.QUICK))
         questFill.animateTo(data.questFraction, motion.tween(AscendMotionTokens.STANDARD, AscendEasing.settle))
 
-        // 5. The event beat (fake — no reward logic). The overlay always reveals (quick in
-        // everyday open); the celebratory pulses/flashes are reserved for major events.
+        // 5. The event beat (fake — no reward logic). The overlay always reveals (quick in everyday
+        // open). Reward-tier emphasis (the attribute center-out wave + medallion/quest pulse) fires in
+        // BOTH modes — a Reward cue is never silent; the cinematic Ascension flash stays major-only.
         if (data.overlay.kind != StatusOverlayKind.NONE) {
             val overlayToken = if (everyday) AscendMotionTokens.QUICK else AscendMotionTokens.STANDARD
             overlayReveal.animateTo(1f, motion.tween(overlayToken, AscendEasing.emphasize))
         }
-        if (!everyday) playEventEmphasis(data, motion)
+        playRewardEmphasis(data, motion)
+        if (!everyday) playAscensionFlash(data, motion)
     }
 
-    private suspend fun playEventEmphasis(
+    /** Reward-tier cue: the attribute center-out wave + medallion pulse, or a proficiency/quest pulse. */
+    private suspend fun playRewardEmphasis(
         data: StatusPrototypeData,
         motion: MotionSpec,
     ) {
@@ -118,6 +121,16 @@ class StatusPrototypeMotion(attributeCount: Int) {
             }
             StatusOverlayKind.PROFICIENCY -> pulse(proficiencyPulse, motion)
             StatusOverlayKind.QUEST_PROGRESS, StatusOverlayKind.QUEST_COMPLETE -> pulse(questPulse, motion)
+            else -> Unit
+        }
+    }
+
+    /** Ascension-tier cue: the celebratory flash for a level-up / rank / PR / progression-complete. */
+    private suspend fun playAscensionFlash(
+        data: StatusPrototypeData,
+        motion: MotionSpec,
+    ) {
+        when (data.overlay.kind) {
             StatusOverlayKind.PLAYER_LEVEL_UP, StatusOverlayKind.CLASS_LEVEL_UP,
             StatusOverlayKind.PERSONAL_RECORD, StatusOverlayKind.RANK_PROMOTION,
             StatusOverlayKind.PROGRESSION_COMPLETE,

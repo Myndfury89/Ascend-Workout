@@ -179,6 +179,7 @@
     <ID>LongMethod:RevisedStatusPrototypeScreen.kt$@Composable private fun PanelContent( data: StatusPrototypeData, accent: Color, motion: StatusPrototypeMotion, rotation: Float, controller: PrototypeReviewController, frameMotion: Boolean, zone: (String) -&gt; Modifier, )</ID>
     <ID>LongMethod:StatusPrototypeControls.kt$@OptIn(ExperimentalLayoutApi::class) @Composable internal fun StatusPrototypeControls( controller: PrototypeReviewController, modifier: Modifier = Modifier, )</ID>
     <ID>LongMethod:StatusScreen.kt$@Composable fun StatusScreen( modifier: Modifier = Modifier, viewModel: StatusMotionViewModel = hiltViewModel(), )</ID>
+    <ID>LongMethod:StatusScreen.kt$@Composable private fun StatusPanelContent( data: StatusPrototypeData, accent: Color, motion: StatusPrototypeMotion, rotation: Float, ambient: Boolean, )</ID>
     <ID>LongMethod:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$override suspend fun completeWorkout(workoutId: String): CompleteWorkoutResult</ID>
     <ID>LongParameterList:ActiveQuestScreen.kt$( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
     <ID>LongParameterList:AdaptiveIntervalRedistributionTest.kt$AdaptiveIntervalRedistributionTest$( dailyTarget: Int = 200, progress: Int = 30, leftover: Int = 20, futures: List&lt;FutureInterval&gt; = listOf(future("a", 50, 10), future("b", 50, 20), future("c", 50, 30)), preference: RedistributionPreference = RedistributionPreference.EVEN, timeRemaining: Long = 1000, quietHours: List&lt;Pair&lt;Long, Long&gt;&gt; = emptyList(), maxSetSize: Int = Int.MAX_VALUE, maxIntervalTarget: Int = Int.MAX_VALUE, fatigue: Int? = null, auto: Boolean = false, safety: ProgressionSafetyState = ProgressionSafetyState.OK, now: Long = 5, )</ID>
@@ -667,6 +668,8 @@
     <ID>MagicNumber:StatusPrototypePanelContent.kt$0xFFE8735A</ID>
     <ID>MagicNumber:StatusPrototypePreviews.kt$0.98f</ID>
     <ID>MagicNumber:StatusPrototypePreviews.kt$5</ID>
+    <ID>MagicNumber:StatusScreen.kt$0.01f</ID>
+    <ID>MagicNumber:StatusScreen.kt$0.55f</ID>
     <ID>MagicNumber:StatusScreen.kt$0.5f</ID>
     <ID>MagicNumber:StatusScreen.kt$0.98f</ID>
     <ID>MagicNumber:StatusScreen.kt$0xFF10151F</ID>
@@ -1161,6 +1164,7 @@
     <ID>MaxLineLength:StatusPrototypeRenderTest.kt$StatusPrototypeRenderTest$val data = FakeStatusPrototype.dataFor(StatusPrototypeStateId.REDUCED_MOTION, StatusClassVariant.MONK, reducedMotion = false)</ID>
     <ID>MaxLineLength:StatusPrototypeRenderTest.kt$StatusPrototypeRenderTest$val data = FakeStatusPrototype.dataFor(StatusPrototypeStateId.STANDARD, StatusClassVariant.BERSERKER, reducedMotion = false)</ID>
     <ID>MaxLineLength:StatusPrototypeRenderTest.kt$StatusPrototypeRenderTest$val data = FakeStatusPrototype.dataFor(StatusPrototypeStateId.STANDARD, StatusClassVariant.MONK, reducedMotion = false)</ID>
+    <ID>MaxLineLength:StatusScreen.kt$modifier = Modifier.fillMaxWidth(0.55f).aspectRatio(1f).graphicsLayer { alpha = motion.eventFlash.value }</ID>
     <ID>MaxLineLength:StatusScreen.kt$sigilDescription(data, data.playerXpFraction, if (hasClass) data.classXpFraction else null, data.activeMedallionIndex)</ID>
     <ID>MaxLineLength:StatusSigil.kt$)</ID>
     <ID>MaxLineLength:StreakCalculatorTest.kt$StreakCalculatorTest$val result = calc.onActivity(currentStreak = 4, longestStreak = 4, lastActiveDay = day.minusDays(1), today = day)</ID>

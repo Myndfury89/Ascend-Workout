@@ -32,12 +32,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ascend.core.designsystem.motion.MotionSpec
 import com.ascend.feature.dashboard.prototype.AttributeMeters
+import com.ascend.feature.dashboard.prototype.BreakthroughBurst
+import com.ascend.feature.dashboard.prototype.BurstMode
 import com.ascend.feature.dashboard.prototype.EdgeLitStatusPanel
 import com.ascend.feature.dashboard.prototype.EntranceMode
 import com.ascend.feature.dashboard.prototype.EventOverlayChip
@@ -218,6 +221,7 @@ private fun StatusPanelContent(
             classRingTrim = motion.classXpFill.value,
             medallionPulse = motion.attrPulse.map { it.value },
             proficiencyPulse = motion.proficiencyPulse.value,
+            wave = motion.wave.value,
         )
 
     Box(Modifier.fillMaxWidth().clipToBounds()) {
@@ -243,6 +247,21 @@ private fun StatusPanelContent(
             internalGlow = true,
             warmAccents = true,
         )
+        // Level-up breakthrough burst — radiates from the sigil centre during a major-unlock flash and
+        // settles as the flash recedes. Skipped under reduced motion (the value lock is the cue).
+        if (data.majorUnlock && ambient && motion.eventFlash.value > 0.01f) {
+            Box(
+                Modifier.align(Alignment.TopCenter).fillMaxWidth(0.98f).aspectRatio(1f).offset(y = (-28).dp),
+                contentAlignment = Alignment.Center,
+            ) {
+                BreakthroughBurst(
+                    accent = accent,
+                    pulse = motion.eventFlash.value,
+                    mode = BurstMode.PRE_AUTHORED,
+                    modifier = Modifier.fillMaxWidth(0.55f).aspectRatio(1f).graphicsLayer { alpha = motion.eventFlash.value },
+                )
+            }
+        }
         Column(Modifier.fillMaxWidth().padding(24.dp)) {
             IdentityBlock(data, accent, motion.levelReveal.value)
             Spacer(Modifier.height(20.dp))

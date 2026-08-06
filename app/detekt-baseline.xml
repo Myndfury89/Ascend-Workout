@@ -193,6 +193,7 @@
     <ID>FunctionNaming:YourAscendedPrototypeScreen.kt$@Composable private fun CompareFigure( label: String, ascendedClass: AscendedClass, bodyBase: BodyBase, fidelity: SilhouetteFidelity, silhouetteOnly: Boolean, showLayers: Boolean, outlineOnly: Boolean, modifier: Modifier = Modifier, )</ID>
     <ID>FunctionNaming:YourAscendedPrototypeScreen.kt$@Composable private fun ReviewHeader( selectedClass: AscendedClass?, bodyBase: BodyBase, fidelity: SilhouetteFidelity, )</ID>
     <ID>FunctionNaming:YourAscendedPrototypeScreen.kt$@Composable private fun Stat( label: String, value: String, )</ID>
+    <ID>FunctionOnlyReturningConstant:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$fun hasRefined( @Suppress("UNUSED_PARAMETER") cls: AscendedClass, ): Boolean</ID>
     <ID>FunctionOnlyReturningConstant:OrnateSigilModels.kt$SigilRotationProfile$@Suppress("unused") fun progressRotation(rot: Float): Float</ID>
     <ID>LargeClass:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry</ID>
     <ID>LongMethod:ActiveQuestScreen.kt$@OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class) @Composable internal fun ActiveQuestContent( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
@@ -202,7 +203,13 @@
     <ID>LongMethod:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$private fun fighter(base: BodyBase): List&lt;SilhouetteShape&gt;</ID>
     <ID>LongMethod:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$private fun guardian(base: BodyBase): List&lt;SilhouetteShape&gt;</ID>
     <ID>LongMethod:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$private fun ranger(base: BodyBase): List&lt;SilhouetteShape&gt;</ID>
+    <ID>LongMethod:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$private fun refinedAssassin(base: BodyBase): List&lt;SilhouetteShape&gt;</ID>
+    <ID>LongMethod:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$private fun refinedBerserker(base: BodyBase): List&lt;SilhouetteShape&gt;</ID>
+    <ID>LongMethod:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$private fun refinedFighter(base: BodyBase): List&lt;SilhouetteShape&gt;</ID>
     <ID>LongMethod:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$private fun refinedGuardian(base: BodyBase): List&lt;SilhouetteShape&gt;</ID>
+    <ID>LongMethod:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$private fun refinedMagician(base: BodyBase): List&lt;SilhouetteShape&gt;</ID>
+    <ID>LongMethod:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$private fun refinedMonk(base: BodyBase): List&lt;SilhouetteShape&gt;</ID>
+    <ID>LongMethod:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$private fun refinedRanger(base: BodyBase): List&lt;SilhouetteShape&gt;</ID>
     <ID>LongMethod:FakeStatusPrototype.kt$FakeStatusPrototype$fun dataFor( stateId: StatusPrototypeStateId, variant: StatusClassVariant, reducedMotion: Boolean, forceSecondary: Boolean = false, weightUnit: com.ascend.core.common.WeightUnit = com.ascend.core.common.WeightUnit.KILOGRAMS, ): StatusPrototypeData</ID>
     <ID>LongMethod:LogWorkoutScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable private fun AddSetSection( exercises: List&lt;Exercise&gt;, weightUnit: WeightUnit, onAddSet: (Exercise, Int, Double?) -&gt; Unit, )</ID>
     <ID>LongMethod:LogWorkoutScreen.kt$@OptIn(ExperimentalMaterial3Api::class, androidx.compose.foundation.layout.ExperimentalLayoutApi::class) @Composable internal fun LogWorkoutContent( state: LogWorkoutUiState, onBack: () -&gt; Unit, onTitleChange: (String) -&gt; Unit, onDifficultyChange: (Difficulty) -&gt; Unit, onAddSet: (Exercise, Int, Double?) -&gt; Unit, onDeleteSet: (String) -&gt; Unit, onFinish: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, weightUnit: WeightUnit = WeightUnit.KILOGRAMS, onWeightUnitChange: (WeightUnit) -&gt; Unit = {}, )</ID>
@@ -404,8 +411,10 @@
     <ID>MagicNumber:ClassSilhouetteFigure.kt$0.9f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.005f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.012f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.014f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.015f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.01f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.020f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.022f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.025f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.028f</ID>
@@ -418,9 +427,11 @@
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.038f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.03f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.040f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.042f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.045f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.048f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.04f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.050f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.055f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.05f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.065f</ID>
@@ -428,6 +439,7 @@
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.075f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.07f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.085f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.088f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.08f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.095f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.09f</ID>
@@ -442,6 +454,7 @@
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.13f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.140f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.145f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.1475f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.14f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.150f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.155f</ID>
@@ -456,6 +469,7 @@
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.190f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.195f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.19f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.205f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.20f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.215f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.225f</ID>
@@ -471,8 +485,10 @@
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.27f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.285f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.28f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.295f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.29f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.300f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.305f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.30f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.315f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.31f</ID>
@@ -489,7 +505,10 @@
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.37f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.38f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.39f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.405f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.40f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.41f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.42f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.43f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.44f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.455f</ID>
@@ -497,9 +516,11 @@
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.46f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.47f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.48f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.49f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.50f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.51f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.52f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.535f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.53f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.545f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.54f</ID>
@@ -508,6 +529,7 @@
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.57f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.585f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.58f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.59f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.60f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.61f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.62f</ID>
@@ -521,13 +543,16 @@
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.71f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.72f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.74f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.77f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.78f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.80f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.82f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.84f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.85f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.86f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.87f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.885f</ID>
+    <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.88f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.90f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.92f</ID>
     <ID>MagicNumber:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$0.93f</ID>
@@ -1086,25 +1111,61 @@
     <ID>MaxLineLength:ClassSigilGeometryTest.kt$ClassSigilGeometryTest$assertNull("legacy build has no core anchor", geometry(StatusClassVariant.BERSERKER, classDistinct = false).coreAnchor)</ID>
     <ID>MaxLineLength:ClassSigilGeometryTest.kt$ClassSigilGeometryTest$assertNull("legacy build has no middle group", geometry(StatusClassVariant.BERSERKER, classDistinct = false).middleGroup)</ID>
     <ID>MaxLineLength:ClassSilhouetteFigure.kt$val figure = remember(ascendedClass, bodyBase, fidelity) { ClassSilhouetteGeometry.build(ascendedClass, bodyBase, fidelity) }</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$p(CX + 0.30f * s, 0.24f)</ID>
     <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$p(CX - 0.01f, 0.15f)</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$p(CX - 0.30f * s, 0.24f)</ID>
     <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("armL", SilhouetteTone.SILHOUETTE, p(CX - 0.20f, 0.33f), p(CX - 0.30f, 0.36f), p(CX - 0.29f, 0.60f), p(CX - 0.19f, 0.58f))</ID>
     <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("armR", SilhouetteTone.SILHOUETTE, p(CX + 0.20f, 0.33f), p(CX + 0.30f, 0.36f), p(CX + 0.29f, 0.60f), p(CX + 0.19f, 0.58f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("axeEdge", SilhouetteTone.LIGHT, p(CX + 0.41f, 0.405f), p(CX + 0.44f, 0.44f), p(CX + 0.43f, 0.49f), p(CX + 0.40f, 0.46f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("axeHandle", SilhouetteTone.DARK, p(CX + 0.30f, 0.33f), p(CX + 0.32f, 0.33f), p(CX + 0.32f, 0.88f), p(CX + 0.30f, 0.88f))</ID>
     <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("axeHead", SilhouetteTone.MEDIUM, p(CX + 0.30f, 0.35f), p(CX + 0.40f, 0.40f), p(CX + 0.40f, 0.52f), p(CX + 0.30f, 0.50f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("belt", SilhouetteTone.DARK, p(CX - waist, 0.50f), p(CX + waist, 0.50f), p(CX + waist, 0.55f), p(CX - waist, 0.55f))</ID>
     <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("belt", SilhouetteTone.DARK, p(CX - waist, 0.52f), p(CX + waist, 0.52f), p(CX + waist, 0.57f), p(CX - waist, 0.57f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("beltStrap", SilhouetteTone.DARK, p(CX - waist, 0.50f), p(CX + waist, 0.50f), p(CX + 0.05f, 0.60f), p(CX - 0.02f, 0.58f))</ID>
     <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("beltWrap", SilhouetteTone.MEDIUM, p(CX - waist, 0.56f), p(CX + waist, 0.56f), p(CX + waist, 0.62f), p(CX - waist, 0.62f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("bladeL", SilhouetteTone.MEDIUM, p(CX - 0.10f, 0.48f), p(CX - 0.075f, 0.48f), p(CX - 0.05f, 0.66f), p(CX - 0.08f, 0.66f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("bladeR", SilhouetteTone.LIGHT, p(CX + 0.10f, 0.49f), p(CX + 0.13f, 0.49f), p(CX + 0.155f, 0.70f), p(CX + 0.125f, 0.70f))</ID>
     <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("bladeR", SilhouetteTone.LIGHT, p(CX + 0.10f, 0.52f), p(CX + 0.13f, 0.52f), p(CX + 0.15f, 0.70f), p(CX + 0.12f, 0.70f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("bootL", SilhouetteTone.DARK, p(CX - 0.065f, 0.88f), p(CX - 0.015f, 0.88f), p(CX - 0.01f, 0.94f), p(CX - 0.085f, 0.94f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("bootL", SilhouetteTone.DARK, p(CX - 0.08f, 0.87f), p(CX - 0.035f, 0.87f), p(CX - 0.025f, 0.93f), p(CX - 0.10f, 0.93f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("bootL", SilhouetteTone.DARK, p(CX - 0.095f, 0.88f), p(CX - 0.02f, 0.88f), p(CX - 0.01f, 0.94f), p(CX - 0.115f, 0.94f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("bootL", SilhouetteTone.DARK, p(CX - 0.14f, 0.88f), p(CX - 0.02f, 0.88f), p(CX - 0.01f, 0.95f), p(CX - 0.16f, 0.95f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("bootR", SilhouetteTone.DARK, p(CX + 0.02f, 0.88f), p(CX + 0.095f, 0.88f), p(CX + 0.115f, 0.94f), p(CX + 0.01f, 0.94f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("bootR", SilhouetteTone.DARK, p(CX + 0.02f, 0.88f), p(CX + 0.14f, 0.88f), p(CX + 0.16f, 0.95f), p(CX + 0.01f, 0.95f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("bootR", SilhouetteTone.DARK, p(CX + 0.035f, 0.87f), p(CX + 0.08f, 0.87f), p(CX + 0.10f, 0.93f), p(CX + 0.025f, 0.93f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("bootR", SilhouetteTone.DARK, p(CX + 0.035f, 0.88f), p(CX + 0.08f, 0.88f), p(CX + 0.10f, 0.94f), p(CX + 0.025f, 0.94f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("cloakFold", SilhouetteTone.DARK, p(CX + 0.02f, 0.40f), p(CX + 0.10f, 0.44f), p(CX + 0.15f, 0.86f), p(CX + 0.04f, 0.86f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("clothFoldL", SilhouetteTone.DARK, p(CX - 0.09f, 0.52f), p(CX - 0.03f, 0.52f), p(CX - 0.05f, 0.88f), p(CX - 0.11f, 0.88f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("clothFoldR", SilhouetteTone.DARK, p(CX + 0.03f, 0.52f), p(CX + 0.09f, 0.52f), p(CX + 0.11f, 0.88f), p(CX + 0.05f, 0.88f))</ID>
     <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("clothStrip", SilhouetteTone.DARK, p(CX - 0.02f, 0.50f), p(CX + 0.03f, 0.50f), p(CX + 0.06f, 0.74f), p(CX + 0.02f, 0.74f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("clothTail", SilhouetteTone.DARK, p(CX - 0.02f, 0.52f), p(CX + 0.03f, 0.52f), p(CX + 0.07f, 0.78f), p(CX + 0.03f, 0.78f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("collar", SilhouetteTone.DARK, p(CX - 0.05f, 0.245f), p(CX + 0.05f, 0.245f), p(CX + 0.035f, 0.28f), p(CX - 0.035f, 0.28f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("faulds", SilhouetteTone.DARK, p(CX - 0.12f, 0.50f), p(CX + 0.12f, 0.50f), p(CX + 0.13f, 0.60f), p(CX - 0.13f, 0.60f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("furInnerL", SilhouetteTone.DARK, p(CX - 0.12f, 0.27f), p(CX - 0.24f, 0.28f), p(CX - 0.22f, 0.38f), p(CX - 0.13f, 0.35f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("furInnerR", SilhouetteTone.DARK, p(CX + 0.12f, 0.27f), p(CX + 0.24f, 0.28f), p(CX + 0.22f, 0.38f), p(CX + 0.13f, 0.35f))</ID>
     <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("gorget", SilhouetteTone.DARK, p(CX - 0.05f, 0.225f), p(CX + 0.05f, 0.225f), p(CX + 0.065f, 0.26f), p(CX - 0.065f, 0.26f))</ID>
     <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("hatCone", SilhouetteTone.SILHOUETTE, p(CX + 0.015f, 0.030f), p(CX + 0.105f, 0.155f), p(CX - 0.105f, 0.155f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("hemGlow", SilhouetteTone.MEDIUM, p(CX - 0.10f, 0.82f), p(CX + 0.10f, 0.82f), p(CX + 0.19f, 0.94f), p(CX - 0.19f, 0.94f))</ID>
     <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("hood", SilhouetteTone.DARK, p(CX - 0.06f, 0.20f), p(CX + 0.06f, 0.20f), p(CX + 0.05f, 0.30f), p(CX - 0.05f, 0.30f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("mantle", SilhouetteTone.DARK, p(CX - 0.16f, 0.235f), p(CX + 0.16f, 0.235f), p(CX + 0.11f, 0.36f), p(CX - 0.11f, 0.36f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("poleynL", SilhouetteTone.MEDIUM, p(CX - 0.105f, 0.70f), p(CX - 0.03f, 0.70f), p(CX - 0.04f, 0.77f), p(CX - 0.11f, 0.77f))</ID>
     <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("poleynL", SilhouetteTone.MEDIUM, p(CX - 0.13f, 0.70f), p(CX - 0.04f, 0.70f), p(CX - 0.05f, 0.78f), p(CX - 0.135f, 0.78f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("poleynR", SilhouetteTone.MEDIUM, p(CX + 0.03f, 0.70f), p(CX + 0.105f, 0.70f), p(CX + 0.11f, 0.77f), p(CX + 0.04f, 0.77f))</ID>
     <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("poleynR", SilhouetteTone.MEDIUM, p(CX + 0.04f, 0.70f), p(CX + 0.13f, 0.70f), p(CX + 0.135f, 0.78f), p(CX + 0.05f, 0.78f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("prayerHands", SilhouetteTone.LIGHT, p(CX, 0.35f), p(CX + 0.045f, 0.43f), p(CX, 0.49f), p(CX - 0.045f, 0.43f))</ID>
     <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("prayerHands", SilhouetteTone.LIGHT, p(CX, 0.36f), p(CX + 0.045f, 0.44f), p(CX, 0.50f), p(CX - 0.045f, 0.44f))</ID>
     <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("quiver", SilhouetteTone.DARK, p(CX + 0.10f, 0.25f), p(CX + 0.145f, 0.25f), p(CX + 0.135f, 0.44f), p(CX + 0.09f, 0.44f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("quiver", SilhouetteTone.DARK, p(CX + 0.11f, 0.24f), p(CX + 0.155f, 0.24f), p(CX + 0.145f, 0.45f), p(CX + 0.10f, 0.45f))</ID>
     <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("robeBody", SilhouetteTone.DARK, p(CX - sh, 0.235f), p(CX + sh, 0.235f), p(CX + hem, 0.92f), p(CX - hem, 0.92f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("robeBody", SilhouetteTone.SILHOUETTE, p(CX - sh, 0.235f), p(CX + sh, 0.235f), p(CX + 0.19f, 0.94f), p(CX - 0.19f, 0.94f))</ID>
     <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("sash", SilhouetteTone.MEDIUM, p(CX - sh, 0.50f), p(CX + sh, 0.50f), p(CX + sh, 0.55f), p(CX - sh, 0.55f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("sashKnot", SilhouetteTone.DARK, p(CX - 0.03f, 0.51f), p(CX + 0.03f, 0.51f), p(CX + 0.045f, 0.60f), p(CX - 0.045f, 0.60f))</ID>
     <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("scarf", SilhouetteTone.MEDIUM, p(CX + 0.05f, 0.28f), p(CX + 0.26f, 0.235f), p(CX + 0.27f, 0.275f), p(CX + 0.06f, 0.33f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("scarf1", SilhouetteTone.MEDIUM, p(CX + 0.05f, 0.29f), p(CX + 0.24f, 0.24f), p(CX + 0.27f, 0.27f), p(CX + 0.07f, 0.33f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("scarf2", SilhouetteTone.DARK, p(CX + 0.16f, 0.27f), p(CX + 0.30f, 0.28f), p(CX + 0.29f, 0.31f), p(CX + 0.16f, 0.31f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("staffShaft", SilhouetteTone.DARK, p(CX - 0.20f, 0.20f), p(CX - 0.18f, 0.20f), p(CX - 0.18f, 0.93f), p(CX - 0.20f, 0.93f))</ID>
     <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("torso", SilhouetteTone.DARK, p(CX - sh, 0.29f), p(CX + sh, 0.29f), p(CX + waist, 0.55f), p(CX - waist, 0.55f))</ID>
+    <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("torso", SilhouetteTone.SILHOUETTE, p(CX - sh, 0.275f), p(CX + sh, 0.275f), p(CX + waist, 0.54f), p(CX - waist, 0.54f))</ID>
     <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("torso", SilhouetteTone.SILHOUETTE, p(CX - sh, 0.275f), p(CX + sh, 0.275f), p(CX + waist, 0.55f), p(CX - waist, 0.55f))</ID>
     <ID>MaxLineLength:ClassSilhouetteGeometry.kt$ClassSilhouetteGeometry$poly("torso", SilhouetteTone.SILHOUETTE, p(CX - sh, 0.28f), p(CX + sh, 0.28f), p(CX + waist, 0.56f), p(CX - waist, 0.56f))</ID>
     <ID>MaxLineLength:ClassSilhouetteRenderTest.kt$ClassSilhouetteRenderTest$ClassSilhouetteFigure(AscendedClass.GUARDIAN, BodyBase.FEMALE, Modifier.size(160.dp, 280.dp), silhouetteOnly = true)</ID>
@@ -1375,8 +1436,6 @@
     <ID>MaxLineLength:RefinedGuardianRenderTest.kt$RefinedGuardianRenderTest$ClassSilhouetteFigure(AscendedClass.GUARDIAN, BodyBase.MALE, Modifier.size(160.dp, 280.dp), SilhouetteFidelity.BLOCKOUT)</ID>
     <ID>MaxLineLength:RefinedGuardianRenderTest.kt$RefinedGuardianRenderTest$ClassSilhouetteFigure(AscendedClass.GUARDIAN, BodyBase.MALE, Modifier.size(160.dp, 280.dp), SilhouetteFidelity.REFINED)</ID>
     <ID>MaxLineLength:RefinedGuardianTest.kt$RefinedGuardianTest$fun</ID>
-    <ID>MaxLineLength:RefinedGuardianTest.kt$RefinedGuardianTest$val blockoutMagician = ClassSilhouetteGeometry.build(AscendedClass.MAGICIAN, BodyBase.MALE, SilhouetteFidelity.BLOCKOUT).shapes</ID>
-    <ID>MaxLineLength:RefinedGuardianTest.kt$RefinedGuardianTest$val refinedMagician = ClassSilhouetteGeometry.build(AscendedClass.MAGICIAN, BodyBase.MALE, SilhouetteFidelity.REFINED).shapes</ID>
     <ID>MaxLineLength:RevisedStatusPrototypeScreen.kt$ProgressionBars(data, accent, motion.xpFill.value, motion.classXpFill.value, motion.secondaryXpFill.value)</ID>
     <ID>MaxLineLength:RevisedStatusPrototypeScreen.kt$semanticDescription = sigilDescription(data, targetPlayer, if (hasClass) targetClass else null, activeMedallion)</ID>
     <ID>MaxLineLength:RevisedStatusPrototypeScreen.kt$val majorActive = controller.entranceMode == EntranceMode.MAJOR_EVENT &amp;&amp; data.overlay.kind != StatusOverlayKind.NONE</ID>

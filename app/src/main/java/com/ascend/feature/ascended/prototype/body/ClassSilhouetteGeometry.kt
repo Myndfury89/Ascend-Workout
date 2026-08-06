@@ -42,8 +42,10 @@ object ClassSilhouetteGeometry {
             AscendedClass.ASSASSIN -> 0.085f
         }
 
-    /** True when a class has a CP3 refined silhouette (others still fall back to the CP2 blockout). */
-    fun hasRefined(cls: AscendedClass): Boolean = cls == AscendedClass.GUARDIAN
+    /** True when a class has a CP3 refined silhouette. All seven are refined as of the full CP3 pass. */
+    fun hasRefined(
+        @Suppress("UNUSED_PARAMETER") cls: AscendedClass,
+    ): Boolean = true
 
     fun build(
         cls: AscendedClass,
@@ -75,8 +77,13 @@ object ClassSilhouetteGeometry {
         base: BodyBase,
     ): List<SilhouetteShape> =
         when (cls) {
+            AscendedClass.MAGICIAN -> refinedMagician(base)
+            AscendedClass.BERSERKER -> refinedBerserker(base)
+            AscendedClass.MONK -> refinedMonk(base)
+            AscendedClass.ASSASSIN -> refinedAssassin(base)
+            AscendedClass.FIGHTER -> refinedFighter(base)
+            AscendedClass.RANGER -> refinedRanger(base)
             AscendedClass.GUARDIAN -> refinedGuardian(base)
-            else -> blockout(cls, base)
         }
 
     // --- Mage: tall, narrow, vertical, staff + pointed hat ---
@@ -743,6 +750,585 @@ object ClassSilhouetteGeometry {
                 p(CX - 0.195f, 0.51f),
                 p(CX - 0.235f, 0.58f),
                 p(CX - 0.275f, 0.51f),
+            ),
+        )
+    }
+
+    // --- Refined Berserker: widest, layered fur mane, big arms, axe, separated thick legs ---
+    private fun refinedBerserker(base: BodyBase): List<SilhouetteShape> {
+        val g = gender(base)
+        val s = g.shoulder
+        val w = g.waist
+        val h = g.hip
+        return listOf(
+            poly(
+                "torso",
+                SilhouetteTone.SILHOUETTE,
+                p(CX - 0.19f, 0.31f),
+                p(CX + 0.19f, 0.31f),
+                p(CX + 0.13f * w, 0.58f),
+                p(CX - 0.13f * w, 0.58f),
+            ),
+            poly(
+                "legL",
+                SilhouetteTone.SILHOUETTE,
+                p(CX - 0.02f, 0.56f),
+                p(CX - 0.15f * h, 0.57f),
+                p(CX - 0.14f * h, 0.78f),
+                p(CX - 0.11f, 0.90f),
+                p(CX - 0.03f, 0.90f),
+                p(CX - 0.03f, 0.72f),
+            ),
+            poly(
+                "legR",
+                SilhouetteTone.SILHOUETTE,
+                p(CX + 0.02f, 0.56f),
+                p(CX + 0.15f * h, 0.57f),
+                p(CX + 0.14f * h, 0.78f),
+                p(CX + 0.11f, 0.90f),
+                p(CX + 0.03f, 0.90f),
+                p(CX + 0.03f, 0.72f),
+            ),
+            poly(
+                "legWrapL",
+                SilhouetteTone.MEDIUM,
+                p(CX - 0.145f, 0.74f),
+                p(CX - 0.03f, 0.74f),
+                p(CX - 0.04f, 0.86f),
+                p(CX - 0.15f, 0.86f),
+            ),
+            poly(
+                "legWrapR",
+                SilhouetteTone.MEDIUM,
+                p(CX + 0.03f, 0.74f),
+                p(CX + 0.145f, 0.74f),
+                p(CX + 0.15f, 0.86f),
+                p(CX + 0.04f, 0.86f),
+            ),
+            poly("bootL", SilhouetteTone.DARK, p(CX - 0.14f, 0.88f), p(CX - 0.02f, 0.88f), p(CX - 0.01f, 0.95f), p(CX - 0.16f, 0.95f)),
+            poly("bootR", SilhouetteTone.DARK, p(CX + 0.02f, 0.88f), p(CX + 0.14f, 0.88f), p(CX + 0.16f, 0.95f), p(CX + 0.01f, 0.95f)),
+            poly(
+                "furShoulderL", SilhouetteTone.SILHOUETTE,
+                p(
+                    CX - 0.10f,
+                    0.24f,
+                ),
+                p(
+                    CX - 0.22f,
+                    0.195f,
+                ),
+                p(CX - 0.30f * s, 0.24f), p(CX - 0.30f * s, 0.35f), p(CX - 0.33f * s, 0.40f), p(CX - 0.22f, 0.37f), p(CX - 0.13f, 0.34f),
+            ),
+            poly(
+                "furShoulderR", SilhouetteTone.SILHOUETTE,
+                p(
+                    CX + 0.10f,
+                    0.24f,
+                ),
+                p(
+                    CX + 0.22f,
+                    0.195f,
+                ),
+                p(CX + 0.30f * s, 0.24f), p(CX + 0.30f * s, 0.35f), p(CX + 0.33f * s, 0.40f), p(CX + 0.22f, 0.37f), p(CX + 0.13f, 0.34f),
+            ),
+            poly("furInnerL", SilhouetteTone.DARK, p(CX - 0.12f, 0.27f), p(CX - 0.24f, 0.28f), p(CX - 0.22f, 0.38f), p(CX - 0.13f, 0.35f)),
+            poly("furInnerR", SilhouetteTone.DARK, p(CX + 0.12f, 0.27f), p(CX + 0.24f, 0.28f), p(CX + 0.22f, 0.38f), p(CX + 0.13f, 0.35f)),
+            poly(
+                "armL",
+                SilhouetteTone.SILHOUETTE,
+                p(CX - 0.19f, 0.35f),
+                p(CX - 0.30f, 0.38f),
+                p(CX - 0.29f, 0.60f),
+                p(CX - 0.185f, 0.58f),
+            ),
+            poly(
+                "armR",
+                SilhouetteTone.SILHOUETTE,
+                p(CX + 0.19f, 0.35f),
+                p(CX + 0.30f, 0.38f),
+                p(CX + 0.31f, 0.62f),
+                p(CX + 0.195f, 0.60f),
+            ),
+            poly(
+                "bracerL",
+                SilhouetteTone.MEDIUM,
+                p(CX - 0.29f, 0.51f),
+                p(CX - 0.185f, 0.52f),
+                p(CX - 0.19f, 0.61f),
+                p(CX - 0.295f, 0.60f),
+            ),
+            poly(
+                "bracerR",
+                SilhouetteTone.MEDIUM,
+                p(CX + 0.195f, 0.52f),
+                p(CX + 0.31f, 0.53f),
+                p(CX + 0.305f, 0.62f),
+                p(CX + 0.20f, 0.61f),
+            ),
+            poly(
+                "beltWrap",
+                SilhouetteTone.MEDIUM,
+                p(CX - 0.13f, 0.55f),
+                p(CX + 0.13f, 0.55f),
+                p(CX + 0.145f, 0.62f),
+                p(CX - 0.145f, 0.62f),
+            ),
+            octagonShape("head", SilhouetteTone.SILHOUETTE, CX, 0.255f, 0.038f),
+            poly(
+                "browBand",
+                SilhouetteTone.DARK,
+                p(CX - 0.05f, 0.235f),
+                p(CX + 0.05f, 0.235f),
+                p(CX + 0.055f, 0.205f),
+                p(CX, 0.185f),
+                p(CX - 0.055f, 0.205f),
+            ),
+            poly("axeHandle", SilhouetteTone.DARK, p(CX + 0.30f, 0.33f), p(CX + 0.32f, 0.33f), p(CX + 0.32f, 0.88f), p(CX + 0.30f, 0.88f)),
+            poly(
+                "axeHead",
+                SilhouetteTone.SILHOUETTE,
+                p(CX + 0.31f, 0.34f),
+                p(CX + 0.43f, 0.39f),
+                p(CX + 0.44f, 0.50f),
+                p(CX + 0.31f, 0.49f),
+            ),
+            poly("axeEdge", SilhouetteTone.LIGHT, p(CX + 0.41f, 0.405f), p(CX + 0.44f, 0.44f), p(CX + 0.43f, 0.49f), p(CX + 0.40f, 0.46f)),
+        )
+    }
+
+    // --- Refined Monk: centred, symmetrical, halo, prayer, draped cloth, beads ---
+    private fun refinedMonk(base: BodyBase): List<SilhouetteShape> {
+        val g = gender(base)
+        val sh = 0.135f * g.shoulder
+        return listOf(
+            ringShape("halo", SilhouetteTone.MEDIUM, CX, 0.150f, 0.088f, 0.012f),
+            poly(
+                "robeBody",
+                SilhouetteTone.SILHOUETTE,
+                p(CX - sh, 0.255f),
+                p(CX + sh, 0.255f),
+                p(CX + 0.115f, 0.50f),
+                p(CX - 0.115f, 0.50f),
+            ),
+            poly(
+                "lowerClothL",
+                SilhouetteTone.SILHOUETTE,
+                p(CX - 0.115f, 0.48f),
+                p(CX - 0.005f, 0.48f),
+                p(CX - 0.015f, 0.90f),
+                p(CX - 0.175f, 0.90f),
+            ),
+            poly(
+                "lowerClothR",
+                SilhouetteTone.SILHOUETTE,
+                p(CX + 0.005f, 0.48f),
+                p(CX + 0.115f, 0.48f),
+                p(CX + 0.175f, 0.90f),
+                p(CX + 0.015f, 0.90f),
+            ),
+            poly("clothFoldL", SilhouetteTone.DARK, p(CX - 0.09f, 0.52f), p(CX - 0.03f, 0.52f), p(CX - 0.05f, 0.88f), p(CX - 0.11f, 0.88f)),
+            poly("clothFoldR", SilhouetteTone.DARK, p(CX + 0.03f, 0.52f), p(CX + 0.09f, 0.52f), p(CX + 0.11f, 0.88f), p(CX + 0.05f, 0.88f)),
+            poly(
+                "sash",
+                SilhouetteTone.MEDIUM,
+                p(CX - sh, 0.48f),
+                p(CX + sh, 0.48f),
+                p(CX + sh + 0.01f, 0.535f),
+                p(CX - sh - 0.01f, 0.535f),
+            ),
+            poly("sashKnot", SilhouetteTone.DARK, p(CX - 0.03f, 0.51f), p(CX + 0.03f, 0.51f), p(CX + 0.045f, 0.60f), p(CX - 0.045f, 0.60f)),
+            poly(
+                "forearmL",
+                SilhouetteTone.SILHOUETTE,
+                p(CX - sh + 0.01f, 0.29f),
+                p(CX - sh + 0.05f, 0.31f),
+                p(CX - 0.015f, 0.44f),
+                p(CX - 0.05f, 0.42f),
+            ),
+            poly(
+                "forearmR",
+                SilhouetteTone.SILHOUETTE,
+                p(CX + sh - 0.01f, 0.29f),
+                p(CX + sh - 0.05f, 0.31f),
+                p(CX + 0.015f, 0.44f),
+                p(CX + 0.05f, 0.42f),
+            ),
+            poly("prayerHands", SilhouetteTone.LIGHT, p(CX, 0.35f), p(CX + 0.045f, 0.43f), p(CX, 0.49f), p(CX - 0.045f, 0.43f)),
+            poly(
+                "shoulderDrapeL",
+                SilhouetteTone.DARK,
+                p(CX - sh, 0.26f),
+                p(CX - sh - 0.03f, 0.30f),
+                p(CX - sh + 0.02f, 0.40f),
+                p(CX - sh + 0.03f, 0.30f),
+            ),
+            poly(
+                "shoulderDrapeR",
+                SilhouetteTone.DARK,
+                p(CX + sh, 0.26f),
+                p(CX + sh + 0.03f, 0.30f),
+                p(CX + sh - 0.02f, 0.40f),
+                p(CX + sh - 0.03f, 0.30f),
+            ),
+            octagonShape("head", SilhouetteTone.SILHOUETTE, CX, 0.205f, 0.040f),
+            beadRing("beads", SilhouetteTone.MEDIUM, CX, 0.29f, 0.085f),
+            poly("collar", SilhouetteTone.DARK, p(CX - 0.05f, 0.245f), p(CX + 0.05f, 0.245f), p(CX + 0.035f, 0.28f), p(CX - 0.035f, 0.28f)),
+        )
+    }
+
+    // --- Refined Magician: tallest, narrow, layered robe, pointed hat, ornate staff, floating focus ---
+    private fun refinedMagician(base: BodyBase): List<SilhouetteShape> {
+        val g = gender(base)
+        val sh = 0.095f * g.shoulder
+        return listOf(
+            poly("staffShaft", SilhouetteTone.DARK, p(CX - 0.20f, 0.20f), p(CX - 0.18f, 0.20f), p(CX - 0.18f, 0.93f), p(CX - 0.20f, 0.93f)),
+            ringShape("staffHead", SilhouetteTone.MEDIUM, CX - 0.19f, 0.155f, 0.048f, 0.014f),
+            octagonShape("staffCore", SilhouetteTone.LIGHT, CX - 0.19f, 0.155f, 0.020f),
+            poly("robeBody", SilhouetteTone.SILHOUETTE, p(CX - sh, 0.235f), p(CX + sh, 0.235f), p(CX + 0.19f, 0.94f), p(CX - 0.19f, 0.94f)),
+            poly(
+                "robeInnerL",
+                SilhouetteTone.DARK,
+                p(CX - 0.06f, 0.42f),
+                p(CX - 0.005f, 0.42f),
+                p(CX - 0.02f, 0.94f),
+                p(CX - 0.11f, 0.94f),
+            ),
+            poly(
+                "robeInnerR",
+                SilhouetteTone.DARK,
+                p(CX + 0.005f, 0.42f),
+                p(CX + 0.06f, 0.42f),
+                p(CX + 0.11f, 0.94f),
+                p(CX + 0.02f, 0.94f),
+            ),
+            poly("hemGlow", SilhouetteTone.MEDIUM, p(CX - 0.10f, 0.82f), p(CX + 0.10f, 0.82f), p(CX + 0.19f, 0.94f), p(CX - 0.19f, 0.94f)),
+            poly("mantle", SilhouetteTone.DARK, p(CX - 0.16f, 0.235f), p(CX + 0.16f, 0.235f), p(CX + 0.11f, 0.36f), p(CX - 0.11f, 0.36f)),
+            poly(
+                "sleeveR",
+                SilhouetteTone.SILHOUETTE,
+                p(CX + 0.10f, 0.25f),
+                p(CX + 0.175f, 0.30f),
+                p(CX + 0.15f, 0.56f),
+                p(CX + 0.07f, 0.54f),
+            ),
+            poly(
+                "collar",
+                SilhouetteTone.SILHOUETTE,
+                p(CX - 0.06f, 0.225f),
+                p(CX + 0.06f, 0.225f),
+                p(CX + 0.10f, 0.28f),
+                p(CX - 0.10f, 0.28f),
+            ),
+            octagonShape("head", SilhouetteTone.SILHOUETTE, CX, 0.185f, 0.032f),
+            poly(
+                "hatCone",
+                SilhouetteTone.SILHOUETTE,
+                p(CX + 0.02f, 0.020f),
+                p(CX + 0.045f, 0.075f),
+                p(CX + 0.11f, 0.155f),
+                p(CX - 0.11f, 0.155f),
+            ),
+            poly("hatFold", SilhouetteTone.DARK, p(CX + 0.02f, 0.020f), p(CX + 0.10f, 0.145f), p(CX + 0.04f, 0.13f)),
+            poly(
+                "hatBrim",
+                SilhouetteTone.DARK,
+                p(CX - 0.13f, 0.150f),
+                p(CX + 0.13f, 0.150f),
+                p(CX + 0.095f, 0.195f),
+                p(CX - 0.095f, 0.195f),
+            ),
+            octagonShape("focus", SilhouetteTone.LIGHT, CX + 0.18f, 0.42f, 0.030f),
+            octagonShape("focusRing", SilhouetteTone.MEDIUM, CX + 0.18f, 0.42f, 0.050f),
+        )
+    }
+
+    // --- Refined Assassin: narrowest, hooded, sharp, trailing scarf, dual blades, dynamic ---
+    private fun refinedAssassin(base: BodyBase): List<SilhouetteShape> {
+        val g = gender(base)
+        val sh = 0.085f * g.shoulder
+        val waist = 0.055f * g.waist
+        return listOf(
+            poly("torso", SilhouetteTone.SILHOUETTE, p(CX - sh, 0.275f), p(CX + sh, 0.275f), p(CX + waist, 0.54f), p(CX - waist, 0.54f)),
+            poly(
+                "legR",
+                SilhouetteTone.SILHOUETTE,
+                p(CX + 0.005f, 0.52f),
+                p(CX + waist + 0.015f, 0.52f),
+                p(CX + 0.075f, 0.92f),
+                p(CX + 0.035f, 0.92f),
+            ),
+            poly(
+                "legL",
+                SilhouetteTone.SILHOUETTE,
+                p(CX - waist - 0.005f, 0.52f),
+                p(CX - 0.005f, 0.52f),
+                p(CX - 0.02f, 0.92f),
+                p(CX - 0.06f, 0.92f),
+            ),
+            poly("bootR", SilhouetteTone.DARK, p(CX + 0.035f, 0.88f), p(CX + 0.08f, 0.88f), p(CX + 0.10f, 0.94f), p(CX + 0.025f, 0.94f)),
+            poly("bootL", SilhouetteTone.DARK, p(CX - 0.065f, 0.88f), p(CX - 0.015f, 0.88f), p(CX - 0.01f, 0.94f), p(CX - 0.085f, 0.94f)),
+            poly("scarf1", SilhouetteTone.MEDIUM, p(CX + 0.05f, 0.29f), p(CX + 0.24f, 0.24f), p(CX + 0.27f, 0.27f), p(CX + 0.07f, 0.33f)),
+            poly("scarf2", SilhouetteTone.DARK, p(CX + 0.16f, 0.27f), p(CX + 0.30f, 0.28f), p(CX + 0.29f, 0.31f), p(CX + 0.16f, 0.31f)),
+            poly(
+                "armR",
+                SilhouetteTone.SILHOUETTE,
+                p(CX + sh - 0.01f, 0.30f),
+                p(CX + sh + 0.035f, 0.32f),
+                p(CX + 0.11f, 0.50f),
+                p(CX + 0.065f, 0.49f),
+            ),
+            poly(
+                "armL",
+                SilhouetteTone.SILHOUETTE,
+                p(CX - sh + 0.01f, 0.30f),
+                p(CX - sh - 0.035f, 0.32f),
+                p(CX - 0.10f, 0.50f),
+                p(CX - 0.06f, 0.48f),
+            ),
+            poly("bladeR", SilhouetteTone.LIGHT, p(CX + 0.10f, 0.49f), p(CX + 0.13f, 0.49f), p(CX + 0.155f, 0.70f), p(CX + 0.125f, 0.70f)),
+            poly("bladeL", SilhouetteTone.MEDIUM, p(CX - 0.10f, 0.48f), p(CX - 0.075f, 0.48f), p(CX - 0.05f, 0.66f), p(CX - 0.08f, 0.66f)),
+            poly(
+                "hood",
+                SilhouetteTone.SILHOUETTE,
+                p(CX - 0.06f, 0.185f),
+                p(CX + 0.02f, 0.16f),
+                p(CX + 0.075f, 0.22f),
+                p(CX + 0.05f, 0.30f),
+                p(CX - 0.02f, 0.27f),
+                p(CX - 0.06f, 0.29f),
+            ),
+            poly(
+                "faceShadow",
+                SilhouetteTone.SILHOUETTE,
+                p(CX - 0.03f, 0.22f),
+                p(CX + 0.035f, 0.225f),
+                p(CX + 0.02f, 0.27f),
+                p(CX - 0.02f, 0.265f),
+            ),
+            poly("beltStrap", SilhouetteTone.DARK, p(CX - waist, 0.50f), p(CX + waist, 0.50f), p(CX + 0.05f, 0.60f), p(CX - 0.02f, 0.58f)),
+            poly("clothTail", SilhouetteTone.DARK, p(CX - 0.02f, 0.52f), p(CX + 0.03f, 0.52f), p(CX + 0.07f, 0.78f), p(CX + 0.03f, 0.78f)),
+            poly(
+                "wrapForearmR",
+                SilhouetteTone.MEDIUM,
+                p(CX + 0.075f, 0.45f),
+                p(CX + 0.115f, 0.47f),
+                p(CX + 0.105f, 0.53f),
+                p(CX + 0.065f, 0.51f),
+            ),
+        )
+    }
+
+    // --- Refined Fighter: balanced, layered plate, straight sword, separated armoured legs ---
+    private fun refinedFighter(base: BodyBase): List<SilhouetteShape> {
+        val g = gender(base)
+        val sh = 0.175f * g.shoulder
+        val waist = 0.115f * g.waist
+        return listOf(
+            poly(
+                "torso",
+                SilhouetteTone.SILHOUETTE,
+                p(CX - 0.13f, 0.28f),
+                p(CX + 0.13f, 0.28f),
+                p(CX + waist, 0.52f),
+                p(CX - waist, 0.52f),
+            ),
+            poly(
+                "legL",
+                SilhouetteTone.SILHOUETTE,
+                p(CX - 0.02f, 0.52f),
+                p(CX - 0.11f, 0.53f),
+                p(CX - 0.10f, 0.78f),
+                p(CX - 0.085f, 0.90f),
+                p(CX - 0.03f, 0.90f),
+                p(CX - 0.025f, 0.70f),
+            ),
+            poly(
+                "legR",
+                SilhouetteTone.SILHOUETTE,
+                p(CX + 0.02f, 0.52f),
+                p(CX + 0.11f, 0.53f),
+                p(CX + 0.10f, 0.78f),
+                p(CX + 0.085f, 0.90f),
+                p(CX + 0.03f, 0.90f),
+                p(CX + 0.025f, 0.70f),
+            ),
+            poly("poleynL", SilhouetteTone.MEDIUM, p(CX - 0.105f, 0.70f), p(CX - 0.03f, 0.70f), p(CX - 0.04f, 0.77f), p(CX - 0.11f, 0.77f)),
+            poly("poleynR", SilhouetteTone.MEDIUM, p(CX + 0.03f, 0.70f), p(CX + 0.105f, 0.70f), p(CX + 0.11f, 0.77f), p(CX + 0.04f, 0.77f)),
+            poly("bootL", SilhouetteTone.DARK, p(CX - 0.095f, 0.88f), p(CX - 0.02f, 0.88f), p(CX - 0.01f, 0.94f), p(CX - 0.115f, 0.94f)),
+            poly("bootR", SilhouetteTone.DARK, p(CX + 0.02f, 0.88f), p(CX + 0.095f, 0.88f), p(CX + 0.115f, 0.94f), p(CX + 0.01f, 0.94f)),
+            poly("faulds", SilhouetteTone.DARK, p(CX - 0.12f, 0.50f), p(CX + 0.12f, 0.50f), p(CX + 0.13f, 0.60f), p(CX - 0.13f, 0.60f)),
+            poly(
+                "breastplate",
+                SilhouetteTone.MEDIUM,
+                p(CX - 0.11f, 0.30f),
+                p(CX + 0.11f, 0.30f),
+                p(CX + 0.095f, 0.46f),
+                p(CX - 0.095f, 0.46f),
+            ),
+            poly(
+                "plateRidge",
+                SilhouetteTone.LIGHT,
+                p(CX - 0.02f, 0.31f),
+                p(CX + 0.02f, 0.31f),
+                p(CX + 0.03f, 0.45f),
+                p(CX - 0.03f, 0.45f),
+            ),
+            poly(
+                "pauldronL",
+                SilhouetteTone.MEDIUM,
+                p(CX - 0.10f, 0.26f),
+                p(CX - sh, 0.255f),
+                p(CX - sh - 0.01f, 0.33f),
+                p(CX - 0.11f, 0.34f),
+            ),
+            poly(
+                "pauldronR",
+                SilhouetteTone.MEDIUM,
+                p(CX + 0.10f, 0.26f),
+                p(CX + sh, 0.255f),
+                p(CX + sh + 0.01f, 0.33f),
+                p(CX + 0.11f, 0.34f),
+            ),
+            poly(
+                "armL",
+                SilhouetteTone.SILHOUETTE,
+                p(CX - sh + 0.01f, 0.32f),
+                p(CX - sh - 0.02f, 0.34f),
+                p(CX - 0.135f, 0.54f),
+                p(CX - 0.095f, 0.53f),
+            ),
+            poly(
+                "armR",
+                SilhouetteTone.SILHOUETTE,
+                p(CX + sh - 0.01f, 0.32f),
+                p(CX + sh + 0.02f, 0.34f),
+                p(CX + 0.135f, 0.54f),
+                p(CX + 0.095f, 0.53f),
+            ),
+            poly(
+                "gauntletL",
+                SilhouetteTone.DARK,
+                p(CX - 0.135f, 0.51f),
+                p(CX - 0.09f, 0.52f),
+                p(CX - 0.095f, 0.59f),
+                p(CX - 0.14f, 0.58f),
+            ),
+            octagonShape("helm", SilhouetteTone.SILHOUETTE, CX, 0.235f, 0.042f),
+            poly(
+                "helmBrow",
+                SilhouetteTone.DARK,
+                p(CX - 0.042f, 0.225f),
+                p(CX + 0.042f, 0.225f),
+                p(CX + 0.042f, 0.245f),
+                p(CX - 0.042f, 0.245f),
+            ),
+            poly(
+                "swordBlade",
+                SilhouetteTone.LIGHT,
+                p(CX + 0.135f, 0.40f),
+                p(CX + 0.16f, 0.40f),
+                p(CX + 0.16f, 0.80f),
+                p(CX + 0.1475f, 0.84f),
+                p(CX + 0.135f, 0.80f),
+            ),
+            poly(
+                "swordGuard",
+                SilhouetteTone.DARK,
+                p(CX + 0.11f, 0.39f),
+                p(CX + 0.185f, 0.39f),
+                p(CX + 0.185f, 0.42f),
+                p(CX + 0.11f, 0.42f),
+            ),
+        )
+    }
+
+    // --- Refined Ranger: lean, hooded, diagonal cloak, chest strap, bow + quiver ---
+    private fun refinedRanger(base: BodyBase): List<SilhouetteShape> {
+        val g = gender(base)
+        val sh = 0.140f * g.shoulder
+        val waist = 0.095f * g.waist
+        return listOf(
+            poly(
+                "cloak",
+                SilhouetteTone.SILHOUETTE,
+                p(CX - sh - 0.02f, 0.27f),
+                p(CX + 0.09f, 0.30f),
+                p(CX + 0.20f, 0.72f),
+                p(CX + 0.12f, 0.90f),
+                p(CX - 0.15f, 0.90f),
+                p(CX - 0.13f, 0.55f),
+            ),
+            poly("cloakFold", SilhouetteTone.DARK, p(CX + 0.02f, 0.40f), p(CX + 0.10f, 0.44f), p(CX + 0.15f, 0.86f), p(CX + 0.04f, 0.86f)),
+            poly(
+                "torso",
+                SilhouetteTone.SILHOUETTE,
+                p(CX - sh + 0.02f, 0.29f),
+                p(CX + sh, 0.29f),
+                p(CX + waist, 0.53f),
+                p(CX - waist, 0.53f),
+            ),
+            poly(
+                "legR",
+                SilhouetteTone.SILHOUETTE,
+                p(CX + 0.005f, 0.52f),
+                p(CX + waist, 0.52f),
+                p(CX + 0.075f, 0.90f),
+                p(CX + 0.035f, 0.90f),
+            ),
+            poly(
+                "legL",
+                SilhouetteTone.SILHOUETTE,
+                p(CX - waist, 0.52f),
+                p(CX - 0.005f, 0.52f),
+                p(CX - 0.035f, 0.90f),
+                p(CX - 0.075f, 0.90f),
+            ),
+            poly("bootR", SilhouetteTone.DARK, p(CX + 0.035f, 0.87f), p(CX + 0.08f, 0.87f), p(CX + 0.10f, 0.93f), p(CX + 0.025f, 0.93f)),
+            poly("bootL", SilhouetteTone.DARK, p(CX - 0.08f, 0.87f), p(CX - 0.035f, 0.87f), p(CX - 0.025f, 0.93f), p(CX - 0.10f, 0.93f)),
+            poly(
+                "chestStrap",
+                SilhouetteTone.MEDIUM,
+                p(CX - 0.09f, 0.31f),
+                p(CX - 0.05f, 0.30f),
+                p(CX + 0.08f, 0.49f),
+                p(CX + 0.04f, 0.51f),
+            ),
+            poly("belt", SilhouetteTone.DARK, p(CX - waist, 0.50f), p(CX + waist, 0.50f), p(CX + waist, 0.55f), p(CX - waist, 0.55f)),
+            poly(
+                "hood",
+                SilhouetteTone.SILHOUETTE,
+                p(CX - 0.06f, 0.20f),
+                p(CX + 0.06f, 0.20f),
+                p(CX + 0.055f, 0.30f),
+                p(CX - 0.055f, 0.30f),
+            ),
+            poly("hoodPeak", SilhouetteTone.DARK, p(CX - 0.02f, 0.185f), p(CX + 0.05f, 0.215f), p(CX + 0.02f, 0.24f)),
+            octagonShape("head", SilhouetteTone.SILHOUETTE, CX, 0.245f, 0.030f),
+            poly(
+                "armL",
+                SilhouetteTone.SILHOUETTE,
+                p(CX - sh + 0.02f, 0.31f),
+                p(CX - sh - 0.01f, 0.33f),
+                p(CX - 0.115f, 0.52f),
+                p(CX - 0.075f, 0.51f),
+            ),
+            bowShape("bow", SilhouetteTone.MEDIUM, CX - 0.20f, 0.50f, 0.30f),
+            poly("quiver", SilhouetteTone.DARK, p(CX + 0.11f, 0.24f), p(CX + 0.155f, 0.24f), p(CX + 0.145f, 0.45f), p(CX + 0.10f, 0.45f)),
+            poly(
+                "arrowFletch1",
+                SilhouetteTone.LIGHT,
+                p(CX + 0.105f, 0.19f),
+                p(CX + 0.135f, 0.19f),
+                p(CX + 0.135f, 0.25f),
+                p(CX + 0.105f, 0.25f),
+            ),
+            poly(
+                "arrowFletch2",
+                SilhouetteTone.MEDIUM,
+                p(CX + 0.14f, 0.20f),
+                p(CX + 0.165f, 0.20f),
+                p(CX + 0.16f, 0.25f),
+                p(CX + 0.135f, 0.25f),
             ),
         )
     }

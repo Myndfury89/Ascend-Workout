@@ -6,7 +6,6 @@ import com.ascend.feature.ascended.prototype.body.boundsOf
 import com.ascend.feature.ascended.prototype.model.AscendedClass
 import com.ascend.feature.ascended.prototype.model.BodyBase
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -20,18 +19,10 @@ class RefinedGuardianTest {
         ClassSilhouetteGeometry.build(AscendedClass.GUARDIAN, base, SilhouetteFidelity.BLOCKOUT).shapes
 
     @Test
-    fun `only Guardian has a refined silhouette so far`() {
-        assertTrue(ClassSilhouetteGeometry.hasRefined(AscendedClass.GUARDIAN))
-        AscendedClass.entries.filter { it != AscendedClass.GUARDIAN }.forEach {
-            assertFalse("$it should not be refined yet", ClassSilhouetteGeometry.hasRefined(it))
+    fun `all seven classes have a refined silhouette`() {
+        AscendedClass.entries.forEach {
+            assertTrue("$it should be refined", ClassSilhouetteGeometry.hasRefined(it))
         }
-    }
-
-    @Test
-    fun `an unrefined class falls back to its blockout at REFINED fidelity`() {
-        val refinedMagician = ClassSilhouetteGeometry.build(AscendedClass.MAGICIAN, BodyBase.MALE, SilhouetteFidelity.REFINED).shapes
-        val blockoutMagician = ClassSilhouetteGeometry.build(AscendedClass.MAGICIAN, BodyBase.MALE, SilhouetteFidelity.BLOCKOUT).shapes
-        assertEquals(blockoutMagician, refinedMagician)
     }
 
     @Test

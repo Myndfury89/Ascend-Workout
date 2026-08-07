@@ -36,24 +36,26 @@ class AscendedFigureRenderTest {
     val compose = createComposeRule()
 
     @Test
-    fun `a missing figure shows a placeholder naming the drawable to add`() {
+    fun `a class without its own art falls back to the imported base body`() {
         compose.setContent {
             AscendTheme(darkTheme = true) {
                 AscendedFigure(AscendedClass.GUARDIAN, BodyBase.MALE, Modifier.size(280.dp, 460.dp))
             }
         }
-        compose.onNodeWithContentDescription("Guardian Male figure placeholder", substring = true).assertExists()
-        compose.onNodeWithText("ascended_guardian_male.png", substring = true).assertExists()
+        // The base body art (ascended_base_male) resolves, so the figure renders — not the placeholder.
+        compose.onNodeWithContentDescription("Guardian Male figure").assertExists()
+        compose.onNodeWithText("ascended_guardian_male.png", substring = true).assertDoesNotExist()
     }
 
     @Test
-    fun `the placeholder tracks the selected class and body base`() {
+    fun `a class with its own art renders that figure`() {
         compose.setContent {
             AscendTheme(darkTheme = true) {
-                AscendedFigure(AscendedClass.MAGICIAN, BodyBase.FEMALE, Modifier.size(280.dp, 460.dp))
+                AscendedFigure(AscendedClass.BERSERKER, BodyBase.FEMALE, Modifier.size(280.dp, 460.dp))
             }
         }
-        compose.onNodeWithText("ascended_magician_female.png", substring = true).assertExists()
+        // ascended_berserker_female is supplied, so the class art resolves and renders.
+        compose.onNodeWithContentDescription("Berserker Female figure").assertExists()
     }
 
     @Test

@@ -11,6 +11,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import com.ascend.feature.ascended.prototype.model.AscendedClass
 import com.ascend.feature.ascended.prototype.model.BodyBase
+import com.ascend.feature.ascended.prototype.model.EvolutionStage
 
 /*
  * Renders a class silhouette from its flat cut-paper shapes. Three review modes:
@@ -28,23 +29,42 @@ fun ClassSilhouetteFigure(
     silhouetteOnly: Boolean = false,
     showLayers: Boolean = false,
     outlineOnly: Boolean = false,
+    stage: EvolutionStage = EvolutionStage.MASTERED,
+    perceptionLevel: Int = 0,
 ) {
-    val figure = remember(ascendedClass, bodyBase, fidelity) { ClassSilhouetteGeometry.build(ascendedClass, bodyBase, fidelity) }
+    val body =
+        remember(ascendedClass, bodyBase, fidelity, stage) {
+            ClassSilhouetteGeometry.build(ascendedClass, bodyBase, fidelity, stage).shapes
+        }
+    // Aura + Skill glows are not part of the silhouette itself, so they are dropped in the
+    // silhouette-only / outline review modes (recognition + contour are judged on the body alone).
+    val glowsVisible = !silhouetteOnly && !outlineOnly
+    val aura = remember(stage, glowsVisible) { if (glowsVisible) ClassSilhouetteGeometry.auraShapes(stage) else emptyList() }
+    val perception =
+        remember(ascendedClass, perceptionLevel, glowsVisible) {
+            if (glowsVisible) ClassSilhouetteGeometry.perceptionShapes(perceptionLevel, ascendedClass) else emptyList()
+        }
     val description =
         "${ascendedClass.displayName} class silhouette, ${bodyBase.name.lowercase()} base, front-facing."
     Canvas(modifier.semantics { contentDescription = description }) {
-        figure.shapes.forEach { shape ->
-            val path =
-                Path().apply {
-                    shape.polygon.forEachIndexed { i, pt ->
-                        val x = pt.x * size.width
-                        val y = pt.y * size.height
-                        if (i == 0) moveTo(x, y) else lineTo(x, y)
-                    }
-                    close()
+        fun pathOf(shape: SilhouetteShape): Path =
+            Path().apply {
+                shape.polygon.forEachIndexed { i, pt ->
+                    val x = pt.x * size.width
+                    val y = pt.y * size.height
+                    if (i == 0) moveTo(x, y) else lineTo(x, y)
                 }
+                close()
+            }
+        // Aura behind.
+        aura.forEach {
+            val t = it.tone.value
+            drawPath(pathOf(it), Color(t, t, t))
+        }
+        // Body (stage-filtered), honouring the review modes.
+        body.forEach { shape ->
+            val path = pathOf(shape)
             if (outlineOnly) {
-                // Contour-only: judge the silhouette edge and compare fidelities.
                 drawPath(path, color = Color(0.08f, 0.08f, 0.10f, 0.9f), style = Stroke(width = 1.4f))
             } else {
                 val tone = if (silhouetteOnly) SilhouetteTone.SILHOUETTE.value else shape.tone.value
@@ -54,12 +74,18 @@ fun ClassSilhouetteFigure(
                 }
             }
         }
+        // Skill manifestation in front.
+        perception.forEach {
+            val t = it.tone.value
+            drawPath(pathOf(it), Color(t, t, t))
+        }
     }
 }
 
-/** The shape count of a class figure at a given fidelity — surfaced in the CP3 review controls. */
+/** The shape count of a class figure at a given fidelity + stage — surfaced in the review controls. */
 fun classShapeCount(
     ascendedClass: AscendedClass,
     bodyBase: BodyBase,
     fidelity: SilhouetteFidelity,
-): Int = ClassSilhouetteGeometry.build(ascendedClass, bodyBase, fidelity).shapes.size
+    stage: EvolutionStage = EvolutionStage.MASTERED,
+): Int = ClassSilhouetteGeometry.build(ascendedClass, bodyBase, fidelity, stage).shapes.size

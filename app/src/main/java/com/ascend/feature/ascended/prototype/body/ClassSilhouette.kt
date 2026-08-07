@@ -1,6 +1,7 @@
 package com.ascend.feature.ascended.prototype.body
 
 import androidx.compose.ui.geometry.Offset
+import com.ascend.feature.ascended.prototype.model.EvolutionStage
 
 /*
  * The flat, cut-paper class silhouette model. Each class figure is a small set of large grayscale
@@ -25,11 +26,16 @@ enum class SilhouetteTone(val value: Float) {
     LIGHT(0.62f),
 }
 
-/** One large flat shape in a class figure — a named slot, its value layer, and its polygon. */
+/**
+ * One large flat shape in a class figure — a named slot, its value layer, and its polygon.
+ * [minStage] is the earliest evolution stage the shape appears at: BASE shapes are the clean class
+ * body + simple clothing, and later-stage equipment/accessory shapes are added cumulatively.
+ */
 data class SilhouetteShape(
     val name: String,
     val tone: SilhouetteTone,
     val polygon: List<Offset>,
+    val minStage: EvolutionStage = EvolutionStage.BASE,
 )
 
 /** A whole class figure: the class it represents and its ordered (back-to-front) shapes. */

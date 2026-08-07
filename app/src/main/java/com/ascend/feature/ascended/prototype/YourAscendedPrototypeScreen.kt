@@ -33,13 +33,14 @@ import com.ascend.feature.ascended.prototype.body.classShapeCount
 import com.ascend.feature.ascended.prototype.controls.ClassReviewControls
 import com.ascend.feature.ascended.prototype.model.AscendedClass
 import com.ascend.feature.ascended.prototype.model.BodyBase
+import com.ascend.feature.ascended.prototype.model.EvolutionStage
 
 /**
- * The debug-only "Your Ascended" review prototype. CP3 opens with the silhouette-refinement pass:
- * the figures can be viewed as the CP2 blockout or the Refined Base, side-by-side compared, and
- * outlined — so the refinement is judged directly before any progression overlays. Clean LIGHT
- * review background so the dark cut-paper figures read. Deterministic — no repositories, no
- * navigation, no physiology, no schema. Only Guardian is refined so far; others fall back to blockout.
+ * The debug-only "Your Ascended" review prototype. CP3: refined class silhouettes plus cumulative
+ * evolution stages (Base → Early → Advanced → Mastered — equipment gated on top of the refined
+ * base), a stage aura, and the Perception Skill manifestation (L1/L5/L10). Clean LIGHT review
+ * background so the dark cut-paper figures read; fidelity / compare / outline review modes preserved.
+ * Deterministic — no repositories, no navigation, no physiology, no schema.
  */
 private val REVIEW_BG = Color(0xFFEDEBE6)
 private val REVIEW_INK = Color(0xFF23262E)
@@ -50,6 +51,8 @@ fun YourAscendedPrototypeScreen(modifier: Modifier = Modifier) {
     var bodyBase by remember { mutableStateOf(BodyBase.MALE) }
     var selectedClass by remember { mutableStateOf<AscendedClass?>(AscendedClass.GUARDIAN) }
     var fidelity by remember { mutableStateOf(SilhouetteFidelity.REFINED) }
+    var stage by remember { mutableStateOf(EvolutionStage.MASTERED) }
+    var perceptionLevel by remember { mutableStateOf(0) }
     var compare by remember { mutableStateOf(false) }
     var outlineOnly by remember { mutableStateOf(false) }
     var silhouetteOnly by remember { mutableStateOf(false) }
@@ -58,14 +61,14 @@ fun YourAscendedPrototypeScreen(modifier: Modifier = Modifier) {
 
     val cls = selectedClass
     val refinedAvailable = cls != null && ClassSilhouetteGeometry.hasRefined(cls)
-    val shapeCount = if (cls != null) classShapeCount(cls, bodyBase, fidelity) else 0
+    val shapeCount = if (cls != null) classShapeCount(cls, bodyBase, fidelity, stage) else 0
 
     Box(modifier.fillMaxSize().background(REVIEW_BG)) {
         Column(
             Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            ReviewHeader(cls, bodyBase, fidelity)
+            ReviewHeader(cls, bodyBase, fidelity, stage)
             Spacer(Modifier.height(12.dp))
             Box(Modifier.fillMaxWidth().aspectRatio(0.62f), contentAlignment = Alignment.Center) {
                 when {
@@ -73,28 +76,42 @@ fun YourAscendedPrototypeScreen(modifier: Modifier = Modifier) {
                     compare && refinedAvailable ->
                         Row(Modifier.fillMaxSize()) {
                             CompareFigure(
-                                "CP2 Blockout",
-                                cls,
-                                bodyBase,
-                                SilhouetteFidelity.BLOCKOUT,
-                                silhouetteOnly,
-                                showLayers,
-                                outlineOnly,
-                                Modifier.weight(1f),
+                                label = "CP2 Blockout",
+                                ascendedClass = cls,
+                                bodyBase = bodyBase,
+                                fidelity = SilhouetteFidelity.BLOCKOUT,
+                                stage = stage,
+                                perceptionLevel = perceptionLevel,
+                                silhouetteOnly = silhouetteOnly,
+                                showLayers = showLayers,
+                                outlineOnly = outlineOnly,
+                                modifier = Modifier.weight(1f),
                             )
                             CompareFigure(
-                                "Refined Base",
-                                cls,
-                                bodyBase,
-                                SilhouetteFidelity.REFINED,
-                                silhouetteOnly,
-                                showLayers,
-                                outlineOnly,
-                                Modifier.weight(1f),
+                                label = "Refined Base",
+                                ascendedClass = cls,
+                                bodyBase = bodyBase,
+                                fidelity = SilhouetteFidelity.REFINED,
+                                stage = stage,
+                                perceptionLevel = perceptionLevel,
+                                silhouetteOnly = silhouetteOnly,
+                                showLayers = showLayers,
+                                outlineOnly = outlineOnly,
+                                modifier = Modifier.weight(1f),
                             )
                         }
                     else ->
-                        ClassSilhouetteFigure(cls, bodyBase, Modifier.fillMaxSize(), fidelity, silhouetteOnly, showLayers, outlineOnly)
+                        ClassSilhouetteFigure(
+                            cls,
+                            bodyBase,
+                            Modifier.fillMaxSize(),
+                            fidelity,
+                            silhouetteOnly,
+                            showLayers,
+                            outlineOnly,
+                            stage,
+                            perceptionLevel,
+                        )
                 }
             }
             Spacer(Modifier.height(16.dp))
@@ -117,6 +134,10 @@ fun YourAscendedPrototypeScreen(modifier: Modifier = Modifier) {
                 onFidelity = { fidelity = it },
                 onCompare = { compare = it },
                 onOutline = { outlineOnly = it },
+                stage = stage,
+                perceptionLevel = perceptionLevel,
+                onStage = { stage = it },
+                onPerception = { perceptionLevel = it },
             )
             Spacer(Modifier.height(28.dp))
         }
@@ -124,11 +145,14 @@ fun YourAscendedPrototypeScreen(modifier: Modifier = Modifier) {
 }
 
 @Composable
+@Suppress("LongParameterList")
 private fun CompareFigure(
     label: String,
     ascendedClass: AscendedClass,
     bodyBase: BodyBase,
     fidelity: SilhouetteFidelity,
+    stage: EvolutionStage,
+    perceptionLevel: Int,
     silhouetteOnly: Boolean,
     showLayers: Boolean,
     outlineOnly: Boolean,
@@ -143,6 +167,8 @@ private fun CompareFigure(
             silhouetteOnly,
             showLayers,
             outlineOnly,
+            stage,
+            perceptionLevel,
         )
         Text(label, color = REVIEW_MUTED, fontSize = 10.sp, letterSpacing = 1.sp)
     }
@@ -153,6 +179,7 @@ private fun ReviewHeader(
     selectedClass: AscendedClass?,
     bodyBase: BodyBase,
     fidelity: SilhouetteFidelity,
+    stage: EvolutionStage,
 ) {
     Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
         Text("YOUR ASCENDED", color = REVIEW_MUTED, fontSize = 12.sp, letterSpacing = 4.sp)
@@ -161,7 +188,7 @@ private fun ReviewHeader(
         Spacer(Modifier.height(4.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
             Stat("BASE", bodyBase.name)
-            Stat("STAGE", "Base")
+            Stat("STAGE", stage.displayName)
             Stat("FIDELITY", if (fidelity == SilhouetteFidelity.REFINED) "Refined" else "Blockout")
             Stat("SET", if (selectedClass?.production == false) "Preview" else "Live")
         }

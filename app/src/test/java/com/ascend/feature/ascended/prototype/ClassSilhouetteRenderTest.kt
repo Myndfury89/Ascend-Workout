@@ -101,8 +101,8 @@ class ClassSilhouetteRenderTest {
         }
         compose.onNodeWithText("Guardian").performClick()
         assertEquals(AscendedClass.GUARDIAN, chosen)
-        compose.onNodeWithText("Base").performClick()
-        assertTrue("Base selects the anatomical mannequin (null class)", chosen == null)
+        compose.onNodeWithText("Mannequin").performClick()
+        assertTrue("Mannequin selects the anatomical base (null class)", chosen == null)
     }
 
     @Test

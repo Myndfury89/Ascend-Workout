@@ -54,6 +54,10 @@ fun ClassReviewControls(
     onFidelity: (SilhouetteFidelity) -> Unit = {},
     onCompare: (Boolean) -> Unit = {},
     onOutline: (Boolean) -> Unit = {},
+    stage: EvolutionStage = EvolutionStage.MASTERED,
+    perceptionLevel: Int = 0,
+    onStage: (EvolutionStage) -> Unit = {},
+    onPerception: (Int) -> Unit = {},
 ) {
     Surface(color = Color(0xFFFFFFFF), shape = MaterialTheme.shapes.medium, modifier = modifier.fillMaxWidth()) {
         Column(Modifier.padding(16.dp)) {
@@ -76,10 +80,17 @@ fun ClassReviewControls(
 
             Spacer(Modifier.height(16.dp))
             Label("EVOLUTION STAGE")
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                EvolutionStage.entries.forEach { s ->
+                    Toggle(stageLabel(s), s == stage, { onStage(s) }, Modifier.weight(1f))
+                }
+            }
+
+            Spacer(Modifier.height(16.dp))
+            Label("SKILL · PERCEPTION")
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                EvolutionStage.entries.forEach { stage ->
-                    // Only Base is implemented this pass; later stages are shown but inactive.
-                    StageChip(stage.name, active = stage == EvolutionStage.BASE, Modifier.weight(1f))
+                listOf(0 to "Off", 1 to "L1", 5 to "L5", 10 to "L10").forEach { (lvl, lbl) ->
+                    Toggle(lbl, lvl == perceptionLevel, { onPerception(lvl) }, Modifier.weight(1f))
                 }
             }
 
@@ -118,7 +129,7 @@ private fun ClassRow(
 ) {
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         choices.forEach { choice ->
-            Toggle(choice?.displayName ?: "Base", choice == selected, { onSelect(choice) }, Modifier.weight(1f))
+            Toggle(choice?.displayName ?: "Mannequin", choice == selected, { onSelect(choice) }, Modifier.weight(1f))
         }
     }
 }
@@ -156,21 +167,13 @@ private fun Toggle(
     }
 }
 
-@Composable
-private fun StageChip(
-    label: String,
-    active: Boolean,
-    modifier: Modifier = Modifier,
-) {
-    OutlinedButton(
-        onClick = {},
-        enabled = active,
-        modifier = modifier.height(38.dp),
-        contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 2.dp),
-    ) {
-        Text(label, color = if (active) Color(0xFF23262E) else Color(0xFFAAAEB6), fontSize = 10.sp, maxLines = 1)
+private fun stageLabel(stage: EvolutionStage): String =
+    when (stage) {
+        EvolutionStage.BASE -> "Base"
+        EvolutionStage.EARLY_GROWTH -> "Early"
+        EvolutionStage.ADVANCED -> "Adv"
+        EvolutionStage.MASTERED -> "Master"
     }
-}
 
 @Composable
 private fun SwitchRow(

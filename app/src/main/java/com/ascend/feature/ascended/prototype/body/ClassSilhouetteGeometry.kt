@@ -3,6 +3,7 @@ package com.ascend.feature.ascended.prototype.body
 import androidx.compose.ui.geometry.Offset
 import com.ascend.feature.ascended.prototype.model.AscendedClass
 import com.ascend.feature.ascended.prototype.model.BodyBase
+import com.ascend.feature.ascended.prototype.model.EvolutionStage
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -51,10 +52,39 @@ object ClassSilhouetteGeometry {
         cls: AscendedClass,
         base: BodyBase,
         fidelity: SilhouetteFidelity = SilhouetteFidelity.BLOCKOUT,
-    ): ClassSilhouette =
-        when (fidelity) {
-            SilhouetteFidelity.BLOCKOUT -> ClassSilhouette(blockout(cls, base))
-            SilhouetteFidelity.REFINED -> ClassSilhouette(refined(cls, base))
+        stage: EvolutionStage = EvolutionStage.MASTERED,
+    ): ClassSilhouette {
+        val shapes =
+            when (fidelity) {
+                SilhouetteFidelity.BLOCKOUT -> blockout(cls, base)
+                SilhouetteFidelity.REFINED -> refined(cls, base)
+            }
+        // Cumulative gating: a stage shows its own equipment plus everything from earlier stages.
+        return ClassSilhouette(shapes.filter { it.minStage.ordinal <= stage.ordinal })
+    }
+
+    /**
+     * Which evolution stage each equipment / accessory shape first appears at. Anything not listed is
+     * BASE (the clean class body + simple clothing). Keyed by shape name and shared across classes
+     * where names repeat (e.g. poleyns, gauntlets). This is what makes a stage cumulative: Base has no
+     * major weapon/shield/staff; Early adds first accessories; Advanced adds the main equipment;
+     * Mastered adds the final flourish.
+     */
+    private val STAGE_BY_NAME: Map<String, EvolutionStage> =
+        buildMap {
+            listOf(
+                "bracerL", "bracerR", "browBand", "legWrapL", "legWrapR", "beads", "sashKnot",
+                "shoulderDrapeL", "shoulderDrapeR", "staffShaft", "scarf1", "clothTail", "wrapForearmR",
+                "beltStrap", "gauntletL", "gauntletR", "poleynL", "poleynR", "helmBrow", "plateRidge",
+                "quiver", "chestStrap", "cloakFold", "hoodPeak", "belt", "visor", "breastRidge",
+                "pauldronLlame", "pauldronRlame", "mantleCollarL", "mantleCollarR",
+            ).forEach { put(it, EvolutionStage.EARLY_GROWTH) }
+            listOf(
+                "axeHandle", "axeHead", "halo", "staffHead", "focus", "hemGlow", "scarf2", "bladeR",
+                "swordBlade", "swordGuard", "bow", "arrowFletch1", "shield", "shieldRim",
+            ).forEach { put(it, EvolutionStage.ADVANCED) }
+            listOf("axeEdge", "staffCore", "focusRing", "bladeL", "arrowFletch2", "shieldBoss", "crown")
+                .forEach { put(it, EvolutionStage.MASTERED) }
         }
 
     private fun blockout(
@@ -75,16 +105,98 @@ object ClassSilhouetteGeometry {
     private fun refined(
         cls: AscendedClass,
         base: BodyBase,
-    ): List<SilhouetteShape> =
+    ): List<SilhouetteShape> {
+        val raw =
+            when (cls) {
+                AscendedClass.MAGICIAN -> refinedMagician(base)
+                AscendedClass.BERSERKER -> refinedBerserker(base)
+                AscendedClass.MONK -> refinedMonk(base)
+                AscendedClass.ASSASSIN -> refinedAssassin(base)
+                AscendedClass.FIGHTER -> refinedFighter(base)
+                AscendedClass.RANGER -> refinedRanger(base)
+                AscendedClass.GUARDIAN -> refinedGuardian(base)
+            }
+        return raw.map { it.copy(minStage = STAGE_BY_NAME[it.name] ?: EvolutionStage.BASE) }
+    }
+
+    /** Approximate head/helm centre-Y per class, used to place the Perception manifestation. */
+    fun refinedHeadY(cls: AscendedClass): Float =
         when (cls) {
-            AscendedClass.MAGICIAN -> refinedMagician(base)
-            AscendedClass.BERSERKER -> refinedBerserker(base)
-            AscendedClass.MONK -> refinedMonk(base)
-            AscendedClass.ASSASSIN -> refinedAssassin(base)
-            AscendedClass.FIGHTER -> refinedFighter(base)
-            AscendedClass.RANGER -> refinedRanger(base)
-            AscendedClass.GUARDIAN -> refinedGuardian(base)
+            AscendedClass.GUARDIAN -> 0.17f
+            AscendedClass.MAGICIAN -> 0.185f
+            AscendedClass.MONK -> 0.205f
+            AscendedClass.ASSASSIN -> 0.225f
+            AscendedClass.FIGHTER -> 0.235f
+            AscendedClass.RANGER -> 0.245f
+            AscendedClass.BERSERKER -> 0.255f
         }
+
+    /**
+     * Class aura as flat concentric rings behind the figure, growing with the evolution stage. Base
+     * has none; Early a faint ring; Advanced two; Mastered three — a controlled, readable presence,
+     * never a gradient glow. Drawn behind the body and skipped in the silhouette/outline review modes.
+     */
+    fun auraShapes(stage: EvolutionStage): List<SilhouetteShape> {
+        val rings = stage.ordinal // BASE 0, EARLY 1, ADVANCED 2, MASTERED 3
+        if (rings <= 0) return emptyList()
+        val radii = listOf(0.30f, 0.40f, 0.48f)
+        return (0 until rings.coerceAtMost(radii.size)).map { i ->
+            ringShape("aura$i", SilhouetteTone.MEDIUM, CX, 0.46f, radii[i], 0.006f)
+        }
+    }
+
+    /**
+     * The Perception Skill manifestation, placed at the head: L1 faint eyes; L5 brighter eyes + a
+     * sensing halo + scan lines; L10 awakened eyes + a layered awareness field + energetic traces.
+     * A clearly stronger read at 10 than at 1. Drawn in front and skipped in silhouette/outline modes.
+     */
+    fun perceptionShapes(
+        level: Int,
+        cls: AscendedClass,
+    ): List<SilhouetteShape> {
+        if (level <= 0) return emptyList()
+        val hy = refinedHeadY(cls)
+        val out = ArrayList<SilhouetteShape>()
+        // Eyes (brighter/larger with level).
+        val eyeR =
+            if (level >= 10) {
+                0.016f
+            } else if (level >= 5) {
+                0.013f
+            } else {
+                0.010f
+            }
+        out.add(octagonShape("eyeL", SilhouetteTone.LIGHT, CX - 0.018f, hy, eyeR))
+        out.add(octagonShape("eyeR", SilhouetteTone.LIGHT, CX + 0.018f, hy, eyeR))
+        if (level >= 5) {
+            out.add(ringShape("senseHalo", SilhouetteTone.MEDIUM, CX, hy, 0.075f, 0.006f))
+            out.add(scanLine("scanL", CX - 0.13f, hy - 0.01f, CX - 0.05f, hy - 0.01f))
+            out.add(scanLine("scanR", CX + 0.05f, hy - 0.01f, CX + 0.13f, hy - 0.01f))
+        }
+        if (level >= 10) {
+            out.add(ringShape("awareField", SilhouetteTone.MEDIUM, CX, hy, 0.115f, 0.005f))
+            out.add(scanLine("traceUp", CX, hy - 0.14f, CX, hy - 0.09f))
+            out.add(scanLine("traceDL", CX - 0.11f, hy + 0.10f, CX - 0.06f, hy + 0.05f))
+            out.add(scanLine("traceDR", CX + 0.06f, hy + 0.05f, CX + 0.11f, hy + 0.10f))
+        }
+        return out
+    }
+
+    /** A thin flat bar between two points — the Perception scan/trace lines. */
+    private fun scanLine(
+        name: String,
+        x0: Float,
+        y0: Float,
+        x1: Float,
+        y1: Float,
+    ): SilhouetteShape {
+        val t = 0.004f
+        return SilhouetteShape(
+            name,
+            SilhouetteTone.MEDIUM,
+            listOf(Offset(x0, y0 - t), Offset(x1, y1 - t), Offset(x1, y1 + t), Offset(x0, y0 + t)),
+        )
+    }
 
     // --- Mage: tall, narrow, vertical, staff + pointed hat ---
     private fun mage(base: BodyBase): List<SilhouetteShape> {

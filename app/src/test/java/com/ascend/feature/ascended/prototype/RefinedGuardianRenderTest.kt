@@ -2,12 +2,15 @@ package com.ascend.feature.ascended.prototype
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.unit.dp
 import com.ascend.core.designsystem.theme.AscendTheme
 import com.ascend.feature.ascended.prototype.body.ClassSilhouetteFigure
@@ -57,30 +60,32 @@ class RefinedGuardianRenderTest {
         var fidelity = SilhouetteFidelity.BLOCKOUT
         compose.setContent {
             AscendTheme(darkTheme = true) {
-                ClassReviewControls(
-                    selectedClass = AscendedClass.GUARDIAN,
-                    bodyBase = BodyBase.MALE,
-                    silhouetteOnly = false,
-                    showLayers = false,
-                    reducedMotion = false,
-                    onSelectClass = {},
-                    onBodyBase = {},
-                    onSilhouetteOnly = {},
-                    onShowLayers = {},
-                    onReducedMotion = {},
-                    fidelity = fidelity,
-                    compare = false,
-                    outlineOnly = false,
-                    shapeCount = classShapeCount(AscendedClass.GUARDIAN, BodyBase.MALE, SilhouetteFidelity.REFINED),
-                    refinedAvailable = true,
-                    onFidelity = { fidelity = it },
-                    onCompare = {},
-                    onOutline = {},
-                )
+                Column(Modifier.verticalScroll(rememberScrollState())) {
+                    ClassReviewControls(
+                        selectedClass = AscendedClass.GUARDIAN,
+                        bodyBase = BodyBase.MALE,
+                        silhouetteOnly = false,
+                        showLayers = false,
+                        reducedMotion = false,
+                        onSelectClass = {},
+                        onBodyBase = {},
+                        onSilhouetteOnly = {},
+                        onShowLayers = {},
+                        onReducedMotion = {},
+                        fidelity = fidelity,
+                        compare = false,
+                        outlineOnly = false,
+                        shapeCount = classShapeCount(AscendedClass.GUARDIAN, BodyBase.MALE, SilhouetteFidelity.REFINED),
+                        refinedAvailable = true,
+                        onFidelity = { fidelity = it },
+                        onCompare = {},
+                        onOutline = {},
+                    )
+                }
             }
         }
         compose.onNodeWithText("FIDELITY", substring = true).assertExists()
-        compose.onNodeWithText("Refined Base").performClick()
+        compose.onNodeWithText("Refined Base").performScrollTo().performClick()
         assertEquals(SilhouetteFidelity.REFINED, fidelity)
     }
 

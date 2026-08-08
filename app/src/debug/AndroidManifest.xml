@@ -50,6 +50,21 @@
         </activity>
 
         <!--
+          Debug-only launcher for the HP/MP/XP daily-resource HUD prototype. Deterministic fake
+          inputs through the real resolvers; read-only, no repositories, no schema. Debug only.
+        -->
+        <activity
+            android:name="com.ascend.prototype.DailyResourcePrototypeActivity"
+            android:exported="true"
+            android:label="Ascend Daily Resources"
+            android:theme="@style/Theme.Ascend">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--
           Debug-only launcher for the fake party Dungeon prototype. Entirely simulated — no
           Bluetooth, no nearby users, no networking. Never present in release.
         -->

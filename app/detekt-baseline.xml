@@ -3,6 +3,7 @@
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
   <CurrentIssues>
     <ID>ComplexCondition:BodyweightProgressionCalculators.kt$TempoProgressionCalculator$!hasVariationControl || !s.allAtLeastMin || s.anyFailure || !s.effortAcceptable</ID>
+    <ID>ComplexCondition:MpEvidenceResolver.kt$MpEvidenceResolver$a.externalRecordId != null &amp;&amp; a.sourceApplication != null &amp;&amp; a.externalRecordId == b.externalRecordId &amp;&amp; a.sourceApplication == b.sourceApplication</ID>
     <ID>CyclomaticComplexMethod:ActiveQuestScreen.kt$@OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class) @Composable internal fun ActiveQuestContent( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
     <ID>CyclomaticComplexMethod:AscendMotionPrototypeScreen.kt$@Composable fun AscendMotionPrototypeScreen( modifier: Modifier = Modifier, controller: PrototypeReviewController = rememberMotionPrototypeController(), )</ID>
     <ID>CyclomaticComplexMethod:BodyweightProgressionCalculators.kt$BodyweightSignals.Companion$fun from( prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn, config: BodyweightProgressionConfig, ): BodyweightSignals</ID>
@@ -47,6 +48,14 @@
     <ID>FunctionNaming:Buttons.kt$@Composable fun PrimaryActionButton( text: String, onClick: () -&gt; Unit, modifier: Modifier = Modifier, enabled: Boolean = true, )</ID>
     <ID>FunctionNaming:Buttons.kt$@Composable fun QuickProgressButton( label: String, onClick: () -&gt; Unit, modifier: Modifier = Modifier, enabled: Boolean = true, )</ID>
     <ID>FunctionNaming:CalendarScreen.kt$@Composable fun CalendarScreen(modifier: Modifier = Modifier)</ID>
+    <ID>FunctionNaming:DailyResourceHud.kt$@Composable fun DailyResourceHud( hp: DailyHpState, mp: DailyMpState, xp: XpState, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:DailyResourceHud.kt$@Composable private fun Detail( label: String, value: String, )</ID>
+    <ID>FunctionNaming:DailyResourceHud.kt$@Composable private fun ProgressBar( fraction: Float, accent: Color, )</ID>
+    <ID>FunctionNaming:DailyResourceHud.kt$@Composable private fun ResourceRow( accent: Color, label: String, summary: String, fraction: Float?, primary: @Composable () -&gt; Unit, detail: @Composable () -&gt; Unit, )</ID>
+    <ID>FunctionNaming:DailyResourceHud.kt$@Composable private fun StateText( text: String, subtitle: String?, )</ID>
+    <ID>FunctionNaming:DailyResourceHud.kt$@Composable private fun ValueLine( current: Int, target: Int?, unit: String, fraction: Float?, accent: Color, )</ID>
+    <ID>FunctionNaming:DailyResourcePrototypeScreen.kt$@Composable fun DailyResourcePrototypeScreen(modifier: Modifier = Modifier)</ID>
+    <ID>FunctionNaming:DailyResourcePrototypeScreen.kt$@Composable private fun ScenarioRow( scenarios: List&lt;DailyResourceScenario&gt;, selected: DailyResourceScenario, onSelect: (DailyResourceScenario) -&gt; Unit, )</ID>
     <ID>FunctionNaming:DungeonPrototypeEncounter.kt$@Composable internal fun EncounterSection(controller: DungeonPrototypeController)</ID>
     <ID>FunctionNaming:DungeonPrototypeEncounter.kt$@OptIn(ExperimentalLayoutApi::class) @Composable internal fun DebugFooter(controller: DungeonPrototypeController)</ID>
     <ID>FunctionNaming:DungeonPrototypeEncounter.kt$@OptIn(ExperimentalLayoutApi::class) @Composable private fun MemberRow( controller: DungeonPrototypeController, memberId: String, )</ID>
@@ -186,6 +195,8 @@
     <ID>LongMethod:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$override fun migrate(db: SupportSQLiteDatabase)</ID>
     <ID>LongMethod:AscendMotionPrototypeScreen.kt$@Composable fun AscendMotionPrototypeScreen( modifier: Modifier = Modifier, controller: PrototypeReviewController = rememberMotionPrototypeController(), )</ID>
     <ID>LongMethod:AscendMotionPrototypeScreen.kt$@Composable private fun MotionReviewViewport( data: StatusPrototypeData, controller: PrototypeReviewController, accent: Color, motion: StatusPrototypeMotion, rotation: Float, reduced: Boolean, motionSpec: MotionSpec, modifier: Modifier = Modifier, )</ID>
+    <ID>LongMethod:DailyResourceFixtures.kt$DailyResourceFixtures$fun inputs(scenario: DailyResourceScenario): ScenarioInputs</ID>
+    <ID>LongMethod:DailyResourceHud.kt$@Composable fun DailyResourceHud( hp: DailyHpState, mp: DailyMpState, xp: XpState, modifier: Modifier = Modifier, )</ID>
     <ID>LongMethod:FakeStatusPrototype.kt$FakeStatusPrototype$fun dataFor( stateId: StatusPrototypeStateId, variant: StatusClassVariant, reducedMotion: Boolean, forceSecondary: Boolean = false, weightUnit: com.ascend.core.common.WeightUnit = com.ascend.core.common.WeightUnit.KILOGRAMS, ): StatusPrototypeData</ID>
     <ID>LongMethod:LogWorkoutScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable private fun AddSetSection( exercises: List&lt;Exercise&gt;, weightUnit: WeightUnit, onAddSet: (Exercise, Int, Double?) -&gt; Unit, )</ID>
     <ID>LongMethod:LogWorkoutScreen.kt$@OptIn(ExperimentalMaterial3Api::class, androidx.compose.foundation.layout.ExperimentalLayoutApi::class) @Composable internal fun LogWorkoutContent( state: LogWorkoutUiState, onBack: () -&gt; Unit, onTitleChange: (String) -&gt; Unit, onDifficultyChange: (Difficulty) -&gt; Unit, onAddSet: (Exercise, Int, Double?) -&gt; Unit, onDeleteSet: (String) -&gt; Unit, onFinish: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, weightUnit: WeightUnit = WeightUnit.KILOGRAMS, onWeightUnitChange: (WeightUnit) -&gt; Unit = {}, )</ID>
@@ -207,6 +218,8 @@
     <ID>LongParameterList:ClassRecommendationRationaleTest.kt$ClassRecommendationRationaleTest$( goal: PrimaryGoal = PrimaryGoal.STRENGTH, secondary: List&lt;PrimaryGoal&gt; = emptyList(), prefs: Set&lt;ActivityPreference&gt; = emptySet(), env: TrainingEnvironment? = null, sex: OptionalSex = OptionalSex.NOT_SET, age: AgeSafetyCategory = AgeSafetyCategory.ADULT, limitations: Set&lt;Limitation&gt; = emptySet(), body: BodyMetrics = BodyMetrics(), )</ID>
     <ID>LongParameterList:ClassRepositoryImpl.kt$ClassRepositoryImpl$( userId: String, slot: ClassSlot, newClassId: String?, reason: String?, source: ClassChangeSource, ts: Long, )</ID>
     <ID>LongParameterList:ClassRewardApplier.kt$ClassRewardApplier$( userId: String, basePlayerXp: Long, baseAttributeDistribution: Map&lt;AttributeType, Long&gt;, activityTags: Set&lt;String&gt;, sourceType: XpSourceType, sourceId: String, )</ID>
+    <ID>LongParameterList:DailyResourceFixtures.kt$DailyResourceFixtures$( source: TrainingDurationSource, minutes: Int, startMin: Long, stableSessionId: String? = null, externalRecordId: String? = null, sourceApplication: String? = null, classification: WorkoutKind = WorkoutKind.UNKNOWN, )</ID>
+    <ID>LongParameterList:DailyResourceHud.kt$( accent: Color, label: String, summary: String, fraction: Float?, primary: @Composable () -&gt; Unit, detail: @Composable () -&gt; Unit, )</ID>
     <ID>LongParameterList:EdgeLitStatusPanel.kt$( accent: Color, materialize: Float, scan: Float, modifier: Modifier = Modifier, effectsQuality: Float = 1f, selfFraming: Boolean = false, frameEnergy: Float = 0f, framePulse: Float = 0f, frameRotation: Float = 0f, frameMotion: Boolean = false, content: @Composable BoxScope.() -&gt; Unit, )</ID>
     <ID>LongParameterList:EdgeLitStatusPanel.kt$( origin: Offset, sx: Float, sy: Float, bright: Float, rotation: Float, motion: Boolean, )</ID>
     <ID>LongParameterList:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$( id: String, exerciseId: String, name: String, tier: Int, description: String, assistanceType: AssistanceType = AssistanceType.NONE, assistanceValue: Double? = null, rom: Int = 4, externalLoad: Boolean = false, )</ID>
@@ -219,6 +232,7 @@
     <ID>LongParameterList:InitialQuestPlanGeneratorTest.kt$InitialQuestPlanGeneratorTest$( id: String, min: Int, max: Int, default: Int, step: Int, prefSet: Int, minSet: Int, warn: Int, unit: String = "reps", )</ID>
     <ID>LongParameterList:IntervalProgressTest.kt$IntervalProgressTest$( id: String, start: Long, end: Long, target: Double, current: Double, status: QuestIntervalStatus = QuestIntervalStatus.PENDING, )</ID>
     <ID>LongParameterList:LogWorkoutScreen.kt$( state: LogWorkoutUiState, onBack: () -&gt; Unit, onTitleChange: (String) -&gt; Unit, onDifficultyChange: (Difficulty) -&gt; Unit, onAddSet: (Exercise, Int, Double?) -&gt; Unit, onDeleteSet: (String) -&gt; Unit, onFinish: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, weightUnit: WeightUnit = WeightUnit.KILOGRAMS, onWeightUnitChange: (WeightUnit) -&gt; Unit = {}, )</ID>
+    <ID>LongParameterList:MpEvidenceResolverTest.kt$MpEvidenceResolverTest$( source: TrainingDurationSource, minutes: Int, startMin: Long = 0, stableSessionId: String? = null, externalRecordId: String? = null, sourceApplication: String? = null, classification: WorkoutKind = WorkoutKind.UNKNOWN, )</ID>
     <ID>LongParameterList:MulticlassRewardCalculator.kt$MulticlassRewardCalculator$( def: ClassDefinition, slot: ClassSlot, allocation: Double, activityTags: Set&lt;String&gt;, basePlayerXp: Long, baseMagnitude: Long, )</ID>
     <ID>LongParameterList:OnboardingClassSelection.kt$( def: ClassDefinition, recommended: Boolean, selected: Boolean, score: Double, maxScore: Double, rationale: String?, onSelect: () -&gt; Unit, onDetails: () -&gt; Unit, )</ID>
     <ID>LongParameterList:OnboardingComponents.kt$( title: String, subtitle: String?, progressIndex: Int, progressTotal: Int, onBack: (() -&gt; Unit)?, onNext: (() -&gt; Unit)?, nextLabel: String = "Next", onSkip: (() -&gt; Unit)? = null, validationError: String? = null, content: @Composable () -&gt; Unit, )</ID>
@@ -402,6 +416,24 @@
     <ID>MagicNumber:Color.kt$0xFFEDF1F6</ID>
     <ID>MagicNumber:Color.kt$0xFFF6F8FB</ID>
     <ID>MagicNumber:Color.kt$0xFFFFFFFF</ID>
+    <ID>MagicNumber:DailyResourceFixtures.kt$DailyResourceFixtures$15</ID>
+    <ID>MagicNumber:DailyResourceFixtures.kt$DailyResourceFixtures$1_000</ID>
+    <ID>MagicNumber:DailyResourceFixtures.kt$DailyResourceFixtures$30</ID>
+    <ID>MagicNumber:DailyResourceFixtures.kt$DailyResourceFixtures$38</ID>
+    <ID>MagicNumber:DailyResourceFixtures.kt$DailyResourceFixtures$420</ID>
+    <ID>MagicNumber:DailyResourceFixtures.kt$DailyResourceFixtures$45</ID>
+    <ID>MagicNumber:DailyResourceFixtures.kt$DailyResourceFixtures$4_000</ID>
+    <ID>MagicNumber:DailyResourceFixtures.kt$DailyResourceFixtures$540</ID>
+    <ID>MagicNumber:DailyResourceFixtures.kt$DailyResourceFixtures$541</ID>
+    <ID>MagicNumber:DailyResourceFixtures.kt$DailyResourceFixtures$5_000</ID>
+    <ID>MagicNumber:DailyResourceFixtures.kt$DailyResourceFixtures$6_800</ID>
+    <ID>MagicNumber:DailyResourceFixtures.kt$DailyResourceFixtures$6_842</ID>
+    <ID>MagicNumber:DailyResourceFixtures.kt$DailyResourceFixtures$8_000</ID>
+    <ID>MagicNumber:DailyResourceHud.kt$100</ID>
+    <ID>MagicNumber:DailyResourceModels.kt$0.25f</ID>
+    <ID>MagicNumber:DailyResourceModels.kt$0.50f</ID>
+    <ID>MagicNumber:DailyResourceModels.kt$0.75f</ID>
+    <ID>MagicNumber:DailyResourcePrototypeScreen.kt$3</ID>
     <ID>MagicNumber:DungeonCatalog.kt$DungeonCatalog$0.1f</ID>
     <ID>MagicNumber:DungeonCatalog.kt$DungeonCatalog$0.25f</ID>
     <ID>MagicNumber:DungeonCatalog.kt$DungeonCatalog$0.2f</ID>
@@ -913,6 +945,18 @@
     <ID>MaxLineLength:CreateQuestFromTemplateFlowTest.kt$CreateQuestFromTemplateFlowTest$minimumTarget = 25</ID>
     <ID>MaxLineLength:CreateQuestFromTemplateFlowTest.kt$CreateQuestFromTemplateFlowTest$unit = "reps"</ID>
     <ID>MaxLineLength:CreateQuestFromTemplateFlowTest.kt$CreateQuestFromTemplateFlowTest$val progression = ProgressionRepositoryImpl(db, db.playerDao(), db.xpDao(), db.attributeDao(), level, RankCalculator())</ID>
+    <ID>MaxLineLength:DailyResourceFixtures.kt$DailyResourceFixtures$evidence = listOf(evidence(TrainingDurationSource.ASCEND_WORKOUT, 38, 540, classification = WorkoutKind.STRENGTH))</ID>
+    <ID>MaxLineLength:DailyResourceFixtures.kt$DailyResourceFixtures$evidence = listOf(evidence(TrainingDurationSource.ASCEND_WORKOUT, 45, 540, classification = WorkoutKind.STRENGTH))</ID>
+    <ID>MaxLineLength:DailyResourceHud.kt$"MP Energy: ${mp.verifiedMinutes} of ${mp.target.targetMinutes} minutes, ${bandLabel(mp.progressFraction)}"</ID>
+    <ID>MaxLineLength:DailyResourceHud.kt$ValueLine(mp.verifiedMinutes, mp.target.targetMinutes, "Training · min", mp.progressFraction, MP_ACCENT)</ID>
+    <ID>MaxLineLength:DailyResourceHud.kt$summary = "XP Growth: ${grouped(xp.currentLevelXp.toInt())} of ${grouped(xp.xpForNextLevel.toInt())}, level ${xp.level}"</ID>
+    <ID>MaxLineLength:DailyResourcePrototypeScreen.kt$Text("HP · MP · XP prototype", color = StatusPalette.textPrimary, fontSize = 20.sp, fontWeight = FontWeight.SemiBold)</ID>
+    <ID>MaxLineLength:DailyResourceResolverTest.kt$DailyResourceResolverTest$assertEquals(DailyMpTargetType.DELOAD, DailyTrainingTargetResolver.resolve(TrainingTargetInput(ReadinessLevel.LOW, 45, false)).type)</ID>
+    <ID>MaxLineLength:DailyResourceResolverTest.kt$DailyResourceResolverTest$assertTrue(DailyTrainingTargetResolver.resolve(TrainingTargetInput(ReadinessLevel.BLOCKED, 45, prescribedRest = false)).isRestDay)</ID>
+    <ID>MaxLineLength:DailyResourceResolverTest.kt$DailyResourceResolverTest$assertTrue(DailyTrainingTargetResolver.resolve(TrainingTargetInput(ReadinessLevel.READY, 45, prescribedRest = true)).isRestDay)</ID>
+    <ID>MaxLineLength:DailyTrainingTargetResolver.kt$DailyTrainingTargetResolver$DailyMpTarget((baseline * DELOAD_FACTOR).roundToInt(), DailyMpTargetType.DELOAD, "Deload — lighter than usual", false)</ID>
+    <ID>MaxLineLength:DailyTrainingTargetResolver.kt$DailyTrainingTargetResolver$DailyMpTarget((baseline * MAINTAIN_FACTOR).roundToInt(), DailyMpTargetType.MAINTAIN, "Maintain — hold steady", false)</ID>
+    <ID>MaxLineLength:DailyTrainingTargetResolver.kt$DailyTrainingTargetResolver$DailyMpTarget((baseline * RECOVERY_FACTOR).roundToInt(), DailyMpTargetType.RECOVERY, "Light recovery", false)</ID>
     <ID>MaxLineLength:DataModule.kt$DataModule$abstract</ID>
     <ID>MaxLineLength:DungeonCombatEngine.kt$DungeonCombatEngine$val armorFactor = if (c.armorBreaking) 1.0 else 1.0 - min(MAX_ARMOR_MITIGATION, enemy.armor / (enemy.armor + ARMOR_SOFTNESS))</ID>
     <ID>MaxLineLength:DungeonCombatTest.kt$DungeonCombatTest$assertTrue("b earned more, so b is rewarded more", first.perMemberXp.getValue("b") &gt; first.perMemberXp.getValue("a"))</ID>
@@ -1000,6 +1044,9 @@
     <ID>MaxLineLength:IntervalGenerationTest.kt$IntervalGenerationTest$assertEquals(listOf(50, 50, 25), distribution.distribute(125, 0, IntervalDistributionStrategy.PREFERRED_SET_SIZE, 50))</ID>
     <ID>MaxLineLength:IntervalProgressTest.kt$IntervalProgressTest$reminders.shouldRemind(active, now = 50, questComplete = false, notificationsEnabled = true, quietHours = listOf(40L to 60L))</ID>
     <ID>MaxLineLength:LogWorkoutViewModel.kt$LogWorkoutViewModel$private fun ObjectiveType.isRepBased(): Boolean</ID>
+    <ID>MaxLineLength:MpEvidenceResolver.kt$MpEvidenceResolver$val fraction = if (target.targetMinutes &gt; 0) (minutes.toFloat() / target.targetMinutes).coerceAtLeast(0f) else null</ID>
+    <ID>MaxLineLength:MpEvidenceResolverTest.kt$MpEvidenceResolverTest$ev(TrainingDurationSource.IMPORTED_ACTIVITY, 40, externalRecordId = "r1", sourceApplication = "com.x")</ID>
+    <ID>MaxLineLength:MpEvidenceResolverTest.kt$MpEvidenceResolverTest$listOf(ev(TrainingDurationSource.ASCEND_WORKOUT, 30), ev(TrainingDurationSource.ASCEND_CARDIO, 20, startMin = 200))</ID>
     <ID>MaxLineLength:MulticlassRewardCalculator.kt$MulticlassRewardCalculator$val primary = contribution(primaryDef, ClassSlot.PRIMARY, allocation = 1.0, activityTags, basePlayerXp, baseMagnitude)</ID>
     <ID>MaxLineLength:OnboardingClassCardRenderTest.kt$OnboardingClassCardRenderTest$favoredTags = setOf(com.ascend.core.model.ActivityTags.AQUATIC, com.ascend.core.model.ActivityTags.STEADY_STATE_CARDIO)</ID>
     <ID>MaxLineLength:OnboardingClassSelection.kt$Icon(Icons.Filled.Check, contentDescription = null, tint = OnboardingPalette.accent, modifier = Modifier.size(18.dp))</ID>
@@ -1284,6 +1331,8 @@
     <ID>ReturnCount:DungeonCombatEngine.kt$DungeonCombatEngine$fun apply( state: DungeonCombatState, enemy: DungeonEnemy, contribution: WorkoutContribution, ): DungeonCombatState</ID>
     <ID>ReturnCount:DungeonPrototypeController.kt$DungeonPrototypeController$fun trigger( memberId: String, action: WorkoutActionType, )</ID>
     <ID>ReturnCount:ExerciseVariationProgressionEngine.kt$ExerciseVariationProgressionEngine$fun regressionCandidate( graph: ExerciseVariationGraph, currentVariationId: String, input: VariationReadinessInput, minFailures: Int = 2, ): ProgressionCandidate?</ID>
+    <ID>ReturnCount:MpEvidenceResolver.kt$MpEvidenceResolver$private fun overlapDuplicate( a: TrainingDurationEvidence, b: TrainingDurationEvidence, ): Boolean</ID>
+    <ID>ReturnCount:MpEvidenceResolver.kt$MpEvidenceResolver$private fun sameSession( a: TrainingDurationEvidence, b: TrainingDurationEvidence, ): Boolean</ID>
     <ID>ReturnCount:OnboardingViewModelTest.kt$OnboardingViewModelTest$private fun OnboardingViewModel.walkTo(target: OnboardingStep)</ID>
     <ID>ReturnCount:ProgressionRecommendationRepositoryImpl.kt$ProgressionRecommendationRepositoryImpl$override suspend fun accept(id: String): Boolean</ID>
     <ID>ReturnCount:ProgressionRecommendationRepositoryImpl.kt$ProgressionRecommendationRepositoryImpl$override suspend fun reject(id: String): Boolean</ID>

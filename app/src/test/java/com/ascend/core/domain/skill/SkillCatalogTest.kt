@@ -54,13 +54,13 @@ class SkillCatalogTest {
     }
 
     @Test
-    fun `a magician can unlock strength boost — class never blocks access`() {
-        val magicianAffinity = affinity.affinity(def(SkillCatalog.STRENGTH_BOOST), ClassCatalog.MAGICIAN)
+    fun `a mage can unlock strength boost — class never blocks access`() {
+        val mageAffinity = affinity.affinity(def(SkillCatalog.STRENGTH_BOOST), ClassCatalog.MAGE)
         val result =
             engine.evaluate(
                 def(SkillCatalog.STRENGTH_BOOST),
                 SkillEvidence(strengthPersonalRecords = 1),
-                magicianAffinity,
+                mageAffinity,
                 unlocked = false,
             )
         assertTrue("eligibility must not depend on class", result.eligible)
@@ -100,7 +100,7 @@ class SkillCatalogTest {
     @Test
     fun `affinity is tag-driven and neutral for a non-matching or absent class`() {
         assertTrue(affinity.affinity(def(SkillCatalog.STRENGTH_BOOST), ClassCatalog.BERSERKER) > 0.0)
-        assertEquals(0.0, affinity.affinity(def(SkillCatalog.STRENGTH_BOOST), ClassCatalog.MAGICIAN), 1e-9)
+        assertEquals(0.0, affinity.affinity(def(SkillCatalog.STRENGTH_BOOST), ClassCatalog.MAGE), 1e-9)
         assertEquals(0.0, affinity.affinity(def(SkillCatalog.STRENGTH_BOOST), null), 1e-9)
     }
 
@@ -128,7 +128,7 @@ class SkillCatalogTest {
                 PlayerSkill("u1", it.id, unlocked = true, level = 1, skillXp = 0, currentLevelXp = 0, xpToNextLevel = 100, unlockedAt = 0)
             }
         val defsById = SkillCatalog.ALL.associateBy { it.id }
-        val retained = transferable.retainedAfterSwitch(playerSkills, defsById, newClassId = "magician")
+        val retained = transferable.retainedAfterSwitch(playerSkills, defsById, newClassId = "mage")
         assertEquals("all initial skills are transferable", playerSkills.size, retained.size)
     }
 

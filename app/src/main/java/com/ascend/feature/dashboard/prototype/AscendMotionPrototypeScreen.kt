@@ -85,7 +85,7 @@ fun AscendMotionPrototypeScreen(
         )
     val reduced = controller.reducedMotion || data.reducedMotion
     val motionSpec = MotionSpec(reducedMotion = reduced, speedScale = controller.motionSpeed.scale)
-    // Refined prototype warms Berserker to a red-orange (handoff hue ~25); Monk/Magician unchanged.
+    // Refined prototype warms Berserker to a red-orange (handoff hue ~25); Monk/Mage unchanged.
     val accent = classAccent(controller.variant, controller.sigilRefined)
 
     val motion = remember { StatusPrototypeMotion(ATTRIBUTE_COUNT) }

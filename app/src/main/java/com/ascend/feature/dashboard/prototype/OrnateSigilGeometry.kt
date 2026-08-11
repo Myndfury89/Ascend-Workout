@@ -91,7 +91,7 @@ private fun classCentralPaths(
                 polygonPath(3, r * 0.28f, -90f),
                 polygonPath(3, r * 0.28f, 90f),
             )
-        // Magician — an all-curves six-petal rosette inside a bounding circle: flowing, circular,
+        // Mage — an all-curves six-petal rosette inside a bounding circle: flowing, circular,
         // no straight lines anywhere.
         CentralStructure.ROSETTE ->
             buildList {

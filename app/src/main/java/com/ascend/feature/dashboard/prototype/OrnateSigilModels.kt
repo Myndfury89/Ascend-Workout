@@ -89,7 +89,7 @@ enum class MedallionGlyph {
     // Class proficiencies.
     FORCE_BURST, // three short thick radial spokes — Berserker Force
     BODY_RINGLET, // balanced ring flanked by two dots — Monk Body Mastery
-    ENERGY_FLOW, // nested double arc — Magician Energy Control
+    ENERGY_FLOW, // nested double arc — Mage Energy Control
     ;
 
     companion object {
@@ -141,7 +141,7 @@ object SigilClassStyleCatalog {
                     assemblyRhythm = 1.0f,
                     proficiencyGlyph = MedallionGlyph.BODY_RINGLET,
                 )
-            StatusClassVariant.MAGICIAN ->
+            StatusClassVariant.MAGE ->
                 SigilClassStyle(
                     lineWeight = 1.5f,
                     useArcs = true,
@@ -241,7 +241,7 @@ enum class CentralStructure {
     LAYERED_POLYGON, // neutral / legacy — rank polygon + star
     FIVE_POINT_STAR, // Berserker — bold, aggressive, outward radial force
     HEXAGRAM, // Monk — interlocking triangles, disciplined symmetry
-    ROSETTE, // Magician — overlapping flowing circles
+    ROSETTE, // Mage — overlapping flowing circles
 }
 
 /** The small static core anchor that holds the eye while the middle drifts. No squares. */
@@ -249,14 +249,14 @@ enum class CoreAnchorShape {
     RING_DOT, // neutral
     SPIKE_STAR_4, // Berserker — sharp four-point spike star (not a diamond)
     HEXAGON, // Monk — regular hexagon
-    CIRCLE, // Magician — circle
+    CIRCLE, // Mage — circle
 }
 
 /**
  * How a class shapes the *central* geometry, core anchor, primary stroke emphasis, and rotation feel.
  * Data-driven so the renderer builds from a catalog entry and never branches on a class id.
  * [rotationFactor] is signed: magnitude sets drift speed (larger = faster), sign sets direction
- * (Magician reverses). Chosen so an ~200s base reads ≈260s Berserker / ≈210s Monk / ≈170s Magician.
+ * (Mage reverses). Chosen so an ~200s base reads ≈260s Berserker / ≈210s Monk / ≈170s Mage.
  */
 data class ClassSigilGeometry(
     val central: CentralStructure,
@@ -277,7 +277,7 @@ object ClassSigilGeometryCatalog {
                 )
             StatusClassVariant.MONK ->
                 ClassSigilGeometry(CentralStructure.HEXAGRAM, CoreAnchorShape.HEXAGON, strokeScale = 1.0f, rotationFactor = 0.95f)
-            StatusClassVariant.MAGICIAN ->
+            StatusClassVariant.MAGE ->
                 ClassSigilGeometry(CentralStructure.ROSETTE, CoreAnchorShape.CIRCLE, strokeScale = 0.85f, rotationFactor = -1.18f)
             StatusClassVariant.NEUTRAL ->
                 ClassSigilGeometry(CentralStructure.LAYERED_POLYGON, CoreAnchorShape.RING_DOT, strokeScale = 1.0f, rotationFactor = 1.0f)

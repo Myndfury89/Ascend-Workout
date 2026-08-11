@@ -69,7 +69,7 @@ class SigilInstrumentationTest {
 
     @Test
     fun `every instrumentation layer registers to the shared centre origin`() {
-        val inst = geometry(StatusClassVariant.MAGICIAN, showProficiency = true).instrumentation
+        val inst = geometry(StatusClassVariant.MAGE, showProficiency = true).instrumentation
         // Medallions sit on the mid-outer medallion ring (~0.7 r), i.e. off-centre but bounded.
         inst.medallions.forEach {
             val dist = kotlin.math.hypot(it.center.x.toDouble(), it.center.y.toDouble())

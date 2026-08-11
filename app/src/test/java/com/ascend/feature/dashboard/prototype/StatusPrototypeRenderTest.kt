@@ -72,7 +72,7 @@ class StatusPrototypeRenderTest {
 
     @Test
     fun `quest completion state reaches its target`() {
-        val data = FakeStatusPrototype.dataFor(StatusPrototypeStateId.QUEST_COMPLETE, StatusClassVariant.MAGICIAN, reducedMotion = false)
+        val data = FakeStatusPrototype.dataFor(StatusPrototypeStateId.QUEST_COMPLETE, StatusClassVariant.MAGE, reducedMotion = false)
         assertEquals(1f, data.questFraction, 1e-6f)
     }
 
@@ -188,7 +188,7 @@ class StatusPrototypeRenderTest {
 
     @Test
     fun `each class renders its distinct central geometry and core anchor`() {
-        val variants = listOf(StatusClassVariant.BERSERKER, StatusClassVariant.MONK, StatusClassVariant.MAGICIAN)
+        val variants = listOf(StatusClassVariant.BERSERKER, StatusClassVariant.MONK, StatusClassVariant.MAGE)
         compose.setContent {
             AscendTheme(darkTheme = true) {
                 androidx.compose.foundation.layout.Column {

@@ -15,7 +15,7 @@ import org.junit.Test
  */
 class ClassSigilGeometryTest {
     private val implemented =
-        listOf(StatusClassVariant.BERSERKER, StatusClassVariant.MONK, StatusClassVariant.MAGICIAN)
+        listOf(StatusClassVariant.BERSERKER, StatusClassVariant.MONK, StatusClassVariant.MAGE)
 
     @Test
     fun `each implemented class has a distinct central structure and core anchor`() {
@@ -31,26 +31,26 @@ class ClassSigilGeometryTest {
         assertEquals(CoreAnchorShape.SPIKE_STAR_4, ClassSigilGeometryCatalog.forVariant(StatusClassVariant.BERSERKER).anchor)
         assertEquals(CentralStructure.HEXAGRAM, ClassSigilGeometryCatalog.forVariant(StatusClassVariant.MONK).central)
         assertEquals(CoreAnchorShape.HEXAGON, ClassSigilGeometryCatalog.forVariant(StatusClassVariant.MONK).anchor)
-        assertEquals(CentralStructure.ROSETTE, ClassSigilGeometryCatalog.forVariant(StatusClassVariant.MAGICIAN).central)
-        assertEquals(CoreAnchorShape.CIRCLE, ClassSigilGeometryCatalog.forVariant(StatusClassVariant.MAGICIAN).anchor)
+        assertEquals(CentralStructure.ROSETTE, ClassSigilGeometryCatalog.forVariant(StatusClassVariant.MAGE).central)
+        assertEquals(CoreAnchorShape.CIRCLE, ClassSigilGeometryCatalog.forVariant(StatusClassVariant.MAGE).anchor)
     }
 
     @Test
     fun `rotation feel differentiates speed and direction`() {
         val b = ClassSigilGeometryCatalog.forVariant(StatusClassVariant.BERSERKER).rotationFactor
         val m = ClassSigilGeometryCatalog.forVariant(StatusClassVariant.MONK).rotationFactor
-        val g = ClassSigilGeometryCatalog.forVariant(StatusClassVariant.MAGICIAN).rotationFactor
-        // Berserker slowest, Monk moderate, Magician fastest — and Magician reverses direction.
+        val g = ClassSigilGeometryCatalog.forVariant(StatusClassVariant.MAGE).rotationFactor
+        // Berserker slowest, Monk moderate, Mage fastest — and Mage reverses direction.
         assertTrue("Berserker drifts slowest", kotlin.math.abs(b) < kotlin.math.abs(m))
-        assertTrue("Magician drifts fastest", kotlin.math.abs(m) < kotlin.math.abs(g))
-        assertTrue("Magician reverses direction", g < 0f)
+        assertTrue("Mage drifts fastest", kotlin.math.abs(m) < kotlin.math.abs(g))
+        assertTrue("Mage reverses direction", g < 0f)
     }
 
     @Test
-    fun `stroke emphasis is heaviest for Berserker and lightest for Magician`() {
+    fun `stroke emphasis is heaviest for Berserker and lightest for Mage`() {
         val b = ClassSigilGeometryCatalog.forVariant(StatusClassVariant.BERSERKER).strokeScale
         val m = ClassSigilGeometryCatalog.forVariant(StatusClassVariant.MONK).strokeScale
-        val g = ClassSigilGeometryCatalog.forVariant(StatusClassVariant.MAGICIAN).strokeScale
+        val g = ClassSigilGeometryCatalog.forVariant(StatusClassVariant.MAGE).strokeScale
         assertTrue(b > m)
         assertTrue(m > g)
     }
@@ -126,9 +126,9 @@ class ClassSigilGeometryTest {
         // With classDistinct off (the production default) the inner geometry is rank-driven only,
         // identical across classes — nothing about the current screen shifts.
         val b = geometry(StatusClassVariant.BERSERKER, classDistinct = false).innerPaths.size
-        val g = geometry(StatusClassVariant.MAGICIAN, classDistinct = false).innerPaths.size
+        val g = geometry(StatusClassVariant.MAGE, classDistinct = false).innerPaths.size
         assertEquals(b, g)
         // And it genuinely differs from the class-distinct build.
-        assertNotEquals(geometry(StatusClassVariant.MAGICIAN, classDistinct = true).innerPaths.size, g)
+        assertNotEquals(geometry(StatusClassVariant.MAGE, classDistinct = true).innerPaths.size, g)
     }
 }

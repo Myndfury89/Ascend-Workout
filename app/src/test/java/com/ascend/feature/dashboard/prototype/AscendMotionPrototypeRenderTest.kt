@@ -81,7 +81,7 @@ class AscendMotionPrototypeRenderTest {
 
     @Test
     fun `each HUD window renders its protocol header and content on the shared panel`() {
-        val accent = StatusSigilVariant.of(StatusClassVariant.MAGICIAN).core
+        val accent = StatusSigilVariant.of(StatusClassVariant.MAGE).core
         compose.setContent {
             AscendTheme(darkTheme = true) {
                 Column(Modifier.verticalScroll(rememberScrollState())) {

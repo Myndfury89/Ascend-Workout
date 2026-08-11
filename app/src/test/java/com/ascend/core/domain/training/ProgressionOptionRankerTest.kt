@@ -48,18 +48,18 @@ class ProgressionOptionRankerTest {
     }
 
     @Test
-    fun `magician ranks cardio progression first when safe`() {
-        val ranked = ranker.rank(listOf(load, reps, cardioDuration), RankingContext(primaryClassId = "magician"))
+    fun `mage ranks cardio progression first when safe`() {
+        val ranked = ranker.rank(listOf(load, reps, cardioDuration), RankingContext(primaryClassId = "mage"))
         assertEquals(ProgressionDimension.CARDIO_DURATION, ranked.primary!!.candidate.dimension)
     }
 
     @Test
     fun `a secondary class has lower influence than the primary`() {
-        // Primary berserker (load), secondary magician (cardio): load still wins.
-        val ranked = ranker.rank(listOf(load, cardioDuration), RankingContext(primaryClassId = "berserker", secondaryClassId = "magician"))
+        // Primary berserker (load), secondary mage (cardio): load still wins.
+        val ranked = ranker.rank(listOf(load, cardioDuration), RankingContext(primaryClassId = "berserker", secondaryClassId = "mage"))
         assertEquals(ProgressionDimension.LOAD, ranked.primary!!.candidate.dimension)
         // Swapping the slots flips the primary — proving primary dominates.
-        val swapped = ranker.rank(listOf(load, cardioDuration), RankingContext(primaryClassId = "magician", secondaryClassId = "berserker"))
+        val swapped = ranker.rank(listOf(load, cardioDuration), RankingContext(primaryClassId = "mage", secondaryClassId = "berserker"))
         assertEquals(ProgressionDimension.CARDIO_DURATION, swapped.primary!!.candidate.dimension)
     }
 

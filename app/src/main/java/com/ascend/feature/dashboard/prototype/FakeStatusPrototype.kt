@@ -12,7 +12,7 @@ object FakeStatusPrototype {
                 listOf(a("Strength", 96), a("Endurance", 54), a("Agility", 48), a("Discipline", 61), a("Recovery", 58))
             StatusClassVariant.MONK ->
                 listOf(a("Strength", 71), a("Endurance", 63), a("Agility", 82), a("Discipline", 94), a("Recovery", 66))
-            StatusClassVariant.MAGICIAN ->
+            StatusClassVariant.MAGE ->
                 listOf(a("Strength", 49), a("Endurance", 97), a("Agility", 60), a("Discipline", 74), a("Recovery", 88))
             StatusClassVariant.NEUTRAL ->
                 listOf(a("Strength", 42), a("Endurance", 40), a("Agility", 38), a("Discipline", 45), a("Recovery", 41))
@@ -31,15 +31,15 @@ object FakeStatusPrototype {
         forceSecondary: Boolean,
         overlay: StatusEventOverlay = StatusEventOverlay(StatusOverlayKind.NONE, "", ""),
     ): StatusPrototypeData {
-        val hasSecondary = forceSecondary || variant == StatusClassVariant.MAGICIAN
+        val hasSecondary = forceSecondary || variant == StatusClassVariant.MAGE
         val secondary =
             if (!hasSecondary) {
                 null
             } else {
                 when (variant) {
-                    StatusClassVariant.MAGICIAN -> StatusClassVariant.MONK
-                    StatusClassVariant.BERSERKER -> StatusClassVariant.MAGICIAN
-                    StatusClassVariant.MONK -> StatusClassVariant.MAGICIAN
+                    StatusClassVariant.MAGE -> StatusClassVariant.MONK
+                    StatusClassVariant.BERSERKER -> StatusClassVariant.MAGE
+                    StatusClassVariant.MONK -> StatusClassVariant.MAGE
                     StatusClassVariant.NEUTRAL -> StatusClassVariant.BERSERKER
                 }
             }
@@ -79,12 +79,12 @@ object FakeStatusPrototype {
         )
     }
 
-    /** The class-appropriate recommendation headline (cardio for Magician, etc.). */
+    /** The class-appropriate recommendation headline (cardio for Mage, etc.). */
     private fun recommendationFor(variant: StatusClassVariant): String =
         when (variant) {
             StatusClassVariant.BERSERKER -> "Increase load to 65 kg (double progression met)"
             StatusClassVariant.MONK -> "Advance to decline push-ups (variation ready)"
-            StatusClassVariant.MAGICIAN -> "Extend Zone-2 to 40 min (pace held, effort easy)"
+            StatusClassVariant.MAGE -> "Extend Zone-2 to 40 min (pace held, effort easy)"
             StatusClassVariant.NEUTRAL -> "Add a working set (three strong sessions logged)"
         }
 
@@ -92,7 +92,7 @@ object FakeStatusPrototype {
         when (variant) {
             StatusClassVariant.BERSERKER -> "Heavy pressing — double progression"
             StatusClassVariant.MONK -> "Push-up variation ladder"
-            StatusClassVariant.MAGICIAN -> "Zone-2 duration builds"
+            StatusClassVariant.MAGE -> "Zone-2 duration builds"
             StatusClassVariant.NEUTRAL -> "Foundational conditioning"
         }
 

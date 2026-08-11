@@ -118,9 +118,9 @@ private fun PreviewBerserkerQuestComplete() = preview(StatusPrototypeStateId.QUE
 @Composable
 private fun PreviewMonkClassLevelUp() = preview(StatusPrototypeStateId.CLASS_LEVEL_UP, StatusClassVariant.MONK)
 
-@Preview(name = "4 · Magician cardio progression", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 980)
+@Preview(name = "4 · Mage cardio progression", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 980)
 @Composable
-private fun PreviewMagicianCardio() = preview(StatusPrototypeStateId.RECOMMENDATION, StatusClassVariant.MAGICIAN)
+private fun PreviewMageCardio() = preview(StatusPrototypeStateId.RECOMMENDATION, StatusClassVariant.MAGE)
 
 @Preview(name = "5 · Player level-up", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940)
 @Composable
@@ -128,7 +128,7 @@ private fun PreviewPlayerLevelUp() = preview(StatusPrototypeStateId.PLAYER_LEVEL
 
 @Preview(name = "6 · Rank promotion", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940)
 @Composable
-private fun PreviewRankPromotion() = preview(StatusPrototypeStateId.RANK_PROMOTION, StatusClassVariant.MAGICIAN)
+private fun PreviewRankPromotion() = preview(StatusPrototypeStateId.RANK_PROMOTION, StatusClassVariant.MAGE)
 
 @Preview(name = "7 · Personal record", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940)
 @Composable
@@ -158,7 +158,7 @@ private fun PreviewNormalPhone() = preview(StatusPrototypeStateId.STANDARD, Stat
 
 @Preview(name = "13 · Large phone", showBackground = true, backgroundColor = 0xFF06080D, widthDp = 520, heightDp = 960)
 @Composable
-private fun PreviewLargePhone() = preview(StatusPrototypeStateId.STANDARD, StatusClassVariant.MAGICIAN)
+private fun PreviewLargePhone() = preview(StatusPrototypeStateId.STANDARD, StatusClassVariant.MAGE)
 
 @Preview(name = "14 · Secondary-class layout", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 960)
 @Composable
@@ -180,7 +180,7 @@ private fun PreviewSigilMidRank() = preview(StatusPrototypeStateId.MID_RANK, Sta
 
 @Preview(name = "Sigil · high rank dense", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940)
 @Composable
-private fun PreviewSigilHighRank() = preview(StatusPrototypeStateId.HIGH_RANK, StatusClassVariant.MAGICIAN)
+private fun PreviewSigilHighRank() = preview(StatusPrototypeStateId.HIGH_RANK, StatusClassVariant.MAGE)
 
 @Preview(name = "Sigil · attribute gain", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940)
 @Composable

@@ -111,20 +111,20 @@ class ClassRewardFlowTest {
         }
 
     @Test
-    fun `magician cardio activity scales endurance and earns favored class xp`() =
+    fun `mage cardio activity scales endurance and earns favored class xp`() =
         runTest {
             db.playerDao().upsertProfile(UserProfileEntity(id = "u_mage", displayName = "Mage", createdAt = 0, updatedAt = 0))
-            classes.setClasses("u_mage", primaryClassId = "magician", secondaryClassId = null)
+            classes.setClasses("u_mage", primaryClassId = "mage", secondaryClassId = null)
 
             val id = workouts.createWorkout(NewWorkoutSpec(userId = "u_mage", title = "Run"))
             workouts.addSet(id, NewSetSpec(exerciseId = "ex-run", volume = 300.0, unit = "metres"))
             val result = workouts.completeWorkout(id) as CompleteWorkoutResult.Completed
 
-            // Running trains Endurance (base 45); Magician Endurance multiplier 1.50 -> 68.
+            // Running trains Endurance (base 45); Mage Endurance multiplier 1.50 -> 68.
             assertEquals(68L, result.attributeDeltas[AttributeType.ENDURANCE])
             val line = result.rewardBreakdown.primaryClass!!
-            assertEquals("magician", line.classId)
-            // Cardio is favored by the Magician -> unique proficiency earned.
+            assertEquals("mage", line.classId)
+            // Cardio is favored by the Mage -> unique proficiency earned.
             assertTrue(line.uniqueProficiencyGain > 0)
             assertEquals(1.0, line.affinity, 1e-9)
         }
@@ -132,7 +132,7 @@ class ClassRewardFlowTest {
     @Test
     fun `secondary class earns its own class xp but does not re-modify attributes`() =
         runTest {
-            classes.setClasses("u_multi", primaryClassId = "monk", secondaryClassId = "magician")
+            classes.setClasses("u_multi", primaryClassId = "monk", secondaryClassId = "mage")
 
             val result = completePushUpWorkout("u_multi")
 
@@ -140,11 +140,11 @@ class ClassRewardFlowTest {
             assertEquals(36L, result.attributeDeltas[AttributeType.STRENGTH])
 
             val secondary = result.rewardBreakdown.secondaryClass!!
-            assertEquals("magician", secondary.classId)
+            assertEquals("mage", secondary.classId)
             assertEquals(0.5, secondary.allocation, 1e-9)
             // Secondary Class XP is awarded and tracked at the reduced allocation.
             assertTrue(secondary.classXp > 0)
-            assertEquals(secondary.classXp, classes.totalClassXp("u_multi", "magician"))
+            assertEquals(secondary.classXp, classes.totalClassXp("u_multi", "mage"))
         }
 
     @Test

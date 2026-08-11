@@ -189,8 +189,8 @@ class OnboardingViewModelTest {
         assertEquals(OnboardingStep.CLASS_AFFINITY, vm.uiState.value.currentStep)
         assertEquals("berserker", vm.uiState.value.affinity?.recommendedClassId)
         assertEquals("berserker", vm.uiState.value.draft.selectedClassId)
-        vm.updateDraft { it.copy(selectedClassId = "magician") }
-        assertEquals("magician", vm.uiState.value.draft.selectedClassId)
+        vm.updateDraft { it.copy(selectedClassId = "mage") }
+        assertEquals("mage", vm.uiState.value.draft.selectedClassId)
     }
 
     @Test

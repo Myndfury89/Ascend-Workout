@@ -64,9 +64,9 @@ class OrnateSigilTest {
     fun `class styles share the structure but differ in emphasis`() {
         val berserker = SigilClassStyleCatalog.styleFor(StatusClassVariant.BERSERKER)
         val monk = SigilClassStyleCatalog.styleFor(StatusClassVariant.MONK)
-        val magician = SigilClassStyleCatalog.styleFor(StatusClassVariant.MAGICIAN)
+        val mage = SigilClassStyleCatalog.styleFor(StatusClassVariant.MAGE)
         assertTrue("berserker heavier than monk", berserker.lineWeight > monk.lineWeight)
-        assertTrue("magician uses arcs", magician.useArcs)
+        assertTrue("mage uses arcs", mage.useArcs)
         assertTrue("berserker stronger radial emphasis", berserker.pointEmphasis > monk.pointEmphasis)
         assertNull("neutral has no proficiency glyph", SigilClassStyleCatalog.styleFor(StatusClassVariant.NEUTRAL).proficiencyGlyph)
         assertEquals(MedallionGlyph.FORCE_BURST, berserker.proficiencyGlyph)
@@ -122,7 +122,7 @@ class OrnateSigilTest {
 
     @Test
     fun `rank-promotion state raises the rank tier`() {
-        val promo = FakeStatusPrototype.dataFor(StatusPrototypeStateId.RANK_PROMOTION, StatusClassVariant.MAGICIAN, reducedMotion = false)
+        val promo = FakeStatusPrototype.dataFor(StatusPrototypeStateId.RANK_PROMOTION, StatusClassVariant.MAGE, reducedMotion = false)
         assertEquals(RankTier.APEX, promo.rankTier)
     }
 

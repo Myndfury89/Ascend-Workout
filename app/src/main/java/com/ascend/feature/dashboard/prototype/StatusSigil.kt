@@ -11,7 +11,7 @@ enum class StatusSigilVariant(val core: Color) {
     NEUTRAL(Color(0xFF8AA0B8)),
     BERSERKER(Color(0xFFE8A33D)),
     MONK(Color(0xFF3FD9C7)),
-    MAGICIAN(Color(0xFF9B8CFF)),
+    MAGE(Color(0xFF9B8CFF)),
     ;
 
     companion object {
@@ -20,7 +20,7 @@ enum class StatusSigilVariant(val core: Color) {
                 StatusClassVariant.NEUTRAL -> NEUTRAL
                 StatusClassVariant.BERSERKER -> BERSERKER
                 StatusClassVariant.MONK -> MONK
-                StatusClassVariant.MAGICIAN -> MAGICIAN
+                StatusClassVariant.MAGE -> MAGE
             }
     }
 }
@@ -28,7 +28,7 @@ enum class StatusSigilVariant(val core: Color) {
 /**
  * The class accent, with the refined-prototype warm treatment. When [warm] is set, **Berserker reads
  * as a controlled red-orange** ([StatusPalette.ember], handoff hue ~25) instead of amber — Monk and
- * Magician are unchanged. [warm] is off by default, so production keeps the current accents.
+ * Mage are unchanged. [warm] is off by default, so production keeps the current accents.
  */
 fun classAccent(
     variant: StatusClassVariant,

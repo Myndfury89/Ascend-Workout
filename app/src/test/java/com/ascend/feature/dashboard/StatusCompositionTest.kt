@@ -60,7 +60,7 @@ class StatusCompositionTest {
     fun `class ids resolve to sigil variants, unknown is neutral`() {
         assertEquals(StatusClassVariant.BERSERKER, StatusComposition.variantOf("berserker"))
         assertEquals(StatusClassVariant.MONK, StatusComposition.variantOf("monk"))
-        assertEquals(StatusClassVariant.MAGICIAN, StatusComposition.variantOf("magician"))
+        assertEquals(StatusClassVariant.MAGE, StatusComposition.variantOf("mage"))
         assertEquals(StatusClassVariant.NEUTRAL, StatusComposition.variantOf(null))
         assertEquals(StatusClassVariant.NEUTRAL, StatusComposition.variantOf("mystery"))
     }
@@ -142,7 +142,7 @@ class StatusCompositionTest {
                 classXpInLevel = 60,
                 classXpForLevel = 120,
                 uniqueProficiency = 33,
-                secondaryVariant = StatusClassVariant.MAGICIAN,
+                secondaryVariant = StatusClassVariant.MAGE,
                 secondaryXpInLevel = 10,
                 secondaryXpForLevel = 100,
             )
@@ -159,7 +159,7 @@ class StatusCompositionTest {
         assertEquals(0.5f, data.classXpFraction, 0.001f)
         assertEquals(33, data.uniqueProficiency)
         assertTrue(data.showProficiencyMedallion)
-        assertEquals(StatusClassVariant.MAGICIAN, data.secondaryVariant)
+        assertEquals(StatusClassVariant.MAGE, data.secondaryVariant)
         assertEquals(0.1f, data.secondaryClassXpFraction!!, 0.001f)
         // Discipline is index 3 in canonical order and is the emphasized medallion.
         assertEquals(3, data.activeMedallionIndex)

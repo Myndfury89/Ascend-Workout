@@ -15,7 +15,7 @@ enum class StatusClassVariant(
     NEUTRAL("Unbound", "The Unawakened", "Potential"),
     BERSERKER("Berserker", "Breaker of Limits", "Force"),
     MONK("Monk", "Master of the Vessel", "Body Mastery"),
-    MAGICIAN("Magician", "Channeler of Vitality", "Energy Control"),
+    MAGE("Mage", "Channeler of Vitality", "Energy Control"),
 }
 
 /** The reviewable prototype states from the spec's debug selector. */

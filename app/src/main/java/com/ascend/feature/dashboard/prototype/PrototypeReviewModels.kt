@@ -106,7 +106,7 @@ enum class PrototypeSkill(
         "Awareness",
         "Surfaces hidden training insight — readiness and cues earlier.",
         "15 min sustained cardio",
-        "Magician",
+        "Mage",
         SkillRevealStyle.SCAN,
     ),
     STRENGTH_BOOST(
@@ -122,7 +122,7 @@ enum class PrototypeSkill(
         "Endurance",
         "Sustains output under load through paced breathing.",
         "20 min sustained effort",
-        "Magician",
+        "Mage",
         SkillRevealStyle.BREATH_CYCLES,
     ),
     BODY_AWARENESS(

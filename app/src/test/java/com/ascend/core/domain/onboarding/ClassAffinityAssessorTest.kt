@@ -58,13 +58,13 @@ class ClassAffinityAssessorTest {
     }
 
     @Test
-    fun `endurance running favors the magician`() {
+    fun `endurance running favors the mage`() {
         val r =
             assessor.assess(
                 assessment(PrimaryGoal.ENDURANCE, setOf(ActivityPreference.RUNNING, ActivityPreference.CYCLING)),
                 definitions,
             )
-        assertEquals("magician", r.recommendedClassId)
+        assertEquals("mage", r.recommendedClassId)
     }
 
     @Test

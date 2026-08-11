@@ -82,10 +82,10 @@ object ClassCatalog {
                 ),
         )
 
-    val MAGICIAN =
+    val MAGE =
         ClassDefinition(
-            id = "magician",
-            name = "Magician",
+            id = "mage",
+            name = "Mage",
             classTitle = "Channeler of Vitality",
             description = "Endurance and energy systems — sustained output, breath, and recovery.",
             fitnessIdentity = "High endurance and cardio efficiency",
@@ -115,7 +115,7 @@ object ClassCatalog {
             neutralClassXpMultiplier = 0.75,
             presentation =
                 ClassPresentation(
-                    statusThemeKey = "magician",
+                    statusThemeKey = "mage",
                     frameVariantKey = "flowing",
                     accentTokenKey = "recovery",
                     proficiencyIconKey = "energy_control",
@@ -124,7 +124,7 @@ object ClassCatalog {
                 ),
         )
 
-    val ALL: List<ClassDefinition> = listOf(BERSERKER, MONK, MAGICIAN)
+    val ALL: List<ClassDefinition> = listOf(BERSERKER, MONK, MAGE)
 
     fun byId(id: String?): ClassDefinition? = ALL.firstOrNull { it.id == id }
 }

@@ -16,9 +16,9 @@ class ClassAccentTest {
     }
 
     @Test
-    fun `Monk and Magician are unchanged even in warm mode`() {
+    fun `Monk and Mage are unchanged even in warm mode`() {
         assertEquals(StatusSigilVariant.MONK.core, classAccent(StatusClassVariant.MONK, warm = true))
-        assertEquals(StatusSigilVariant.MAGICIAN.core, classAccent(StatusClassVariant.MAGICIAN, warm = true))
+        assertEquals(StatusSigilVariant.MAGE.core, classAccent(StatusClassVariant.MAGE, warm = true))
         assertEquals(StatusSigilVariant.NEUTRAL.core, classAccent(StatusClassVariant.NEUTRAL, warm = true))
     }
 }

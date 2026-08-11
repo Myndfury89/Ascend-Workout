@@ -100,7 +100,7 @@ fun StatusScreen(
         )
     val reduced = state.reducedMotion
     val motionSpec = MotionSpec(reducedMotion = reduced)
-    // Adopted refined direction: warm Berserker (handoff hue ~25); Monk/Magician unchanged.
+    // Adopted refined direction: warm Berserker (handoff hue ~25); Monk/Mage unchanged.
     val accent = classAccent(data.variant, warm = true)
 
     val motion = remember { StatusPrototypeMotion(ATTRIBUTE_COUNT) }

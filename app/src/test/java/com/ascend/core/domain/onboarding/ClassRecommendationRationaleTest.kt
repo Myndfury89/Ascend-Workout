@@ -57,11 +57,11 @@ class ClassRecommendationRationaleTest {
     }
 
     @Test
-    fun `magician rationale cites endurance and sustained cardio preferences`() {
+    fun `mage rationale cites endurance and sustained cardio preferences`() {
         val text =
             ClassRecommendationRationale.build(
                 assessment(goal = PrimaryGoal.ENDURANCE, prefs = setOf(ActivityPreference.RUNNING, ActivityPreference.CYCLING)),
-                ClassCatalog.MAGICIAN,
+                ClassCatalog.MAGE,
             )
         assertTrue(text.contains("endurance"))
         assertTrue(text.contains("prefer"))

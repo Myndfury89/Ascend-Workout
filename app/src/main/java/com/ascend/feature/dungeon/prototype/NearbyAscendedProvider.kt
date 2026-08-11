@@ -48,7 +48,7 @@ class FakeNearbyAscendedProvider(
     initialCount: Int = 4,
 ) : NearbyAscendedProvider {
     private val rng = Random(seed)
-    private val classes = listOf("berserker", "monk", "magician", null)
+    private val classes = listOf("berserker", "monk", "mage", null)
     private val _nearby = MutableStateFlow(List(initialCount) { generate(it) })
     override val nearby: StateFlow<List<FakeNearbyPresence>> = _nearby.asStateFlow()
 

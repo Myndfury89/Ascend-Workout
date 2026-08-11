@@ -17,10 +17,10 @@ class AscendedArtTest {
 
     @Test
     fun `the base stage carries no suffix, later stages do`() {
-        val stem = AscendedArt.figureResourceName(AscendedClass.MAGICIAN, BodyBase.FEMALE)
-        assertEquals(stem, AscendedArt.figureResourceName(AscendedClass.MAGICIAN, BodyBase.FEMALE, EvolutionStage.BASE))
-        assertEquals("${stem}_mastered", AscendedArt.figureResourceName(AscendedClass.MAGICIAN, BodyBase.FEMALE, EvolutionStage.MASTERED))
-        assertEquals("${stem}_early", AscendedArt.figureResourceName(AscendedClass.MAGICIAN, BodyBase.FEMALE, EvolutionStage.EARLY_GROWTH))
+        val stem = AscendedArt.figureResourceName(AscendedClass.MAGE, BodyBase.FEMALE)
+        assertEquals(stem, AscendedArt.figureResourceName(AscendedClass.MAGE, BodyBase.FEMALE, EvolutionStage.BASE))
+        assertEquals("${stem}_mastered", AscendedArt.figureResourceName(AscendedClass.MAGE, BodyBase.FEMALE, EvolutionStage.MASTERED))
+        assertEquals("${stem}_early", AscendedArt.figureResourceName(AscendedClass.MAGE, BodyBase.FEMALE, EvolutionStage.EARLY_GROWTH))
     }
 
     @Test

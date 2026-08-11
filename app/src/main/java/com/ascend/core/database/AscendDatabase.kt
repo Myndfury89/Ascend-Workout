@@ -94,7 +94,7 @@ import com.ascend.core.database.entity.XpTransactionEntity
         InitialQuestPlanEntity::class,
         InitialQuestPlanItemEntity::class,
     ],
-    version = 14,
+    version = 15,
     exportSchema = true,
 )
 abstract class AscendDatabase : RoomDatabase() {

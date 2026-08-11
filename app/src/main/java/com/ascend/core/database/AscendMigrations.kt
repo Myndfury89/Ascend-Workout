@@ -820,6 +820,28 @@ object AscendMigrations {
             }
         }
 
+    /**
+     * v14 -> v15: rename the "magician" class to "mage" wherever the class id is persisted. Data-
+     * preserving — any existing selection, history, XP, and proficiency for magician is re-pointed to
+     * mage (not dropped). `defer_foreign_keys` makes the update order irrelevant even if FK
+     * enforcement is on. The class-definition row's other columns are refreshed by the catalog seed.
+     */
+    val MIGRATION_14_15 =
+        object : Migration(14, 15) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("PRAGMA defer_foreign_keys = TRUE")
+                db.execSQL(
+                    "UPDATE `class_definition` SET `id` = 'mage', `statusThemeKey` = 'mage', `name` = 'Mage' " +
+                        "WHERE `id` = 'magician'",
+                )
+                db.execSQL("UPDATE `player_class` SET `primaryClassId` = 'mage' WHERE `primaryClassId` = 'magician'")
+                db.execSQL("UPDATE `player_class` SET `secondaryClassId` = 'mage' WHERE `secondaryClassId` = 'magician'")
+                db.execSQL("UPDATE `class_history` SET `classId` = 'mage' WHERE `classId` = 'magician'")
+                db.execSQL("UPDATE `class_xp_transaction` SET `classId` = 'mage' WHERE `classId` = 'magician'")
+                db.execSQL("UPDATE `class_proficiency_transaction` SET `classId` = 'mage' WHERE `classId` = 'magician'")
+            }
+        }
+
     /** All migrations, wired into the Room builder. */
     val ALL: Array<Migration> =
         arrayOf(
@@ -836,5 +858,6 @@ object AscendMigrations {
             MIGRATION_11_12,
             MIGRATION_12_13,
             MIGRATION_13_14,
+            MIGRATION_14_15,
         )
 }

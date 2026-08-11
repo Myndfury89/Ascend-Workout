@@ -41,12 +41,12 @@ class ClassRecommendationEngineTest {
     }
 
     @Test
-    fun `endurance cardio goals recommend the Magician`() {
+    fun `endurance cardio goals recommend the Mage`() {
         val input =
             ClassRecommendationInput.fromGoals(
                 goalPhrases = listOf("High endurance and cardio efficiency, running"),
                 goalTags = setOf(ActivityTags.STEADY_STATE_CARDIO),
             )
-        assertEquals("magician", engine.recommend(input, defs)!!.recommended.classId)
+        assertEquals("mage", engine.recommend(input, defs)!!.recommended.classId)
     }
 }

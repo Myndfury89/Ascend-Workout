@@ -24,7 +24,7 @@ enum class EvolutionStage(
     MASTERED("Mastered", "mastered"),
 }
 
-/** The seven class directions. Only [production] classes have real catalogs (berserker/monk/magician). */
+/** The seven class directions. Only [production] classes have real catalogs (berserker/monk/mage). */
 enum class AscendedClass(
     val id: String,
     val displayName: String,
@@ -32,7 +32,7 @@ enum class AscendedClass(
 ) {
     BERSERKER("berserker", "Berserker", true),
     MONK("monk", "Monk", true),
-    MAGICIAN("magician", "Magician", true),
+    MAGE("mage", "Mage", true),
     ASSASSIN("assassin", "Assassin", false),
     FIGHTER("fighter", "Fighter", false),
     RANGER("ranger", "Ranger", false),

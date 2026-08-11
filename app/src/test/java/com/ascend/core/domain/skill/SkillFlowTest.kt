@@ -84,12 +84,12 @@ class SkillFlowTest {
     fun `evaluation reflects unlocked state and never blocks on class`() =
         runTest {
             repo.unlock(userId, SkillCatalog.STRENGTH_BOOST, listOf("PR"), "PR", "p1")
-            // A Magician (cardio class) still sees Strength Boost as unlocked/eligible from the PR evidence.
+            // A Mage (cardio class) still sees Strength Boost as unlocked/eligible from the PR evidence.
             val results =
                 repo.evaluate(
                     userId,
                     SkillEvidence(strengthPersonalRecords = 1),
-                    com.ascend.core.domain.classes.ClassCatalog.MAGICIAN,
+                    com.ascend.core.domain.classes.ClassCatalog.MAGE,
                 )
             val strength = results.first { it.skillId == SkillCatalog.STRENGTH_BOOST }
             assertTrue(strength.unlocked)
@@ -100,7 +100,7 @@ class SkillFlowTest {
     fun `a class switch preserves transferable skills`() =
         runTest {
             repo.unlock(userId, SkillCatalog.BODY_AWARENESS, listOf("variation advance"), "AT", "v1")
-            val removed = repo.applyClassSwitch(userId, newClassId = "magician")
+            val removed = repo.applyClassSwitch(userId, newClassId = "mage")
             assertEquals("no transferable skill is removed", 0, removed)
             assertTrue(repo.playerSkill(userId, SkillCatalog.BODY_AWARENESS)!!.unlocked)
         }

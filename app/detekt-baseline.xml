@@ -170,7 +170,7 @@
     <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "14 · Secondary-class layout", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 960) @Composable private fun PreviewSecondaryClass()</ID>
     <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "2 · Berserker quest completion", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewBerserkerQuestComplete()</ID>
     <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "3 · Monk class level-up", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewMonkClassLevelUp()</ID>
-    <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "4 · Magician cardio progression", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 980) @Composable private fun PreviewMagicianCardio()</ID>
+    <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "4 · Mage cardio progression", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 980) @Composable private fun PreviewMageCardio()</ID>
     <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "5 · Player level-up", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewPlayerLevelUp()</ID>
     <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "6 · Rank promotion", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewRankPromotion()</ID>
     <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "7 · Personal record", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewPersonalRecord()</ID>
@@ -276,6 +276,7 @@
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$12</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$13</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$14</ID>
+    <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$15</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$3</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$4</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$5</ID>
@@ -791,7 +792,7 @@
     <ID>MagicNumber:StatusScreen.kt$5200</ID>
     <ID>MagicNumber:StatusScreen.kt$9000</ID>
     <ID>MagicNumber:StatusSigil.kt$StatusSigilVariant.BERSERKER$0xFFE8A33D</ID>
-    <ID>MagicNumber:StatusSigil.kt$StatusSigilVariant.MAGICIAN$0xFF9B8CFF</ID>
+    <ID>MagicNumber:StatusSigil.kt$StatusSigilVariant.MAGE$0xFF9B8CFF</ID>
     <ID>MagicNumber:StatusSigil.kt$StatusSigilVariant.MONK$0xFF3FD9C7</ID>
     <ID>MagicNumber:StatusSigil.kt$StatusSigilVariant.NEUTRAL$0xFF8AA0B8</ID>
     <ID>MagicNumber:TrainingReadinessCalculator.kt$TrainingReadinessCalculator$0.2</ID>
@@ -882,6 +883,7 @@
     <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$db.execSQL("CREATE INDEX IF NOT EXISTS `index_quest_checkpoint_questId` ON `quest_checkpoint` (`questId`)")</ID>
     <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$db.execSQL("DROP INDEX IF EXISTS `index_class_proficiency_transaction_proficiencyKey_transactionType_sourceType_sourceId`")</ID>
     <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$db.execSQL("DROP INDEX IF EXISTS `index_class_xp_transaction_classId_transactionType_sourceType_sourceId`")</ID>
+    <ID>MaxLineLength:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$db.execSQL("UPDATE `player_class` SET `secondaryClassId` = 'mage' WHERE `secondaryClassId` = 'magician'")</ID>
     <ID>MaxLineLength:AscendMotionPrototypeScreen.kt$.</ID>
     <ID>MaxLineLength:AscendMotionPrototypeScreen.kt$SelectRow</ID>
     <ID>MaxLineLength:AscendMotionPrototypeScreen.kt$SelectRow(MotionTier.entries, controller.tier, { it.name.lowercase().replaceFirstChar(Char::uppercase) }) { controller.tier = it }</ID>
@@ -893,8 +895,8 @@
     <ID>MaxLineLength:AscendMotionPrototypeScreen.kt$fun</ID>
     <ID>MaxLineLength:AscendMotionPrototypeScreen.kt$if (controller.showAudioHaptic) Text("♪ cue · ⌁ haptic", color = accent.copy(alpha = 0.8f), fontSize = 11.sp)</ID>
     <ID>MaxLineLength:AscendMotionPrototypeScreen.kt$return "${controller.motionVerb.name} · ${ms}ms · ${controller.tier.name.lowercase()} · ×${controller.motionSpeed.label}"</ID>
-    <ID>MaxLineLength:AscendedArtTest.kt$AscendedArtTest$assertEquals("${stem}_early", AscendedArt.figureResourceName(AscendedClass.MAGICIAN, BodyBase.FEMALE, EvolutionStage.EARLY_GROWTH))</ID>
-    <ID>MaxLineLength:AscendedArtTest.kt$AscendedArtTest$assertEquals("${stem}_mastered", AscendedArt.figureResourceName(AscendedClass.MAGICIAN, BodyBase.FEMALE, EvolutionStage.MASTERED))</ID>
+    <ID>MaxLineLength:AscendedArtTest.kt$AscendedArtTest$assertEquals("${stem}_early", AscendedArt.figureResourceName(AscendedClass.MAGE, BodyBase.FEMALE, EvolutionStage.EARLY_GROWTH))</ID>
+    <ID>MaxLineLength:AscendedArtTest.kt$AscendedArtTest$assertEquals("${stem}_mastered", AscendedArt.figureResourceName(AscendedClass.MAGE, BodyBase.FEMALE, EvolutionStage.MASTERED))</ID>
     <ID>MaxLineLength:AscendedFigure.kt$Text("${ascendedClass.displayName} · ${bodyBase.label}", color = INK, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)</ID>
     <ID>MaxLineLength:AscendedOverlays.kt$drawLine(SENSE_SOFT, Offset(hx + w * 0.07f, hy + w * 0.05f), Offset(hx + w * 0.13f, hy + w * 0.10f), strokeWidth = 2f)</ID>
     <ID>MaxLineLength:AscendedOverlays.kt$drawLine(SENSE_SOFT, Offset(hx - w * 0.13f, hy + w * 0.10f), Offset(hx - w * 0.07f, hy + w * 0.05f), strokeWidth = 2f)</ID>
@@ -956,7 +958,6 @@
     <ID>MaxLineLength:ClassRewardFlowTest.kt$ClassRewardFlowTest$db.playerDao().upsertProfile(UserProfileEntity(id = "u_none", displayName = "None", createdAt = 0, updatedAt = 0))</ID>
     <ID>MaxLineLength:ClassSigilGeometryTest.kt$ClassSigilGeometryTest$assertEquals("class silhouette is rank-invariant", monkLow.middleGroup!!.central.size, monkHigh.middleGroup!!.central.size)</ID>
     <ID>MaxLineLength:ClassSigilGeometryTest.kt$ClassSigilGeometryTest$assertEquals(CentralStructure.FIVE_POINT_STAR, ClassSigilGeometryCatalog.forVariant(StatusClassVariant.BERSERKER).central)</ID>
-    <ID>MaxLineLength:ClassSigilGeometryTest.kt$ClassSigilGeometryTest$assertEquals(CentralStructure.ROSETTE, ClassSigilGeometryCatalog.forVariant(StatusClassVariant.MAGICIAN).central)</ID>
     <ID>MaxLineLength:ClassSigilGeometryTest.kt$ClassSigilGeometryTest$assertEquals(CoreAnchorShape.SPIKE_STAR_4, ClassSigilGeometryCatalog.forVariant(StatusClassVariant.BERSERKER).anchor)</ID>
     <ID>MaxLineLength:ClassSigilGeometryTest.kt$ClassSigilGeometryTest$assertNotNull("class-distinct build has a core anchor", geometry(StatusClassVariant.BERSERKER, classDistinct = true).coreAnchor)</ID>
     <ID>MaxLineLength:ClassSigilGeometryTest.kt$ClassSigilGeometryTest$assertNull("legacy build has no core anchor", geometry(StatusClassVariant.BERSERKER, classDistinct = false).coreAnchor)</ID>
@@ -1158,7 +1159,7 @@
     <ID>MaxLineLength:OrnateSigilTest.kt$OrnateSigilTest$val levelUp = FakeStatusPrototype.dataFor(StatusPrototypeStateId.PLAYER_LEVEL_UP, StatusClassVariant.MONK, reducedMotion = false)</ID>
     <ID>MaxLineLength:OrnateSigilTest.kt$OrnateSigilTest$val minimal = buildOrnateGeometry(SigilGeometryKey(RankTier.MYTHIC, StatusClassVariant.MONK, 5, false, true), 200f)</ID>
     <ID>MaxLineLength:OrnateSigilTest.kt$OrnateSigilTest$val mythic = buildOrnateGeometry(SigilGeometryKey(RankTier.MYTHIC, StatusClassVariant.MONK, 5, false, false), 200f)</ID>
-    <ID>MaxLineLength:OrnateSigilTest.kt$OrnateSigilTest$val promo = FakeStatusPrototype.dataFor(StatusPrototypeStateId.RANK_PROMOTION, StatusClassVariant.MAGICIAN, reducedMotion = false)</ID>
+    <ID>MaxLineLength:OrnateSigilTest.kt$OrnateSigilTest$val promo = FakeStatusPrototype.dataFor(StatusPrototypeStateId.RANK_PROMOTION, StatusClassVariant.MAGE, reducedMotion = false)</ID>
     <ID>MaxLineLength:OrnateSigilTest.kt$OrnateSigilTest$val simplified = buildOrnateGeometry(SigilGeometryKey(RankTier.MYTHIC, StatusClassVariant.MONK, 5, true, false), 200f)</ID>
     <ID>MaxLineLength:OrnateSigilTest.kt$OrnateSigilTest$val six = buildOrnateGeometry(SigilGeometryKey(RankTier.GOLD, StatusClassVariant.BERSERKER, 6, false, false), 200f)</ID>
     <ID>MaxLineLength:OrnateSigilTest.kt$OrnateSigilTest$val standard = FakeStatusPrototype.dataFor(StatusPrototypeStateId.STANDARD, StatusClassVariant.BERSERKER, reducedMotion = false)</ID>
@@ -1199,8 +1200,8 @@
     <ID>MaxLineLength:ProgressionOptionRankerTest.kt$ProgressionOptionRankerTest$candidate(ProgressionRecommendationType.INCREASE_WEIGHT, ProgressionDimension.LOAD, safety = ProgressionSafetyState.BLOCKED)</ID>
     <ID>MaxLineLength:ProgressionOptionRankerTest.kt$ProgressionOptionRankerTest$private val cardioDuration = candidate(ProgressionRecommendationType.INCREASE_DURATION, ProgressionDimension.CARDIO_DURATION)</ID>
     <ID>MaxLineLength:ProgressionOptionRankerTest.kt$ProgressionOptionRankerTest$private val variation = candidate(ProgressionRecommendationType.ADVANCE_VARIATION, ProgressionDimension.VARIATION, FatigueCost.HIGH)</ID>
-    <ID>MaxLineLength:ProgressionOptionRankerTest.kt$ProgressionOptionRankerTest$val ranked = ranker.rank(listOf(load, cardioDuration), RankingContext(primaryClassId = "berserker", secondaryClassId = "magician"))</ID>
-    <ID>MaxLineLength:ProgressionOptionRankerTest.kt$ProgressionOptionRankerTest$val swapped = ranker.rank(listOf(load, cardioDuration), RankingContext(primaryClassId = "magician", secondaryClassId = "berserker"))</ID>
+    <ID>MaxLineLength:ProgressionOptionRankerTest.kt$ProgressionOptionRankerTest$val ranked = ranker.rank(listOf(load, cardioDuration), RankingContext(primaryClassId = "berserker", secondaryClassId = "mage"))</ID>
+    <ID>MaxLineLength:ProgressionOptionRankerTest.kt$ProgressionOptionRankerTest$val swapped = ranker.rank(listOf(load, cardioDuration), RankingContext(primaryClassId = "mage", secondaryClassId = "berserker"))</ID>
     <ID>MaxLineLength:ProgressionRecommendationRepositoryImpl.kt$ProgressionRecommendationRepositoryImpl$override suspend fun getPending(userId: String): List&lt;ProgressionRecommendation&gt;</ID>
     <ID>MaxLineLength:ProgressionRecommendationRepositoryImpl.kt$ProgressionRecommendationRepositoryImpl$val status = if (successful) RecommendationStatus.COMPLETED_SUCCESSFULLY else RecommendationStatus.COMPLETED_UNSUCCESSFULLY</ID>
     <ID>MaxLineLength:ProgressionRepositoryImpl.kt$ProgressionRepositoryImpl$override fun observeStats(userId: String): Flow&lt;PlayerStats?&gt;</ID>
@@ -1305,7 +1306,7 @@
     <ID>MaxLineLength:StatusPrototypePreviews.kt$sigilDescription(data, data.playerXpFraction, if (hasClass) data.classXpFraction else null, data.activeMedallionIndex)</ID>
     <ID>MaxLineLength:StatusPrototypeRenderTest.kt$StatusPrototypeRenderTest$OrnateSigil(ornateState(false), ornateAnim(), "seal", Modifier.size(200.dp), minimal = true, frameMotion = false)</ID>
     <ID>MaxLineLength:StatusPrototypeRenderTest.kt$StatusPrototypeRenderTest$val data = FakeStatusPrototype.dataFor(StatusPrototypeStateId.LOW_RANK, StatusClassVariant.NEUTRAL, reducedMotion = false)</ID>
-    <ID>MaxLineLength:StatusPrototypeRenderTest.kt$StatusPrototypeRenderTest$val data = FakeStatusPrototype.dataFor(StatusPrototypeStateId.QUEST_COMPLETE, StatusClassVariant.MAGICIAN, reducedMotion = false)</ID>
+    <ID>MaxLineLength:StatusPrototypeRenderTest.kt$StatusPrototypeRenderTest$val data = FakeStatusPrototype.dataFor(StatusPrototypeStateId.QUEST_COMPLETE, StatusClassVariant.MAGE, reducedMotion = false)</ID>
     <ID>MaxLineLength:StatusPrototypeRenderTest.kt$StatusPrototypeRenderTest$val data = FakeStatusPrototype.dataFor(StatusPrototypeStateId.QUEST_COMPLETE, StatusClassVariant.MONK, reducedMotion = false)</ID>
     <ID>MaxLineLength:StatusPrototypeRenderTest.kt$StatusPrototypeRenderTest$val data = FakeStatusPrototype.dataFor(StatusPrototypeStateId.RECOMMENDATION, StatusClassVariant.BERSERKER, reducedMotion = false)</ID>
     <ID>MaxLineLength:StatusPrototypeRenderTest.kt$StatusPrototypeRenderTest$val data = FakeStatusPrototype.dataFor(StatusPrototypeStateId.RECOMMENDATION, StatusClassVariant.MONK, reducedMotion = false)</ID>
@@ -1411,7 +1412,7 @@
     <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "14 · Secondary-class layout", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 960) @Composable private fun PreviewSecondaryClass()</ID>
     <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "2 · Berserker quest completion", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewBerserkerQuestComplete()</ID>
     <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "3 · Monk class level-up", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewMonkClassLevelUp()</ID>
-    <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "4 · Magician cardio progression", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 980) @Composable private fun PreviewMagicianCardio()</ID>
+    <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "4 · Mage cardio progression", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 980) @Composable private fun PreviewMageCardio()</ID>
     <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "5 · Player level-up", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewPlayerLevelUp()</ID>
     <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "6 · Rank promotion", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewRankPromotion()</ID>
     <ID>UnusedPrivateMember:StatusPrototypePreviews.kt$@Preview(name = "7 · Personal record", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewPersonalRecord()</ID>

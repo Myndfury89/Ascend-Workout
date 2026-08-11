@@ -46,9 +46,9 @@ object ClassProgressionPreferenceCatalog {
             rewardModifier = 1.0,
         )
 
-    val MAGICIAN =
+    val MAGE =
         ClassProgressionPreference(
-            classId = "magician",
+            classId = "mage",
             favoredDimensions =
                 listOf(
                     ProgressionDimension.CARDIO_DURATION,
@@ -67,7 +67,7 @@ object ClassProgressionPreferenceCatalog {
             rewardModifier = 1.0,
         )
 
-    val ALL: List<ClassProgressionPreference> = listOf(BERSERKER, MONK, MAGICIAN)
+    val ALL: List<ClassProgressionPreference> = listOf(BERSERKER, MONK, MAGE)
 
     fun byId(classId: String?): ClassProgressionPreference? = ALL.firstOrNull { it.classId == classId }
 }

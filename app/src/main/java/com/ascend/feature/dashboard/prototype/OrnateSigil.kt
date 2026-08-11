@@ -84,7 +84,7 @@ private fun DrawScope.drawOrnateSigil(
     val op = state.settledOpacity + (OrnateSigilState.ASSEMBLY_PEAK_OPACITY - state.settledOpacity) * bump
     val a = op * assembly
     val classCat = ClassSigilGeometryCatalog.forVariant(state.variant)
-    // Per-class rotation feel (CP2): signed factor sets speed + direction (Magician reverses).
+    // Per-class rotation feel (CP2): signed factor sets speed + direction (Mage reverses).
     val baseRot0 = if (frameMotion) anim.rotation else 0f
     val baseRot = if (classGeometry) baseRot0 * classCat.rotationFactor else baseRot0
     val w = opacityProfile.weights
@@ -292,7 +292,7 @@ private fun accentBlend(
         warm && variant == StatusClassVariant.BERSERKER -> StatusPalette.ember
         variant == StatusClassVariant.BERSERKER -> StatusPalette.violetBright
         variant == StatusClassVariant.MONK -> StatusPalette.cyanSoft
-        variant == StatusClassVariant.MAGICIAN -> StatusPalette.violet
+        variant == StatusClassVariant.MAGE -> StatusPalette.violet
         else -> StatusPalette.infoLine
     }
 

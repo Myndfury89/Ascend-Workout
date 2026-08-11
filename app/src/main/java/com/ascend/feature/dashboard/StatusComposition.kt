@@ -62,7 +62,7 @@ object StatusComposition {
         when (classId) {
             "berserker" -> StatusClassVariant.BERSERKER
             "monk" -> StatusClassVariant.MONK
-            "magician" -> StatusClassVariant.MAGICIAN
+            "mage" -> StatusClassVariant.MAGE
             else -> StatusClassVariant.NEUTRAL
         }
 

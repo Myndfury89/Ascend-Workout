@@ -46,7 +46,7 @@ class SkillUnlockTest {
 
     @Test
     fun `the unlock menu renders each skill's identity on the shared HUD panel`() {
-        val accent = StatusSigilVariant.of(StatusClassVariant.MAGICIAN).core
+        val accent = StatusSigilVariant.of(StatusClassVariant.MAGE).core
         compose.setContent {
             AscendTheme(darkTheme = true) {
                 Column(Modifier.verticalScroll(rememberScrollState())) {

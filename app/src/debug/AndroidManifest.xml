@@ -50,6 +50,21 @@
         </activity>
 
         <!--
+          Debug-only launcher for the "Your Ascended" dark-field integration prototype — the imported
+          figure composited onto the holographic Status field. No production Status wiring. Debug only.
+        -->
+        <activity
+            android:name="com.ascend.prototype.AscendedStatusFieldPrototypeActivity"
+            android:exported="true"
+            android:label="Ascend Ascended Field"
+            android:theme="@style/Theme.Ascend">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--
           Debug-only launcher for the HP/MP/XP daily-resource HUD prototype. Deterministic fake
           inputs through the real resolvers; read-only, no repositories, no schema. Debug only.
         -->

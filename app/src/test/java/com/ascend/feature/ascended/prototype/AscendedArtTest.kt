@@ -1,8 +1,9 @@
 package com.ascend.feature.ascended.prototype
 
-import com.ascend.feature.ascended.prototype.model.AscendedClass
-import com.ascend.feature.ascended.prototype.model.BodyBase
-import com.ascend.feature.ascended.prototype.model.EvolutionStage
+import com.ascend.feature.ascended.model.AscendedClass
+import com.ascend.feature.ascended.model.BodyBase
+import com.ascend.feature.ascended.model.EvolutionStage
+import com.ascend.feature.ascended.presentation.AscendedArt
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test

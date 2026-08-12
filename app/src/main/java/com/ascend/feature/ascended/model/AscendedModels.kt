@@ -1,4 +1,4 @@
-package com.ascend.feature.ascended.prototype.model
+package com.ascend.feature.ascended.model
 
 /*
  * Fake, in-memory state for the image-driven "Your Ascended" character prototype. The figures are

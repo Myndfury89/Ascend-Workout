@@ -27,4 +27,16 @@ interface PlayerRepository {
         userId: String,
         unit: WeightUnit,
     )
+
+    /**
+     * The cosmetic "Your Ascended" avatar body base as a raw token ("MALE"/"FEMALE"), or null when
+     * the player has not chosen yet. Presentation-only; independent of physiological data.
+     */
+    fun observeAvatarBodyBase(userId: String): Flow<String?>
+
+    /** Persist the cosmetic avatar body base. Never affects any gameplay/progression data. */
+    suspend fun setAvatarBodyBase(
+        userId: String,
+        value: String?,
+    )
 }

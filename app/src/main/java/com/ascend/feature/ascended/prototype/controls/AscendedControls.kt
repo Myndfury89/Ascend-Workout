@@ -19,9 +19,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.ascend.feature.ascended.prototype.model.AscendedClass
-import com.ascend.feature.ascended.prototype.model.BodyBase
-import com.ascend.feature.ascended.prototype.model.EvolutionStage
+import com.ascend.feature.ascended.model.AscendedClass
+import com.ascend.feature.ascended.model.BodyBase
+import com.ascend.feature.ascended.model.EvolutionStage
 
 /**
  * Review controls for the image-driven "Your Ascended" prototype: class, body base, evolution stage,

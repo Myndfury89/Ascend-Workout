@@ -65,4 +65,14 @@ class PlayerRepositoryImpl
             // Persist the display preference only — no stored weight is ever rewritten.
             playerDao.updateWeightUnit(userId, unit.name, System.currentTimeMillis())
         }
+
+        override fun observeAvatarBodyBase(userId: String): Flow<String?> = playerDao.observeAvatarBodyBase(userId)
+
+        override suspend fun setAvatarBodyBase(
+            userId: String,
+            value: String?,
+        ) {
+            // Cosmetic presentation preference only — never touches progression/physiology.
+            playerDao.updateAvatarBodyBase(userId, value, System.currentTimeMillis())
+        }
     }

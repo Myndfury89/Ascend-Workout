@@ -1,9 +1,9 @@
-package com.ascend.feature.ascended.prototype
+package com.ascend.feature.ascended.presentation
 
 import android.content.Context
-import com.ascend.feature.ascended.prototype.model.AscendedClass
-import com.ascend.feature.ascended.prototype.model.BodyBase
-import com.ascend.feature.ascended.prototype.model.EvolutionStage
+import com.ascend.feature.ascended.model.AscendedClass
+import com.ascend.feature.ascended.model.BodyBase
+import com.ascend.feature.ascended.model.EvolutionStage
 
 /*
  * The figure-art naming contract. Class figures are imported grayscale images dropped into

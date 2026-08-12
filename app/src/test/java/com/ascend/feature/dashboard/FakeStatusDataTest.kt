@@ -60,6 +60,13 @@ class FakeStatusDataTest {
                 userId: String,
                 unit: com.ascend.core.common.WeightUnit,
             ) = Unit
+
+            override fun observeAvatarBodyBase(userId: String): Flow<String?> = emptyFlow()
+
+            override suspend fun setAvatarBodyBase(
+                userId: String,
+                value: String?,
+            ) = Unit
         }
 
     @Before

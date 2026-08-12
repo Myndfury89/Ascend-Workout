@@ -12,10 +12,11 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.unit.dp
 import com.ascend.core.designsystem.theme.AscendTheme
+import com.ascend.feature.ascended.model.AscendedClass
+import com.ascend.feature.ascended.model.BodyBase
+import com.ascend.feature.ascended.model.EvolutionStage
+import com.ascend.feature.ascended.presentation.AscendedFigure
 import com.ascend.feature.ascended.prototype.controls.AscendedControls
-import com.ascend.feature.ascended.prototype.model.AscendedClass
-import com.ascend.feature.ascended.prototype.model.BodyBase
-import com.ascend.feature.ascended.prototype.model.EvolutionStage
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test

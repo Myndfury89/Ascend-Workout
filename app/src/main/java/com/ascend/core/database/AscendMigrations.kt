@@ -842,6 +842,18 @@ object AscendMigrations {
             }
         }
 
+    /**
+     * v15 -> v16: add the cosmetic "Your Ascended" avatar body base to user_profile. Nullable with no
+     * default, so existing users migrate with avatarBodyBase = null (prompt on first open) — never
+     * silently assigned. Purely additive; independent of physiologySex.
+     */
+    val MIGRATION_15_16 =
+        object : Migration(15, 16) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE `user_profile` ADD COLUMN `avatarBodyBase` TEXT")
+            }
+        }
+
     /** All migrations, wired into the Room builder. */
     val ALL: Array<Migration> =
         arrayOf(
@@ -859,5 +871,6 @@ object AscendMigrations {
             MIGRATION_12_13,
             MIGRATION_13_14,
             MIGRATION_14_15,
+            MIGRATION_15_16,
         )
 }

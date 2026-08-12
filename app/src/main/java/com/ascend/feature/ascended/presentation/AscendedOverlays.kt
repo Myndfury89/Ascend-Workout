@@ -1,4 +1,4 @@
-package com.ascend.feature.ascended.prototype
+package com.ascend.feature.ascended.presentation
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
@@ -6,7 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
-import com.ascend.feature.ascended.prototype.model.EvolutionStage
+import com.ascend.feature.ascended.model.EvolutionStage
 
 /*
  * Effect layers drawn AROUND the imported figure art — the aura behind and the Skill manifestation

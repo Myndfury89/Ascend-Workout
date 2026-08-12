@@ -6,8 +6,9 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.unit.dp
 import com.ascend.core.designsystem.theme.AscendTheme
-import com.ascend.feature.ascended.prototype.model.AscendedClass
-import com.ascend.feature.ascended.prototype.model.BodyBase
+import com.ascend.feature.ascended.model.AscendedClass
+import com.ascend.feature.ascended.model.BodyBase
+import com.ascend.feature.ascended.presentation.AscendedStatusField
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -35,7 +36,7 @@ class AscendedStatusFieldRenderTest {
                     ascendedClass = AscendedClass.GUARDIAN,
                     bodyBase = BodyBase.MALE,
                     modifier = Modifier.size(300.dp, 480.dp),
-                    ambient = false,
+                    reducedMotion = true,
                 )
             }
         }
@@ -50,7 +51,7 @@ class AscendedStatusFieldRenderTest {
                     ascendedClass = AscendedClass.MONK,
                     bodyBase = BodyBase.FEMALE,
                     modifier = Modifier.size(300.dp, 480.dp),
-                    ambient = false,
+                    reducedMotion = true,
                 )
             }
         }

@@ -31,6 +31,10 @@ data class UserProfileEntity(
     @ColumnInfo(defaultValue = "PRIVATE") val socialVisibility: String = "PRIVATE",
     @ColumnInfo(defaultValue = "0") val partyPresenceEnabled: Boolean = false,
     @ColumnInfo(defaultValue = "0") val strangerDiscoveryEnabled: Boolean = false,
+    // Cosmetic "Your Ascended" avatar body base (schema v16). Nullable = not chosen yet (prompt on
+    // first open). Purely a visual presentation choice — fully independent of physiologySex, never
+    // inferred from it, and never affects any gameplay/progression data.
+    val avatarBodyBase: String? = null,
 )
 
 @Entity(

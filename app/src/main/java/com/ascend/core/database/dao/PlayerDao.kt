@@ -26,6 +26,16 @@ interface PlayerDao {
         updatedAt: Long,
     )
 
+    @Query("SELECT avatarBodyBase FROM user_profile WHERE id = :userId")
+    fun observeAvatarBodyBase(userId: String): Flow<String?>
+
+    @Query("UPDATE user_profile SET avatarBodyBase = :value, updatedAt = :updatedAt WHERE id = :userId")
+    suspend fun updateAvatarBodyBase(
+        userId: String,
+        value: String?,
+        updatedAt: Long,
+    )
+
     @Query("UPDATE user_profile SET heightCm = :heightCm, updatedAt = :updatedAt WHERE id = :userId")
     suspend fun updateHeight(
         userId: String,

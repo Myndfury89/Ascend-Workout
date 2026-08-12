@@ -1,11 +1,5 @@
 package com.ascend.feature.ascended.prototype
 
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -31,10 +25,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ascend.feature.ascended.model.AscendedClass
+import com.ascend.feature.ascended.model.BodyBase
+import com.ascend.feature.ascended.model.EvolutionStage
+import com.ascend.feature.ascended.presentation.AscendedStatusField
 import com.ascend.feature.ascended.prototype.controls.AscendedControls
-import com.ascend.feature.ascended.prototype.model.AscendedClass
-import com.ascend.feature.ascended.prototype.model.BodyBase
-import com.ascend.feature.ascended.prototype.model.EvolutionStage
 import com.ascend.feature.dashboard.prototype.StatusPalette
 
 /**
@@ -50,15 +45,6 @@ fun AscendedStatusFieldScreen(modifier: Modifier = Modifier) {
     var stage by remember { mutableStateOf(EvolutionStage.BASE) }
     var perceptionLevel by remember { mutableStateOf(0) }
     var reducedMotion by remember { mutableStateOf(false) }
-
-    val ambient = !reducedMotion
-    val infinite = rememberInfiniteTransition(label = "field")
-    val sweep by infinite.animateFloat(
-        0f,
-        if (ambient) 1f else 0f,
-        infiniteRepeatable(tween(9_000, easing = LinearEasing), RepeatMode.Reverse),
-        label = "sweep",
-    )
 
     Box(modifier.fillMaxSize().background(StatusPalette.groundDeep)) {
         Column(
@@ -78,8 +64,7 @@ fun AscendedStatusFieldScreen(modifier: Modifier = Modifier) {
                 modifier = Modifier.fillMaxWidth().aspectRatio(0.62f),
                 stage = stage,
                 perceptionLevel = perceptionLevel,
-                ambient = ambient,
-                sweep = sweep,
+                reducedMotion = reducedMotion,
             )
 
             Spacer(Modifier.height(16.dp))

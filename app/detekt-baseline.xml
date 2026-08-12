@@ -39,12 +39,13 @@
     <ID>FunctionNaming:AscendedControls.kt$@Composable private fun ClassRow( classes: List&lt;AscendedClass&gt;, selected: AscendedClass, onSelect: (AscendedClass) -&gt; Unit, )</ID>
     <ID>FunctionNaming:AscendedControls.kt$@Composable private fun Label(text: String)</ID>
     <ID>FunctionNaming:AscendedControls.kt$@Composable private fun Toggle( label: String, selected: Boolean, onClick: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
-    <ID>FunctionNaming:AscendedFigure.kt$@Composable fun AscendedFigure( ascendedClass: AscendedClass, bodyBase: BodyBase, modifier: Modifier = Modifier, stage: EvolutionStage = EvolutionStage.BASE, perceptionLevel: Int = 0, )</ID>
-    <ID>FunctionNaming:AscendedFigure.kt$@Composable private fun FigurePlaceholder( ascendedClass: AscendedClass, bodyBase: BodyBase, classResourceName: String, bodyResourceName: String, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:AscendedFigure.kt$@Composable fun AscendedFigure( ascendedClass: AscendedClass?, bodyBase: BodyBase, modifier: Modifier = Modifier, stage: EvolutionStage = EvolutionStage.BASE, perceptionLevel: Int = 0, )</ID>
+    <ID>FunctionNaming:AscendedFigure.kt$@Composable private fun FigurePlaceholder( label: String, bodyBase: BodyBase, classResourceName: String, bodyResourceName: String, modifier: Modifier = Modifier, )</ID>
     <ID>FunctionNaming:AscendedOverlays.kt$@Composable fun AuraOverlay( stage: EvolutionStage, modifier: Modifier = Modifier, )</ID>
     <ID>FunctionNaming:AscendedOverlays.kt$@Composable fun PerceptionOverlay( level: Int, modifier: Modifier = Modifier, )</ID>
-    <ID>FunctionNaming:AscendedStatusField.kt$@Composable fun AscendedStatusField( ascendedClass: AscendedClass, bodyBase: BodyBase, modifier: Modifier = Modifier, stage: EvolutionStage = EvolutionStage.BASE, perceptionLevel: Int = 0, ambient: Boolean = true, sweep: Float = 0.35f, )</ID>
+    <ID>FunctionNaming:AscendedStatusField.kt$@Composable fun AscendedStatusField( ascendedClass: AscendedClass?, bodyBase: BodyBase, modifier: Modifier = Modifier, stage: EvolutionStage = EvolutionStage.BASE, perceptionLevel: Int = 0, @Suppress("UNUSED_PARAMETER") reducedMotion: Boolean = false, )</ID>
     <ID>FunctionNaming:AscendedStatusField.kt$@Composable fun DarkFieldBacking( accent: Color, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:AscendedStatusField.kt$@Composable private fun ProductionFieldBackground(modifier: Modifier = Modifier)</ID>
     <ID>FunctionNaming:AscendedStatusFieldScreen.kt$@Composable fun AscendedStatusFieldScreen(modifier: Modifier = Modifier)</ID>
     <ID>FunctionNaming:BreakthroughBurst.kt$@Composable fun BreakthroughBurst( accent: Color, pulse: Float, mode: BurstMode, modifier: Modifier = Modifier, )</ID>
     <ID>FunctionNaming:BreakthroughBurst.kt$@Composable private fun ProceduralBurst( accent: Color, pulse: Float, modifier: Modifier, )</ID>
@@ -193,6 +194,10 @@
     <ID>FunctionNaming:YourAscendedPrototypeScreen.kt$@Composable fun YourAscendedPrototypeScreen(modifier: Modifier = Modifier)</ID>
     <ID>FunctionNaming:YourAscendedPrototypeScreen.kt$@Composable private fun ReviewHeader( ascendedClass: AscendedClass, bodyBase: BodyBase, stage: EvolutionStage, )</ID>
     <ID>FunctionNaming:YourAscendedPrototypeScreen.kt$@Composable private fun Stat( label: String, value: String, )</ID>
+    <ID>FunctionNaming:YourAscendedScreen.kt$@Composable fun YourAscendedContent( state: YourAscendedUiState, onChooseBodyBase: (BodyBase) -&gt; Unit, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:YourAscendedScreen.kt$@Composable fun YourAscendedScreen(viewModel: YourAscendedViewModel = hiltViewModel())</ID>
+    <ID>FunctionNaming:YourAscendedScreen.kt$@Composable private fun AscendedContent( state: YourAscendedUiState, onChangeBaseForm: () -&gt; Unit, )</ID>
+    <ID>FunctionNaming:YourAscendedScreen.kt$@Composable private fun BodyBaseChooser(onChoose: (BodyBase) -&gt; Unit)</ID>
     <ID>FunctionOnlyReturningConstant:OrnateSigilModels.kt$SigilRotationProfile$@Suppress("unused") fun progressRotation(rot: Float): Float</ID>
     <ID>LongMethod:ActiveQuestScreen.kt$@OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class) @Composable internal fun ActiveQuestContent( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
     <ID>LongMethod:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$override fun migrate(db: SupportSQLiteDatabase)</ID>
@@ -216,7 +221,7 @@
     <ID>LongParameterList:AdaptiveIntervalRedistributionTest.kt$AdaptiveIntervalRedistributionTest$( dailyTarget: Int = 200, progress: Int = 30, leftover: Int = 20, futures: List&lt;FutureInterval&gt; = listOf(future("a", 50, 10), future("b", 50, 20), future("c", 50, 30)), preference: RedistributionPreference = RedistributionPreference.EVEN, timeRemaining: Long = 1000, quietHours: List&lt;Pair&lt;Long, Long&gt;&gt; = emptyList(), maxSetSize: Int = Int.MAX_VALUE, maxIntervalTarget: Int = Int.MAX_VALUE, fatigue: Int? = null, auto: Boolean = false, safety: ProgressionSafetyState = ProgressionSafetyState.OK, now: Long = 5, )</ID>
     <ID>LongParameterList:AscendMotionPrototypeScreen.kt$( data: StatusPrototypeData, controller: PrototypeReviewController, accent: Color, motion: StatusPrototypeMotion, rotation: Float, reduced: Boolean, motionSpec: MotionSpec, modifier: Modifier = Modifier, )</ID>
     <ID>LongParameterList:AscendedControls.kt$( ascendedClass: AscendedClass, bodyBase: BodyBase, stage: EvolutionStage, perceptionLevel: Int, onClass: (AscendedClass) -&gt; Unit, onBodyBase: (BodyBase) -&gt; Unit, onStage: (EvolutionStage) -&gt; Unit, onPerception: (Int) -&gt; Unit, modifier: Modifier = Modifier, )</ID>
-    <ID>LongParameterList:AscendedStatusField.kt$( ascendedClass: AscendedClass, bodyBase: BodyBase, modifier: Modifier = Modifier, stage: EvolutionStage = EvolutionStage.BASE, perceptionLevel: Int = 0, ambient: Boolean = true, sweep: Float = 0.35f, )</ID>
+    <ID>LongParameterList:AscendedStatusField.kt$( ascendedClass: AscendedClass?, bodyBase: BodyBase, modifier: Modifier = Modifier, stage: EvolutionStage = EvolutionStage.BASE, perceptionLevel: Int = 0, @Suppress("UNUSED_PARAMETER") reducedMotion: Boolean = false, )</ID>
     <ID>LongParameterList:BodyweightProgressionCalculator.kt$BodyweightProgressionCalculator$( private val repCalculator: RepProgressionCalculator, private val setCalculator: SetProgressionCalculator, private val restCalculator: RestProgressionCalculator, private val assistanceCalculator: AssistanceProgressionCalculator, private val externalLoadCalculator: ExternalLoadProgressionCalculator, private val tempoCalculator: TempoProgressionCalculator, private val variationEngine: ExerciseVariationProgressionEngine, )</ID>
     <ID>LongParameterList:ClassAffinityAssessorTest.kt$ClassAffinityAssessorTest$( goal: PrimaryGoal, prefs: Set&lt;ActivityPreference&gt; = emptySet(), experience: Map&lt;ActivityDomain, ExperienceLevel&gt; = emptyMap(), sex: OptionalSex = OptionalSex.NOT_SET, age: AgeSafetyCategory = AgeSafetyCategory.ADULT, limitations: Set&lt;Limitation&gt; = emptySet(), body: BodyMetrics = BodyMetrics(), )</ID>
     <ID>LongParameterList:ClassRecommendationRationaleTest.kt$ClassRecommendationRationaleTest$( goal: PrimaryGoal = PrimaryGoal.STRENGTH, secondary: List&lt;PrimaryGoal&gt; = emptyList(), prefs: Set&lt;ActivityPreference&gt; = emptySet(), env: TrainingEnvironment? = null, sex: OptionalSex = OptionalSex.NOT_SET, age: AgeSafetyCategory = AgeSafetyCategory.ADULT, limitations: Set&lt;Limitation&gt; = emptySet(), body: BodyMetrics = BodyMetrics(), )</ID>
@@ -277,6 +282,7 @@
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$13</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$14</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$15</ID>
+    <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$16</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$3</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$4</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$5</ID>
@@ -366,6 +372,7 @@
     <ID>MagicNumber:AscendedStatusField.kt$0.22f</ID>
     <ID>MagicNumber:AscendedStatusField.kt$0.24f</ID>
     <ID>MagicNumber:AscendedStatusField.kt$0.28f</ID>
+    <ID>MagicNumber:AscendedStatusField.kt$0.34f</ID>
     <ID>MagicNumber:AscendedStatusField.kt$0.38f</ID>
     <ID>MagicNumber:AscendedStatusField.kt$0.40f</ID>
     <ID>MagicNumber:AscendedStatusField.kt$0.42f</ID>
@@ -375,9 +382,12 @@
     <ID>MagicNumber:AscendedStatusField.kt$0.68f</ID>
     <ID>MagicNumber:AscendedStatusField.kt$0.70f</ID>
     <ID>MagicNumber:AscendedStatusField.kt$0.90f</ID>
+    <ID>MagicNumber:AscendedStatusField.kt$0xFF04050B</ID>
+    <ID>MagicNumber:AscendedStatusField.kt$0xFF080A16</ID>
+    <ID>MagicNumber:AscendedStatusField.kt$0xFF0E0B1E</ID>
+    <ID>MagicNumber:AscendedStatusField.kt$0xFFA88BFF</ID>
     <ID>MagicNumber:AscendedStatusField.kt$1.36f</ID>
     <ID>MagicNumber:AscendedStatusFieldScreen.kt$0.62f</ID>
-    <ID>MagicNumber:AscendedStatusFieldScreen.kt$9_000</ID>
     <ID>MagicNumber:AssessmentInputs.kt$SessionDuration.MIN_20_30$30</ID>
     <ID>MagicNumber:AssessmentInputs.kt$SessionDuration.MIN_30_45$45</ID>
     <ID>MagicNumber:AssessmentInputs.kt$SessionDuration.MIN_45_60$60</ID>
@@ -816,6 +826,11 @@
     <ID>MagicNumber:YourAscendedPrototypeScreen.kt$0xFF23262E</ID>
     <ID>MagicNumber:YourAscendedPrototypeScreen.kt$0xFF6A6E78</ID>
     <ID>MagicNumber:YourAscendedPrototypeScreen.kt$0xFFEDEBE6</ID>
+    <ID>MagicNumber:YourAscendedScreen.kt$0.62f</ID>
+    <ID>MagicNumber:YourAscendedScreen.kt$0xFF04050B</ID>
+    <ID>MagicNumber:YourAscendedScreen.kt$0xFF8A93B5</ID>
+    <ID>MagicNumber:YourAscendedScreen.kt$0xFFA88BFF</ID>
+    <ID>MagicNumber:YourAscendedScreen.kt$0xFFEAF0FF</ID>
     <ID>MatchingDeclarationName:Attributes.kt$AttributeType</ID>
     <ID>MatchingDeclarationName:EdgeLitStatusPanel.kt$EdgeLightSegment</ID>
     <ID>MatchingDeclarationName:OnboardingComponents.kt$OnboardingPalette</ID>
@@ -897,7 +912,6 @@
     <ID>MaxLineLength:AscendMotionPrototypeScreen.kt$return "${controller.motionVerb.name} · ${ms}ms · ${controller.tier.name.lowercase()} · ×${controller.motionSpeed.label}"</ID>
     <ID>MaxLineLength:AscendedArtTest.kt$AscendedArtTest$assertEquals("${stem}_early", AscendedArt.figureResourceName(AscendedClass.MAGE, BodyBase.FEMALE, EvolutionStage.EARLY_GROWTH))</ID>
     <ID>MaxLineLength:AscendedArtTest.kt$AscendedArtTest$assertEquals("${stem}_mastered", AscendedArt.figureResourceName(AscendedClass.MAGE, BodyBase.FEMALE, EvolutionStage.MASTERED))</ID>
-    <ID>MaxLineLength:AscendedFigure.kt$Text("${ascendedClass.displayName} · ${bodyBase.label}", color = INK, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)</ID>
     <ID>MaxLineLength:AscendedOverlays.kt$drawLine(SENSE_SOFT, Offset(hx + w * 0.07f, hy + w * 0.05f), Offset(hx + w * 0.13f, hy + w * 0.10f), strokeWidth = 2f)</ID>
     <ID>MaxLineLength:AscendedOverlays.kt$drawLine(SENSE_SOFT, Offset(hx - w * 0.13f, hy + w * 0.10f), Offset(hx - w * 0.07f, hy + w * 0.05f), strokeWidth = 2f)</ID>
     <ID>MaxLineLength:AscendedStatusField.kt$drawOval(accent.copy(alpha = 0.32f), topLeft = Offset(cx - rx, fy - ry), size = Size(rx * 2f, ry * 2f), style = Stroke(width = 2f))</ID>
@@ -1069,6 +1083,7 @@
     <ID>MaxLineLength:IntervalGenerationTest.kt$IntervalGenerationTest$assertEquals(listOf(50, 50, 25), distribution.distribute(125, 0, IntervalDistributionStrategy.PREFERRED_SET_SIZE, 50))</ID>
     <ID>MaxLineLength:IntervalProgressTest.kt$IntervalProgressTest$reminders.shouldRemind(active, now = 50, questComplete = false, notificationsEnabled = true, quietHours = listOf(40L to 60L))</ID>
     <ID>MaxLineLength:LogWorkoutViewModel.kt$LogWorkoutViewModel$private fun ObjectiveType.isRepBased(): Boolean</ID>
+    <ID>MaxLineLength:MageRenameMigrationTest.kt$MageRenameMigrationTest$private fun queryOne(sql: String): String?</ID>
     <ID>MaxLineLength:MpEvidenceResolver.kt$MpEvidenceResolver$val fraction = if (target.targetMinutes &gt; 0) (minutes.toFloat() / target.targetMinutes).coerceAtLeast(0f) else null</ID>
     <ID>MaxLineLength:MpEvidenceResolverTest.kt$MpEvidenceResolverTest$ev(TrainingDurationSource.IMPORTED_ACTIVITY, 40, externalRecordId = "r1", sourceApplication = "com.x")</ID>
     <ID>MaxLineLength:MpEvidenceResolverTest.kt$MpEvidenceResolverTest$listOf(ev(TrainingDurationSource.ASCEND_WORKOUT, 30), ev(TrainingDurationSource.ASCEND_CARDIO, 20, startMin = 200))</ID>
@@ -1343,6 +1358,10 @@
     <ID>MaxLineLength:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$override fun observeWorkout(workoutId: String): Flow&lt;Workout?&gt;</ID>
     <ID>MaxLineLength:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$override suspend fun getWorkout(workoutId: String): Workout?</ID>
     <ID>MaxLineLength:WorkoutsViewModel.kt$WorkoutsViewModel$workoutRepository.observeWorkoutsForUser(uid).map { WorkoutsUiState(isLoading = false, workouts = it) }</ID>
+    <ID>MaxLineLength:YourAscendedArchitectureTest.kt$YourAscendedArchitectureTest$"${file.name} must not reference a progression-mutation path ($needle) — Your Ascended is read-only"</ID>
+    <ID>MaxLineLength:YourAscendedArchitectureTest.kt$YourAscendedArchitectureTest$"${file.name} must not reference prototype code ($needle) — production must not depend on prototype"</ID>
+    <ID>MaxLineLength:YourAscendedContentRenderTest.kt$YourAscendedContentRenderTest$compose.onNodeWithText("This only changes your Ascended's visual form. You can change it later.").assertIsDisplayed()</ID>
+    <ID>MaxLineLength:YourAscendedScreen.kt$Text(state.figureClass?.displayName ?: "Unbound", color = INK, fontSize = 24.sp, fontWeight = FontWeight.SemiBold)</ID>
     <ID>MayBeConst:OnboardingSteps.kt$private val SAFETY_NOTE = "Stop exercising and seek appropriate help if you experience chest pain, faintness, severe " + "shortness of breath, sharp pain, or signs of injury."</ID>
     <ID>ReturnCount:BodyweightProgressionCalculators.kt$AssistanceProgressionCalculator$fun evaluate( prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), ): ProgressionCandidate</ID>
     <ID>ReturnCount:BodyweightProgressionCalculators.kt$ExternalLoadProgressionCalculator$fun evaluate( prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), externalLoadSupported: Boolean = false, ): ProgressionCandidate</ID>

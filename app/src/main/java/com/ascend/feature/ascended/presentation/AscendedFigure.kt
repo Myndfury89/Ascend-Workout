@@ -1,4 +1,4 @@
-package com.ascend.feature.ascended.prototype
+package com.ascend.feature.ascended.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -23,9 +23,9 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.ascend.feature.ascended.prototype.model.AscendedClass
-import com.ascend.feature.ascended.prototype.model.BodyBase
-import com.ascend.feature.ascended.prototype.model.EvolutionStage
+import com.ascend.feature.ascended.model.AscendedClass
+import com.ascend.feature.ascended.model.BodyBase
+import com.ascend.feature.ascended.model.EvolutionStage
 
 private val INK = Color(0xFF23262E)
 private val MUTED = Color(0xFF6A6E78)
@@ -38,33 +38,35 @@ private val MUTED = Color(0xFF6A6E78)
  */
 @Composable
 fun AscendedFigure(
-    ascendedClass: AscendedClass,
+    ascendedClass: AscendedClass?,
     bodyBase: BodyBase,
     modifier: Modifier = Modifier,
     stage: EvolutionStage = EvolutionStage.BASE,
     perceptionLevel: Int = 0,
 ) {
     val context = LocalContext.current
-    val stagedName = AscendedArt.figureResourceName(ascendedClass, bodyBase, stage)
-    val classBaseName = AscendedArt.figureResourceName(ascendedClass, bodyBase)
     val bodyName = AscendedArt.baseBodyResourceName(bodyBase)
-    val stagedId = remember(stagedName) { AscendedArt.resolveDrawable(context, stagedName) }
-    val classBaseId = remember(classBaseName) { AscendedArt.resolveDrawable(context, classBaseName) }
+    // Only a bound class has class-specific art; an unbound player resolves straight to the base body.
+    val stagedName = ascendedClass?.let { AscendedArt.figureResourceName(it, bodyBase, stage) }
+    val classBaseName = ascendedClass?.let { AscendedArt.figureResourceName(it, bodyBase) }
+    val stagedId = remember(stagedName) { stagedName?.let { AscendedArt.resolveDrawable(context, it) } ?: 0 }
+    val classBaseId = remember(classBaseName) { classBaseName?.let { AscendedArt.resolveDrawable(context, it) } ?: 0 }
     val bodyId = remember(bodyName) { AscendedArt.resolveDrawable(context, bodyName) }
     // Resolve most-specific → least: staged class art → class base art → neutral body → placeholder.
     val resolvedId = listOf(stagedId, classBaseId, bodyId).firstOrNull { it != 0 } ?: 0
+    val label = ascendedClass?.displayName ?: "Base"
 
     Box(modifier, contentAlignment = Alignment.Center) {
         AuraOverlay(stage, Modifier.matchParentSize())
         if (resolvedId != 0) {
             Image(
                 painter = painterResource(resolvedId),
-                contentDescription = "${ascendedClass.displayName} ${bodyBase.label} figure",
+                contentDescription = "$label ${bodyBase.label} figure",
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Fit,
             )
         } else {
-            FigurePlaceholder(ascendedClass, bodyBase, classBaseName, bodyName, Modifier.fillMaxSize())
+            FigurePlaceholder(label, bodyBase, classBaseName ?: bodyName, bodyName, Modifier.fillMaxSize())
         }
         PerceptionOverlay(perceptionLevel, Modifier.matchParentSize())
     }
@@ -72,7 +74,7 @@ fun AscendedFigure(
 
 @Composable
 private fun FigurePlaceholder(
-    ascendedClass: AscendedClass,
+    label: String,
     bodyBase: BodyBase,
     classResourceName: String,
     bodyResourceName: String,
@@ -82,11 +84,11 @@ private fun FigurePlaceholder(
         modifier
             .border(1.dp, Color(0x556A6E78), RoundedCornerShape(10.dp))
             .padding(16.dp)
-            .semantics { contentDescription = "${ascendedClass.displayName} ${bodyBase.label} figure placeholder" },
+            .semantics { contentDescription = "$label ${bodyBase.label} figure placeholder" },
         contentAlignment = Alignment.Center,
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text("${ascendedClass.displayName} · ${bodyBase.label}", color = INK, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
+            Text("$label · ${bodyBase.label}", color = INK, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
             Spacer(Modifier.height(10.dp))
             Text("Add figure art:", color = MUTED, fontSize = 12.sp)
             Text("$classResourceName.png", color = INK, fontSize = 13.sp, fontWeight = FontWeight.Medium)

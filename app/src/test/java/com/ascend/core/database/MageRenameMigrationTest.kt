@@ -38,8 +38,7 @@ class MageRenameMigrationTest {
         return FrameworkSQLiteOpenHelperFactory().create(config).writableDatabase
     }
 
-    private fun queryOne(sql: String): String? =
-        db.query(sql).use { c -> if (c.moveToFirst()) c.getString(0) else null }
+    private fun queryOne(sql: String): String? = db.query(sql).use { c -> if (c.moveToFirst()) c.getString(0) else null }
 
     private fun count(sql: String): Int = db.query(sql).use { c -> if (c.moveToFirst()) c.getInt(0) else 0 }
 

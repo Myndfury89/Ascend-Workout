@@ -51,8 +51,8 @@
     <ID>FunctionNaming:AscendedStatusFieldScreen.kt$@Composable fun AscendedStatusFieldScreen(modifier: Modifier = Modifier)</ID>
     <ID>FunctionNaming:BreakthroughBurst.kt$@Composable fun BreakthroughBurst( accent: Color, pulse: Float, mode: BurstMode, modifier: Modifier = Modifier, )</ID>
     <ID>FunctionNaming:BreakthroughBurst.kt$@Composable private fun ProceduralBurst( accent: Color, pulse: Float, modifier: Modifier, )</ID>
-    <ID>FunctionNaming:BuildIdentityScreen.kt$@Composable fun BuildIdentityContent( state: BuildIdentityUiState, modifier: Modifier = Modifier, )</ID>
-    <ID>FunctionNaming:BuildIdentityScreen.kt$@Composable fun BuildIdentityScreen(viewModel: BuildIdentityViewModel = hiltViewModel())</ID>
+    <ID>FunctionNaming:BuildIdentityScreen.kt$@Composable fun BuildIdentityContent( state: BuildIdentityUiState, onBack: () -&gt; Unit = {}, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:BuildIdentityScreen.kt$@Composable fun BuildIdentityScreen( onBack: () -&gt; Unit = {}, viewModel: BuildIdentityViewModel = hiltViewModel(), )</ID>
     <ID>FunctionNaming:BuildIdentityScreen.kt$@Composable private fun Bar( fraction: Float, muted: Boolean, )</ID>
     <ID>FunctionNaming:BuildIdentityScreen.kt$@Composable private fun CharacteristicRow(score: CharacteristicScore)</ID>
     <ID>FunctionNaming:BuildIdentityScreen.kt$@Composable private fun ClassAffinityRow( affinity: ClassAffinity, isDominant: Boolean, )</ID>
@@ -192,7 +192,7 @@
     <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "Sigil · low rank", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewSigilLowRank()</ID>
     <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "Sigil · mid rank", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewSigilMidRank()</ID>
     <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "Sigil · rank promotion", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewSigilRankPromotion()</ID>
-    <ID>FunctionNaming:StatusScreen.kt$@Composable fun StatusScreen( modifier: Modifier = Modifier, viewModel: StatusMotionViewModel = hiltViewModel(), )</ID>
+    <ID>FunctionNaming:StatusScreen.kt$@Composable fun StatusScreen( onViewBuild: () -&gt; Unit = {}, modifier: Modifier = Modifier, viewModel: StatusMotionViewModel = hiltViewModel(), )</ID>
     <ID>FunctionNaming:StatusScreen.kt$@Composable private fun StatusControls( reducedMotion: Boolean, onReplay: () -&gt; Unit, onReducedMotionChange: (Boolean) -&gt; Unit, )</ID>
     <ID>FunctionNaming:StatusScreen.kt$@Composable private fun StatusFramedPanel( data: StatusPrototypeData, motion: StatusPrototypeMotion, accent: Color, rotation: Float, scan: Float, ambient: Boolean, )</ID>
     <ID>FunctionNaming:StatusScreen.kt$@Composable private fun StatusPanelContent( data: StatusPrototypeData, accent: Color, motion: StatusPrototypeMotion, rotation: Float, ambient: Boolean, )</ID>
@@ -223,7 +223,7 @@
     <ID>LongMethod:RevisedStatusPrototypeScreen.kt$@Composable fun RevisedStatusPrototypeScreen( modifier: Modifier = Modifier, controller: PrototypeReviewController = rememberPrototypeReviewController(), )</ID>
     <ID>LongMethod:RevisedStatusPrototypeScreen.kt$@Composable private fun PanelContent( data: StatusPrototypeData, accent: Color, motion: StatusPrototypeMotion, rotation: Float, controller: PrototypeReviewController, frameMotion: Boolean, zone: (String) -&gt; Modifier, )</ID>
     <ID>LongMethod:StatusPrototypeControls.kt$@OptIn(ExperimentalLayoutApi::class) @Composable internal fun StatusPrototypeControls( controller: PrototypeReviewController, modifier: Modifier = Modifier, )</ID>
-    <ID>LongMethod:StatusScreen.kt$@Composable fun StatusScreen( modifier: Modifier = Modifier, viewModel: StatusMotionViewModel = hiltViewModel(), )</ID>
+    <ID>LongMethod:StatusScreen.kt$@Composable fun StatusScreen( onViewBuild: () -&gt; Unit = {}, modifier: Modifier = Modifier, viewModel: StatusMotionViewModel = hiltViewModel(), )</ID>
     <ID>LongMethod:StatusScreen.kt$@Composable private fun StatusPanelContent( data: StatusPrototypeData, accent: Color, motion: StatusPrototypeMotion, rotation: Float, ambient: Boolean, )</ID>
     <ID>LongMethod:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$override suspend fun completeWorkout(workoutId: String): CompleteWorkoutResult</ID>
     <ID>LongParameterList:ActiveQuestScreen.kt$( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
@@ -1016,6 +1016,7 @@
     <ID>MaxLineLength:BuildIdentityContentRenderTest.kt$BuildIdentityContentRenderTest$CharacteristicScore(BuildCharacteristic.STRENGTH, 82.0, EvidenceState.OK, BuildTrend.DEVELOPING, 0.9)</ID>
     <ID>MaxLineLength:BuildIdentityContentRenderTest.kt$BuildIdentityContentRenderTest$ClassAffinity(BuildClass.BERSERKER, affinity = 0.78, coverage = 0.8, confidence = 0.7, dominantEligible = true)</ID>
     <ID>MaxLineLength:BuildIdentityContentRenderTest.kt$BuildIdentityContentRenderTest$ClassAffinity(BuildClass.RANGER, affinity = 0.66, coverage = 0.2, confidence = 0.1, dominantEligible = false)</ID>
+    <ID>MaxLineLength:BuildIdentityContentRenderTest.kt$BuildIdentityContentRenderTest$compose.setContent { AscendTheme(darkTheme = true) { BuildIdentityContent(state(), onBack = { backCalled = true }) } }</ID>
     <ID>MaxLineLength:BuildIdentityScreen.kt$Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 18.dp, vertical = 22.dp)</ID>
     <ID>MaxLineLength:BuildIdentityScreen.kt$Row</ID>
     <ID>MaxLineLength:BuildIdentityScreen.kt$Text("What your recent training resembles", color = INK, fontSize = 20.sp, fontWeight = FontWeight.SemiBold)</ID>

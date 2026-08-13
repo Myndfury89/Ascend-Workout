@@ -77,6 +77,7 @@ private const val ATTRIBUTE_COUNT = 5
  */
 @Composable
 fun StatusScreen(
+    onViewBuild: () -> Unit = {},
     modifier: Modifier = Modifier,
     viewModel: StatusMotionViewModel = hiltViewModel(),
 ) {
@@ -158,6 +159,10 @@ fun StatusScreen(
                 onReplay = viewModel::replayEntrance,
                 onReducedMotionChange = viewModel::setReducedMotion,
             )
+            Spacer(Modifier.height(12.dp))
+            OutlinedButton(onClick = onViewBuild, modifier = Modifier.fillMaxWidth()) {
+                Text("View your build")
+            }
             Spacer(Modifier.height(28.dp))
         }
 

@@ -2,6 +2,7 @@ package com.ascend.feature.build
 
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
 import com.ascend.core.designsystem.theme.AscendTheme
 import com.ascend.core.domain.build.BuildCharacteristic
 import com.ascend.core.domain.build.BuildClass
@@ -9,6 +10,7 @@ import com.ascend.core.domain.build.BuildTrend
 import com.ascend.core.domain.build.CharacteristicScore
 import com.ascend.core.domain.build.ClassAffinity
 import com.ascend.core.domain.build.EvidenceState
+import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -66,5 +68,13 @@ class BuildIdentityContentRenderTest {
     fun `an unavailable characteristic reads as not tracked, never as zero`() {
         compose.setContent { AscendTheme(darkTheme = true) { BuildIdentityContent(state()) } }
         compose.onNodeWithText("Not tracked yet").assertExists()
+    }
+
+    @Test
+    fun `the back affordance invokes onBack`() {
+        var backCalled = false
+        compose.setContent { AscendTheme(darkTheme = true) { BuildIdentityContent(state(), onBack = { backCalled = true }) } }
+        compose.onNodeWithText("‹ Back").performClick()
+        assertTrue(backCalled)
     }
 }

@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,6 +16,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -49,14 +51,18 @@ private val ACCENT = Color(0xFFA88BFF)
 private val TRACK = Color(0xFF1C2033)
 
 @Composable
-fun BuildIdentityScreen(viewModel: BuildIdentityViewModel = hiltViewModel()) {
+fun BuildIdentityScreen(
+    onBack: () -> Unit = {},
+    viewModel: BuildIdentityViewModel = hiltViewModel(),
+) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
-    BuildIdentityContent(state)
+    BuildIdentityContent(state, onBack = onBack)
 }
 
 @Composable
 fun BuildIdentityContent(
     state: BuildIdentityUiState,
+    onBack: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     Box(modifier.fillMaxSize().background(BG), contentAlignment = Alignment.Center) {
@@ -66,6 +72,10 @@ fun BuildIdentityContent(
             Column(
                 Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 18.dp, vertical = 22.dp),
             ) {
+                TextButton(onClick = onBack, contentPadding = PaddingValues(0.dp)) {
+                    Text("‹ Back", color = MUTED, fontSize = 14.sp)
+                }
+                Spacer(Modifier.height(8.dp))
                 Text("BUILD ANALYSIS", color = MUTED, fontSize = 12.sp, letterSpacing = 4.sp)
                 Spacer(Modifier.height(4.dp))
                 Text("What your recent training resembles", color = INK, fontSize = 20.sp, fontWeight = FontWeight.SemiBold)

@@ -35,6 +35,10 @@ data class ActiveQuest(val questId: String)
 @Serializable
 data object LogWorkout
 
+// Read-only Build Analysis (Build Characteristics + Class Affinity), pushed from the Status tab.
+@Serializable
+data object BuildAnalysis
+
 /** The five primary destinations shown in the bottom navigation bar. */
 enum class TopLevelDestination(
     val route: Any,

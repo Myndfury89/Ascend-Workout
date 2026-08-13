@@ -854,6 +854,25 @@ object AscendMigrations {
             }
         }
 
+    /**
+     * v16 -> v17: add the read-only Build snapshot cache (schema v17). Purely additive; the table is
+     * written only by the Build analysis layer and never participates in progression.
+     */
+    val MIGRATION_16_17 =
+        object : Migration(16, 17) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    "CREATE TABLE IF NOT EXISTS `build_profile_snapshot` (" +
+                        "`userId` TEXT NOT NULL, " +
+                        "`computedAt` INTEGER NOT NULL, " +
+                        "`windowDays` INTEGER NOT NULL, " +
+                        "`overallConfidence` REAL NOT NULL, " +
+                        "`payloadJson` TEXT NOT NULL, " +
+                        "PRIMARY KEY(`userId`))",
+                )
+            }
+        }
+
     /** All migrations, wired into the Room builder. */
     val ALL: Array<Migration> =
         arrayOf(
@@ -872,5 +891,6 @@ object AscendMigrations {
             MIGRATION_13_14,
             MIGRATION_14_15,
             MIGRATION_15_16,
+            MIGRATION_16_17,
         )
 }

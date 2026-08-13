@@ -40,6 +40,8 @@ data class BuildTuning(
     /** Distinct lookback days at which confidence saturates to 1.0. */
     val confidenceFullDays: Double = 6.0,
     val insufficientConfidenceCap: Double = 0.3,
+    /** Minimum class Coverage to be eligible as a dominant/strongest affinity (confirmed against modeled density; parameterized for telemetry). */
+    val dominantCoverageGate: Double = 0.5,
     /** Fractional score change (of 100) beyond which a trend is DEVELOPING / DE_EMPHASIZED rather than MAINTAINING. */
     val trendMarginPoints: Double = 8.0,
     /** Reference speed (m/s) per modality at which Speed emphasis for that modality reads as ~1.0. */

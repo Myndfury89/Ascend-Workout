@@ -283,6 +283,7 @@
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$14</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$15</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$16</ID>
+    <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$17</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$3</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$4</ID>
     <ID>MagicNumber:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$5</ID>
@@ -957,6 +958,11 @@
     <ID>MaxLineLength:BodyweightProgressionCalculatorsTest.kt$BodyweightProgressionCalculatorsTest$targetSets = 3</ID>
     <ID>MaxLineLength:BodyweightProgressionCalculatorsTest.kt$BodyweightProgressionCalculatorsTest$val c = rest.evaluate(pushUp, listOf(session(listOf(10, 10, 10), 0), session(listOf(10, 10, 10), 1)), isHeavyStrength = true)</ID>
     <ID>MaxLineLength:BodyweightProgressionCalculatorsTest.kt$BodyweightProgressionCalculatorsTest$val strong = listOf(session(listOf(12, 12, 12), 0), session(listOf(12, 12, 12), 1), session(listOf(12, 12, 12), 2))</ID>
+    <ID>MaxLineLength:BuildAffinityCalculator.kt$ClassAffinity$/** How confidently this resemblance is asserted — a function of coverage and per-characteristic confidence (0..1). */</ID>
+    <ID>MaxLineLength:BuildAffinityCalculator.kt$ClassAffinity$/** Resemblance among the characteristics that have evidence, renormalized so missing data can't deflate it (0..1). */</ID>
+    <ID>MaxLineLength:BuildAffinityCalculator.kt$ClassAffinity$/** True only when the class may be presented as a dominant/strongest affinity (coverage gate + defining characteristic OK). */</ID>
+    <ID>MaxLineLength:BuildAffinityCalculatorTest.kt$BuildAffinityCalculatorTest$private fun BuildAffinityResult.of(buildClass: BuildClass): ClassAffinity</ID>
+    <ID>MaxLineLength:BuildArchitectureTest.kt$BuildArchitectureTest$addAll(File("src/main/java/com/ascend/core/domain/build").walk().filter { it.isFile &amp;&amp; it.extension == "kt" })</ID>
     <ID>MaxLineLength:BuildCharacteristicEngine.kt$BuildCharacteristicEngine$.</ID>
     <ID>MaxLineLength:BuildCharacteristicEngine.kt$BuildCharacteristicEngine$BuildCharacteristic.DISTANCE to resolveDistance(evidence, now, tuning, activeEnough, activityConfidence)</ID>
     <ID>MaxLineLength:BuildCharacteristicEngine.kt$BuildCharacteristicEngine$BuildCharacteristic.ENDURANCE to resolveEndurance(evidence, now, tuning, activeEnough, activityConfidence)</ID>
@@ -974,9 +980,13 @@
     <ID>MaxLineLength:BuildCharacteristicEngineTest.kt$BuildCharacteristicEngineTest$recovery = (1..3).map { RecoverySignal(daysAgo(it), RecoveryKind.READINESS_SNAPSHOT, readinessScore = 72.0) }</ID>
     <ID>MaxLineLength:BuildCharacteristicEngineTest.kt$BuildCharacteristicEngineTest$withLookback[BuildCharacteristic.DISTANCE]!!.confidence &gt; withoutLookback[BuildCharacteristic.DISTANCE]!!.confidence</ID>
     <ID>MaxLineLength:BuildCharacteristics.kt$EvidenceState.ZERO$/** The source is available and qualifying evidence is genuinely nil, for a user active enough that the absence is meaningful. Enters affinity as 0. */</ID>
+    <ID>MaxLineLength:BuildProfileRepositoryImpl.kt$BuildProfileRepositoryImpl$CharacteristicDto(it.characteristic.name, it.score, it.state.name, it.trend.name, it.confidence)</ID>
+    <ID>MaxLineLength:BuildProfileRepositoryImpl.kt$BuildProfileRepositoryImpl$ClassAffinityDto(it.buildClass.id, it.affinity, it.coverage, it.confidence, it.dominantEligible)</ID>
+    <ID>MaxLineLength:BuildProfileRepositoryRoundTripTest.kt$BuildProfileRepositoryRoundTripTest$return BuildProfileSnapshot(computedAt = 12_345L, profile = profile, affinities = BuildAffinityCalculator().calculate(profile))</ID>
     <ID>MaxLineLength:BuildTuning.kt$BuildTuning$/** A family session must reach this many endurance-weighted minutes to qualify as an Endurance session (60 min of lifting at 0.2x = 12, deliberately below this). */</ID>
     <ID>MaxLineLength:BuildTuning.kt$BuildTuning$/** At/above this many distinct active days in the current window, an absent signal counts as a confident ZERO (not INSUFFICIENT). */</ID>
     <ID>MaxLineLength:BuildTuning.kt$BuildTuning$/** How strongly each family contributes to Endurance (steady cardio ~1.0; lifting down-weighted so it never qualifies alone). */</ID>
+    <ID>MaxLineLength:BuildTuning.kt$BuildTuning$/** Minimum class Coverage to be eligible as a dominant/strongest affinity (confirmed against modeled density; parameterized for telemetry). */</ID>
     <ID>MaxLineLength:CardioProgressionCalculators.kt$CardioProgressionCalculator$p.copy(id = newId(), resistance = (p.resistance ?: 0.0) + config.resistanceIncrement, status = "PROPOSED")</ID>
     <ID>MaxLineLength:CardioProgressionCalculators.kt$IntervalProgressionCalculator$if (!cardioConsistent(recent, config)) return listOf(maintain("Repeat the current intervals before progressing"))</ID>
     <ID>MaxLineLength:CardioProgressionCalculators.kt$return window.all { it.completed &amp;&amp; (it.perceivedEffort == null || it.perceivedEffort &lt;= config.maxPerceivedEffortForProgression) }</ID>
@@ -988,6 +998,7 @@
     <ID>MaxLineLength:ClassAffinityAssessorTest.kt$ClassAffinityAssessorTest$val none = assessor.assess(assessment(PrimaryGoal.STRENGTH, setOf(ActivityPreference.WEIGHTLIFTING)), definitions)</ID>
     <ID>MaxLineLength:ClassAffinityAssessorTest.kt$ClassAffinityAssessorTest$val v = assessor.assess(assessment(PrimaryGoal.ENDURANCE, setOf(ActivityPreference.RUNNING), sex = sex), definitions)</ID>
     <ID>MaxLineLength:ClassAttributeScaler.kt$ClassAttributeScaler$)</ID>
+    <ID>MaxLineLength:ClassBuildSignatures.kt$ClassBuildSignature$/** The single highest-weighted characteristic — the class's defining axis (deterministic on ties by insertion order). */</ID>
     <ID>MaxLineLength:ClassCatalog.kt$ClassCatalog$favoredTags = setOf(ActivityTags.BODYWEIGHT, ActivityTags.MUSCULAR_ENDURANCE, ActivityTags.MOBILITY, ActivityTags.BALANCE)</ID>
     <ID>MaxLineLength:ClassCatalog.kt$ClassCatalog$favoredWorkoutCategories = listOf("Calisthenics", "Bodyweight strength", "Mobility", "Balance", "Core control")</ID>
     <ID>MaxLineLength:ClassDao.kt$ClassDao$@Query("SELECT COALESCE(SUM(amount), 0) FROM class_proficiency_transaction WHERE userId = :userId AND proficiencyKey = :key")</ID>

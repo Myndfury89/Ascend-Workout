@@ -4,6 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.ascend.core.database.dao.AdaptiveTrainingDao
 import com.ascend.core.database.dao.AttributeDao
+import com.ascend.core.database.dao.BuildProfileDao
 import com.ascend.core.database.dao.ClassDao
 import com.ascend.core.database.dao.ExerciseDao
 import com.ascend.core.database.dao.ExerciseVariationDao
@@ -17,6 +18,7 @@ import com.ascend.core.database.dao.SkillDao
 import com.ascend.core.database.dao.WorkoutDao
 import com.ascend.core.database.dao.XpDao
 import com.ascend.core.database.entity.AttributeTransactionEntity
+import com.ascend.core.database.entity.BuildProfileSnapshotEntity
 import com.ascend.core.database.entity.CardioPrescriptionEntity
 import com.ascend.core.database.entity.ClassAffinityResultEntity
 import com.ascend.core.database.entity.ClassDefinitionEntity
@@ -93,8 +95,9 @@ import com.ascend.core.database.entity.XpTransactionEntity
         ClassAffinityResultEntity::class,
         InitialQuestPlanEntity::class,
         InitialQuestPlanItemEntity::class,
+        BuildProfileSnapshotEntity::class,
     ],
-    version = 16,
+    version = 17,
     exportSchema = true,
 )
 abstract class AscendDatabase : RoomDatabase() {
@@ -125,6 +128,8 @@ abstract class AscendDatabase : RoomDatabase() {
     abstract fun skillDao(): SkillDao
 
     abstract fun onboardingDao(): OnboardingDao
+
+    abstract fun buildProfileDao(): BuildProfileDao
 
     companion object {
         const val NAME = "ascend.db"

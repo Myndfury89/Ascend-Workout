@@ -13,3 +13,11 @@ local.properties
 *.keystore
 !debug.keystore
 .kotlin/
+
+# --- BaaS / backend credentials (added ahead of Community P1 / Supabase) ---
+# Whichever backend is chosen, its credentials must never be committable by accident.
+secrets.properties
+.env
+*.env
+google-services.json
+*.jks

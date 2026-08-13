@@ -415,6 +415,25 @@
     <ID>MagicNumber:BreakthroughBurst.kt$0.94f</ID>
     <ID>MagicNumber:BreakthroughBurst.kt$12</ID>
     <ID>MagicNumber:BreakthroughBurst.kt$2f</ID>
+    <ID>MagicNumber:BuildTuning.kt$BuildTuning$0.1</ID>
+    <ID>MagicNumber:BuildTuning.kt$BuildTuning$0.2</ID>
+    <ID>MagicNumber:BuildTuning.kt$BuildTuning$0.3</ID>
+    <ID>MagicNumber:BuildTuning.kt$BuildTuning$0.5</ID>
+    <ID>MagicNumber:BuildTuning.kt$BuildTuning$0.6</ID>
+    <ID>MagicNumber:BuildTuning.kt$BuildTuning$0.7</ID>
+    <ID>MagicNumber:BuildTuning.kt$BuildTuning$0.8</ID>
+    <ID>MagicNumber:BuildTuning.kt$BuildTuning$0.9</ID>
+    <ID>MagicNumber:BuildTuning.kt$BuildTuning$1.2</ID>
+    <ID>MagicNumber:BuildTuning.kt$BuildTuning$1.6</ID>
+    <ID>MagicNumber:BuildTuning.kt$BuildTuning$15_000.0</ID>
+    <ID>MagicNumber:BuildTuning.kt$BuildTuning$1_500.0</ID>
+    <ID>MagicNumber:BuildTuning.kt$BuildTuning$3.0</ID>
+    <ID>MagicNumber:BuildTuning.kt$BuildTuning$3.3</ID>
+    <ID>MagicNumber:BuildTuning.kt$BuildTuning$3.8</ID>
+    <ID>MagicNumber:BuildTuning.kt$BuildTuning$4_000.0</ID>
+    <ID>MagicNumber:BuildTuning.kt$BuildTuning$5_000.0</ID>
+    <ID>MagicNumber:BuildTuning.kt$BuildTuning$6_000.0</ID>
+    <ID>MagicNumber:BuildTuning.kt$BuildTuning$8.3</ID>
     <ID>MagicNumber:ClassCatalog.kt$ClassCatalog$0.70</ID>
     <ID>MagicNumber:ClassCatalog.kt$ClassCatalog$0.75</ID>
     <ID>MagicNumber:ClassCatalog.kt$ClassCatalog$1.10</ID>
@@ -938,6 +957,26 @@
     <ID>MaxLineLength:BodyweightProgressionCalculatorsTest.kt$BodyweightProgressionCalculatorsTest$targetSets = 3</ID>
     <ID>MaxLineLength:BodyweightProgressionCalculatorsTest.kt$BodyweightProgressionCalculatorsTest$val c = rest.evaluate(pushUp, listOf(session(listOf(10, 10, 10), 0), session(listOf(10, 10, 10), 1)), isHeavyStrength = true)</ID>
     <ID>MaxLineLength:BodyweightProgressionCalculatorsTest.kt$BodyweightProgressionCalculatorsTest$val strong = listOf(session(listOf(12, 12, 12), 0), session(listOf(12, 12, 12), 1), session(listOf(12, 12, 12), 2))</ID>
+    <ID>MaxLineLength:BuildCharacteristicEngine.kt$BuildCharacteristicEngine$.</ID>
+    <ID>MaxLineLength:BuildCharacteristicEngine.kt$BuildCharacteristicEngine$BuildCharacteristic.DISTANCE to resolveDistance(evidence, now, tuning, activeEnough, activityConfidence)</ID>
+    <ID>MaxLineLength:BuildCharacteristicEngine.kt$BuildCharacteristicEngine$BuildCharacteristic.ENDURANCE to resolveEndurance(evidence, now, tuning, activeEnough, activityConfidence)</ID>
+    <ID>MaxLineLength:BuildCharacteristicEngine.kt$BuildCharacteristicEngine$BuildCharacteristic.STRENGTH to resolveStrength(evidence, now, tuning, activeEnough, activityConfidence)</ID>
+    <ID>MaxLineLength:BuildCharacteristicEngine.kt$BuildCharacteristicEngine$BuildCharacteristic.VERSATILITY to resolveVersatility(evidence, now, tuning, activeEnough, activityConfidence)</ID>
+    <ID>MaxLineLength:BuildCharacteristicEngine.kt$BuildCharacteristicEngine$EvidenceState.INSUFFICIENT -&gt; min(tuning.insufficientConfidenceCap, lookbackDays / tuning.confidenceFullDays)</ID>
+    <ID>MaxLineLength:BuildCharacteristicEngine.kt$BuildCharacteristicEngine$confidence = if (state == EvidenceState.INSUFFICIENT) min(tuning.insufficientConfidenceCap, confidence) else confidence</ID>
+    <ID>MaxLineLength:BuildCharacteristicEngine.kt$BuildCharacteristicEngine$distinctDays(evidence.sessions.currentWindow(now, tuning)) { it.at } &gt;= tuning.confidentAbsenceMinActiveDays</ID>
+    <ID>MaxLineLength:BuildCharacteristicEngine.kt$BuildCharacteristicEngine$private</ID>
+    <ID>MaxLineLength:BuildCharacteristicEngine.kt$BuildCharacteristicEngine$return BuildProfile(scores = scores, overallConfidence = activityConfidence, windowDays = tuning.currentWindowDays)</ID>
+    <ID>MaxLineLength:BuildCharacteristicEngine.kt$BuildCharacteristicEngine$val prBonus = min(cur.count { it.isPersonalRecord } * tuning.personalRecordBonusPerPr, tuning.personalRecordBonusCap)</ID>
+    <ID>MaxLineLength:BuildCharacteristicEngineTest.kt$BuildCharacteristicEngineTest$BuildEvidence(sessions = (1..2).map { SessionEvidence(daysAgo(it), 40 * 60) }, distances = current + older)</ID>
+    <ID>MaxLineLength:BuildCharacteristicEngineTest.kt$BuildCharacteristicEngineTest$assertTrue("two non-baseline families -&gt; versatility above one-family level", p[BuildCharacteristic.VERSATILITY]!!.score &gt; 50.0)</ID>
+    <ID>MaxLineLength:BuildCharacteristicEngineTest.kt$BuildCharacteristicEngineTest$distances = listOf(daysAgo(2), daysAgo(5)).map { DistanceEvidence(it, 5_000.0, ActivityModality.RUN) }</ID>
+    <ID>MaxLineLength:BuildCharacteristicEngineTest.kt$BuildCharacteristicEngineTest$recovery = (1..3).map { RecoverySignal(daysAgo(it), RecoveryKind.READINESS_SNAPSHOT, readinessScore = 72.0) }</ID>
+    <ID>MaxLineLength:BuildCharacteristicEngineTest.kt$BuildCharacteristicEngineTest$withLookback[BuildCharacteristic.DISTANCE]!!.confidence &gt; withoutLookback[BuildCharacteristic.DISTANCE]!!.confidence</ID>
+    <ID>MaxLineLength:BuildCharacteristics.kt$EvidenceState.ZERO$/** The source is available and qualifying evidence is genuinely nil, for a user active enough that the absence is meaningful. Enters affinity as 0. */</ID>
+    <ID>MaxLineLength:BuildTuning.kt$BuildTuning$/** A family session must reach this many endurance-weighted minutes to qualify as an Endurance session (60 min of lifting at 0.2x = 12, deliberately below this). */</ID>
+    <ID>MaxLineLength:BuildTuning.kt$BuildTuning$/** At/above this many distinct active days in the current window, an absent signal counts as a confident ZERO (not INSUFFICIENT). */</ID>
+    <ID>MaxLineLength:BuildTuning.kt$BuildTuning$/** How strongly each family contributes to Endurance (steady cardio ~1.0; lifting down-weighted so it never qualifies alone). */</ID>
     <ID>MaxLineLength:CardioProgressionCalculators.kt$CardioProgressionCalculator$p.copy(id = newId(), resistance = (p.resistance ?: 0.0) + config.resistanceIncrement, status = "PROPOSED")</ID>
     <ID>MaxLineLength:CardioProgressionCalculators.kt$IntervalProgressionCalculator$if (!cardioConsistent(recent, config)) return listOf(maintain("Repeat the current intervals before progressing"))</ID>
     <ID>MaxLineLength:CardioProgressionCalculators.kt$return window.all { it.completed &amp;&amp; (it.perceivedEffort == null || it.perceivedEffort &lt;= config.maxPerceivedEffortForProgression) }</ID>
@@ -1396,6 +1435,7 @@
     <ID>TooManyFunctions:AdaptiveTrainingMappers.kt$com.ascend.core.data.mapper.AdaptiveTrainingMappers.kt</ID>
     <ID>TooManyFunctions:AscendDatabase.kt$AscendDatabase : RoomDatabase</ID>
     <ID>TooManyFunctions:AscendMotionPrototypeScreen.kt$com.ascend.feature.dashboard.prototype.AscendMotionPrototypeScreen.kt</ID>
+    <ID>TooManyFunctions:BuildCharacteristicEngine.kt$BuildCharacteristicEngine</ID>
     <ID>TooManyFunctions:CardioProgressionCalculators.kt$CardioProgressionCalculator</ID>
     <ID>TooManyFunctions:ClassDao.kt$ClassDao</ID>
     <ID>TooManyFunctions:ClassRepository.kt$ClassRepository</ID>

@@ -2,6 +2,7 @@
 <SmellBaseline>
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
   <CurrentIssues>
+    <ID>ComplexCondition:AscendBuildEvidenceProvider.kt$AscendBuildEvidenceProvider$isStrength(swe.exercise) &amp;&amp; weight != null &amp;&amp; weight &gt; 0.0 &amp;&amp; reps != null &amp;&amp; reps &gt; 0</ID>
     <ID>ComplexCondition:BodyweightProgressionCalculators.kt$TempoProgressionCalculator$!hasVariationControl || !s.allAtLeastMin || s.anyFailure || !s.effortAcceptable</ID>
     <ID>ComplexCondition:MpEvidenceResolver.kt$MpEvidenceResolver$a.externalRecordId != null &amp;&amp; a.sourceApplication != null &amp;&amp; a.externalRecordId == b.externalRecordId &amp;&amp; a.sourceApplication == b.sourceApplication</ID>
     <ID>CyclomaticComplexMethod:ActiveQuestScreen.kt$@OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class) @Composable internal fun ActiveQuestContent( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
@@ -228,7 +229,7 @@
     <ID>LongParameterList:ActiveQuestScreen.kt$( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
     <ID>LongParameterList:AdaptiveIntervalRedistributionTest.kt$AdaptiveIntervalRedistributionTest$( dailyTarget: Int = 200, progress: Int = 30, leftover: Int = 20, futures: List&lt;FutureInterval&gt; = listOf(future("a", 50, 10), future("b", 50, 20), future("c", 50, 30)), preference: RedistributionPreference = RedistributionPreference.EVEN, timeRemaining: Long = 1000, quietHours: List&lt;Pair&lt;Long, Long&gt;&gt; = emptyList(), maxSetSize: Int = Int.MAX_VALUE, maxIntervalTarget: Int = Int.MAX_VALUE, fatigue: Int? = null, auto: Boolean = false, safety: ProgressionSafetyState = ProgressionSafetyState.OK, now: Long = 5, )</ID>
     <ID>LongParameterList:AscendBuildEvidenceProviderTest.kt$AscendBuildEvidenceProviderTest$( id: String, category: String, primaryAttribute: String, measurementType: String, weighted: Boolean, tags: String, )</ID>
-    <ID>LongParameterList:AscendBuildEvidenceProviderTest.kt$AscendBuildEvidenceProviderTest$( id: String, workoutId: String, exerciseId: String, weight: Double?, distance: Double?, durationSeconds: Long?, volume: Double, )</ID>
+    <ID>LongParameterList:AscendBuildEvidenceProviderTest.kt$AscendBuildEvidenceProviderTest$( id: String, workoutId: String, exerciseId: String, weight: Double?, distance: Double?, durationSeconds: Long?, volume: Double, reps: Int? = null, )</ID>
     <ID>LongParameterList:AscendMotionPrototypeScreen.kt$( data: StatusPrototypeData, controller: PrototypeReviewController, accent: Color, motion: StatusPrototypeMotion, rotation: Float, reduced: Boolean, motionSpec: MotionSpec, modifier: Modifier = Modifier, )</ID>
     <ID>LongParameterList:AscendedControls.kt$( ascendedClass: AscendedClass, bodyBase: BodyBase, stage: EvolutionStage, perceptionLevel: Int, onClass: (AscendedClass) -&gt; Unit, onBodyBase: (BodyBase) -&gt; Unit, onStage: (EvolutionStage) -&gt; Unit, onPerception: (Int) -&gt; Unit, modifier: Modifier = Modifier, )</ID>
     <ID>LongParameterList:AscendedStatusField.kt$( ascendedClass: AscendedClass?, bodyBase: BodyBase, modifier: Modifier = Modifier, stage: EvolutionStage = EvolutionStage.BASE, perceptionLevel: Int = 0, @Suppress("UNUSED_PARAMETER") reducedMotion: Boolean = false, )</ID>
@@ -900,11 +901,14 @@
     <ID>MaxLineLength:AgeSafetyClassifier.kt$AgeSafetyClassifier$fun usesConservativeDefaults(category: AgeSafetyCategory): Boolean</ID>
     <ID>MaxLineLength:AgeSafetyClassifierTest.kt$AgeSafetyClassifierTest$listOf(AgeSafetyCategory.MINOR_YOUNGER, AgeSafetyCategory.MINOR_OLDER, AgeSafetyCategory.NOT_PROVIDED)</ID>
     <ID>MaxLineLength:AscendBuildEvidenceProvider.kt$AscendBuildEvidenceProvider$(exercise.isWeighted || exercise.category.equals("Weights", ignoreCase = true) || exercise.primaryAttribute == "STRENGTH")</ID>
+    <ID>MaxLineLength:AscendBuildEvidenceProvider.kt$AscendBuildEvidenceProvider$.</ID>
     <ID>MaxLineLength:AscendBuildEvidenceProvider.kt$AscendBuildEvidenceProvider$families += FamilyEvidence(workout.performedAt, dominantFamily(ws.sets), durationSeconds, EvidenceSource.ASCEND_WORKOUT)</ID>
     <ID>MaxLineLength:AscendBuildEvidenceProvider.kt$AscendBuildEvidenceProvider$paces += PaceEvidence(set.completedAt, meters / seconds.toDouble(), modality, EvidenceSource.ASCEND_CARDIO)</ID>
-    <ID>MaxLineLength:AscendBuildEvidenceProvider.kt$AscendBuildEvidenceProvider$strengthSets += StrengthSetEvidence(set.completedAt, set.volume, source = EvidenceSource.ASCEND_WORKOUT)</ID>
     <ID>MaxLineLength:AscendBuildEvidenceProviderTest.kt$AscendBuildEvidenceProviderTest$assertTrue("run distance captured", evidence.distances.any { it.meters == 5_000.0 &amp;&amp; it.modality == ActivityModality.RUN })</ID>
+    <ID>MaxLineLength:AscendBuildEvidenceProviderTest.kt$AscendBuildEvidenceProviderTest$seedSet("s1", "w1", "ex-bench", weight = 100.0, reps = 5, distance = null, durationSeconds = null, volume = 500.0)</ID>
     <ID>MaxLineLength:AscendBuildEvidenceProviderTest.kt$AscendBuildEvidenceProviderTest$seedSet("s2", "w-run", "ex-run", weight = null, distance = 5_000.0, durationSeconds = 1_500L, volume = 5_000.0)</ID>
+    <ID>MaxLineLength:AscendBuildEvidenceProviderTest.kt$AscendBuildEvidenceProviderTest$seedSet("s2", "w2", "ex-bench", weight = 110.0, reps = 5, distance = null, durationSeconds = null, volume = 550.0)</ID>
+    <ID>MaxLineLength:AscendBuildEvidenceProviderTest.kt$AscendBuildEvidenceProviderTest$seedSet("s3", "w3", "ex-bench", weight = 105.0, reps = 5, distance = null, durationSeconds = null, volume = 525.0)</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"'Body Mastery', 1.3, 0.75, 'monk', 'balanced', 'aqua', 'body_mastery', 'i', 'p', '', '', '', '', 1, 0, 0)"</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"INSERT INTO class_definition (id, name, classTitle, description, fitnessIdentity, favoredWorkoutCategories, "</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"INSERT INTO class_xp_transaction (id, userId, classId, amount, transactionType, sourceType, sourceId, createdAt) "</ID>
@@ -1004,6 +1008,7 @@
     <ID>MaxLineLength:BuildCharacteristicEngineTest.kt$BuildCharacteristicEngineTest$assertTrue("two non-baseline families -&gt; versatility above one-family level", p[BuildCharacteristic.VERSATILITY]!!.score &gt; 50.0)</ID>
     <ID>MaxLineLength:BuildCharacteristicEngineTest.kt$BuildCharacteristicEngineTest$distances = listOf(daysAgo(2), daysAgo(5)).map { DistanceEvidence(it, 5_000.0, ActivityModality.RUN) }</ID>
     <ID>MaxLineLength:BuildCharacteristicEngineTest.kt$BuildCharacteristicEngineTest$recovery = (1..3).map { RecoverySignal(daysAgo(it), RecoveryKind.READINESS_SNAPSHOT, readinessScore = 72.0) }</ID>
+    <ID>MaxLineLength:BuildCharacteristicEngineTest.kt$BuildCharacteristicEngineTest$val flagged = sets.mapIndexed { index, set -&gt; if (index &lt; personalRecordCount) set.copy(isPersonalRecord = true) else set }</ID>
     <ID>MaxLineLength:BuildCharacteristicEngineTest.kt$BuildCharacteristicEngineTest$withLookback[BuildCharacteristic.DISTANCE]!!.confidence &gt; withoutLookback[BuildCharacteristic.DISTANCE]!!.confidence</ID>
     <ID>MaxLineLength:BuildCharacteristics.kt$EvidenceState.ZERO$/** The source is available and qualifying evidence is genuinely nil, for a user active enough that the absence is meaningful. Enters affinity as 0. */</ID>
     <ID>MaxLineLength:BuildIdentityContentRenderTest.kt$BuildIdentityContentRenderTest$CharacteristicScore(BuildCharacteristic.DISTANCE, 0.0, EvidenceState.INSUFFICIENT, BuildTrend.UNKNOWN, 0.2)</ID>
@@ -1452,6 +1457,7 @@
     <ID>MaxLineLength:YourAscendedScreen.kt$Text(state.figureClass?.displayName ?: "Unbound", color = INK, fontSize = 24.sp, fontWeight = FontWeight.SemiBold)</ID>
     <ID>MayBeConst:OnboardingSteps.kt$private val SAFETY_NOTE = "Stop exercising and seek appropriate help if you experience chest pain, faintness, severe " + "shortness of breath, sharp pain, or signs of injury."</ID>
     <ID>NestedBlockDepth:AscendBuildEvidenceProvider.kt$AscendBuildEvidenceProvider$override suspend fun gather(userId: String): BuildEvidence</ID>
+    <ID>NestedBlockDepth:AscendBuildEvidenceProvider.kt$AscendBuildEvidenceProvider$private fun personalRecordSetIds(workouts: List&lt;WorkoutWithSets&gt;): Set&lt;String&gt;</ID>
     <ID>ReturnCount:BodyweightProgressionCalculators.kt$AssistanceProgressionCalculator$fun evaluate( prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), ): ProgressionCandidate</ID>
     <ID>ReturnCount:BodyweightProgressionCalculators.kt$ExternalLoadProgressionCalculator$fun evaluate( prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), externalLoadSupported: Boolean = false, ): ProgressionCandidate</ID>
     <ID>ReturnCount:BodyweightProgressionCalculators.kt$RepProgressionCalculator$fun evaluate( prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), ): ProgressionCandidate</ID>

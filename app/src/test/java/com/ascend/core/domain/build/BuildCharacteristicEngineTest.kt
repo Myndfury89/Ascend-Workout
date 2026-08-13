@@ -153,6 +153,29 @@ class BuildCharacteristicEngineTest {
         assertEquals(EvidenceState.ZERO, state(p, BuildCharacteristic.ENDURANCE))
     }
 
+    // ---------- personal records ----------
+
+    private fun strengthEvidence(personalRecordCount: Int): BuildEvidence {
+        val sets =
+            (1..6).flatMap { day ->
+                (0 until 3).map { StrengthSetEvidence(daysAgo(day), volume = 2_000.0) }
+            }
+        val flagged = sets.mapIndexed { index, set -> if (index < personalRecordCount) set.copy(isPersonalRecord = true) else set }
+        return BuildEvidence(sessions = (1..6).map { SessionEvidence(daysAgo(it), 45 * 60) }, strengthSets = flagged)
+    }
+
+    @Test
+    fun `personal records raise strength but their contribution is capped`() {
+        val none = engine.resolve(strengthEvidence(0), now)[BuildCharacteristic.STRENGTH]!!.score
+        val few = engine.resolve(strengthEvidence(2), now)[BuildCharacteristic.STRENGTH]!!.score
+        val many = engine.resolve(strengthEvidence(18), now)[BuildCharacteristic.STRENGTH]!!.score
+
+        assertTrue("a PR increases Strength", few > none)
+        assertTrue("more PRs increase it further", many > few)
+        // The bounded curve (cap 12) means even every set being a PR can't run away with the score.
+        assertTrue("PR contribution is capped", many - none <= 12.0 + 1e-6)
+    }
+
     // ---------- state trichotomy ----------
 
     @Test

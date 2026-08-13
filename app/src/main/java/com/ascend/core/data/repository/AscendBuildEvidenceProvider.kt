@@ -4,6 +4,7 @@ import com.ascend.core.database.dao.AdaptiveTrainingDao
 import com.ascend.core.database.dao.WorkoutDao
 import com.ascend.core.database.entity.ExerciseEntity
 import com.ascend.core.database.relation.SetWithExercise
+import com.ascend.core.database.relation.WorkoutWithSets
 import com.ascend.core.domain.build.ActivityFamily
 import com.ascend.core.domain.build.ActivityModality
 import com.ascend.core.domain.build.BuildEvidence
@@ -24,6 +25,7 @@ private const val DAY_MS = 86_400_000L
 private const val RECOVERY_LOOKBACK_DAYS = 60L
 private const val READINESS_FRACTION_MAX = 1.0
 private const val PERCENT = 100.0
+private const val EPLEY_REPS_DIVISOR = 30.0
 
 /**
  * Gathers read-only Build evidence from Ascend-native tables (completed workouts + their sets, and
@@ -50,6 +52,7 @@ class AscendBuildEvidenceProvider
             val families = mutableListOf<FamilyEvidence>()
             val distances = mutableListOf<DistanceEvidence>()
             val paces = mutableListOf<PaceEvidence>()
+            val personalRecordSetIds = personalRecordSetIds(workouts)
 
             workouts.forEach { ws ->
                 val workout = ws.workout
@@ -60,7 +63,13 @@ class AscendBuildEvidenceProvider
                 ws.sets.forEach { swe ->
                     val set = swe.set
                     if (isStrength(swe.exercise) && set.volume > 0.0) {
-                        strengthSets += StrengthSetEvidence(set.completedAt, set.volume, source = EvidenceSource.ASCEND_WORKOUT)
+                        strengthSets +=
+                            StrengthSetEvidence(
+                                at = set.completedAt,
+                                volume = set.volume,
+                                isPersonalRecord = set.id in personalRecordSetIds,
+                                source = EvidenceSource.ASCEND_WORKOUT,
+                            )
                     }
                     val meters = set.distance
                     if (meters != null && meters > 0.0) {
@@ -135,4 +144,40 @@ class AscendBuildEvidenceProvider
         private fun isStrength(exercise: ExerciseEntity?): Boolean =
             exercise != null &&
                 (exercise.isWeighted || exercise.category.equals("Weights", ignoreCase = true) || exercise.primaryAttribute == "STRENGTH")
+
+        /**
+         * Verified personal records from Ascend-native history: per strength exercise, walk the user's
+         * completed weighted sets in chronological order and flag a set as a PR when its estimated 1RM
+         * (Epley: weight x (1 + reps/30)) strictly beats every earlier set of that exercise. The first
+         * set of an exercise is a baseline, never a PR — so simply trying a new movement grants nothing.
+         * These flags feed the engine's already-capped PR contribution, which bounds their effect.
+         */
+        private fun personalRecordSetIds(workouts: List<WorkoutWithSets>): Set<String> {
+            data class TimedSet(val id: String, val at: Long, val order: Int, val oneRepMax: Double)
+
+            val byExercise = HashMap<String, MutableList<TimedSet>>()
+            workouts.forEach { ws ->
+                ws.sets.forEach { swe ->
+                    val set = swe.set
+                    val weight = set.weight
+                    val reps = set.reps
+                    if (isStrength(swe.exercise) && weight != null && weight > 0.0 && reps != null && reps > 0) {
+                        byExercise.getOrPut(set.exerciseId) { mutableListOf() }
+                            .add(TimedSet(set.id, ws.workout.performedAt, set.orderIndex, weight * (1.0 + reps / EPLEY_REPS_DIVISOR)))
+                    }
+                }
+            }
+            val records = HashSet<String>()
+            byExercise.values.forEach { history ->
+                history.sortWith(compareBy({ it.at }, { it.order }))
+                var best = Double.NEGATIVE_INFINITY
+                history.forEach { timed ->
+                    if (timed.oneRepMax > best) {
+                        if (best != Double.NEGATIVE_INFINITY) records += timed.id
+                        best = timed.oneRepMax
+                    }
+                }
+            }
+            return records
+        }
     }

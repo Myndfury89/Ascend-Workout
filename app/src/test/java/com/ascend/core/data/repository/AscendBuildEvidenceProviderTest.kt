@@ -92,6 +92,7 @@ class AscendBuildEvidenceProviderTest {
         distance: Double?,
         durationSeconds: Long?,
         volume: Double,
+        reps: Int? = null,
     ) {
         db.workoutDao().upsertSet(
             WorkoutSetEntity(
@@ -99,6 +100,7 @@ class AscendBuildEvidenceProviderTest {
                 workoutId = workoutId,
                 exerciseId = exerciseId,
                 weight = weight,
+                reps = reps,
                 distance = distance,
                 durationSeconds = durationSeconds,
                 volume = volume,
@@ -131,6 +133,24 @@ class AscendBuildEvidenceProviderTest {
             val fams = evidence.families.map { it.family }.toSet()
             assertTrue("lifting -> traditional strength family", ActivityFamily.TRADITIONAL_STRENGTH in fams)
             assertTrue("running -> run/walk family", ActivityFamily.RUN_WALK in fams)
+        }
+
+    @Test
+    fun `personal records are detected from improving lift history, baseline and regressions are not`() =
+        runTest {
+            seedExercise("ex-bench", "Weights", "STRENGTH", "WEIGHT_AND_REPS", weighted = true, tags = "HEAVY_STRENGTH")
+            // Three sessions of the same lift: baseline, an improvement (PR), then a regression (not a PR).
+            seedWorkout("w1", "COMPLETED", now - 20 * 86_400_000L)
+            seedSet("s1", "w1", "ex-bench", weight = 100.0, reps = 5, distance = null, durationSeconds = null, volume = 500.0)
+            seedWorkout("w2", "COMPLETED", now - 10 * 86_400_000L)
+            seedSet("s2", "w2", "ex-bench", weight = 110.0, reps = 5, distance = null, durationSeconds = null, volume = 550.0)
+            seedWorkout("w3", "COMPLETED", now - 2 * 86_400_000L)
+            seedSet("s3", "w3", "ex-bench", weight = 105.0, reps = 5, distance = null, durationSeconds = null, volume = 525.0)
+
+            val evidence = provider.gather("u1")
+            val prCount = evidence.strengthSets.count { it.isPersonalRecord }
+
+            assertEquals("only the improvement over baseline is a PR", 1, prCount)
         }
 
     @Test

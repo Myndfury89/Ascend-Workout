@@ -87,6 +87,26 @@ class BuildAffinityCalculatorTest {
     }
 
     @Test
+    fun `at the modeled lifter density, high coverage is still gated by the defining characteristic`() {
+        // Confirms the two gates against P0-density personas: an active lifter's absent cardio reads as
+        // ZERO (evidenced), so Ranger's coverage is high — but its defining axis (Endurance) is only a
+        // ZERO, not OK, so the defining-characteristic gate keeps it off the dominant slot. This is the
+        // check behind the Coverage >= 0.5 default, encoded rather than asserted in prose.
+        val activeLifter =
+            profile(
+                cs(BuildCharacteristic.STRENGTH, 85.0, EvidenceState.OK, confidence = 0.9),
+                cs(BuildCharacteristic.VERSATILITY, 0.0, EvidenceState.ZERO),
+                cs(BuildCharacteristic.ENDURANCE, 0.0, EvidenceState.ZERO),
+                cs(BuildCharacteristic.SPEED, 0.0, EvidenceState.ZERO),
+                cs(BuildCharacteristic.DISTANCE, 0.0, EvidenceState.ZERO),
+                cs(BuildCharacteristic.RECOVERY, 0.0, EvidenceState.UNAVAILABLE, confidence = 0.0),
+            )
+        val ranger = calc.calculate(activeLifter).of(BuildClass.RANGER)
+        assertEquals(0.875, ranger.coverage, 0.0001) // well above the 0.5 gate...
+        assertFalse(ranger.dominantEligible) // ...yet blocked, because Endurance is a ZERO, not OK
+    }
+
+    @Test
     fun `missing evidence neither inflates nor deflates affinity - it lowers coverage`() {
         // Only Strength evidenced (OK); everything else UNAVAILABLE (excluded from affinity).
         val sparse =

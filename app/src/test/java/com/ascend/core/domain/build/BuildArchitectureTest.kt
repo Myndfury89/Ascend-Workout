@@ -14,6 +14,7 @@ class BuildArchitectureTest {
             addAll(File("src/main/java/com/ascend/core/domain/build").walk().filter { it.isFile && it.extension == "kt" })
             add(File("src/main/java/com/ascend/core/data/repository/BuildProfileRepositoryImpl.kt"))
             add(File("src/main/java/com/ascend/core/data/repository/AscendBuildEvidenceProvider.kt"))
+            add(File("src/main/java/com/ascend/core/data/repository/BuildProfileRefresher.kt"))
         }.filter { it.exists() }
 
     @Test

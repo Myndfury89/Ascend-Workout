@@ -12,7 +12,10 @@ class AscendApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        // Keep the read-only Build snapshot fresh as new verified activity is written.
-        buildProfileRefresher.start()
+        // Keep the read-only Build snapshot fresh as new verified activity is written. Guarded so a
+        // boot without Hilt injection (e.g. some test harnesses) can't crash onCreate.
+        if (::buildProfileRefresher.isInitialized) {
+            buildProfileRefresher.start()
+        }
     }
 }

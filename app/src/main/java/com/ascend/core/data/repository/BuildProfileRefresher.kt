@@ -7,6 +7,7 @@ import com.ascend.core.database.relation.WorkoutWithSets
 import com.ascend.core.domain.build.RefreshBuildProfileUseCase
 import com.ascend.core.model.WorkoutStatus
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
@@ -42,6 +43,10 @@ class BuildProfileRefresher
                 workoutDao.observeWorkoutsWithSetsForUser(userId)
                     .map { completedWorkoutSignal(it) }
                     .distinctUntilChanged()
+                    // A background observer must never leak an exception to the global handler: an
+                    // upstream error (e.g. the DB connection going away on teardown) is swallowed here
+                    // rather than crashing the app scope. Recompute-on-view remains a fallback.
+                    .catch { }
                     .collectLatest {
                         runCatching { refreshBuildProfile.refresh(userId, System.currentTimeMillis()) }
                     }

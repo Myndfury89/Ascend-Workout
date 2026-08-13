@@ -67,6 +67,14 @@ interface AdaptiveTrainingDao {
     @Query("SELECT * FROM training_readiness_snapshot WHERE id = :id")
     suspend fun getSnapshot(id: String): TrainingReadinessSnapshotEntity?
 
+    @Query(
+        "SELECT * FROM training_readiness_snapshot WHERE userId = :userId AND createdAt >= :since ORDER BY createdAt DESC",
+    )
+    suspend fun getReadinessSnapshotsForUser(
+        userId: String,
+        since: Long,
+    ): List<TrainingReadinessSnapshotEntity>
+
     // ---- Recommendations ----
     @Upsert
     suspend fun upsertRecommendation(entity: ProgressionRecommendationEntity)

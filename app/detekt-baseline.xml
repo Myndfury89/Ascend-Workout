@@ -5,6 +5,7 @@
     <ID>ComplexCondition:BodyweightProgressionCalculators.kt$TempoProgressionCalculator$!hasVariationControl || !s.allAtLeastMin || s.anyFailure || !s.effortAcceptable</ID>
     <ID>ComplexCondition:MpEvidenceResolver.kt$MpEvidenceResolver$a.externalRecordId != null &amp;&amp; a.sourceApplication != null &amp;&amp; a.externalRecordId == b.externalRecordId &amp;&amp; a.sourceApplication == b.sourceApplication</ID>
     <ID>CyclomaticComplexMethod:ActiveQuestScreen.kt$@OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class) @Composable internal fun ActiveQuestContent( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
+    <ID>CyclomaticComplexMethod:AscendBuildEvidenceProvider.kt$AscendBuildEvidenceProvider$private fun exerciseFamily(exercise: ExerciseEntity): ActivityFamily</ID>
     <ID>CyclomaticComplexMethod:AscendMotionPrototypeScreen.kt$@Composable fun AscendMotionPrototypeScreen( modifier: Modifier = Modifier, controller: PrototypeReviewController = rememberMotionPrototypeController(), )</ID>
     <ID>CyclomaticComplexMethod:BodyweightProgressionCalculators.kt$BodyweightSignals.Companion$fun from( prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn, config: BodyweightProgressionConfig, ): BodyweightSignals</ID>
     <ID>CyclomaticComplexMethod:ExerciseVariationProgressionEngine.kt$ExerciseVariationProgressionEngine$private fun evaluateEdge( graph: ExerciseVariationGraph, edge: ExerciseVariationProgressionEdge, input: VariationReadinessInput, ): EdgeEligibility</ID>
@@ -49,6 +50,13 @@
     <ID>FunctionNaming:AscendedStatusFieldScreen.kt$@Composable fun AscendedStatusFieldScreen(modifier: Modifier = Modifier)</ID>
     <ID>FunctionNaming:BreakthroughBurst.kt$@Composable fun BreakthroughBurst( accent: Color, pulse: Float, mode: BurstMode, modifier: Modifier = Modifier, )</ID>
     <ID>FunctionNaming:BreakthroughBurst.kt$@Composable private fun ProceduralBurst( accent: Color, pulse: Float, modifier: Modifier, )</ID>
+    <ID>FunctionNaming:BuildIdentityScreen.kt$@Composable fun BuildIdentityContent( state: BuildIdentityUiState, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:BuildIdentityScreen.kt$@Composable fun BuildIdentityScreen(viewModel: BuildIdentityViewModel = hiltViewModel())</ID>
+    <ID>FunctionNaming:BuildIdentityScreen.kt$@Composable private fun Bar( fraction: Float, muted: Boolean, )</ID>
+    <ID>FunctionNaming:BuildIdentityScreen.kt$@Composable private fun CharacteristicRow(score: CharacteristicScore)</ID>
+    <ID>FunctionNaming:BuildIdentityScreen.kt$@Composable private fun ClassAffinityRow( affinity: ClassAffinity, isDominant: Boolean, )</ID>
+    <ID>FunctionNaming:BuildIdentityScreen.kt$@Composable private fun CurrentClassChip( name: String, affinity: ClassAffinity?, )</ID>
+    <ID>FunctionNaming:BuildIdentityScreen.kt$@Composable private fun SectionLabel(text: String)</ID>
     <ID>FunctionNaming:Buttons.kt$@Composable fun PrimaryActionButton( text: String, onClick: () -&gt; Unit, modifier: Modifier = Modifier, enabled: Boolean = true, )</ID>
     <ID>FunctionNaming:Buttons.kt$@Composable fun QuickProgressButton( label: String, onClick: () -&gt; Unit, modifier: Modifier = Modifier, enabled: Boolean = true, )</ID>
     <ID>FunctionNaming:CalendarScreen.kt$@Composable fun CalendarScreen(modifier: Modifier = Modifier)</ID>
@@ -219,6 +227,8 @@
     <ID>LongMethod:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$override suspend fun completeWorkout(workoutId: String): CompleteWorkoutResult</ID>
     <ID>LongParameterList:ActiveQuestScreen.kt$( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
     <ID>LongParameterList:AdaptiveIntervalRedistributionTest.kt$AdaptiveIntervalRedistributionTest$( dailyTarget: Int = 200, progress: Int = 30, leftover: Int = 20, futures: List&lt;FutureInterval&gt; = listOf(future("a", 50, 10), future("b", 50, 20), future("c", 50, 30)), preference: RedistributionPreference = RedistributionPreference.EVEN, timeRemaining: Long = 1000, quietHours: List&lt;Pair&lt;Long, Long&gt;&gt; = emptyList(), maxSetSize: Int = Int.MAX_VALUE, maxIntervalTarget: Int = Int.MAX_VALUE, fatigue: Int? = null, auto: Boolean = false, safety: ProgressionSafetyState = ProgressionSafetyState.OK, now: Long = 5, )</ID>
+    <ID>LongParameterList:AscendBuildEvidenceProviderTest.kt$AscendBuildEvidenceProviderTest$( id: String, category: String, primaryAttribute: String, measurementType: String, weighted: Boolean, tags: String, )</ID>
+    <ID>LongParameterList:AscendBuildEvidenceProviderTest.kt$AscendBuildEvidenceProviderTest$( id: String, workoutId: String, exerciseId: String, weight: Double?, distance: Double?, durationSeconds: Long?, volume: Double, )</ID>
     <ID>LongParameterList:AscendMotionPrototypeScreen.kt$( data: StatusPrototypeData, controller: PrototypeReviewController, accent: Color, motion: StatusPrototypeMotion, rotation: Float, reduced: Boolean, motionSpec: MotionSpec, modifier: Modifier = Modifier, )</ID>
     <ID>LongParameterList:AscendedControls.kt$( ascendedClass: AscendedClass, bodyBase: BodyBase, stage: EvolutionStage, perceptionLevel: Int, onClass: (AscendedClass) -&gt; Unit, onBodyBase: (BodyBase) -&gt; Unit, onStage: (EvolutionStage) -&gt; Unit, onPerception: (Int) -&gt; Unit, modifier: Modifier = Modifier, )</ID>
     <ID>LongParameterList:AscendedStatusField.kt$( ascendedClass: AscendedClass?, bodyBase: BodyBase, modifier: Modifier = Modifier, stage: EvolutionStage = EvolutionStage.BASE, perceptionLevel: Int = 0, @Suppress("UNUSED_PARAMETER") reducedMotion: Boolean = false, )</ID>
@@ -416,6 +426,15 @@
     <ID>MagicNumber:BreakthroughBurst.kt$0.94f</ID>
     <ID>MagicNumber:BreakthroughBurst.kt$12</ID>
     <ID>MagicNumber:BreakthroughBurst.kt$2f</ID>
+    <ID>MagicNumber:BuildIdentityScreen.kt$0.33</ID>
+    <ID>MagicNumber:BuildIdentityScreen.kt$0.66</ID>
+    <ID>MagicNumber:BuildIdentityScreen.kt$0xFF04050B</ID>
+    <ID>MagicNumber:BuildIdentityScreen.kt$0xFF10131F</ID>
+    <ID>MagicNumber:BuildIdentityScreen.kt$0xFF1C2033</ID>
+    <ID>MagicNumber:BuildIdentityScreen.kt$0xFF5A6180</ID>
+    <ID>MagicNumber:BuildIdentityScreen.kt$0xFF8A93B5</ID>
+    <ID>MagicNumber:BuildIdentityScreen.kt$0xFFA88BFF</ID>
+    <ID>MagicNumber:BuildIdentityScreen.kt$0xFFEAF0FF</ID>
     <ID>MagicNumber:BuildTuning.kt$BuildTuning$0.1</ID>
     <ID>MagicNumber:BuildTuning.kt$BuildTuning$0.2</ID>
     <ID>MagicNumber:BuildTuning.kt$BuildTuning$0.3</ID>
@@ -861,6 +880,7 @@
     <ID>MaxLineLength:AdaptiveIntervalRedistributionUseCaseTest.kt$AdaptiveIntervalRedistributionUseCaseTest$"INSERT INTO quest_interval (id, questId, title, scheduledStart, scheduledEnd, targetValue, currentValue, "</ID>
     <ID>MaxLineLength:AdaptiveIntervalRedistributionUseCaseTest.kt$AdaptiveIntervalRedistributionUseCaseTest$"intervalCount, distributionStrategy, adaptiveRedistributionEnabled, redistributionPreference, createdAt, updatedAt) "</ID>
     <ID>MaxLineLength:AdaptiveTrainingDao.kt$AdaptiveTrainingDao$"SELECT * FROM exercise_prescription WHERE userId = :userId AND exerciseId = :exerciseId AND status = 'ACTIVE' "</ID>
+    <ID>MaxLineLength:AdaptiveTrainingDao.kt$AdaptiveTrainingDao$"SELECT * FROM training_readiness_snapshot WHERE userId = :userId AND createdAt &gt;= :since ORDER BY createdAt DESC"</ID>
     <ID>MaxLineLength:AdaptiveTrainingDao.kt$AdaptiveTrainingDao$@Query("SELECT * FROM progression_recommendation WHERE userId = :userId AND status = 'PENDING' ORDER BY generatedAt DESC")</ID>
     <ID>MaxLineLength:AdaptiveTrainingMappers.kt$effectiveFrom = if (effectiveFrom == 0L) now else effectiveFrom</ID>
     <ID>MaxLineLength:AdaptiveTrainingMappers.kt$generatedAt = generatedAt</ID>
@@ -879,6 +899,12 @@
     <ID>MaxLineLength:AgeSafety.kt$AgeSafetyPolicy$fun</ID>
     <ID>MaxLineLength:AgeSafetyClassifier.kt$AgeSafetyClassifier$fun usesConservativeDefaults(category: AgeSafetyCategory): Boolean</ID>
     <ID>MaxLineLength:AgeSafetyClassifierTest.kt$AgeSafetyClassifierTest$listOf(AgeSafetyCategory.MINOR_YOUNGER, AgeSafetyCategory.MINOR_OLDER, AgeSafetyCategory.NOT_PROVIDED)</ID>
+    <ID>MaxLineLength:AscendBuildEvidenceProvider.kt$AscendBuildEvidenceProvider$(exercise.isWeighted || exercise.category.equals("Weights", ignoreCase = true) || exercise.primaryAttribute == "STRENGTH")</ID>
+    <ID>MaxLineLength:AscendBuildEvidenceProvider.kt$AscendBuildEvidenceProvider$families += FamilyEvidence(workout.performedAt, dominantFamily(ws.sets), durationSeconds, EvidenceSource.ASCEND_WORKOUT)</ID>
+    <ID>MaxLineLength:AscendBuildEvidenceProvider.kt$AscendBuildEvidenceProvider$paces += PaceEvidence(set.completedAt, meters / seconds.toDouble(), modality, EvidenceSource.ASCEND_CARDIO)</ID>
+    <ID>MaxLineLength:AscendBuildEvidenceProvider.kt$AscendBuildEvidenceProvider$strengthSets += StrengthSetEvidence(set.completedAt, set.volume, source = EvidenceSource.ASCEND_WORKOUT)</ID>
+    <ID>MaxLineLength:AscendBuildEvidenceProviderTest.kt$AscendBuildEvidenceProviderTest$assertTrue("run distance captured", evidence.distances.any { it.meters == 5_000.0 &amp;&amp; it.modality == ActivityModality.RUN })</ID>
+    <ID>MaxLineLength:AscendBuildEvidenceProviderTest.kt$AscendBuildEvidenceProviderTest$seedSet("s2", "w-run", "ex-run", weight = null, distance = 5_000.0, durationSeconds = 1_500L, volume = 5_000.0)</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"'Body Mastery', 1.3, 0.75, 'monk', 'balanced', 'aqua', 'body_mastery', 'i', 'p', '', '', '', '', 1, 0, 0)"</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"INSERT INTO class_definition (id, name, classTitle, description, fitnessIdentity, favoredWorkoutCategories, "</ID>
     <ID>MaxLineLength:AscendMigrationTest.kt$AscendMigrationTest$"INSERT INTO class_xp_transaction (id, userId, classId, amount, transactionType, sourceType, sourceId, createdAt) "</ID>
@@ -980,6 +1006,18 @@
     <ID>MaxLineLength:BuildCharacteristicEngineTest.kt$BuildCharacteristicEngineTest$recovery = (1..3).map { RecoverySignal(daysAgo(it), RecoveryKind.READINESS_SNAPSHOT, readinessScore = 72.0) }</ID>
     <ID>MaxLineLength:BuildCharacteristicEngineTest.kt$BuildCharacteristicEngineTest$withLookback[BuildCharacteristic.DISTANCE]!!.confidence &gt; withoutLookback[BuildCharacteristic.DISTANCE]!!.confidence</ID>
     <ID>MaxLineLength:BuildCharacteristics.kt$EvidenceState.ZERO$/** The source is available and qualifying evidence is genuinely nil, for a user active enough that the absence is meaningful. Enters affinity as 0. */</ID>
+    <ID>MaxLineLength:BuildIdentityContentRenderTest.kt$BuildIdentityContentRenderTest$CharacteristicScore(BuildCharacteristic.DISTANCE, 0.0, EvidenceState.INSUFFICIENT, BuildTrend.UNKNOWN, 0.2)</ID>
+    <ID>MaxLineLength:BuildIdentityContentRenderTest.kt$BuildIdentityContentRenderTest$CharacteristicScore(BuildCharacteristic.RECOVERY, 0.0, EvidenceState.UNAVAILABLE, BuildTrend.UNKNOWN, 0.0)</ID>
+    <ID>MaxLineLength:BuildIdentityContentRenderTest.kt$BuildIdentityContentRenderTest$CharacteristicScore(BuildCharacteristic.STRENGTH, 82.0, EvidenceState.OK, BuildTrend.DEVELOPING, 0.9)</ID>
+    <ID>MaxLineLength:BuildIdentityContentRenderTest.kt$BuildIdentityContentRenderTest$ClassAffinity(BuildClass.BERSERKER, affinity = 0.78, coverage = 0.8, confidence = 0.7, dominantEligible = true)</ID>
+    <ID>MaxLineLength:BuildIdentityContentRenderTest.kt$BuildIdentityContentRenderTest$ClassAffinity(BuildClass.RANGER, affinity = 0.66, coverage = 0.2, confidence = 0.1, dominantEligible = false)</ID>
+    <ID>MaxLineLength:BuildIdentityScreen.kt$Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 18.dp, vertical = 22.dp)</ID>
+    <ID>MaxLineLength:BuildIdentityScreen.kt$Row</ID>
+    <ID>MaxLineLength:BuildIdentityScreen.kt$Text("What your recent training resembles", color = INK, fontSize = 20.sp, fontWeight = FontWeight.SemiBold)</ID>
+    <ID>MaxLineLength:BuildIdentityScreen.kt$private fun titleCase(characteristic: BuildCharacteristic): String</ID>
+    <ID>MaxLineLength:BuildIdentityScreen.kt$state.affinities.forEach { ClassAffinityRow(it, isDominant = it.buildClass == state.dominant?.buildClass) }</ID>
+    <ID>MaxLineLength:BuildIdentityViewModel.kt$BuildIdentityViewModel$currentClassName = currentClass?.buildClass?.displayName ?: selection.primaryClassId?.let(::displayNameFor)</ID>
+    <ID>MaxLineLength:BuildIdentityViewModel.kt$BuildIdentityViewModel$val currentClass = selection.primaryClassId?.let { id -&gt; ranked.firstOrNull { it.buildClass.id == id } }</ID>
     <ID>MaxLineLength:BuildProfileRepositoryImpl.kt$BuildProfileRepositoryImpl$CharacteristicDto(it.characteristic.name, it.score, it.state.name, it.trend.name, it.confidence)</ID>
     <ID>MaxLineLength:BuildProfileRepositoryImpl.kt$BuildProfileRepositoryImpl$ClassAffinityDto(it.buildClass.id, it.affinity, it.coverage, it.confidence, it.dominantEligible)</ID>
     <ID>MaxLineLength:BuildProfileRepositoryRoundTripTest.kt$BuildProfileRepositoryRoundTripTest$return BuildProfileSnapshot(computedAt = 12_345L, profile = profile, affinities = BuildAffinityCalculator().calculate(profile))</ID>
@@ -1413,6 +1451,7 @@
     <ID>MaxLineLength:YourAscendedContentRenderTest.kt$YourAscendedContentRenderTest$compose.onNodeWithText("This only changes your Ascended's visual form. You can change it later.").assertIsDisplayed()</ID>
     <ID>MaxLineLength:YourAscendedScreen.kt$Text(state.figureClass?.displayName ?: "Unbound", color = INK, fontSize = 24.sp, fontWeight = FontWeight.SemiBold)</ID>
     <ID>MayBeConst:OnboardingSteps.kt$private val SAFETY_NOTE = "Stop exercising and seek appropriate help if you experience chest pain, faintness, severe " + "shortness of breath, sharp pain, or signs of injury."</ID>
+    <ID>NestedBlockDepth:AscendBuildEvidenceProvider.kt$AscendBuildEvidenceProvider$override suspend fun gather(userId: String): BuildEvidence</ID>
     <ID>ReturnCount:BodyweightProgressionCalculators.kt$AssistanceProgressionCalculator$fun evaluate( prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), ): ProgressionCandidate</ID>
     <ID>ReturnCount:BodyweightProgressionCalculators.kt$ExternalLoadProgressionCalculator$fun evaluate( prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), externalLoadSupported: Boolean = false, ): ProgressionCandidate</ID>
     <ID>ReturnCount:BodyweightProgressionCalculators.kt$RepProgressionCalculator$fun evaluate( prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), ): ProgressionCandidate</ID>
@@ -1447,6 +1486,7 @@
     <ID>TooManyFunctions:AscendDatabase.kt$AscendDatabase : RoomDatabase</ID>
     <ID>TooManyFunctions:AscendMotionPrototypeScreen.kt$com.ascend.feature.dashboard.prototype.AscendMotionPrototypeScreen.kt</ID>
     <ID>TooManyFunctions:BuildCharacteristicEngine.kt$BuildCharacteristicEngine</ID>
+    <ID>TooManyFunctions:BuildIdentityScreen.kt$com.ascend.feature.build.BuildIdentityScreen.kt</ID>
     <ID>TooManyFunctions:CardioProgressionCalculators.kt$CardioProgressionCalculator</ID>
     <ID>TooManyFunctions:ClassDao.kt$ClassDao</ID>
     <ID>TooManyFunctions:ClassRepository.kt$ClassRepository</ID>

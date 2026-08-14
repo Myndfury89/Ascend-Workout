@@ -1,3 +1,16 @@
+import java.util.Properties
+
+// Backend config (Supabase) is read from a git-ignored secrets.properties at the repo root and
+// surfaced via BuildConfig. Absent/empty is a valid state: the app builds and runs fully local-only
+// with no backend configured — Community is additive and never required for the core loop.
+val secretsProperties =
+    Properties().apply {
+        val file = rootProject.file("secrets.properties")
+        if (file.exists()) file.inputStream().use { load(it) }
+    }
+
+fun secretConfigValue(key: String): String = "\"${secretsProperties.getProperty(key).orEmpty()}\""
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -21,6 +34,10 @@ android {
         versionName = "0.1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables { useSupportLibrary = true }
+
+        // Supabase config (empty when unconfigured — local-only play is unaffected).
+        buildConfigField("String", "SUPABASE_URL", secretConfigValue("SUPABASE_URL"))
+        buildConfigField("String", "SUPABASE_ANON_KEY", secretConfigValue("SUPABASE_ANON_KEY"))
     }
 
     buildTypes {

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- Required for Community backend calls (Supabase auth/profile) and Google Credential Manager.
+         The single-player loop remains fully local and never depends on the network. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".AscendApplication"
         android:allowBackup="false"

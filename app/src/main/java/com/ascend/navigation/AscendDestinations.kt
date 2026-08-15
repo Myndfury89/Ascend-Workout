@@ -39,6 +39,10 @@ data object LogWorkout
 @Serializable
 data object BuildAnalysis
 
+// Account: identity + sign-in state (extensible to profile, connected providers, privacy). From Status.
+@Serializable
+data object Account
+
 /** The five primary destinations shown in the bottom navigation bar. */
 enum class TopLevelDestination(
     val route: Any,

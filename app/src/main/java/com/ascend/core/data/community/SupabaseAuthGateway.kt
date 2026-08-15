@@ -5,7 +5,6 @@ import com.ascend.core.domain.community.AuthState
 import com.ascend.core.domain.community.RemoteErrorKind
 import com.ascend.core.domain.community.RemoteResult
 import com.ascend.core.domain.community.RemoteUserId
-import com.ascend.core.domain.community.SessionStore
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.auth.auth
 import io.github.jan.supabase.auth.providers.Google
@@ -14,6 +13,7 @@ import io.github.jan.supabase.auth.providers.builtin.IDToken
 import io.github.jan.supabase.auth.status.SessionStatus
 import io.github.jan.supabase.auth.user.UserInfo
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filterNot
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import java.io.IOException
@@ -23,17 +23,21 @@ import javax.inject.Singleton
 /**
  * Supabase-backed [AuthGateway]. The SDK lives only here (behind the domain interface). When the
  * client is null (backend unconfigured), every method degrades gracefully so local-only play is
- * unaffected. On a successful sign-in it mirrors the remote id into [SessionStore] — the additive
- * "link" that never touches local Room data.
+ * unaffected. It reports the live auth state but does NOT persist the identity link itself — the
+ * [com.ascend.core.data.community.AuthLinkCoordinator] is the single writer of that link, so there is
+ * one source of truth (the live session), and the local Room key is never touched.
  */
 @Singleton
 class SupabaseAuthGateway
     @Inject
     constructor(
         private val client: SupabaseClient?,
-        private val sessionStore: SessionStore,
     ) : AuthGateway {
-        override fun authState(): Flow<AuthState> = client?.auth?.sessionStatus?.map { it.toAuthState() } ?: flowOf(AuthState.SignedOut)
+        override fun authState(): Flow<AuthState> =
+            client?.auth?.sessionStatus
+                ?.filterNot { it is SessionStatus.Initializing }
+                ?.map { it.toAuthState() }
+                ?: flowOf(AuthState.SignedOut)
 
         override suspend fun currentUserId(): RemoteUserId? = client?.auth?.currentUserOrNull()?.id?.let(::RemoteUserId)
 
@@ -47,7 +51,7 @@ class SupabaseAuthGateway
                     this.email = email
                     this.password = password
                 }
-                linkAndState(supabase)
+                RemoteResult.Success(supabase.auth.currentUserOrNull().toAuthState())
             }
         }
 
@@ -61,7 +65,7 @@ class SupabaseAuthGateway
                     this.email = email
                     this.password = password
                 }
-                linkAndState(supabase)
+                RemoteResult.Success(supabase.auth.currentUserOrNull().toAuthState())
             }
         }
 
@@ -76,20 +80,12 @@ class SupabaseAuthGateway
                     provider = Google
                     nonce = rawNonce
                 }
-                linkAndState(supabase)
+                RemoteResult.Success(supabase.auth.currentUserOrNull().toAuthState())
             }
         }
 
         override suspend fun signOut() {
             runCatching { client?.auth?.signOut() }
-            sessionStore.setLinkedRemoteUserId(null)
-        }
-
-        private suspend fun linkAndState(supabase: SupabaseClient): RemoteResult<AuthState> {
-            val user = supabase.auth.currentUserOrNull()
-            val id = user?.id
-            if (id != null) sessionStore.setLinkedRemoteUserId(RemoteUserId(id))
-            return RemoteResult.Success(user.toAuthState())
         }
 
         private fun SessionStatus.toAuthState(): AuthState =

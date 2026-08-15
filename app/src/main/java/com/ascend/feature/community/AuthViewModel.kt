@@ -74,6 +74,9 @@ class AuthViewModel
 
         fun dismissError() = action.update { it.copy(error = null) }
 
+        /** Surface an error raised outside the gateway (e.g. Google credential acquisition). */
+        fun showError(message: String) = action.update { it.copy(loading = false, error = message) }
+
         private fun runAction(block: suspend () -> RemoteResult<AuthState>) {
             viewModelScope.launch {
                 action.update { it.copy(loading = true, error = null) }

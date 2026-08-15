@@ -50,7 +50,7 @@
     <ID>FunctionNaming:AscendedStatusField.kt$@Composable private fun ProductionFieldBackground(modifier: Modifier = Modifier)</ID>
     <ID>FunctionNaming:AscendedStatusFieldScreen.kt$@Composable fun AscendedStatusFieldScreen(modifier: Modifier = Modifier)</ID>
     <ID>FunctionNaming:AuthScreen.kt$@Composable fun AuthContent( state: AuthUiState, onSignIn: (String, String) -&gt; Unit = { _, _ -&gt; }, onSignUp: (String, String) -&gt; Unit = { _, _ -&gt; }, onGoogle: () -&gt; Unit = {}, onSignOut: () -&gt; Unit = {}, onBack: () -&gt; Unit = {}, modifier: Modifier = Modifier, )</ID>
-    <ID>FunctionNaming:AuthScreen.kt$@Composable fun AuthScreen( onBack: () -&gt; Unit = {}, onRequestGoogleSignIn: () -&gt; Unit = {}, viewModel: AuthViewModel = hiltViewModel(), )</ID>
+    <ID>FunctionNaming:AuthScreen.kt$@Composable fun AuthScreen( onBack: () -&gt; Unit = {}, viewModel: AuthViewModel = hiltViewModel(), )</ID>
     <ID>FunctionNaming:AuthScreen.kt$@Composable private fun SignedIn( state: AuthUiState, onSignOut: () -&gt; Unit, )</ID>
     <ID>FunctionNaming:AuthScreen.kt$@Composable private fun SignedOut( state: AuthUiState, onSignIn: (String, String) -&gt; Unit, onSignUp: (String, String) -&gt; Unit, onGoogle: () -&gt; Unit, )</ID>
     <ID>FunctionNaming:BreakthroughBurst.kt$@Composable fun BreakthroughBurst( accent: Color, pulse: Float, mode: BurstMode, modifier: Modifier = Modifier, )</ID>
@@ -196,7 +196,7 @@
     <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "Sigil · low rank", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewSigilLowRank()</ID>
     <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "Sigil · mid rank", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewSigilMidRank()</ID>
     <ID>FunctionNaming:StatusPrototypePreviews.kt$@Preview(name = "Sigil · rank promotion", showBackground = true, backgroundColor = 0xFF06080D, heightDp = 940) @Composable private fun PreviewSigilRankPromotion()</ID>
-    <ID>FunctionNaming:StatusScreen.kt$@Composable fun StatusScreen( onViewBuild: () -&gt; Unit = {}, modifier: Modifier = Modifier, viewModel: StatusMotionViewModel = hiltViewModel(), )</ID>
+    <ID>FunctionNaming:StatusScreen.kt$@Composable fun StatusScreen( onViewBuild: () -&gt; Unit = {}, onAccount: () -&gt; Unit = {}, modifier: Modifier = Modifier, viewModel: StatusMotionViewModel = hiltViewModel(), )</ID>
     <ID>FunctionNaming:StatusScreen.kt$@Composable private fun StatusControls( reducedMotion: Boolean, onReplay: () -&gt; Unit, onReducedMotionChange: (Boolean) -&gt; Unit, )</ID>
     <ID>FunctionNaming:StatusScreen.kt$@Composable private fun StatusFramedPanel( data: StatusPrototypeData, motion: StatusPrototypeMotion, accent: Color, rotation: Float, scan: Float, ambient: Boolean, )</ID>
     <ID>FunctionNaming:StatusScreen.kt$@Composable private fun StatusPanelContent( data: StatusPrototypeData, accent: Color, motion: StatusPrototypeMotion, rotation: Float, ambient: Boolean, )</ID>
@@ -213,6 +213,7 @@
     <ID>FunctionNaming:YourAscendedScreen.kt$@Composable private fun BodyBaseChooser(onChoose: (BodyBase) -&gt; Unit)</ID>
     <ID>FunctionOnlyReturningConstant:OrnateSigilModels.kt$SigilRotationProfile$@Suppress("unused") fun progressRotation(rot: Float): Float</ID>
     <ID>LongMethod:ActiveQuestScreen.kt$@OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class) @Composable internal fun ActiveQuestContent( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
+    <ID>LongMethod:AscendApp.kt$@Composable fun AscendApp()</ID>
     <ID>LongMethod:AscendMigrations.kt$AscendMigrations.&lt;no name provided&gt;$override fun migrate(db: SupportSQLiteDatabase)</ID>
     <ID>LongMethod:AscendMotionPrototypeScreen.kt$@Composable fun AscendMotionPrototypeScreen( modifier: Modifier = Modifier, controller: PrototypeReviewController = rememberMotionPrototypeController(), )</ID>
     <ID>LongMethod:AscendMotionPrototypeScreen.kt$@Composable private fun MotionReviewViewport( data: StatusPrototypeData, controller: PrototypeReviewController, accent: Color, motion: StatusPrototypeMotion, rotation: Float, reduced: Boolean, motionSpec: MotionSpec, modifier: Modifier = Modifier, )</ID>
@@ -227,7 +228,7 @@
     <ID>LongMethod:RevisedStatusPrototypeScreen.kt$@Composable fun RevisedStatusPrototypeScreen( modifier: Modifier = Modifier, controller: PrototypeReviewController = rememberPrototypeReviewController(), )</ID>
     <ID>LongMethod:RevisedStatusPrototypeScreen.kt$@Composable private fun PanelContent( data: StatusPrototypeData, accent: Color, motion: StatusPrototypeMotion, rotation: Float, controller: PrototypeReviewController, frameMotion: Boolean, zone: (String) -&gt; Modifier, )</ID>
     <ID>LongMethod:StatusPrototypeControls.kt$@OptIn(ExperimentalLayoutApi::class) @Composable internal fun StatusPrototypeControls( controller: PrototypeReviewController, modifier: Modifier = Modifier, )</ID>
-    <ID>LongMethod:StatusScreen.kt$@Composable fun StatusScreen( onViewBuild: () -&gt; Unit = {}, modifier: Modifier = Modifier, viewModel: StatusMotionViewModel = hiltViewModel(), )</ID>
+    <ID>LongMethod:StatusScreen.kt$@Composable fun StatusScreen( onViewBuild: () -&gt; Unit = {}, onAccount: () -&gt; Unit = {}, modifier: Modifier = Modifier, viewModel: StatusMotionViewModel = hiltViewModel(), )</ID>
     <ID>LongMethod:StatusScreen.kt$@Composable private fun StatusPanelContent( data: StatusPrototypeData, accent: Color, motion: StatusPrototypeMotion, rotation: Float, ambient: Boolean, )</ID>
     <ID>LongMethod:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$override suspend fun completeWorkout(workoutId: String): CompleteWorkoutResult</ID>
     <ID>LongParameterList:ActiveQuestScreen.kt$( state: ActiveQuestUiState, onBack: () -&gt; Unit, onAdd: (Int) -&gt; Unit, onDelete: (String) -&gt; Unit, onComplete: () -&gt; Unit, onDismissCompletion: () -&gt; Unit, modifier: Modifier = Modifier, )</ID>
@@ -1439,7 +1440,6 @@
     <ID>MaxLineLength:StatusSigil.kt$)</ID>
     <ID>MaxLineLength:StreakCalculatorTest.kt$StreakCalculatorTest$val result = calc.onActivity(currentStreak = 4, longestStreak = 4, lastActiveDay = day.minusDays(1), today = day)</ID>
     <ID>MaxLineLength:StreakCalculatorTest.kt$StreakCalculatorTest$val result = calc.onActivity(currentStreak = 9, longestStreak = 12, lastActiveDay = day.minusDays(2), today = day)</ID>
-    <ID>MaxLineLength:SupabaseAuthGateway.kt$SupabaseAuthGateway$override fun authState(): Flow&lt;AuthState&gt;</ID>
     <ID>MaxLineLength:TrainingReadinessCalculator.kt$TrainingReadinessCalculator$)</ID>
     <ID>MaxLineLength:TrainingReadinessCalculator.kt$TrainingReadinessCalculator$baseline.completionConsistency &gt;= config.questIncreaseConsistency &amp;&amp; baseline.recentTrend &gt;= 0.0</ID>
     <ID>MaxLineLength:TrainingReadinessCalculator.kt$TrainingReadinessCalculator$fun SessionPerformance.allTopRange()</ID>
@@ -1480,6 +1480,7 @@
     <ID>ReturnCount:BodyweightProgressionCalculators.kt$TempoProgressionCalculator$fun candidates( prescription: ExercisePrescription, sessions: List&lt;SessionPerformance&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), hasVariationControl: Boolean = true, ): List&lt;ProgressionCandidate&gt;</ID>
     <ID>ReturnCount:CardioProgressionCalculators.kt$CardioProgressionCalculator$fun candidates( prescription: CardioPrescription, recent: List&lt;CardioPerformanceSummary&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), ): List&lt;ProgressionCandidate&gt;</ID>
     <ID>ReturnCount:CardioProgressionCalculators.kt$IntervalProgressionCalculator$fun candidates( prescription: CardioPrescription, recent: List&lt;CardioPerformanceSummary&gt;, checkIn: ReadinessCheckIn = ReadinessCheckIn(), ): List&lt;ProgressionCandidate&gt;</ID>
+    <ID>ReturnCount:CommunityModule.kt$CommunityBackendModule$@Provides @Singleton fun provideSupabaseClient(): SupabaseClient?</ID>
     <ID>ReturnCount:ContributionEligibilityEvaluator.kt$ContributionEligibilityEvaluator$fun evaluate( member: DungeonPartyMember, workoutActive: Boolean, now: Long, ): ContributionEligibility</ID>
     <ID>ReturnCount:DungeonCombatEngine.kt$DungeonCombatEngine$fun apply( state: DungeonCombatState, enemy: DungeonEnemy, contribution: WorkoutContribution, ): DungeonCombatState</ID>
     <ID>ReturnCount:DungeonPrototypeController.kt$DungeonPrototypeController$fun trigger( memberId: String, action: WorkoutActionType, )</ID>
@@ -1503,6 +1504,8 @@
     <ID>ReturnCount:TrainingReadinessCalculator.kt$TrainingReadinessCalculator$private fun safetyGate( checkIn: ReadinessCheckIn, now: Long, ): TrainingReadiness?</ID>
     <ID>ReturnCount:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$override suspend fun completeWorkout(workoutId: String): CompleteWorkoutResult</ID>
     <ID>SpreadOperator:DatabaseModule.kt$DatabaseModule$(*AscendMigrations.ALL)</ID>
+    <ID>SwallowedException:GoogleIdTokenRequester.kt$GoogleIdTokenRequester$e: GetCredentialCancellationException</ID>
+    <ID>SwallowedException:GoogleIdTokenRequester.kt$GoogleIdTokenRequester$e: NoCredentialException</ID>
     <ID>SwallowedException:SupabaseAuthGateway.kt$SupabaseAuthGateway$e: IOException</ID>
     <ID>SwallowedException:SupabaseProfileGateway.kt$SupabaseProfileGateway$e: IOException</ID>
     <ID>TooGenericExceptionCaught:SupabaseAuthGateway.kt$SupabaseAuthGateway$e: Exception</ID>
@@ -1537,7 +1540,6 @@
     <ID>TooManyFunctions:QuestIntervalRedistributionEngine.kt$QuestIntervalRedistributionEngine</ID>
     <ID>TooManyFunctions:QuestRepositoryImpl.kt$QuestRepositoryImpl : QuestRepository</ID>
     <ID>TooManyFunctions:StatusPrototypePreviews.kt$com.ascend.feature.dashboard.prototype.StatusPrototypePreviews.kt</ID>
-    <ID>TooManyFunctions:SupabaseAuthGateway.kt$SupabaseAuthGateway : AuthGateway</ID>
     <ID>TooManyFunctions:WorkoutDao.kt$WorkoutDao</ID>
     <ID>TooManyFunctions:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl : WorkoutRepository</ID>
     <ID>UnusedParameter:EdgeLitStatusPanel.kt$accent: Color</ID>

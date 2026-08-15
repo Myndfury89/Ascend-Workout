@@ -1,5 +1,6 @@
 package com.ascend.core.data.community.di
 
+import android.os.Build
 import com.ascend.BuildConfig
 import com.ascend.core.data.community.DataStoreSessionStore
 import com.ascend.core.data.community.SupabaseAuthGateway
@@ -32,6 +33,11 @@ object CommunityBackendModule {
     @Provides
     @Singleton
     fun provideSupabaseClient(): SupabaseClient? {
+        // Never construct the live backend under Robolectric: creating the client starts the Auth
+        // plugin's own background session coroutines, which would fail on the JVM and contaminate the
+        // unit suite. Unit tests exercise the gateways with a null client (graceful degradation); the
+        // live client is verified on-device.
+        if ("robolectric".equals(Build.FINGERPRINT, ignoreCase = true)) return null
         val url = BuildConfig.SUPABASE_URL
         val key = BuildConfig.SUPABASE_ANON_KEY
         if (url.isBlank() || key.isBlank()) return null

@@ -20,10 +20,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -31,6 +33,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.ascend.BuildConfig
+import com.ascend.core.data.community.GoogleIdTokenRequester
+import com.ascend.core.data.community.GoogleIdTokenResult
+import kotlinx.coroutines.launch
 
 /*
  * The additive, opt-in Community sign-in surface. Signing in links a remote identity for future
@@ -46,15 +52,29 @@ private val BAD = Color(0xFFE5736B)
 @Composable
 fun AuthScreen(
     onBack: () -> Unit = {},
-    onRequestGoogleSignIn: () -> Unit = {},
     viewModel: AuthViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    val googleRequester = remember { GoogleIdTokenRequester() }
+
     AuthContent(
         state = state,
         onSignIn = viewModel::signIn,
         onSignUp = viewModel::signUp,
-        onGoogle = onRequestGoogleSignIn,
+        onGoogle = {
+            // Acquire the Google ID token at the UI layer (needs the Activity), then exchange it in the
+            // ViewModel. The client secret is never involved.
+            scope.launch {
+                when (val result = googleRequester.request(context, BuildConfig.GOOGLE_WEB_CLIENT_ID)) {
+                    is GoogleIdTokenResult.Success -> viewModel.submitGoogleIdToken(result.idToken)
+                    is GoogleIdTokenResult.Failure -> viewModel.showError(result.message)
+                    GoogleIdTokenResult.Unavailable -> viewModel.showError("Google sign-in isn't configured.")
+                    GoogleIdTokenResult.Cancelled -> Unit
+                }
+            }
+        },
         onSignOut = viewModel::signOut,
         onBack = onBack,
     )

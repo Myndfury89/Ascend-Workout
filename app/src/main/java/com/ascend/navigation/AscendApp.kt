@@ -19,6 +19,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.ascend.feature.build.BuildIdentityScreen
 import com.ascend.feature.calendar.CalendarScreen
+import com.ascend.feature.community.AuthScreen
 import com.ascend.feature.dashboard.StatusScreen
 import com.ascend.feature.progress.ProgressScreen
 import com.ascend.feature.quests.ActiveQuestScreen
@@ -64,7 +65,12 @@ fun AscendApp() {
             startDestination = Status,
             modifier = Modifier.padding(padding),
         ) {
-            composable<Status> { StatusScreen(onViewBuild = { navController.navigate(BuildAnalysis) }) }
+            composable<Status> {
+                StatusScreen(
+                    onViewBuild = { navController.navigate(BuildAnalysis) },
+                    onAccount = { navController.navigate(Account) },
+                )
+            }
             composable<Quests> {
                 QuestsScreen(onQuestClick = { questId -> navController.navigate(ActiveQuest(questId)) })
             }
@@ -81,6 +87,9 @@ fun AscendApp() {
             }
             composable<BuildAnalysis> {
                 BuildIdentityScreen(onBack = { navController.popBackStack() })
+            }
+            composable<Account> {
+                AuthScreen(onBack = { navController.popBackStack() })
             }
         }
     }

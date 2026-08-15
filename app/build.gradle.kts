@@ -145,6 +145,10 @@ dependencies {
     implementation(libs.supabase.auth)
     implementation(libs.supabase.postgrest)
     implementation(libs.ktor.client.okhttp)
+    // Google sign-in via Credential Manager (ID-token flow; no client secret in the app).
+    implementation(libs.androidx.credentials)
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.google.identity.googleid)
 
     // Debug tooling
     debugImplementation(libs.androidx.compose.ui.tooling)

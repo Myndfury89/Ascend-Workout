@@ -1427,6 +1427,7 @@
     <ID>MaxLineLength:StatusSigil.kt$)</ID>
     <ID>MaxLineLength:StreakCalculatorTest.kt$StreakCalculatorTest$val result = calc.onActivity(currentStreak = 4, longestStreak = 4, lastActiveDay = day.minusDays(1), today = day)</ID>
     <ID>MaxLineLength:StreakCalculatorTest.kt$StreakCalculatorTest$val result = calc.onActivity(currentStreak = 9, longestStreak = 12, lastActiveDay = day.minusDays(2), today = day)</ID>
+    <ID>MaxLineLength:SupabaseAuthGateway.kt$SupabaseAuthGateway$override fun authState(): Flow&lt;AuthState&gt;</ID>
     <ID>MaxLineLength:TrainingReadinessCalculator.kt$TrainingReadinessCalculator$)</ID>
     <ID>MaxLineLength:TrainingReadinessCalculator.kt$TrainingReadinessCalculator$baseline.completionConsistency &gt;= config.questIncreaseConsistency &amp;&amp; baseline.recentTrend &gt;= 0.0</ID>
     <ID>MaxLineLength:TrainingReadinessCalculator.kt$TrainingReadinessCalculator$fun SessionPerformance.allTopRange()</ID>
@@ -1483,11 +1484,17 @@
     <ID>ReturnCount:QuestReminderPolicy.kt$QuestReminderPolicy$fun shouldRemind( interval: QuestInterval, now: Long, questComplete: Boolean, notificationsEnabled: Boolean, quietHours: List&lt;Pair&lt;Long, Long&gt;&gt; = emptyList(), ): Boolean</ID>
     <ID>ReturnCount:QuestTargetValidator.kt$QuestTargetValidator$fun validate( template: QuestTemplate, target: Int, recentBaseline: Int? = null, ): QuestTargetValidation</ID>
     <ID>ReturnCount:QuestViewModel.kt$QuestViewModel$private fun suggestionFor(quest: Quest): SetSuggestion?</ID>
+    <ID>ReturnCount:SupabaseProfileGateway.kt$SupabaseProfileGateway$override suspend fun fetchOwnProfile(): RemoteResult&lt;RemoteProfile?&gt;</ID>
+    <ID>ReturnCount:SupabaseProfileGateway.kt$SupabaseProfileGateway$override suspend fun upsertOwnProfile( handle: String?, displayName: String?, ): RemoteResult&lt;RemoteProfile&gt;</ID>
     <ID>ReturnCount:TrainingReadinessCalculator.kt$TrainingReadinessCalculator$fun evaluateDailyQuest( baseline: RecentBaseline?, checkIn: ReadinessCheckIn = ReadinessCheckIn(), now: Long = System.currentTimeMillis(), ): TrainingReadiness</ID>
     <ID>ReturnCount:TrainingReadinessCalculator.kt$TrainingReadinessCalculator$fun evaluateResistance( sessions: List&lt;SessionPerformance&gt;, prescription: ExercisePrescription, checkIn: ReadinessCheckIn = ReadinessCheckIn(), now: Long = System.currentTimeMillis(), ): TrainingReadiness</ID>
     <ID>ReturnCount:TrainingReadinessCalculator.kt$TrainingReadinessCalculator$private fun safetyGate( checkIn: ReadinessCheckIn, now: Long, ): TrainingReadiness?</ID>
     <ID>ReturnCount:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$override suspend fun completeWorkout(workoutId: String): CompleteWorkoutResult</ID>
     <ID>SpreadOperator:DatabaseModule.kt$DatabaseModule$(*AscendMigrations.ALL)</ID>
+    <ID>SwallowedException:SupabaseAuthGateway.kt$SupabaseAuthGateway$e: IOException</ID>
+    <ID>SwallowedException:SupabaseProfileGateway.kt$SupabaseProfileGateway$e: IOException</ID>
+    <ID>TooGenericExceptionCaught:SupabaseAuthGateway.kt$SupabaseAuthGateway$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:SupabaseProfileGateway.kt$SupabaseProfileGateway$e: Exception</ID>
     <ID>TooManyFunctions:AdaptiveTrainingDao.kt$AdaptiveTrainingDao</ID>
     <ID>TooManyFunctions:AdaptiveTrainingMappers.kt$com.ascend.core.data.mapper.AdaptiveTrainingMappers.kt</ID>
     <ID>TooManyFunctions:AscendDatabase.kt$AscendDatabase : RoomDatabase</ID>
@@ -1518,6 +1525,7 @@
     <ID>TooManyFunctions:QuestIntervalRedistributionEngine.kt$QuestIntervalRedistributionEngine</ID>
     <ID>TooManyFunctions:QuestRepositoryImpl.kt$QuestRepositoryImpl : QuestRepository</ID>
     <ID>TooManyFunctions:StatusPrototypePreviews.kt$com.ascend.feature.dashboard.prototype.StatusPrototypePreviews.kt</ID>
+    <ID>TooManyFunctions:SupabaseAuthGateway.kt$SupabaseAuthGateway : AuthGateway</ID>
     <ID>TooManyFunctions:WorkoutDao.kt$WorkoutDao</ID>
     <ID>TooManyFunctions:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl : WorkoutRepository</ID>
     <ID>UnusedParameter:EdgeLitStatusPanel.kt$accent: Color</ID>

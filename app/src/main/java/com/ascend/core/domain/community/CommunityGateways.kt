@@ -24,6 +24,16 @@ interface AuthGateway {
         password: String,
     ): RemoteResult<AuthState>
 
+    /**
+     * Sign in with a Google ID token (the primary path — it sidesteps the built-in email 2/hour
+     * throttle and needs no CAPTCHA). Acquiring the token via Credential Manager is a UI/device concern
+     * handled above; this gateway only exchanges it for a session.
+     */
+    suspend fun signInWithGoogleIdToken(
+        idToken: String,
+        rawNonce: String? = null,
+    ): RemoteResult<AuthState>
+
     suspend fun signOut()
 }
 

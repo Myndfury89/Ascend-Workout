@@ -38,6 +38,9 @@ android {
         // Supabase config (empty when unconfigured — local-only play is unaffected).
         buildConfigField("String", "SUPABASE_URL", secretConfigValue("SUPABASE_URL"))
         buildConfigField("String", "SUPABASE_ANON_KEY", secretConfigValue("SUPABASE_ANON_KEY"))
+        // Google Web (server) OAuth client id for the Credential Manager ID-token flow. Empty disables
+        // the Google button gracefully; email/password still works.
+        buildConfigField("String", "GOOGLE_WEB_CLIENT_ID", secretConfigValue("GOOGLE_WEB_CLIENT_ID"))
     }
 
     buildTypes {

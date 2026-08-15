@@ -49,6 +49,10 @@
     <ID>FunctionNaming:AscendedStatusField.kt$@Composable fun DarkFieldBacking( accent: Color, modifier: Modifier = Modifier, )</ID>
     <ID>FunctionNaming:AscendedStatusField.kt$@Composable private fun ProductionFieldBackground(modifier: Modifier = Modifier)</ID>
     <ID>FunctionNaming:AscendedStatusFieldScreen.kt$@Composable fun AscendedStatusFieldScreen(modifier: Modifier = Modifier)</ID>
+    <ID>FunctionNaming:AuthScreen.kt$@Composable fun AuthContent( state: AuthUiState, onSignIn: (String, String) -&gt; Unit = { _, _ -&gt; }, onSignUp: (String, String) -&gt; Unit = { _, _ -&gt; }, onGoogle: () -&gt; Unit = {}, onSignOut: () -&gt; Unit = {}, onBack: () -&gt; Unit = {}, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:AuthScreen.kt$@Composable fun AuthScreen( onBack: () -&gt; Unit = {}, onRequestGoogleSignIn: () -&gt; Unit = {}, viewModel: AuthViewModel = hiltViewModel(), )</ID>
+    <ID>FunctionNaming:AuthScreen.kt$@Composable private fun SignedIn( state: AuthUiState, onSignOut: () -&gt; Unit, )</ID>
+    <ID>FunctionNaming:AuthScreen.kt$@Composable private fun SignedOut( state: AuthUiState, onSignIn: (String, String) -&gt; Unit, onSignUp: (String, String) -&gt; Unit, onGoogle: () -&gt; Unit, )</ID>
     <ID>FunctionNaming:BreakthroughBurst.kt$@Composable fun BreakthroughBurst( accent: Color, pulse: Float, mode: BurstMode, modifier: Modifier = Modifier, )</ID>
     <ID>FunctionNaming:BreakthroughBurst.kt$@Composable private fun ProceduralBurst( accent: Color, pulse: Float, modifier: Modifier, )</ID>
     <ID>FunctionNaming:BuildIdentityScreen.kt$@Composable fun BuildIdentityContent( state: BuildIdentityUiState, onBack: () -&gt; Unit = {}, modifier: Modifier = Modifier, )</ID>
@@ -233,6 +237,7 @@
     <ID>LongParameterList:AscendMotionPrototypeScreen.kt$( data: StatusPrototypeData, controller: PrototypeReviewController, accent: Color, motion: StatusPrototypeMotion, rotation: Float, reduced: Boolean, motionSpec: MotionSpec, modifier: Modifier = Modifier, )</ID>
     <ID>LongParameterList:AscendedControls.kt$( ascendedClass: AscendedClass, bodyBase: BodyBase, stage: EvolutionStage, perceptionLevel: Int, onClass: (AscendedClass) -&gt; Unit, onBodyBase: (BodyBase) -&gt; Unit, onStage: (EvolutionStage) -&gt; Unit, onPerception: (Int) -&gt; Unit, modifier: Modifier = Modifier, )</ID>
     <ID>LongParameterList:AscendedStatusField.kt$( ascendedClass: AscendedClass?, bodyBase: BodyBase, modifier: Modifier = Modifier, stage: EvolutionStage = EvolutionStage.BASE, perceptionLevel: Int = 0, @Suppress("UNUSED_PARAMETER") reducedMotion: Boolean = false, )</ID>
+    <ID>LongParameterList:AuthScreen.kt$( state: AuthUiState, onSignIn: (String, String) -&gt; Unit = { _, _ -&gt; }, onSignUp: (String, String) -&gt; Unit = { _, _ -&gt; }, onGoogle: () -&gt; Unit = {}, onSignOut: () -&gt; Unit = {}, onBack: () -&gt; Unit = {}, modifier: Modifier = Modifier, )</ID>
     <ID>LongParameterList:BodyweightProgressionCalculator.kt$BodyweightProgressionCalculator$( private val repCalculator: RepProgressionCalculator, private val setCalculator: SetProgressionCalculator, private val restCalculator: RestProgressionCalculator, private val assistanceCalculator: AssistanceProgressionCalculator, private val externalLoadCalculator: ExternalLoadProgressionCalculator, private val tempoCalculator: TempoProgressionCalculator, private val variationEngine: ExerciseVariationProgressionEngine, )</ID>
     <ID>LongParameterList:ClassAffinityAssessorTest.kt$ClassAffinityAssessorTest$( goal: PrimaryGoal, prefs: Set&lt;ActivityPreference&gt; = emptySet(), experience: Map&lt;ActivityDomain, ExperienceLevel&gt; = emptyMap(), sex: OptionalSex = OptionalSex.NOT_SET, age: AgeSafetyCategory = AgeSafetyCategory.ADULT, limitations: Set&lt;Limitation&gt; = emptySet(), body: BodyMetrics = BodyMetrics(), )</ID>
     <ID>LongParameterList:ClassRecommendationRationaleTest.kt$ClassRecommendationRationaleTest$( goal: PrimaryGoal = PrimaryGoal.STRENGTH, secondary: List&lt;PrimaryGoal&gt; = emptyList(), prefs: Set&lt;ActivityPreference&gt; = emptySet(), env: TrainingEnvironment? = null, sex: OptionalSex = OptionalSex.NOT_SET, age: AgeSafetyCategory = AgeSafetyCategory.ADULT, limitations: Set&lt;Limitation&gt; = emptySet(), body: BodyMetrics = BodyMetrics(), )</ID>
@@ -418,6 +423,11 @@
     <ID>MagicNumber:AttributeWave.kt$AttributeWaveCatalog$520</ID>
     <ID>MagicNumber:AttributeWave.kt$AttributeWaveCatalog$800</ID>
     <ID>MagicNumber:AttributeWave.kt$AttributeWaveCatalog$950</ID>
+    <ID>MagicNumber:AuthScreen.kt$0xFF04050B</ID>
+    <ID>MagicNumber:AuthScreen.kt$0xFF3ECF8E</ID>
+    <ID>MagicNumber:AuthScreen.kt$0xFF8A93B5</ID>
+    <ID>MagicNumber:AuthScreen.kt$0xFFE5736B</ID>
+    <ID>MagicNumber:AuthScreen.kt$0xFFEAF0FF</ID>
     <ID>MagicNumber:BreakthroughBurst.kt$0.06f</ID>
     <ID>MagicNumber:BreakthroughBurst.kt$0.15f</ID>
     <ID>MagicNumber:BreakthroughBurst.kt$0.18f</ID>
@@ -967,6 +977,8 @@
     <ID>MaxLineLength:AscendedStatusField.kt$drawOval(accent.copy(alpha = 0.32f), topLeft = Offset(cx - rx, fy - ry), size = Size(rx * 2f, ry * 2f), style = Stroke(width = 2f))</ID>
     <ID>MaxLineLength:AscendedStatusFieldScreen.kt$Row</ID>
     <ID>MaxLineLength:AscendedStatusFieldScreen.kt$Text(ascendedClass.displayName, color = StatusPalette.textPrimary, fontSize = 24.sp, fontWeight = FontWeight.SemiBold)</ID>
+    <ID>MaxLineLength:AuthContentRenderTest.kt$AuthContentRenderTest$compose.setContent { AscendTheme(darkTheme = true) { AuthContent(state = AuthUiState(googleAvailable = true)) } }</ID>
+    <ID>MaxLineLength:AuthViewModel.kt$AuthViewModel$}</ID>
     <ID>MaxLineLength:BodyweightProgressionCalculator.kt$BodyweightProgressionCalculator$all.filterNot { it.dimension == ProgressionDimension.TEMPO || it.dimension == ProgressionDimension.RANGE_OF_MOTION }</ID>
     <ID>MaxLineLength:BodyweightProgressionCalculator.kt$BodyweightProgressionCalculator$out += variationEngine.advanceCandidates(context.graph, context.currentVariationId, context.variationInput)</ID>
     <ID>MaxLineLength:BodyweightProgressionCalculators.kt$AssistanceProgressionCalculator$if (safetyBlocked(checkIn)) return maintain("Keep current assistance — recover first", ProgressionDimension.ASSISTANCE)</ID>

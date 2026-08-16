@@ -4,12 +4,20 @@ import android.os.Build
 import com.ascend.BuildConfig
 import com.ascend.core.data.community.DataStoreSessionStore
 import com.ascend.core.data.community.SupabaseAuthGateway
+import com.ascend.core.data.community.SupabaseFriendGateway
+import com.ascend.core.data.community.SupabaseFriendProfileGateway
+import com.ascend.core.data.community.SupabaseModerationGateway
 import com.ascend.core.data.community.SupabaseProfileGateway
+import com.ascend.core.data.community.SupabaseShareSettingsGateway
 import com.ascend.core.domain.community.AuthGateway
 import com.ascend.core.domain.community.DefaultIdentityResolver
+import com.ascend.core.domain.community.FriendGateway
+import com.ascend.core.domain.community.FriendProfileGateway
 import com.ascend.core.domain.community.IdentityResolver
+import com.ascend.core.domain.community.ModerationGateway
 import com.ascend.core.domain.community.ProfileGateway
 import com.ascend.core.domain.community.SessionStore
+import com.ascend.core.domain.community.ShareSettingsGateway
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -62,4 +70,16 @@ abstract class CommunityBindingModule {
 
     @Binds
     abstract fun bindProfileGateway(impl: SupabaseProfileGateway): ProfileGateway
+
+    @Binds
+    abstract fun bindFriendGateway(impl: SupabaseFriendGateway): FriendGateway
+
+    @Binds
+    abstract fun bindModerationGateway(impl: SupabaseModerationGateway): ModerationGateway
+
+    @Binds
+    abstract fun bindShareSettingsGateway(impl: SupabaseShareSettingsGateway): ShareSettingsGateway
+
+    @Binds
+    abstract fun bindFriendProfileGateway(impl: SupabaseFriendProfileGateway): FriendProfileGateway
 }

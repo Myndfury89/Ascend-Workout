@@ -1084,6 +1084,8 @@
     <ID>MaxLineLength:ClassSigilGeometryTest.kt$ClassSigilGeometryTest$assertNotNull("class-distinct build has a core anchor", geometry(StatusClassVariant.BERSERKER, classDistinct = true).coreAnchor)</ID>
     <ID>MaxLineLength:ClassSigilGeometryTest.kt$ClassSigilGeometryTest$assertNull("legacy build has no core anchor", geometry(StatusClassVariant.BERSERKER, classDistinct = false).coreAnchor)</ID>
     <ID>MaxLineLength:ClassSigilGeometryTest.kt$ClassSigilGeometryTest$assertNull("legacy build has no middle group", geometry(StatusClassVariant.BERSERKER, classDistinct = false).middleGroup)</ID>
+    <ID>MaxLineLength:CommunityDtoMappingTest.kt$CommunityDtoMappingTest$val dto = ReportDto.from(reporterId = "me", subject = RemoteUserId("them"), reason = ReportReason.SPAM, note = "x")</ID>
+    <ID>MaxLineLength:CommunityRemote.kt$internal fun &lt;T&gt; notConfigured(): RemoteResult&lt;T&gt;</ID>
     <ID>MaxLineLength:ContributionEligibilityEvaluator.kt$ContributionEligibilityEvaluator$return ContributionEligibility(MemberActivityState.DISCONNECTED, false, "Party member reconnecting.")</ID>
     <ID>MaxLineLength:ContributionEligibilityEvaluator.kt$ContributionEligibilityEvaluator$return ContributionEligibility(MemberActivityState.PAUSED, false, "Party member contribution paused.")</ID>
     <ID>MaxLineLength:ContributionEligibilityEvaluator.kt$ContributionEligibilityEvaluator$return ContributionEligibility(MemberActivityState.SAFETY_PAUSED, false, "Party member contribution paused.")</ID>
@@ -1370,8 +1372,6 @@
     <ID>MaxLineLength:SetSuggestionEngineTest.kt$SetSuggestionEngineTest$val s = engine.suggest(SetSuggestionInput(remaining = 137, preferredSetSize = 30, minimumSetSize = 10, maximumSetSize = 50))</ID>
     <ID>MaxLineLength:SharePolicy.kt$SharePolicy$/** Can the viewer see the target's profile at all? Any block, non-friend, ineligibility, or non-FRIENDS visibility → false. */</ID>
     <ID>MaxLineLength:SharePolicy.kt$SharePolicy$ShareableField.BUILD_IDENTITY, ShareableField.CLASS_AFFINITY_SUMMARY -&gt; ctx.targetSettings.shareBuildIdentity</ID>
-    <ID>MaxLineLength:SharePolicyTest.kt$SharePolicyTest$listOf("WEIGHT", "BODY", "SLEEP", "HRV", "HEART", "CALOR", "LOCATION", "HEALTH", "SAMSUNG", "EVIDENCE", "COVERAGE", "RECOVERY", "STEPS")</ID>
-    <ID>MaxLineLength:SharePolicyTest.kt$SharePolicyTest$listOf("weight", "body", "sleep", "hrv", "heart", "calor", "location", "health", "samsung", "evidence", "coverage", "recovery", "steps")</ID>
     <ID>MaxLineLength:SigilInstrumentationTest.kt$SigilInstrumentationTest$assertTrue(inst.ring(SigilRingRole.PLAYER_XP)!!.radiusFraction != inst.ring(SigilRingRole.CLASS_XP)!!.radiusFraction)</ID>
     <ID>MaxLineLength:SigilLayers.kt$SigilInstrumentation.Companion$SigilRing(SigilRingRole.STRUCTURAL_PRIMARY, radiusFraction = 0.72f, weight = 2f, dashed = false, live = false)</ID>
     <ID>MaxLineLength:SigilLayers.kt$SigilInstrumentation.Companion$SigilRing(SigilRingRole.STRUCTURAL_SECONDARY, radiusFraction = 0.60f, weight = 1.4f, dashed = true, live = false)</ID>
@@ -1445,6 +1445,15 @@
     <ID>MaxLineLength:StatusSigil.kt$)</ID>
     <ID>MaxLineLength:StreakCalculatorTest.kt$StreakCalculatorTest$val result = calc.onActivity(currentStreak = 4, longestStreak = 4, lastActiveDay = day.minusDays(1), today = day)</ID>
     <ID>MaxLineLength:StreakCalculatorTest.kt$StreakCalculatorTest$val result = calc.onActivity(currentStreak = 9, longestStreak = 12, lastActiveDay = day.minusDays(2), today = day)</ID>
+    <ID>MaxLineLength:SupabaseFriendGateway.kt$SupabaseFriendGateway$RemoteResult.Success(myFriendships(c, uid).filter { it.status == STATUS_ACCEPTED }.map { it.toEdge(uid) })</ID>
+    <ID>MaxLineLength:SupabaseFriendGateway.kt$SupabaseFriendGateway$RemoteResult.Success(myFriendships(c, uid).filter { it.status == STATUS_PENDING }.map { it.toEdge(uid) })</ID>
+    <ID>MaxLineLength:SupabaseFriendGateway.kt$SupabaseFriendGateway$c.postgrest.from(FRIENDSHIPS).update({ set("status", STATUS_ACCEPTED) }) { filter { eq("id", id.value) } }</ID>
+    <ID>MaxLineLength:SupabaseFriendGateway.kt$SupabaseFriendGateway$val asAddressee = c.postgrest.from(FRIENDSHIPS).select { filter { eq("addressee_id", uid) } }.decodeList&lt;FriendshipDto&gt;()</ID>
+    <ID>MaxLineLength:SupabaseFriendGateway.kt$SupabaseFriendGateway$val asRequester = c.postgrest.from(FRIENDSHIPS).select { filter { eq("requester_id", uid) } }.decodeList&lt;FriendshipDto&gt;()</ID>
+    <ID>MaxLineLength:SupabaseFriendGateway.kt$SupabaseFriendGateway$val edge = myFriendships(c, uid).firstOrNull { it.requesterId == other.value || it.addresseeId == other.value }</ID>
+    <ID>MaxLineLength:SupabaseModerationGateway.kt$SupabaseModerationGateway$c.postgrest.from(REPORTS).insert(ReportDto.from(reporterId = uid, subject = subject, reason = reason, note = note))</ID>
+    <ID>MaxLineLength:SupabaseModerationGateway.kt$SupabaseModerationGateway$val blocked = c.postgrest.from(BLOCKS).select().decodeList&lt;BlockDto&gt;().map { RemoteUserId(it.blockedId) }</ID>
+    <ID>MaxLineLength:SupabaseModerationGateway.kt$SupabaseModerationGateway$val hit = c.postgrest.from(BLOCKS).select { filter { eq("blocked_id", user.value) } }.decodeList&lt;BlockDto&gt;()</ID>
     <ID>MaxLineLength:TrainingReadinessCalculator.kt$TrainingReadinessCalculator$)</ID>
     <ID>MaxLineLength:TrainingReadinessCalculator.kt$TrainingReadinessCalculator$baseline.completionConsistency &gt;= config.questIncreaseConsistency &amp;&amp; baseline.recentTrend &gt;= 0.0</ID>
     <ID>MaxLineLength:TrainingReadinessCalculator.kt$TrainingReadinessCalculator$fun SessionPerformance.allTopRange()</ID>
@@ -1502,17 +1511,35 @@
     <ID>ReturnCount:QuestReminderPolicy.kt$QuestReminderPolicy$fun shouldRemind( interval: QuestInterval, now: Long, questComplete: Boolean, notificationsEnabled: Boolean, quietHours: List&lt;Pair&lt;Long, Long&gt;&gt; = emptyList(), ): Boolean</ID>
     <ID>ReturnCount:QuestTargetValidator.kt$QuestTargetValidator$fun validate( template: QuestTemplate, target: Int, recentBaseline: Int? = null, ): QuestTargetValidation</ID>
     <ID>ReturnCount:QuestViewModel.kt$QuestViewModel$private fun suggestionFor(quest: Quest): SetSuggestion?</ID>
+    <ID>ReturnCount:SupabaseFriendGateway.kt$SupabaseFriendGateway$override suspend fun acceptRequest(id: FriendshipId): RemoteResult&lt;Unit&gt;</ID>
+    <ID>ReturnCount:SupabaseFriendGateway.kt$SupabaseFriendGateway$override suspend fun listFriends(): RemoteResult&lt;List&lt;FriendEdge&gt;&gt;</ID>
+    <ID>ReturnCount:SupabaseFriendGateway.kt$SupabaseFriendGateway$override suspend fun listPendingRequests(): RemoteResult&lt;List&lt;FriendEdge&gt;&gt;</ID>
+    <ID>ReturnCount:SupabaseFriendGateway.kt$SupabaseFriendGateway$override suspend fun relationshipWith(other: RemoteUserId): RemoteResult&lt;RelationshipState&gt;</ID>
+    <ID>ReturnCount:SupabaseFriendGateway.kt$SupabaseFriendGateway$override suspend fun sendRequest(to: RemoteUserId): RemoteResult&lt;Unit&gt;</ID>
+    <ID>ReturnCount:SupabaseFriendGateway.kt$SupabaseFriendGateway$private suspend fun deleteFriendship(id: FriendshipId): RemoteResult&lt;Unit&gt;</ID>
+    <ID>ReturnCount:SupabaseFriendProfileGateway.kt$SupabaseFriendProfileGateway$override suspend fun fetchSharedProfile(user: RemoteUserId): RemoteResult&lt;SharedProfile?&gt;</ID>
+    <ID>ReturnCount:SupabaseFriendProfileGateway.kt$SupabaseFriendProfileGateway$override suspend fun lookupByHandle(handle: String): RemoteResult&lt;ProfileCard?&gt;</ID>
+    <ID>ReturnCount:SupabaseFriendProfileGateway.kt$SupabaseFriendProfileGateway$override suspend fun publishOwnSharedProfile(profile: SharedProfile): RemoteResult&lt;Unit&gt;</ID>
+    <ID>ReturnCount:SupabaseModerationGateway.kt$SupabaseModerationGateway$override suspend fun block(user: RemoteUserId): RemoteResult&lt;Unit&gt;</ID>
+    <ID>ReturnCount:SupabaseModerationGateway.kt$SupabaseModerationGateway$override suspend fun isBlocked(user: RemoteUserId): RemoteResult&lt;Boolean&gt;</ID>
+    <ID>ReturnCount:SupabaseModerationGateway.kt$SupabaseModerationGateway$override suspend fun listBlocked(): RemoteResult&lt;List&lt;RemoteUserId&gt;&gt;</ID>
+    <ID>ReturnCount:SupabaseModerationGateway.kt$SupabaseModerationGateway$override suspend fun report( subject: RemoteUserId?, reason: ReportReason, note: String?, ): RemoteResult&lt;Unit&gt;</ID>
+    <ID>ReturnCount:SupabaseModerationGateway.kt$SupabaseModerationGateway$override suspend fun unblock(user: RemoteUserId): RemoteResult&lt;Unit&gt;</ID>
     <ID>ReturnCount:SupabaseProfileGateway.kt$SupabaseProfileGateway$override suspend fun fetchOwnProfile(): RemoteResult&lt;RemoteProfile?&gt;</ID>
     <ID>ReturnCount:SupabaseProfileGateway.kt$SupabaseProfileGateway$override suspend fun upsertOwnProfile( handle: String?, displayName: String?, ): RemoteResult&lt;RemoteProfile&gt;</ID>
+    <ID>ReturnCount:SupabaseShareSettingsGateway.kt$SupabaseShareSettingsGateway$override suspend fun getOwn(): RemoteResult&lt;ShareSettings&gt;</ID>
+    <ID>ReturnCount:SupabaseShareSettingsGateway.kt$SupabaseShareSettingsGateway$override suspend fun update(settings: ShareSettings): RemoteResult&lt;ShareSettings&gt;</ID>
     <ID>ReturnCount:TrainingReadinessCalculator.kt$TrainingReadinessCalculator$fun evaluateDailyQuest( baseline: RecentBaseline?, checkIn: ReadinessCheckIn = ReadinessCheckIn(), now: Long = System.currentTimeMillis(), ): TrainingReadiness</ID>
     <ID>ReturnCount:TrainingReadinessCalculator.kt$TrainingReadinessCalculator$fun evaluateResistance( sessions: List&lt;SessionPerformance&gt;, prescription: ExercisePrescription, checkIn: ReadinessCheckIn = ReadinessCheckIn(), now: Long = System.currentTimeMillis(), ): TrainingReadiness</ID>
     <ID>ReturnCount:TrainingReadinessCalculator.kt$TrainingReadinessCalculator$private fun safetyGate( checkIn: ReadinessCheckIn, now: Long, ): TrainingReadiness?</ID>
     <ID>ReturnCount:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl$override suspend fun completeWorkout(workoutId: String): CompleteWorkoutResult</ID>
     <ID>SpreadOperator:DatabaseModule.kt$DatabaseModule$(*AscendMigrations.ALL)</ID>
+    <ID>SwallowedException:CommunityRemote.kt$e: IOException</ID>
     <ID>SwallowedException:GoogleIdTokenRequester.kt$GoogleIdTokenRequester$e: GetCredentialCancellationException</ID>
     <ID>SwallowedException:GoogleIdTokenRequester.kt$GoogleIdTokenRequester$e: NoCredentialException</ID>
     <ID>SwallowedException:SupabaseAuthGateway.kt$SupabaseAuthGateway$e: IOException</ID>
     <ID>SwallowedException:SupabaseProfileGateway.kt$SupabaseProfileGateway$e: IOException</ID>
+    <ID>TooGenericExceptionCaught:CommunityRemote.kt$e: Exception</ID>
     <ID>TooGenericExceptionCaught:SupabaseAuthGateway.kt$SupabaseAuthGateway$e: Exception</ID>
     <ID>TooGenericExceptionCaught:SupabaseProfileGateway.kt$SupabaseProfileGateway$e: Exception</ID>
     <ID>TooManyFunctions:AdaptiveTrainingDao.kt$AdaptiveTrainingDao</ID>
@@ -1545,6 +1572,7 @@
     <ID>TooManyFunctions:QuestIntervalRedistributionEngine.kt$QuestIntervalRedistributionEngine</ID>
     <ID>TooManyFunctions:QuestRepositoryImpl.kt$QuestRepositoryImpl : QuestRepository</ID>
     <ID>TooManyFunctions:StatusPrototypePreviews.kt$com.ascend.feature.dashboard.prototype.StatusPrototypePreviews.kt</ID>
+    <ID>TooManyFunctions:SupabaseFriendGateway.kt$SupabaseFriendGateway : FriendGateway</ID>
     <ID>TooManyFunctions:WorkoutDao.kt$WorkoutDao</ID>
     <ID>TooManyFunctions:WorkoutRepositoryImpl.kt$WorkoutRepositoryImpl : WorkoutRepository</ID>
     <ID>UnusedParameter:EdgeLitStatusPanel.kt$accent: Color</ID>

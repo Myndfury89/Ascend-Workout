@@ -43,6 +43,16 @@ data object BuildAnalysis
 @Serializable
 data object Account
 
+// Community social surfaces, reached from Account.
+@Serializable
+data object Friends
+
+@Serializable
+data class FriendProfile(val userId: String)
+
+@Serializable
+data object ShareSettings
+
 /** The five primary destinations shown in the bottom navigation bar. */
 enum class TopLevelDestination(
     val route: Any,

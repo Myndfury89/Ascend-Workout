@@ -52,6 +52,8 @@ private val BAD = Color(0xFFE5736B)
 @Composable
 fun AuthScreen(
     onBack: () -> Unit = {},
+    onOpenFriends: () -> Unit = {},
+    onOpenShareSettings: () -> Unit = {},
     viewModel: AuthViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -61,6 +63,8 @@ fun AuthScreen(
 
     AuthContent(
         state = state,
+        onOpenFriends = onOpenFriends,
+        onOpenShareSettings = onOpenShareSettings,
         onSignIn = viewModel::signIn,
         onSignUp = viewModel::signUp,
         onGoogle = {
@@ -88,6 +92,8 @@ fun AuthContent(
     onGoogle: () -> Unit = {},
     onSignOut: () -> Unit = {},
     onBack: () -> Unit = {},
+    onOpenFriends: () -> Unit = {},
+    onOpenShareSettings: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     Box(modifier.fillMaxSize().background(BG)) {
@@ -111,7 +117,7 @@ fun AuthContent(
             Spacer(Modifier.height(22.dp))
 
             if (state.signedIn) {
-                SignedIn(state, onSignOut)
+                SignedIn(state, onSignOut, onOpenFriends, onOpenShareSettings)
             } else {
                 SignedOut(state, onSignIn, onSignUp, onGoogle)
             }
@@ -133,6 +139,8 @@ fun AuthContent(
 private fun SignedIn(
     state: AuthUiState,
     onSignOut: () -> Unit,
+    onOpenFriends: () -> Unit,
+    onOpenShareSettings: () -> Unit,
 ) {
     Text(
         if (state.emailVerified) "Your email is verified." else "Check your inbox to verify your email.",
@@ -140,6 +148,10 @@ private fun SignedIn(
         fontSize = 14.sp,
     )
     Spacer(Modifier.height(18.dp))
+    Button(onClick = onOpenFriends, modifier = Modifier.fillMaxWidth()) { Text("Friends") }
+    Spacer(Modifier.height(10.dp))
+    OutlinedButton(onClick = onOpenShareSettings, modifier = Modifier.fillMaxWidth()) { Text("Sharing settings", color = INK) }
+    Spacer(Modifier.height(10.dp))
     OutlinedButton(onClick = onSignOut, modifier = Modifier.fillMaxWidth()) {
         Text("Sign out", color = INK)
     }

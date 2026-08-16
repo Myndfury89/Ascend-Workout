@@ -62,6 +62,10 @@ interface ShareSettingsGateway {
 interface FriendProfileGateway {
     suspend fun lookupByHandle(handle: String): RemoteResult<ProfileCard?>
 
+    /** Minimal cards for everyone the current user shares a friendship row with (friends + pending), so
+     *  the list and requests can render names without exposing class/build to non-friends. */
+    suspend fun friendCards(): RemoteResult<List<ProfileCard>>
+
     suspend fun fetchSharedProfile(user: RemoteUserId): RemoteResult<SharedProfile?>
 
     suspend fun publishOwnSharedProfile(profile: SharedProfile): RemoteResult<Unit>

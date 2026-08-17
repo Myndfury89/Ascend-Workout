@@ -15,6 +15,7 @@ import javax.inject.Singleton
 
 private const val SHARED_PROFILES = "shared_profiles"
 private const val LOOKUP_FN = "lookup_profile_by_handle"
+private const val FRIEND_CARDS_FN = "friend_cards"
 
 /**
  * Supabase-backed [FriendProfileGateway]. Discovery goes through the server-side lookup RPC (minimal
@@ -39,6 +40,15 @@ class SupabaseFriendProfileGateway
                         .firstOrNull()
                         ?.toDomain()
                 RemoteResult.Success(card)
+            }
+        }
+
+        override suspend fun friendCards(): RemoteResult<List<ProfileCard>> {
+            val c = client ?: return notConfigured()
+            currentUid() ?: return notSignedIn()
+            return runRemoteCall {
+                val cards = c.postgrest.rpc(FRIEND_CARDS_FN).decodeList<ProfileCardDto>().map { it.toDomain() }
+                RemoteResult.Success(cards)
             }
         }
 

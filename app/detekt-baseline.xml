@@ -49,9 +49,9 @@
     <ID>FunctionNaming:AscendedStatusField.kt$@Composable fun DarkFieldBacking( accent: Color, modifier: Modifier = Modifier, )</ID>
     <ID>FunctionNaming:AscendedStatusField.kt$@Composable private fun ProductionFieldBackground(modifier: Modifier = Modifier)</ID>
     <ID>FunctionNaming:AscendedStatusFieldScreen.kt$@Composable fun AscendedStatusFieldScreen(modifier: Modifier = Modifier)</ID>
-    <ID>FunctionNaming:AuthScreen.kt$@Composable fun AuthContent( state: AuthUiState, onSignIn: (String, String) -&gt; Unit = { _, _ -&gt; }, onSignUp: (String, String) -&gt; Unit = { _, _ -&gt; }, onGoogle: () -&gt; Unit = {}, onSignOut: () -&gt; Unit = {}, onBack: () -&gt; Unit = {}, modifier: Modifier = Modifier, )</ID>
-    <ID>FunctionNaming:AuthScreen.kt$@Composable fun AuthScreen( onBack: () -&gt; Unit = {}, viewModel: AuthViewModel = hiltViewModel(), )</ID>
-    <ID>FunctionNaming:AuthScreen.kt$@Composable private fun SignedIn( state: AuthUiState, onSignOut: () -&gt; Unit, )</ID>
+    <ID>FunctionNaming:AuthScreen.kt$@Composable fun AuthContent( state: AuthUiState, onSignIn: (String, String) -&gt; Unit = { _, _ -&gt; }, onSignUp: (String, String) -&gt; Unit = { _, _ -&gt; }, onGoogle: () -&gt; Unit = {}, onSignOut: () -&gt; Unit = {}, onBack: () -&gt; Unit = {}, onOpenFriends: () -&gt; Unit = {}, onOpenShareSettings: () -&gt; Unit = {}, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:AuthScreen.kt$@Composable fun AuthScreen( onBack: () -&gt; Unit = {}, onOpenFriends: () -&gt; Unit = {}, onOpenShareSettings: () -&gt; Unit = {}, viewModel: AuthViewModel = hiltViewModel(), )</ID>
+    <ID>FunctionNaming:AuthScreen.kt$@Composable private fun SignedIn( state: AuthUiState, onSignOut: () -&gt; Unit, onOpenFriends: () -&gt; Unit, onOpenShareSettings: () -&gt; Unit, )</ID>
     <ID>FunctionNaming:AuthScreen.kt$@Composable private fun SignedOut( state: AuthUiState, onSignIn: (String, String) -&gt; Unit, onSignUp: (String, String) -&gt; Unit, onGoogle: () -&gt; Unit, )</ID>
     <ID>FunctionNaming:BreakthroughBurst.kt$@Composable fun BreakthroughBurst( accent: Color, pulse: Float, mode: BurstMode, modifier: Modifier = Modifier, )</ID>
     <ID>FunctionNaming:BreakthroughBurst.kt$@Composable private fun ProceduralBurst( accent: Color, pulse: Float, modifier: Modifier, )</ID>
@@ -83,6 +83,16 @@
     <ID>FunctionNaming:DungeonPrototypeScreen.kt$@Composable private fun ResultSection(controller: DungeonPrototypeController)</ID>
     <ID>FunctionNaming:DungeonPrototypeScreen.kt$@OptIn(ExperimentalLayoutApi::class) @Composable private fun LobbySection(controller: DungeonPrototypeController)</ID>
     <ID>FunctionNaming:EdgeLitStatusPanel.kt$@Composable fun EdgeLitStatusPanel( accent: Color, materialize: Float, scan: Float, modifier: Modifier = Modifier, effectsQuality: Float = 1f, selfFraming: Boolean = false, frameEnergy: Float = 0f, framePulse: Float = 0f, frameRotation: Float = 0f, frameMotion: Boolean = false, content: @Composable BoxScope.() -&gt; Unit, )</ID>
+    <ID>FunctionNaming:FriendProfileScreen.kt$@Composable fun FriendProfileContent( state: FriendProfileUiState, onBack: () -&gt; Unit = {}, onBlock: () -&gt; Unit = {}, onReport: () -&gt; Unit = {}, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:FriendProfileScreen.kt$@Composable fun FriendProfileScreen( userId: String, onBack: () -&gt; Unit = {}, viewModel: FriendProfileViewModel = hiltViewModel(), )</ID>
+    <ID>FunctionNaming:FriendProfileScreen.kt$@Composable private fun Line( label: String, value: String, )</ID>
+    <ID>FunctionNaming:FriendProfileScreen.kt$@Composable private fun SharedProfileCard(profile: SharedProfile)</ID>
+    <ID>FunctionNaming:FriendsScreen.kt$@Composable fun FriendsContent( state: FriendsUiState, onBack: () -&gt; Unit = {}, onSearch: (String) -&gt; Unit = {}, onSendRequest: (String) -&gt; Unit = {}, onAccept: (com.ascend.core.domain.community.FriendshipId) -&gt; Unit = {}, onDecline: (com.ascend.core.domain.community.FriendshipId) -&gt; Unit = {}, onCancel: (com.ascend.core.domain.community.FriendshipId) -&gt; Unit = {}, onRemove: (com.ascend.core.domain.community.FriendshipId) -&gt; Unit = {}, onOpenProfile: (String) -&gt; Unit = {}, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:FriendsScreen.kt$@Composable fun FriendsScreen( onBack: () -&gt; Unit = {}, onOpenProfile: (String) -&gt; Unit = {}, viewModel: FriendsViewModel = hiltViewModel(), )</ID>
+    <ID>FunctionNaming:FriendsScreen.kt$@Composable private fun AddByHandle( state: FriendsUiState, onSearch: (String) -&gt; Unit, onSendRequest: (String) -&gt; Unit, )</ID>
+    <ID>FunctionNaming:FriendsScreen.kt$@Composable private fun Empty(text: String)</ID>
+    <ID>FunctionNaming:FriendsScreen.kt$@Composable private fun Row2( label: String, actions: @Composable () -&gt; Unit, )</ID>
+    <ID>FunctionNaming:FriendsScreen.kt$@Composable private fun Section( title: String, content: @Composable () -&gt; Unit, )</ID>
     <ID>FunctionNaming:HudPanel.kt$@Composable fun HudDivider( accent: Color, reveal: Float, modifier: Modifier = Modifier, )</ID>
     <ID>FunctionNaming:HudPanel.kt$@Composable fun HudPanel( accent: Color, reveal: Float, pulse: Float, modifier: Modifier = Modifier, title: String? = null, subtitle: String? = null, crest: (@Composable () -&gt; Unit)? = null, footer: String? = null, content: @Composable ColumnScope.() -&gt; Unit, )</ID>
     <ID>FunctionNaming:HudWindows.kt$@Composable fun HudReviewWindow( kind: HudWindowKind, accent: Color, reveal: Float, pulse: Float, modifier: Modifier = Modifier, burstMode: BurstMode = BurstMode.PROCEDURAL, skill: PrototypeSkill = PrototypeSkill.PERCEPTION, )</ID>
@@ -152,6 +162,9 @@
     <ID>FunctionNaming:QuestsScreen.kt$@Composable private fun QuestListCard( quest: Quest, onClick: () -&gt; Unit, )</ID>
     <ID>FunctionNaming:RevisedStatusPrototypeScreen.kt$@Composable fun RevisedStatusPrototypeScreen( modifier: Modifier = Modifier, controller: PrototypeReviewController = rememberPrototypeReviewController(), )</ID>
     <ID>FunctionNaming:RevisedStatusPrototypeScreen.kt$@Composable private fun PanelContent( data: StatusPrototypeData, accent: Color, motion: StatusPrototypeMotion, rotation: Float, controller: PrototypeReviewController, frameMotion: Boolean, zone: (String) -&gt; Modifier, )</ID>
+    <ID>FunctionNaming:ShareSettingsScreen.kt$@Composable fun ShareSettingsContent( state: ShareSettingsUiState, onBack: () -&gt; Unit = {}, onShareEnabled: (Boolean) -&gt; Unit = {}, onShareBuildIdentity: (Boolean) -&gt; Unit = {}, onShareClassProgress: (Boolean) -&gt; Unit = {}, modifier: Modifier = Modifier, )</ID>
+    <ID>FunctionNaming:ShareSettingsScreen.kt$@Composable fun ShareSettingsScreen( onBack: () -&gt; Unit = {}, viewModel: ShareSettingsViewModel = hiltViewModel(), )</ID>
+    <ID>FunctionNaming:ShareSettingsScreen.kt$@Composable private fun ToggleRow( label: String, checked: Boolean, onChange: (Boolean) -&gt; Unit, )</ID>
     <ID>FunctionNaming:SkillCrest.kt$@Composable fun SkillCrest( skill: PrototypeSkill, accent: Color, reveal: Float, pulse: Float, modifier: Modifier = Modifier, )</ID>
     <ID>FunctionNaming:StatusAtmosphere.kt$@Composable fun StatusAtmosphere( sweep: Float, modifier: Modifier = Modifier, )</ID>
     <ID>FunctionNaming:StatusAtmosphere.kt$@Composable fun StatusFog( running: Boolean, modifier: Modifier = Modifier, effectsQuality: Float = 1f, )</ID>
@@ -238,7 +251,7 @@
     <ID>LongParameterList:AscendMotionPrototypeScreen.kt$( data: StatusPrototypeData, controller: PrototypeReviewController, accent: Color, motion: StatusPrototypeMotion, rotation: Float, reduced: Boolean, motionSpec: MotionSpec, modifier: Modifier = Modifier, )</ID>
     <ID>LongParameterList:AscendedControls.kt$( ascendedClass: AscendedClass, bodyBase: BodyBase, stage: EvolutionStage, perceptionLevel: Int, onClass: (AscendedClass) -&gt; Unit, onBodyBase: (BodyBase) -&gt; Unit, onStage: (EvolutionStage) -&gt; Unit, onPerception: (Int) -&gt; Unit, modifier: Modifier = Modifier, )</ID>
     <ID>LongParameterList:AscendedStatusField.kt$( ascendedClass: AscendedClass?, bodyBase: BodyBase, modifier: Modifier = Modifier, stage: EvolutionStage = EvolutionStage.BASE, perceptionLevel: Int = 0, @Suppress("UNUSED_PARAMETER") reducedMotion: Boolean = false, )</ID>
-    <ID>LongParameterList:AuthScreen.kt$( state: AuthUiState, onSignIn: (String, String) -&gt; Unit = { _, _ -&gt; }, onSignUp: (String, String) -&gt; Unit = { _, _ -&gt; }, onGoogle: () -&gt; Unit = {}, onSignOut: () -&gt; Unit = {}, onBack: () -&gt; Unit = {}, modifier: Modifier = Modifier, )</ID>
+    <ID>LongParameterList:AuthScreen.kt$( state: AuthUiState, onSignIn: (String, String) -&gt; Unit = { _, _ -&gt; }, onSignUp: (String, String) -&gt; Unit = { _, _ -&gt; }, onGoogle: () -&gt; Unit = {}, onSignOut: () -&gt; Unit = {}, onBack: () -&gt; Unit = {}, onOpenFriends: () -&gt; Unit = {}, onOpenShareSettings: () -&gt; Unit = {}, modifier: Modifier = Modifier, )</ID>
     <ID>LongParameterList:BodyweightProgressionCalculator.kt$BodyweightProgressionCalculator$( private val repCalculator: RepProgressionCalculator, private val setCalculator: SetProgressionCalculator, private val restCalculator: RestProgressionCalculator, private val assistanceCalculator: AssistanceProgressionCalculator, private val externalLoadCalculator: ExternalLoadProgressionCalculator, private val tempoCalculator: TempoProgressionCalculator, private val variationEngine: ExerciseVariationProgressionEngine, )</ID>
     <ID>LongParameterList:ClassAffinityAssessorTest.kt$ClassAffinityAssessorTest$( goal: PrimaryGoal, prefs: Set&lt;ActivityPreference&gt; = emptySet(), experience: Map&lt;ActivityDomain, ExperienceLevel&gt; = emptyMap(), sex: OptionalSex = OptionalSex.NOT_SET, age: AgeSafetyCategory = AgeSafetyCategory.ADULT, limitations: Set&lt;Limitation&gt; = emptySet(), body: BodyMetrics = BodyMetrics(), )</ID>
     <ID>LongParameterList:ClassRecommendationRationaleTest.kt$ClassRecommendationRationaleTest$( goal: PrimaryGoal = PrimaryGoal.STRENGTH, secondary: List&lt;PrimaryGoal&gt; = emptyList(), prefs: Set&lt;ActivityPreference&gt; = emptySet(), env: TrainingEnvironment? = null, sex: OptionalSex = OptionalSex.NOT_SET, age: AgeSafetyCategory = AgeSafetyCategory.ADULT, limitations: Set&lt;Limitation&gt; = emptySet(), body: BodyMetrics = BodyMetrics(), )</ID>
@@ -251,6 +264,7 @@
     <ID>LongParameterList:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$( id: String, exerciseId: String, name: String, tier: Int, description: String, assistanceType: AssistanceType = AssistanceType.NONE, assistanceValue: Double? = null, rom: Int = 4, externalLoad: Boolean = false, )</ID>
     <ID>LongParameterList:ExerciseVariationCatalog.kt$ExerciseVariationCatalog$( source: String, destination: String, reps: Int, sets: Int, rpe: Double? = null, classUnlock: String? = null, )</ID>
     <ID>LongParameterList:ExerciseVariationGraphTest.kt$ExerciseVariationGraphTest$( exposures: Int = 2, reps: Int = 12, sets: Int = 3, rpe: Double? = 7.0, rir: Int? = null, assistance: Double? = null, rom: Int? = 5, tempo: Boolean = true, failures: Int = 0, safety: ProgressionSafetyState = ProgressionSafetyState.OK, unlocks: Set&lt;String&gt; = emptySet(), )</ID>
+    <ID>LongParameterList:FriendsScreen.kt$( state: FriendsUiState, onBack: () -&gt; Unit = {}, onSearch: (String) -&gt; Unit = {}, onSendRequest: (String) -&gt; Unit = {}, onAccept: (com.ascend.core.domain.community.FriendshipId) -&gt; Unit = {}, onDecline: (com.ascend.core.domain.community.FriendshipId) -&gt; Unit = {}, onCancel: (com.ascend.core.domain.community.FriendshipId) -&gt; Unit = {}, onRemove: (com.ascend.core.domain.community.FriendshipId) -&gt; Unit = {}, onOpenProfile: (String) -&gt; Unit = {}, modifier: Modifier = Modifier, )</ID>
     <ID>LongParameterList:HudPanel.kt$( accent: Color, reveal: Float, pulse: Float, modifier: Modifier = Modifier, title: String? = null, subtitle: String? = null, crest: (@Composable () -&gt; Unit)? = null, footer: String? = null, content: @Composable ColumnScope.() -&gt; Unit, )</ID>
     <ID>LongParameterList:HudWindows.kt$( kind: HudWindowKind, accent: Color, reveal: Float, pulse: Float, modifier: Modifier = Modifier, burstMode: BurstMode = BurstMode.PROCEDURAL, skill: PrototypeSkill = PrototypeSkill.PERCEPTION, )</ID>
     <ID>LongParameterList:InitialQuestPlanGenerator.kt$InitialQuestPlanGenerator$( candidate: QuestPlanCandidate, band: DifficultyBand, conservative: Boolean, durationFactor: Double, limitations: Set&lt;com.ascend.core.model.onboarding.Limitation&gt;, equipment: Set&lt;com.ascend.core.model.onboarding.Equipment&gt;, safetyAdjustments: MutableList&lt;String&gt;, )</ID>
@@ -281,6 +295,7 @@
     <ID>LongParameterList:QuestRepositoryImpl.kt$QuestRepositoryImpl$( private val db: AscendDatabase, private val questDao: QuestDao, private val exerciseDao: ExerciseDao, private val progressionRepository: ProgressionRepository, private val xpCalculator: XpCalculator, private val attributeCalculator: AttributeProgressCalculator, private val classRewardApplier: ClassRewardApplier, private val eventPublisher: ProgressionEventPublisher, )</ID>
     <ID>LongParameterList:RevisedStatusPrototypeScreen.kt$( data: StatusPrototypeData, accent: Color, motion: StatusPrototypeMotion, rotation: Float, controller: PrototypeReviewController, frameMotion: Boolean, zone: (String) -&gt; Modifier, )</ID>
     <ID>LongParameterList:SharePolicyTest.kt$SharePolicyTest$( relationship: RelationshipState = RelationshipState.Friends, visibility: ShareVisibility = ShareVisibility.FRIENDS, shareBuild: Boolean = false, shareClass: Boolean = false, targetEligible: Boolean = true, viewerEligible: Boolean = true, )</ID>
+    <ID>LongParameterList:ShareSettingsScreen.kt$( state: ShareSettingsUiState, onBack: () -&gt; Unit = {}, onShareEnabled: (Boolean) -&gt; Unit = {}, onShareBuildIdentity: (Boolean) -&gt; Unit = {}, onShareClassProgress: (Boolean) -&gt; Unit = {}, modifier: Modifier = Modifier, )</ID>
     <ID>LongParameterList:SkillRepository.kt$SkillRepository$( userId: String, skillId: String, evidenceUnits: Int, sourceType: String, sourceId: String, classAffinity: Double, )</ID>
     <ID>LongParameterList:SkillRepositoryImpl.kt$SkillRepositoryImpl$( private val db: AscendDatabase, private val dao: SkillDao, private val levelCalculator: SkillLevelCalculator, private val progressCalculator: SkillProgressCalculator, private val eligibilityEngine: SkillEligibilityEngine, private val affinityResolver: SkillClassAffinityResolver, private val transferableResolver: TransferableSkillResolver, )</ID>
     <ID>LongParameterList:StatusEnergyFrame.kt$( energy: Float, pulse: Float, rotation: Float, frameMotion: Boolean, modifier: Modifier = Modifier, content: @Composable BoxScope.() -&gt; Unit, )</ID>
@@ -597,6 +612,16 @@
     <ID>MagicNumber:FakeStatusPrototype.kt$FakeStatusPrototype$94</ID>
     <ID>MagicNumber:FakeStatusPrototype.kt$FakeStatusPrototype$96</ID>
     <ID>MagicNumber:FakeStatusPrototype.kt$FakeStatusPrototype$97</ID>
+    <ID>MagicNumber:FriendProfileScreen.kt$0xFF04050B</ID>
+    <ID>MagicNumber:FriendProfileScreen.kt$0xFF10131F</ID>
+    <ID>MagicNumber:FriendProfileScreen.kt$0xFF7FB2E6</ID>
+    <ID>MagicNumber:FriendProfileScreen.kt$0xFF8A93B5</ID>
+    <ID>MagicNumber:FriendProfileScreen.kt$0xFFE5736B</ID>
+    <ID>MagicNumber:FriendProfileScreen.kt$0xFFEAF0FF</ID>
+    <ID>MagicNumber:FriendsScreen.kt$0xFF04050B</ID>
+    <ID>MagicNumber:FriendsScreen.kt$0xFF7FB2E6</ID>
+    <ID>MagicNumber:FriendsScreen.kt$0xFF8A93B5</ID>
+    <ID>MagicNumber:FriendsScreen.kt$0xFFEAF0FF</ID>
     <ID>MagicNumber:GoalAffinityMapping.kt$GoalAffinityMapping$3</ID>
     <ID>MagicNumber:HudPanel.kt$0.04f</ID>
     <ID>MagicNumber:HudPanel.kt$0.1f</ID>
@@ -721,6 +746,9 @@
     <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$4</ID>
     <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$5200</ID>
     <ID>MagicNumber:RevisedStatusPrototypeScreen.kt$9000</ID>
+    <ID>MagicNumber:ShareSettingsScreen.kt$0xFF04050B</ID>
+    <ID>MagicNumber:ShareSettingsScreen.kt$0xFF8A93B5</ID>
+    <ID>MagicNumber:ShareSettingsScreen.kt$0xFFEAF0FF</ID>
     <ID>MagicNumber:SkillCatalog.kt$SkillCatalog$0.02</ID>
     <ID>MagicNumber:SkillCatalog.kt$SkillCatalog$0.03</ID>
     <ID>MagicNumber:SkillCatalog.kt$SkillCatalog$0.05</ID>
@@ -980,6 +1008,7 @@
     <ID>MaxLineLength:AscendedStatusFieldScreen.kt$Row</ID>
     <ID>MaxLineLength:AscendedStatusFieldScreen.kt$Text(ascendedClass.displayName, color = StatusPalette.textPrimary, fontSize = 24.sp, fontWeight = FontWeight.SemiBold)</ID>
     <ID>MaxLineLength:AuthContentRenderTest.kt$AuthContentRenderTest$compose.setContent { AscendTheme(darkTheme = true) { AuthContent(state = AuthUiState(googleAvailable = true)) } }</ID>
+    <ID>MaxLineLength:AuthScreen.kt$OutlinedButton(onClick = onOpenShareSettings, modifier = Modifier.fillMaxWidth()) { Text("Sharing settings", color = INK) }</ID>
     <ID>MaxLineLength:AuthViewModel.kt$AuthViewModel$}</ID>
     <ID>MaxLineLength:BodyweightProgressionCalculator.kt$BodyweightProgressionCalculator$all.filterNot { it.dimension == ProgressionDimension.TEMPO || it.dimension == ProgressionDimension.RANGE_OF_MOTION }</ID>
     <ID>MaxLineLength:BodyweightProgressionCalculator.kt$BodyweightProgressionCalculator$out += variationEngine.advanceCandidates(context.graph, context.currentVariationId, context.variationInput)</ID>
@@ -1085,7 +1114,10 @@
     <ID>MaxLineLength:ClassSigilGeometryTest.kt$ClassSigilGeometryTest$assertNull("legacy build has no core anchor", geometry(StatusClassVariant.BERSERKER, classDistinct = false).coreAnchor)</ID>
     <ID>MaxLineLength:ClassSigilGeometryTest.kt$ClassSigilGeometryTest$assertNull("legacy build has no middle group", geometry(StatusClassVariant.BERSERKER, classDistinct = false).middleGroup)</ID>
     <ID>MaxLineLength:CommunityDtoMappingTest.kt$CommunityDtoMappingTest$val dto = ReportDto.from(reporterId = "me", subject = RemoteUserId("them"), reason = ReportReason.SPAM, note = "x")</ID>
+    <ID>MaxLineLength:CommunityFakes.kt$FakeFriendGateway$override suspend fun relationshipWith(other: RemoteUserId)</ID>
     <ID>MaxLineLength:CommunityRemote.kt$internal fun &lt;T&gt; notConfigured(): RemoteResult&lt;T&gt;</ID>
+    <ID>MaxLineLength:CommunityScreensRenderTest.kt$CommunityScreensRenderTest$friends = listOf(FriendListItem(FriendshipId("f1"), RemoteUserId("u1"), "alpha", "Alpha", incoming = false))</ID>
+    <ID>MaxLineLength:CommunityScreensRenderTest.kt$CommunityScreensRenderTest$incoming = listOf(FriendListItem(FriendshipId("f2"), RemoteUserId("u2"), "bravo", "Bravo", incoming = true))</ID>
     <ID>MaxLineLength:ContributionEligibilityEvaluator.kt$ContributionEligibilityEvaluator$return ContributionEligibility(MemberActivityState.DISCONNECTED, false, "Party member reconnecting.")</ID>
     <ID>MaxLineLength:ContributionEligibilityEvaluator.kt$ContributionEligibilityEvaluator$return ContributionEligibility(MemberActivityState.PAUSED, false, "Party member contribution paused.")</ID>
     <ID>MaxLineLength:ContributionEligibilityEvaluator.kt$ContributionEligibilityEvaluator$return ContributionEligibility(MemberActivityState.SAFETY_PAUSED, false, "Party member contribution paused.")</ID>
@@ -1167,6 +1199,12 @@
     <ID>MaxLineLength:FakeStatusPrototype.kt$FakeStatusPrototype$overlay = StatusEventOverlay(StatusOverlayKind.RECOMMENDATION, "New recommendation", recommendationFor(variant))</ID>
     <ID>MaxLineLength:FakeStatusPrototype.kt$FakeStatusPrototype$recentProgressionEvent = "Bench press → ${com.ascend.core.common.WeightUnits.format(62.5, weightUnit)} confirmed"</ID>
     <ID>MaxLineLength:FakeStatusPrototype.kt$FakeStatusPrototype$trainingFocus = "Concurrent heavy pressing, calisthenic variation laddering, and Zone-2 aerobic base building"</ID>
+    <ID>MaxLineLength:FriendProfileScreen.kt$Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator(color = ACCENT) }</ID>
+    <ID>MaxLineLength:FriendProfileScreen.kt$Column</ID>
+    <ID>MaxLineLength:FriendsScreen.kt$modifier.fillMaxSize().background(BG).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 20.dp)</ID>
+    <ID>MaxLineLength:FriendsViewModel.kt$FriendsViewModel$fun sendRequest(user: RemoteUserId)</ID>
+    <ID>MaxLineLength:FriendsViewModel.kt$FriendsViewModel$it.copy(lookup = r.value, message = if (r.value == null) "No player found with that handle." else null)</ID>
+    <ID>MaxLineLength:FriendsViewModel.kt$FriendsViewModel$val cards = (profiles.friendCards() as? RemoteResult.Success)?.value.orEmpty().associateBy { it.userId.value }</ID>
     <ID>MaxLineLength:GoalAffinityMapping.kt$GoalAffinityMapping$fun goalKeywords(goal: PrimaryGoal): Set&lt;String&gt;</ID>
     <ID>MaxLineLength:HudPanel.kt$Text(title, color = accent, fontSize = 13.sp, fontWeight = FontWeight.Bold, letterSpacing = 2.sp)</ID>
     <ID>MaxLineLength:HudWindows.kt$Text("Complete seven consecutive days of Daily Quests without a miss.", color = StatusPalette.textMuted, fontSize = 13.sp)</ID>
@@ -1372,6 +1410,7 @@
     <ID>MaxLineLength:SetSuggestionEngineTest.kt$SetSuggestionEngineTest$val s = engine.suggest(SetSuggestionInput(remaining = 137, preferredSetSize = 30, minimumSetSize = 10, maximumSetSize = 50))</ID>
     <ID>MaxLineLength:SharePolicy.kt$SharePolicy$/** Can the viewer see the target's profile at all? Any block, non-friend, ineligibility, or non-FRIENDS visibility → false. */</ID>
     <ID>MaxLineLength:SharePolicy.kt$SharePolicy$ShareableField.BUILD_IDENTITY, ShareableField.CLASS_AFFINITY_SUMMARY -&gt; ctx.targetSettings.shareBuildIdentity</ID>
+    <ID>MaxLineLength:ShareSettingsViewModel.kt$ShareSettingsViewModel$persist(state.value.settings.copy(visibility = if (enabled) ShareVisibility.FRIENDS else ShareVisibility.PRIVATE))</ID>
     <ID>MaxLineLength:SigilInstrumentationTest.kt$SigilInstrumentationTest$assertTrue(inst.ring(SigilRingRole.PLAYER_XP)!!.radiusFraction != inst.ring(SigilRingRole.CLASS_XP)!!.radiusFraction)</ID>
     <ID>MaxLineLength:SigilLayers.kt$SigilInstrumentation.Companion$SigilRing(SigilRingRole.STRUCTURAL_PRIMARY, radiusFraction = 0.72f, weight = 2f, dashed = false, live = false)</ID>
     <ID>MaxLineLength:SigilLayers.kt$SigilInstrumentation.Companion$SigilRing(SigilRingRole.STRUCTURAL_SECONDARY, radiusFraction = 0.60f, weight = 1.4f, dashed = true, live = false)</ID>
@@ -1518,6 +1557,7 @@
     <ID>ReturnCount:SupabaseFriendGateway.kt$SupabaseFriendGateway$override suspend fun sendRequest(to: RemoteUserId): RemoteResult&lt;Unit&gt;</ID>
     <ID>ReturnCount:SupabaseFriendGateway.kt$SupabaseFriendGateway$private suspend fun deleteFriendship(id: FriendshipId): RemoteResult&lt;Unit&gt;</ID>
     <ID>ReturnCount:SupabaseFriendProfileGateway.kt$SupabaseFriendProfileGateway$override suspend fun fetchSharedProfile(user: RemoteUserId): RemoteResult&lt;SharedProfile?&gt;</ID>
+    <ID>ReturnCount:SupabaseFriendProfileGateway.kt$SupabaseFriendProfileGateway$override suspend fun friendCards(): RemoteResult&lt;List&lt;ProfileCard&gt;&gt;</ID>
     <ID>ReturnCount:SupabaseFriendProfileGateway.kt$SupabaseFriendProfileGateway$override suspend fun lookupByHandle(handle: String): RemoteResult&lt;ProfileCard?&gt;</ID>
     <ID>ReturnCount:SupabaseFriendProfileGateway.kt$SupabaseFriendProfileGateway$override suspend fun publishOwnSharedProfile(profile: SharedProfile): RemoteResult&lt;Unit&gt;</ID>
     <ID>ReturnCount:SupabaseModerationGateway.kt$SupabaseModerationGateway$override suspend fun block(user: RemoteUserId): RemoteResult&lt;Unit&gt;</ID>

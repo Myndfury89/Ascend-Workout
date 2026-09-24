@@ -4,6 +4,12 @@ Backend for the app's **first cross-user visibility**. Apply these in the Supaba
 against the Ascend project. This is P2A.1 — schema + policies only; the Android seams (P2A.2) and UI +
 block/report (P2A.3) come next, on their own branches.
 
+## Prerequisite
+0. `../p1/profiles.sql` — the canonical `public.profiles` schema (id, handle, **display_name**,
+   timestamps). Apply this FIRST. It is idempotent and repairs a drifted table (e.g. one missing
+   `display_name`, which `04_lookup.sql` / `05_cards.sql` require). Without it those RPCs fail with
+   `column p.display_name does not exist`.
+
 ## Apply order
 1. `01_tables.sql` — tables + indexes (adds `profiles.social_eligible`; creates share_settings,
    friendships, blocks, reports, shared_profiles).

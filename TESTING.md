@@ -77,3 +77,14 @@ Run everything:
 
 Room `MigrationTestHelper` tests (added when the first migration lands), and
 broader UI/interaction coverage as more screens are built.
+
+## Screenshot baselines (Roborazzi)
+
+Golden PNGs for the production `OrnateSigil` (4 class variants × INITIATE/GOLD/MYTHIC, settled) live in
+`app/src/test/screenshots/` and are produced by `OrnateSigilBaselineScreenshotTest` (Robolectric, native
+graphics, paused compose clock, fixed animation inputs).
+
+- Verify (what CI runs): `./gradlew verifyRoborazziDebug --tests '*ScreenshotTest*'`
+- Re-record after an intentional visual change: `./gradlew recordRoborazziDebug --tests '*ScreenshotTest*'`,
+  review the PNG diffs, and commit them in the same PR as the change.
+- On a CI failure, download the `roborazzi-diffs` artifact to see the `_compare.png` images.

@@ -32,3 +32,16 @@ jobs:
 
       - name: Run gates
         run: ./gradlew --no-daemon testDebugUnitTest assembleDebug ktlintCheck detekt
+
+      - name: Verify screenshot goldens (Roborazzi)
+        run: ./gradlew --no-daemon verifyRoborazziDebug --tests '*ScreenshotTest*'
+
+      - name: Upload screenshot diffs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: roborazzi-diffs
+          path: |
+            app/build/outputs/roborazzi
+            app/src/test/screenshots/*_compare.png
+          if-no-files-found: ignore

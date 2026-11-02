@@ -286,15 +286,7 @@ private fun DrawScope.ringArc(
 private fun accentBlend(
     variant: StatusClassVariant,
     warm: Boolean,
-): Color =
-    when {
-        // Refined-prototype warm treatment: Berserker's linework reads red-orange, not violet.
-        warm && variant == StatusClassVariant.BERSERKER -> StatusPalette.ember
-        variant == StatusClassVariant.BERSERKER -> StatusPalette.violetBright
-        variant == StatusClassVariant.MONK -> StatusPalette.cyanSoft
-        variant == StatusClassVariant.MAGE -> StatusPalette.violet
-        else -> StatusPalette.infoLine
-    }
+): Color = variant.sigilSpec().palette.accentFor(warm)
 
 private fun medallionColor(
     index: Int,

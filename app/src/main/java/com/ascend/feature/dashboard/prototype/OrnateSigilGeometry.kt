@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.translate
+import com.ascend.core.designsystem.sigil.SigilShape
 import kotlin.math.cos
 import kotlin.math.roundToInt
 import kotlin.math.sin
@@ -67,61 +68,41 @@ private fun circlePath(
 ): Path = Path().apply { addOval(Rect(center.x - radius, center.y - radius, center.x + radius, center.y + radius)) }
 
 /**
- * The distinct central rotating structure for a class (CP2). Shape language only — each reads
- * differently in monochrome. [sides] feeds the neutral/legacy polygon fallback.
+ * The distinct central rotating structure for a class (CP2), built from the class's
+ * [SigilGeometrySpec.central] shapes. [sides] resolves rank-relative shapes (sides/points = null).
  */
 private fun classCentralPaths(
-    structure: CentralStructure,
+    shapes: List<SigilShape>,
+    r: Float,
+    sides: Int,
+): List<Path> = shapes.flatMap { sigilShapePaths(it, r, sides) }
+
+/** The small static core anchor per class (CP2), from [SigilGeometrySpec.coreAnchor]. */
+private fun coreAnchorPath(
+    anchor: SigilShape,
+    r: Float,
+    sides: Int,
+): Path = sigilShapePaths(anchor, r, sides).single()
+
+/** Converts one radius-relative [SigilShape] into absolute paths for a sigil of radius [r]. */
+private fun sigilShapePaths(
+    shape: SigilShape,
     r: Float,
     sides: Int,
 ): List<Path> =
-    when (structure) {
-        // Berserker — one bold five-point star with long sharp spikes (aggressive, 5-fold), grounded
-        // by a small inner pentagon so it never reads as a generic many-pointed star.
-        CentralStructure.FIVE_POINT_STAR ->
-            listOf(
-                starPath(5, r * 0.38f, r * 0.10f, -90f),
-                polygonPath(5, r * 0.14f, -90f + 36f),
-            )
-        // Monk — a flat-sided hexagon (the distinctive read) enclosing an inscribed hexagram: 6-fold
-        // disciplined symmetry, calm and geometric rather than spiky.
-        CentralStructure.HEXAGRAM ->
-            listOf(
-                polygonPath(6, r * 0.30f, -90f),
-                polygonPath(3, r * 0.28f, -90f),
-                polygonPath(3, r * 0.28f, 90f),
-            )
-        // Mage — an all-curves six-petal rosette inside a bounding circle: flowing, circular,
-        // no straight lines anywhere.
-        CentralStructure.ROSETTE ->
-            buildList {
-                val petals = 6
-                val off = r * 0.17f
-                val cr = r * 0.17f
-                for (k in 0 until petals) {
-                    val a = -Math.PI / 2 + 2.0 * Math.PI * k / petals
-                    add(circlePath(Offset((cos(a) * off).toFloat(), (sin(a) * off).toFloat()), cr))
-                }
-                add(circlePath(Offset.Zero, r * 0.30f))
+    when (shape) {
+        is SigilShape.Polygon -> listOf(polygonPath(shape.sides ?: sides, r * shape.radius, shape.rotationDeg))
+        is SigilShape.Star ->
+            listOf(starPath(shape.points ?: sides, r * shape.outer, r * shape.inner, shape.rotationDeg))
+        is SigilShape.Circle -> listOf(circlePath(Offset.Zero, r * shape.radius))
+        is SigilShape.Rosette -> {
+            val off = r * shape.offset
+            val cr = r * shape.petal
+            (0 until shape.petals).map { k ->
+                val a = -Math.PI / 2 + 2.0 * Math.PI * k / shape.petals
+                circlePath(Offset((cos(a) * off).toFloat(), (sin(a) * off).toFloat()), cr)
             }
-        // Neutral — the legacy polygon + star look, so an unselected class stays understated.
-        CentralStructure.LAYERED_POLYGON ->
-            listOf(
-                polygonPath(sides, r * 0.32f, -90f),
-                starPath(sides, r * 0.28f, r * 0.13f, -90f),
-            )
-    }
-
-/** The small static core anchor per class (CP2). No squares/diamonds. */
-private fun coreAnchorPath(
-    anchor: CoreAnchorShape,
-    r: Float,
-): Path =
-    when (anchor) {
-        CoreAnchorShape.SPIKE_STAR_4 -> starPath(4, r * 0.11f, r * 0.028f, -90f)
-        CoreAnchorShape.HEXAGON -> polygonPath(6, r * 0.085f, -90f)
-        CoreAnchorShape.CIRCLE -> circlePath(Offset.Zero, r * 0.075f)
-        CoreAnchorShape.RING_DOT -> circlePath(Offset.Zero, r * 0.05f)
+        }
     }
 
 private fun polygonPath(
@@ -164,7 +145,7 @@ fun buildOrnateGeometry(
 ): OrnateSigilGeometry {
     val cfg = RankGeometryCatalog.configFor(key.rankTier)
     val style = SigilClassStyleCatalog.styleFor(key.variant)
-    val classGeo = ClassSigilGeometryCatalog.forVariant(key.variant)
+    val classSpec = key.variant.sigilSpec()
     val r = radiusPx
     val innerPaths = mutableListOf<Path>()
     var middleGroup: SigilMiddleGroup? = null
@@ -174,7 +155,7 @@ fun buildOrnateGeometry(
         // CP2/CP-C: the class's distinct central silhouette leads (the middle group), and the
         // data-driven rank overlay adds only small nested inner detail on top — no full-size rank
         // polygon that would blur the class shape. The two are kept as separate addressable layers.
-        val central = classCentralPaths(classGeo.central, r, cfg.basePolygonSides)
+        val central = classCentralPaths(classSpec.geometry.central, r, cfg.basePolygonSides)
         val overlay =
             (0 until cfg.nestedPolygons).map { i ->
                 polygonPath(cfg.basePolygonSides + 1, r * (0.15f - i * 0.035f).coerceAtLeast(0.06f), -90f)
@@ -262,7 +243,8 @@ fun buildOrnateGeometry(
         medallionCenters = centers,
         medallionRadius = medallionRadius,
         proficiencyIndex = proficiencyIndex,
-        coreAnchor = if (key.classDistinct) coreAnchorPath(classGeo.anchor, r) else null,
+        coreAnchor =
+            if (key.classDistinct) coreAnchorPath(classSpec.geometry.coreAnchor, r, cfg.basePolygonSides) else null,
         instrumentation =
             SigilInstrumentation.build(
                 centers = centers,

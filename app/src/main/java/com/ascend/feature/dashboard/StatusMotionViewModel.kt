@@ -2,6 +2,7 @@ package com.ascend.feature.dashboard
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ascend.core.designsystem.motion.ReducedMotionController
 import com.ascend.core.domain.progression.LevelCalculator
 import com.ascend.core.domain.progression.LevelState
 import com.ascend.core.domain.repository.ClassRepository
@@ -37,7 +38,12 @@ data class StatusDomain(
 data class StatusUiState(
     val phase: StatusPhase = StatusPhase.LOADING,
     val hunterName: String = "",
+    /** Effective reduced motion: the system animator scale is 0 OR the in-app toggle is on. */
     val reducedMotion: Boolean = false,
+    /** The persisted in-app toggle alone (what the Status switch shows). */
+    val inAppReducedMotion: Boolean = false,
+    /** True when the device's animator duration scale is 0. */
+    val systemReducedMotion: Boolean = false,
     val domain: StatusDomain? = null,
     // Presentation‑event layer: the next batch of events awaiting animation (empty = none).
     val pendingBatch: List<ProgressionEvent> = emptyList(),
@@ -68,6 +74,7 @@ class StatusMotionViewModel
         private val eventRepository: ProgressionEventRepository,
         private val levelCalculator: LevelCalculator,
         private val classRepository: ClassRepository,
+        private val reducedMotionController: ReducedMotionController,
     ) : ViewModel() {
         /** Resolve any lifetime‑XP value into a level state so the bar can sweep the
          *  curve continuously and level‑ups fall out for free during animation. */
@@ -75,18 +82,20 @@ class StatusMotionViewModel
 
         private val domain = MutableStateFlow<StatusDomain?>(null)
         private val pending = MutableStateFlow<List<ProgressionEvent>>(emptyList())
-        private val reducedMotion = MutableStateFlow(false)
+        private val motionFlags = reducedMotionController.observe()
         private val entranceKey = MutableStateFlow(0)
         private val simulating = MutableStateFlow(false)
         private val classInfo = MutableStateFlow(StatusClassInfo.NEUTRAL)
 
         val uiState: StateFlow<StatusUiState> =
-            combine(domain, pending, reducedMotion, entranceKey, simulating) {
-                    domainState, pendingBatch, reduced, entrance, isSimulating ->
+            combine(domain, pending, motionFlags, entranceKey, simulating) {
+                    domainState, pendingBatch, flags, entrance, isSimulating ->
                 StatusUiState(
                     phase = if (domainState == null) StatusPhase.LOADING else StatusPhase.READY,
                     hunterName = dataSource.hunterName,
-                    reducedMotion = reduced,
+                    reducedMotion = flags.effective,
+                    inAppReducedMotion = flags.inApp,
+                    systemReducedMotion = flags.system,
                     domain = domainState,
                     pendingBatch = pendingBatch,
                     entranceKey = entrance,
@@ -156,9 +165,11 @@ class StatusMotionViewModel
             entranceKey.value += 1
         }
 
-        fun setReducedMotion(value: Boolean) {
-            reducedMotion.value = value
-        }
+        /** Persists the in-app toggle; the effective value also honours the system setting. */
+        fun setReducedMotion(value: Boolean) =
+            viewModelScope.launch {
+                reducedMotionController.setInAppReducedMotion(value)
+            }
 
         /** Called by the animation layer once a batch has finished playing. */
         fun onBatchPlayed(eventIds: List<String>) =

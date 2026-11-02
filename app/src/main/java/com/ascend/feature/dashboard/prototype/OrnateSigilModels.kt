@@ -233,57 +233,6 @@ enum class SigilOpacityProfile(val weights: SigilOpacityWeights) {
     RING_FORWARD(SigilOpacityWeights.RingForward),
 }
 
-/**
- * The distinct central rotating structure a class stamps on the shared seal (CP2). Shape language
- * only — never colour alone: each silhouette reads differently in monochrome. No squares/boxes.
- */
-enum class CentralStructure {
-    LAYERED_POLYGON, // neutral / legacy — rank polygon + star
-    FIVE_POINT_STAR, // Berserker — bold, aggressive, outward radial force
-    HEXAGRAM, // Monk — interlocking triangles, disciplined symmetry
-    ROSETTE, // Mage — overlapping flowing circles
-}
-
-/** The small static core anchor that holds the eye while the middle drifts. No squares. */
-enum class CoreAnchorShape {
-    RING_DOT, // neutral
-    SPIKE_STAR_4, // Berserker — sharp four-point spike star (not a diamond)
-    HEXAGON, // Monk — regular hexagon
-    CIRCLE, // Mage — circle
-}
-
-/**
- * How a class shapes the *central* geometry, core anchor, primary stroke emphasis, and rotation feel.
- * Data-driven so the renderer builds from a catalog entry and never branches on a class id.
- * [rotationFactor] is signed: magnitude sets drift speed (larger = faster), sign sets direction
- * (Mage reverses). Chosen so an ~200s base reads ≈260s Berserker / ≈210s Monk / ≈170s Mage.
- */
-data class ClassSigilGeometry(
-    val central: CentralStructure,
-    val anchor: CoreAnchorShape,
-    val strokeScale: Float,
-    val rotationFactor: Float,
-)
-
-object ClassSigilGeometryCatalog {
-    fun forVariant(variant: StatusClassVariant): ClassSigilGeometry =
-        when (variant) {
-            StatusClassVariant.BERSERKER ->
-                ClassSigilGeometry(
-                    CentralStructure.FIVE_POINT_STAR,
-                    CoreAnchorShape.SPIKE_STAR_4,
-                    strokeScale = 1.2f,
-                    rotationFactor = 0.77f,
-                )
-            StatusClassVariant.MONK ->
-                ClassSigilGeometry(CentralStructure.HEXAGRAM, CoreAnchorShape.HEXAGON, strokeScale = 1.0f, rotationFactor = 0.95f)
-            StatusClassVariant.MAGE ->
-                ClassSigilGeometry(CentralStructure.ROSETTE, CoreAnchorShape.CIRCLE, strokeScale = 0.85f, rotationFactor = -1.18f)
-            StatusClassVariant.NEUTRAL ->
-                ClassSigilGeometry(CentralStructure.LAYERED_POLYGON, CoreAnchorShape.RING_DOT, strokeScale = 1.0f, rotationFactor = 1.0f)
-        }
-}
-
 /** The cache key: geometry is precomputed once per unique combination, not per frame. */
 data class SigilGeometryKey(
     val rankTier: RankTier,

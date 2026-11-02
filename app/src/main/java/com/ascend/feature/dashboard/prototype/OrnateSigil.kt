@@ -83,7 +83,7 @@ private fun DrawScope.drawOrnateSigil(
     val bump = sin(assembly * Math.PI.toFloat()).coerceIn(0f, 1f)
     val op = state.settledOpacity + (OrnateSigilState.ASSEMBLY_PEAK_OPACITY - state.settledOpacity) * bump
     val a = op * assembly
-    val classCat = ClassSigilGeometryCatalog.forVariant(state.variant)
+    val classCat = state.variant.sigilSpec().motion
     // Per-class rotation feel (CP2): signed factor sets speed + direction (Mage reverses).
     val baseRot0 = if (frameMotion) anim.rotation else 0f
     val baseRot = if (classGeometry) baseRot0 * classCat.rotationFactor else baseRot0

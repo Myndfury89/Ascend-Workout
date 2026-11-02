@@ -1,5 +1,6 @@
 package com.ascend.feature.dashboard.prototype
 
+import com.ascend.core.designsystem.sigil.SigilShape
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNotNull
@@ -19,27 +20,30 @@ class ClassSigilGeometryTest {
 
     @Test
     fun `each implemented class has a distinct central structure and core anchor`() {
-        val centrals = implemented.map { ClassSigilGeometryCatalog.forVariant(it).central }
-        val anchors = implemented.map { ClassSigilGeometryCatalog.forVariant(it).anchor }
+        val centrals = implemented.map { it.sigilSpec().geometry.central }
+        val anchors = implemented.map { it.sigilSpec().geometry.coreAnchor }
         assertEquals("central silhouettes are all distinct", centrals.size, centrals.toSet().size)
         assertEquals("core anchors are all distinct", anchors.size, anchors.toSet().size)
     }
 
     @Test
     fun `the handoff shape language is honoured per class`() {
-        assertEquals(CentralStructure.FIVE_POINT_STAR, ClassSigilGeometryCatalog.forVariant(StatusClassVariant.BERSERKER).central)
-        assertEquals(CoreAnchorShape.SPIKE_STAR_4, ClassSigilGeometryCatalog.forVariant(StatusClassVariant.BERSERKER).anchor)
-        assertEquals(CentralStructure.HEXAGRAM, ClassSigilGeometryCatalog.forVariant(StatusClassVariant.MONK).central)
-        assertEquals(CoreAnchorShape.HEXAGON, ClassSigilGeometryCatalog.forVariant(StatusClassVariant.MONK).anchor)
-        assertEquals(CentralStructure.ROSETTE, ClassSigilGeometryCatalog.forVariant(StatusClassVariant.MAGE).central)
-        assertEquals(CoreAnchorShape.CIRCLE, ClassSigilGeometryCatalog.forVariant(StatusClassVariant.MAGE).anchor)
+        val berserker = StatusClassVariant.BERSERKER.sigilSpec().geometry
+        assertEquals(SigilShape.Star(5, 0.38f, 0.10f), berserker.central.first())
+        assertEquals(SigilShape.Star(4, 0.11f, 0.028f), berserker.coreAnchor)
+        val monk = StatusClassVariant.MONK.sigilSpec().geometry
+        assertTrue(monk.central.all { it is SigilShape.Polygon })
+        assertEquals(SigilShape.Polygon(6, 0.085f), monk.coreAnchor)
+        val mage = StatusClassVariant.MAGE.sigilSpec().geometry
+        assertTrue(mage.central.none { it is SigilShape.Polygon || it is SigilShape.Star })
+        assertEquals(SigilShape.Circle(0.075f), mage.coreAnchor)
     }
 
     @Test
     fun `rotation feel differentiates speed and direction`() {
-        val b = ClassSigilGeometryCatalog.forVariant(StatusClassVariant.BERSERKER).rotationFactor
-        val m = ClassSigilGeometryCatalog.forVariant(StatusClassVariant.MONK).rotationFactor
-        val g = ClassSigilGeometryCatalog.forVariant(StatusClassVariant.MAGE).rotationFactor
+        val b = StatusClassVariant.BERSERKER.sigilSpec().motion.rotationFactor
+        val m = StatusClassVariant.MONK.sigilSpec().motion.rotationFactor
+        val g = StatusClassVariant.MAGE.sigilSpec().motion.rotationFactor
         // Berserker slowest, Monk moderate, Mage fastest — and Mage reverses direction.
         assertTrue("Berserker drifts slowest", kotlin.math.abs(b) < kotlin.math.abs(m))
         assertTrue("Mage drifts fastest", kotlin.math.abs(m) < kotlin.math.abs(g))
@@ -48,9 +52,9 @@ class ClassSigilGeometryTest {
 
     @Test
     fun `stroke emphasis is heaviest for Berserker and lightest for Mage`() {
-        val b = ClassSigilGeometryCatalog.forVariant(StatusClassVariant.BERSERKER).strokeScale
-        val m = ClassSigilGeometryCatalog.forVariant(StatusClassVariant.MONK).strokeScale
-        val g = ClassSigilGeometryCatalog.forVariant(StatusClassVariant.MAGE).strokeScale
+        val b = StatusClassVariant.BERSERKER.sigilSpec().motion.strokeScale
+        val m = StatusClassVariant.MONK.sigilSpec().motion.strokeScale
+        val g = StatusClassVariant.MAGE.sigilSpec().motion.strokeScale
         assertTrue(b > m)
         assertTrue(m > g)
     }

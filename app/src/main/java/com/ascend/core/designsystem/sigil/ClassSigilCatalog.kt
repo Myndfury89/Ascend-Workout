@@ -29,6 +29,7 @@ object ClassSigilCatalog {
                     coreAnchor = SigilShape.Circle(radius = 0.05f),
                 ),
             palette = SigilPalette(accent = INFO_LINE),
+            motion = ClassMotionProfile(rotationFactor = 1.0f, strokeScale = 1.0f),
         )
 
     /** Berserker — bold five-point star over a small inner pentagon; 4-point spike-star core. */
@@ -45,6 +46,7 @@ object ClassSigilCatalog {
                     coreAnchor = SigilShape.Star(points = 4, outer = 0.11f, inner = 0.028f),
                 ),
             palette = SigilPalette(accent = VIOLET_BRIGHT, warmAccent = EMBER),
+            motion = ClassMotionProfile(rotationFactor = 0.77f, strokeScale = 1.2f),
         )
 
     /** Monk — hexagon enclosing an inscribed hexagram; hexagon core. */
@@ -62,6 +64,7 @@ object ClassSigilCatalog {
                     coreAnchor = SigilShape.Polygon(sides = 6, radius = 0.085f),
                 ),
             palette = SigilPalette(accent = CYAN_SOFT),
+            motion = ClassMotionProfile(rotationFactor = 0.95f, strokeScale = 1.0f),
         )
 
     /** Mage — six-petal rosette inside a bounding circle (all curves); circle core. */
@@ -78,6 +81,7 @@ object ClassSigilCatalog {
                     coreAnchor = SigilShape.Circle(radius = 0.075f),
                 ),
             palette = SigilPalette(accent = VIOLET),
+            motion = ClassMotionProfile(rotationFactor = -1.18f, strokeScale = 0.85f),
         )
 
     val all: List<ClassSigilSpec> = listOf(Neutral, Berserker, Monk, Mage)

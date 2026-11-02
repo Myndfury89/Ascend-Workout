@@ -156,7 +156,7 @@ fun StatusScreen(
             StatusFramedPanel(data, motion, accent, rotation, scan, ambient)
             Spacer(Modifier.height(20.dp))
             StatusControls(
-                reducedMotion = reduced,
+                reducedMotion = state.inAppReducedMotion,
                 onReplay = viewModel::replayEntrance,
                 onReducedMotionChange = viewModel::setReducedMotion,
             )

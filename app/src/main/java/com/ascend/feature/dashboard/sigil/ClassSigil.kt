@@ -42,12 +42,46 @@ private const val AMBIENT_PERIOD_MS = 24_000
 private const val FULL_TURN = 360f
 
 /**
+ * Tracked-data layers a host screen draws on the sigil: the player/class XP rings (and how far
+ * their trim has filled in), the attribute medallions and the proficiency medallion. Without it the
+ * sigil shows full rings and no medallion emphasis.
+ */
+data class SigilReadouts(
+    val playerRing: Float,
+    val classRing: Float?,
+    val playerRingTrim: Float,
+    val classRingTrim: Float,
+    val activeMedallion: Int,
+    val medallionPulse: List<Float>,
+    val showProficiency: Boolean,
+    val proficiencyPulse: Float,
+)
+
+/**
+ * A host's own choreography layered over the state driver (e.g. the Status entrance and event
+ * beats). Assembly multiplies the state's assembly; glow and wave take the larger of the two, so a
+ * settled state (Idle) renders exactly the host beat.
+ */
+data class SigilBeat(
+    val assembly: Float,
+    val glow: Float,
+    val wave: Float,
+)
+
+/** Everything a host screen layers onto the sigil; see [SigilReadouts] and [SigilBeat]. */
+data class SigilHostLayers(
+    val readouts: SigilReadouts,
+    val beat: SigilBeat,
+    val semanticDescription: String,
+)
+
+/**
  * A class sigil driven by [state]. Built on [ClassSigilCatalog] data and the motion verbs; draws
  * through the existing [OrnateSigil] renderer with the production flags. Under reduced motion
  * ([MotionSpec.reducedMotion], which screens feed from the PR 2 reduced-motion controller) there is
  * no drift and every verb cross-fades straight to its settled frame.
  */
-@Suppress("FunctionNaming") // Compose convention; existing composables sit in the detekt baseline.
+@Suppress("FunctionNaming", "LongParameterList") // Compose convention: modifier/motion/host are optional.
 @Composable
 fun ClassSigil(
     classKey: ClassKey,
@@ -55,30 +89,34 @@ fun ClassSigil(
     rank: RankTier,
     modifier: Modifier = Modifier,
     motion: MotionSpec = LocalMotionSpec.current,
+    host: SigilHostLayers? = null,
 ) {
-    val contentDescription = "${classKey.name.lowercase()} sigil, ${state.name.lowercase()}"
+    val contentDescription =
+        host?.semanticDescription ?: "${classKey.name.lowercase()} sigil, ${state.name.lowercase()}"
+    val readouts = host?.readouts ?: fullReadouts(classKey != ClassKey.NEUTRAL)
+    val beat = host?.beat ?: RestBeat
     val driver = rememberSigilDriver(state, motion)
     val hasClass = classKey != ClassKey.NEUTRAL
     val sigilState =
         OrnateSigilState(
             rankTier = rank,
             variant = classKey.statusVariant(),
-            playerRing = 1f,
-            classRing = if (hasClass) 1f else null,
-            activeMedallion = -1,
-            showProficiency = hasClass,
+            playerRing = readouts.playerRing,
+            classRing = if (hasClass) readouts.classRing else null,
+            activeMedallion = readouts.activeMedallion,
+            showProficiency = hasClass && readouts.showProficiency,
             newRankLayer = state.settledFrame().newRankLayer,
         )
     val animation =
         OrnateSigilAnimation(
-            assembly = driver.assembly.value,
+            assembly = driver.assembly.value * beat.assembly,
             rotation = driver.rotation(),
-            glow = driver.glow.value,
-            playerRingTrim = 1f,
-            classRingTrim = 1f,
-            medallionPulse = List(MedallionGlyph.attributeGlyphs.size) { 0f },
-            proficiencyPulse = 0f,
-            wave = driver.wave.value,
+            glow = maxOf(driver.glow.value, beat.glow),
+            playerRingTrim = readouts.playerRingTrim,
+            classRingTrim = readouts.classRingTrim,
+            medallionPulse = readouts.medallionPulse,
+            proficiencyPulse = readouts.proficiencyPulse,
+            wave = maxOf(driver.wave.value, beat.wave),
         )
     OrnateSigil(
         state = sigilState,
@@ -96,6 +134,21 @@ fun ClassSigil(
         warmAccents = true,
     )
 }
+
+private val RestBeat = SigilBeat(assembly = 1f, glow = 0f, wave = 0f)
+
+/** Full rings and no medallion emphasis: the sigil on its own, outside a host screen. */
+private fun fullReadouts(hasClass: Boolean) =
+    SigilReadouts(
+        playerRing = 1f,
+        classRing = 1f,
+        playerRingTrim = 1f,
+        classRingTrim = 1f,
+        activeMedallion = -1,
+        medallionPulse = List(MedallionGlyph.attributeGlyphs.size) { 0f },
+        showProficiency = hasClass,
+        proficiencyPulse = 0f,
+    )
 
 /** Animated scalars for one [SigilState]; [rotation] reads 0 whenever the state does not drift. */
 private class SigilDriver(

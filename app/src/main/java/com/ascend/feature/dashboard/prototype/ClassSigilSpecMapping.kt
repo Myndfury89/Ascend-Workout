@@ -15,3 +15,12 @@ fun StatusClassVariant.classKey(): ClassKey =
 
 /** The data-driven sigil spec (geometry + palette) for a prototype variant. */
 fun StatusClassVariant.sigilSpec(): ClassSigilSpec = ClassSigilCatalog.of(classKey())
+
+/** The prototype variant that renders a [ClassKey]. */
+fun ClassKey.statusVariant(): StatusClassVariant =
+    when (this) {
+        ClassKey.NEUTRAL -> StatusClassVariant.NEUTRAL
+        ClassKey.BERSERKER -> StatusClassVariant.BERSERKER
+        ClassKey.MONK -> StatusClassVariant.MONK
+        ClassKey.MAGE -> StatusClassVariant.MAGE
+    }

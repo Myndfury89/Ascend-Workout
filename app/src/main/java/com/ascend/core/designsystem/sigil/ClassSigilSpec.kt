@@ -60,9 +60,19 @@ data class SigilPalette(
     fun accentFor(warm: Boolean): Color = if (warm) warmAccent ?: accent else accent
 }
 
+/**
+ * How a class moves and weighs. [rotationFactor] is signed: magnitude sets ambient drift speed,
+ * sign sets direction (Mage reverses). [strokeScale] weights the class-distinct central strokes.
+ */
+data class ClassMotionProfile(
+    val rotationFactor: Float,
+    val strokeScale: Float,
+)
+
 /** Everything that makes one class's sigil distinct, as data. */
 data class ClassSigilSpec(
     val key: ClassKey,
     val geometry: SigilGeometrySpec,
     val palette: SigilPalette,
+    val motion: ClassMotionProfile,
 )

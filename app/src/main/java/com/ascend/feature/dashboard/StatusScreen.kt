@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ascend.core.designsystem.motion.MotionSpec
+import com.ascend.core.designsystem.sigil.SigilState
 import com.ascend.feature.dashboard.prototype.AttributeMeters
 import com.ascend.feature.dashboard.prototype.BreakthroughBurst
 import com.ascend.feature.dashboard.prototype.BurstMode
@@ -47,13 +48,8 @@ import com.ascend.feature.dashboard.prototype.EdgeLitStatusPanel
 import com.ascend.feature.dashboard.prototype.EntranceMode
 import com.ascend.feature.dashboard.prototype.EventOverlayChip
 import com.ascend.feature.dashboard.prototype.IdentityBlock
-import com.ascend.feature.dashboard.prototype.OrnateSigil
-import com.ascend.feature.dashboard.prototype.OrnateSigilAnimation
-import com.ascend.feature.dashboard.prototype.OrnateSigilState
 import com.ascend.feature.dashboard.prototype.ProficiencyBlock
 import com.ascend.feature.dashboard.prototype.ProgressionBars
-import com.ascend.feature.dashboard.prototype.SigilOpacityProfile
-import com.ascend.feature.dashboard.prototype.SigilRotationProfile
 import com.ascend.feature.dashboard.prototype.StatusAtmosphere
 import com.ascend.feature.dashboard.prototype.StatusClassVariant
 import com.ascend.feature.dashboard.prototype.StatusFog
@@ -63,7 +59,12 @@ import com.ascend.feature.dashboard.prototype.StatusParticleField
 import com.ascend.feature.dashboard.prototype.StatusPrototypeData
 import com.ascend.feature.dashboard.prototype.StatusPrototypeMotion
 import com.ascend.feature.dashboard.prototype.classAccent
+import com.ascend.feature.dashboard.prototype.classKey
 import com.ascend.feature.dashboard.prototype.sigilDescription
+import com.ascend.feature.dashboard.sigil.ClassSigil
+import com.ascend.feature.dashboard.sigil.SigilBeat
+import com.ascend.feature.dashboard.sigil.SigilHostLayers
+import com.ascend.feature.dashboard.sigil.SigilReadouts
 
 private const val ATTRIBUTE_COUNT = 5
 
@@ -220,7 +221,7 @@ private fun StatusFramedPanel(
             frameRotation = rotation,
             frameMotion = ambient,
         ) {
-            StatusPanelContent(data, accent, motion, rotation, ambient)
+            StatusPanelContent(data, accent, motion, ambient)
         }
         // Reduced-motion recognition cue: a brief flat accent flash across the panel so a Reward event
         // (e.g. a personal record) is never silent when all kinetic motion is collapsed.
@@ -237,59 +238,66 @@ private fun StatusFramedPanel(
     }
 }
 
+/** The Status screen's XP rings, medallions and entrance/event beat for [ClassSigil]. */
+private fun statusSigilLayers(
+    data: StatusPrototypeData,
+    motion: StatusPrototypeMotion,
+): SigilHostLayers {
+    val hasClass = data.variant != StatusClassVariant.NEUTRAL
+    val classFraction = if (hasClass) data.classXpFraction else null
+    return SigilHostLayers(
+        readouts =
+            SigilReadouts(
+                playerRing = data.playerXpFraction,
+                classRing = classFraction,
+                playerRingTrim = motion.xpFill.value,
+                classRingTrim = motion.classXpFill.value,
+                activeMedallion = data.activeMedallionIndex,
+                medallionPulse = motion.attrPulse.map { it.value },
+                showProficiency = data.showProficiencyMedallion,
+                proficiencyPulse = motion.proficiencyPulse.value,
+            ),
+        beat =
+            SigilBeat(
+                assembly = motion.sigilAssembly.value,
+                glow = motion.eventFlash.value,
+                wave = motion.wave.value,
+            ),
+        semanticDescription = sigilDescription(data, data.playerXpFraction, classFraction, data.activeMedallionIndex),
+    )
+}
+
+@Suppress("FunctionNaming") // Compose convention; signature changed so it left the detekt baseline.
 @Composable
 private fun StatusPanelContent(
     data: StatusPrototypeData,
     accent: Color,
     motion: StatusPrototypeMotion,
-    rotation: Float,
     ambient: Boolean,
 ) {
     val hasClass = data.variant != StatusClassVariant.NEUTRAL
+    // A rank seal forged by a major unlock (not an attribute beat) is the LevelUp state; otherwise
+    // the seal idles. The entrance/event choreography stays in StatusPrototypeMotion and rides in as
+    // the beat; the XP rings and medallions are the tracked-data readouts.
     val sigilState =
-        OrnateSigilState(
-            rankTier = data.rankTier,
-            variant = data.variant,
-            playerRing = data.playerXpFraction,
-            classRing = if (hasClass) data.classXpFraction else null,
-            activeMedallion = data.activeMedallionIndex,
-            showProficiency = data.showProficiencyMedallion && hasClass,
-            newRankLayer = data.majorUnlock && data.overlay.emphasizedAttribute == null,
-        )
-    val sigilAnim =
-        OrnateSigilAnimation(
-            assembly = motion.sigilAssembly.value,
-            rotation = rotation,
-            glow = motion.eventFlash.value,
-            playerRingTrim = motion.xpFill.value,
-            classRingTrim = motion.classXpFill.value,
-            medallionPulse = motion.attrPulse.map { it.value },
-            proficiencyPulse = motion.proficiencyPulse.value,
-            wave = motion.wave.value,
-        )
+        if (data.majorUnlock && data.overlay.emphasizedAttribute == null) SigilState.LevelUp else SigilState.Idle
 
     Box(Modifier.fillMaxWidth().clipToBounds()) {
         // The ornate seal sits BEHIND the readable content at low opacity — atmospheric.
-        OrnateSigil(
+        // Production ClassSigil: class-distinct geometry, only the ceremonial middle rotates, and
+        // reduced motion (fed through MotionSpec) stops every loop and settles to the end frame.
+        ClassSigil(
+            classKey = data.variant.classKey(),
             state = sigilState,
-            animation = sigilAnim,
-            semanticDescription =
-                sigilDescription(data, data.playerXpFraction, if (hasClass) data.classXpFraction else null, data.activeMedallionIndex),
+            rank = data.rankTier,
             modifier =
                 Modifier
                     .align(Alignment.TopCenter)
                     .fillMaxWidth(0.98f)
                     .aspectRatio(1f)
                     .offset(y = (-28).dp),
-            frameMotion = ambient,
-            // Adopted refined sigil: class-distinct central geometry + core anchor + 12-mark support
-            // ring, only the ceremonial middle rotates, rings-forward opacity, restrained internal
-            // glow, and the warm Berserker treatment. Reduced motion still stops all rotation/drift.
-            rotationProfile = SigilRotationProfile.CEREMONIAL_MIDDLE,
-            opacityProfile = SigilOpacityProfile.RING_FORWARD,
-            classGeometry = true,
-            internalGlow = true,
-            warmAccents = true,
+            motion = MotionSpec(reducedMotion = !ambient),
+            host = statusSigilLayers(data, motion),
         )
         // Level-up breakthrough burst — radiates from the sigil centre during a major-unlock flash and
         // settles as the flash recedes. Skipped under reduced motion (the value lock is the cue).

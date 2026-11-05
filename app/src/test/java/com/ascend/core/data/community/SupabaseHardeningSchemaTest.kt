@@ -16,8 +16,10 @@ class SupabaseHardeningSchemaTest {
         file.readText().lowercase().replace(Regex("\\s+"), " ")
     }
 
-    private fun assertContains(label: String, needle: String) =
-        assertTrue("06_hardening.sql is missing $label", sql.contains(needle))
+    private fun assertContains(
+        label: String,
+        needle: String,
+    ) = assertTrue("06_hardening.sql is missing $label", sql.contains(needle))
 
     @Test
     fun `friendship updates are guarded by a trigger`() {

@@ -17,6 +17,7 @@ block/report (P2A.3) come next, on their own branches.
    can_view_shared_profile).
 3. `03_rls.sql` — enable RLS + policies on every new table.
 4. `04_lookup.sql` — exact-handle discovery RPC (minimal card, safety-filtered).
+6. `06_hardening.sql` — access-rule hardening: friendship participants immutable, only PENDING→ACCEPTED by the addressee, and `profiles.social_eligible` settable only by the service role (server-side age check). Until that server check exists, no user can become social-eligible.
 
 ## Design invariants (why it's shaped this way)
 - **Default-deny.** `profiles.social_eligible` defaults FALSE — a user is invisible to social features

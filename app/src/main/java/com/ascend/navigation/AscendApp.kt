@@ -68,7 +68,6 @@ fun AscendApp() {
         ) {
             composable<Status> {
                 StatusScreen(
-                    communityEnabled = CommunityFeatures.isEnabled,
                     onViewBuild = { navController.navigate(BuildAnalysis) },
                     onAccount = {
                         if (CommunityAccess.accountEntryVisible(CommunityFeatures.isEnabled)) {

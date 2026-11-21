@@ -82,7 +82,6 @@ private const val ATTRIBUTE_COUNT = 5
 fun StatusScreen(
     onViewBuild: () -> Unit = {},
     onAccount: () -> Unit = {},
-    communityEnabled: Boolean = CommunityFeatures.isEnabled,
     modifier: Modifier = Modifier,
     viewModel: StatusMotionViewModel = hiltViewModel(),
 ) {
@@ -166,7 +165,7 @@ fun StatusScreen(
             )
             Spacer(Modifier.height(12.dp))
             StatusUtilityActions(
-                communityEnabled = communityEnabled,
+                communityEnabled = CommunityFeatures.isEnabled,
                 onViewBuild = onViewBuild,
                 onAccount = onAccount,
             )
@@ -367,6 +366,7 @@ private fun StatusControls(
  * "Account" is the only in-app path into Community (sign-in, friends, share settings) and is
  * omitted when [communityEnabled] is false.
  */
+@Suppress("FunctionNaming")
 @Composable
 internal fun StatusUtilityActions(
     communityEnabled: Boolean,

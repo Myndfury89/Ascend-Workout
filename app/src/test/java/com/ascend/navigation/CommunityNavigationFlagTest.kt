@@ -93,12 +93,16 @@ class CommunityNavigationFlagTest {
             }
         }
         compose.runOnIdle {
-            try {
-                navController.navigate(Account)
+            val error = runCatching { navController.navigate(Account) }.exceptionOrNull()
+            if (error == null) {
                 fail("Expected navigation to Account to be rejected when Community is disabled")
-            } catch (e: IllegalArgumentException) {
-                // Route is unregistered; the Status > Account entry point cannot be reached.
             }
+            assertTrue(error is IllegalArgumentException)
+            val message = error.message.orEmpty()
+            assertTrue(
+                "Expected unregistered Account route, got: $message",
+                "Account" in message || "account" in message.lowercase() || "destination" in message.lowercase(),
+            )
         }
     }
 }

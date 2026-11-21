@@ -30,6 +30,20 @@ fun healthConnectOnboardingSuggestionEnabledField(default: Boolean = false): Str
     return enabled.toString()
 }
 
+// Community is excluded from the initial beta (Play internal testing). False for every build type
+// unless overridden. Re-enable a variant by setting the default below to true, or pass
+// -Pcommunity.enabled=true (debug and release stay independently configurable).
+fun communityEnabledField(default: Boolean = false): String {
+    val raw = (project.findProperty("community.enabled") as String?)?.trim()?.lowercase()
+    val enabled =
+        when (raw) {
+            "true", "1", "yes" -> true
+            "false", "0", "no" -> false
+            else -> default
+        }
+    return enabled.toString()
+}
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -66,6 +80,9 @@ android {
             "HEALTH_CONNECT_ONBOARDING_SUGGESTION_ENABLED",
             healthConnectOnboardingSuggestionEnabledField(default = false),
         )
+        // Community social surfaces (Account sign-in, friends, share settings, backend client).
+        // Overridden per build type below; default is off for the beta.
+        buildConfigField("boolean", "COMMUNITY_ENABLED", communityEnabledField(default = false))
     }
 
     buildTypes {
@@ -77,9 +94,11 @@ android {
                 "HEALTH_CONNECT_ONBOARDING_SUGGESTION_ENABLED",
                 healthConnectOnboardingSuggestionEnabledField(default = false),
             )
+            buildConfigField("boolean", "COMMUNITY_ENABLED", communityEnabledField(default = false))
         }
         release {
             isMinifyEnabled = true
+            buildConfigField("boolean", "COMMUNITY_ENABLED", communityEnabledField(default = false))
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",

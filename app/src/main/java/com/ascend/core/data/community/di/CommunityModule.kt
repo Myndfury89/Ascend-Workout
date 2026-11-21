@@ -2,6 +2,8 @@ package com.ascend.core.data.community.di
 
 import android.os.Build
 import com.ascend.BuildConfig
+import com.ascend.core.common.CommunityAccess
+import com.ascend.core.common.CommunityFeatures
 import com.ascend.core.data.community.DataStoreSessionStore
 import com.ascend.core.data.community.SupabaseAuthGateway
 import com.ascend.core.data.community.SupabaseFriendGateway
@@ -30,10 +32,12 @@ import io.github.jan.supabase.postgrest.Postgrest
 import javax.inject.Singleton
 
 /**
- * Community backend wiring. The Supabase client is provided as NULLABLE: when the app is built without
- * backend config (empty SUPABASE_URL/ANON_KEY), it is null and the whole Community surface degrades to
- * unavailable — local-only play is completely unaffected. The Supabase SDK is referenced only here and
- * in the data-layer gateway implementations, never above the data layer.
+ * Community backend wiring. The Supabase client is provided as NULLABLE: it is null when Community
+ * is flagged off ([com.ascend.core.common.CommunityFeatures.isEnabled]) *or* when the app is built
+ * without backend config (empty SUPABASE_URL/ANON_KEY). In either case the whole Community surface
+ * degrades to unavailable — local-only play is completely unaffected, and no discovery, friendship,
+ * shared_profiles, or publishOwnSharedProfile calls go out while the flag is off. The Supabase SDK
+ * is referenced only here and in the data-layer gateway implementations, never above the data layer.
  */
 @Module
 @InstallIn(SingletonComponent::class)
@@ -48,7 +52,7 @@ object CommunityBackendModule {
         if ("robolectric".equals(Build.FINGERPRINT, ignoreCase = true)) return null
         val url = BuildConfig.SUPABASE_URL
         val key = BuildConfig.SUPABASE_ANON_KEY
-        if (url.isBlank() || key.isBlank()) return null
+        if (!CommunityAccess.shouldCreateBackendClient(CommunityFeatures.isEnabled, url, key)) return null
         return createSupabaseClient(supabaseUrl = url, supabaseKey = key) {
             install(Auth)
             install(Postgrest)

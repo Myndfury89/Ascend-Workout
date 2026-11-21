@@ -39,11 +39,12 @@ data object LogWorkout
 @Serializable
 data object BuildAnalysis
 
-// Account: identity + sign-in state (extensible to profile, connected providers, privacy). From Status.
+// Account: Community identity + sign-in (AuthScreen). Community-only; not required for the core loop.
+// Registered only when BuildConfig.COMMUNITY_ENABLED is true (off for the beta).
 @Serializable
 data object Account
 
-// Community social surfaces, reached from Account.
+// Community social surfaces, reached from Account when COMMUNITY_ENABLED is true. No deep links.
 @Serializable
 data object Friends
 

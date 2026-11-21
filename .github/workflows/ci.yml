@@ -45,3 +45,22 @@ jobs:
             app/build/outputs/roborazzi
             app/src/test/screenshots/*_compare.png
           if-no-files-found: ignore
+
+  supabase:
+    name: Supabase SQL + Edge Functions (local only, no project access)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Edge Function tests (age-check)
+        working-directory: supabase/functions/age-check
+        run: deno fmt --check && deno lint && deno test
+
+      - name: SQL migration tests against a throwaway local Postgres
+        run: supabase/tests/run_age_check_local.sh

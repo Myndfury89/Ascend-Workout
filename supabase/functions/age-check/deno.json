@@ -1,0 +1,7 @@
+{
+  "tasks": {
+    "test": "deno test"
+  },
+  "fmt": { "lineWidth": 100 },
+  "lint": { "rules": { "tags": ["recommended"] } }
+}

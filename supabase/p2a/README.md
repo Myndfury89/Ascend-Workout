@@ -18,6 +18,22 @@ block/report (P2A.3) come next, on their own branches.
 3. `03_rls.sql` — enable RLS + policies on every new table.
 4. `04_lookup.sql` — exact-handle discovery RPC (minimal card, safety-filtered).
 6. `06_hardening.sql` — access-rule hardening: friendship participants immutable, only PENDING→ACCEPTED by the addressee, and `profiles.social_eligible` settable only by the service role (server-side age check). Until that server check exists, no user can become social-eligible.
+7. `07_age_check.sql` — A2 server-side age-check infrastructure (**inactive by default**:
+   `enforcement_mode = 'off'`). Service-role-only config + minimal result tables and RPCs used by the
+   `age-check` Edge Function (`../functions/age-check`). Stores no DOB/age. Rollback:
+   `07_age_check_rollback.sql`. Turning it on (`log_only` / `enforce`) is a separate, approved step.
+
+## A2 age check (07) — modes
+| `enforcement_mode` | What the function / RPC does |
+|---|---|
+| `off` (default) | Nothing is written; response `disabled`, `social_eligible: false`. Status quo. |
+| `log_only` | Stores the minimal outcome (`meets_threshold`, `threshold`, `method`, `mode`, `checked_at`) in `age_checks`; **never** changes `profiles.social_eligible`. |
+| `enforce` | Stores the outcome **and** sets `profiles.social_eligible` to it (the only path that can set it true). |
+
+Other knobs on the singleton `age_check_config` row: `min_age` (default 18, allowed 13–25) and
+`allow_reattest` (default false: a below-threshold result can't be flipped by re-attesting at the same
+or a higher threshold). Missing/invalid config, a stale threshold, or any error fails closed (no grant).
+Local, throwaway verification: `../tests/run_age_check_local.sh`.
 
 ## Design invariants (why it's shaped this way)
 - **Default-deny.** `profiles.social_eligible` defaults FALSE — a user is invisible to social features

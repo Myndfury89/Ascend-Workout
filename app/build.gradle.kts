@@ -11,6 +11,25 @@ val secretsProperties =
 
 fun secretConfigValue(key: String): String = "\"${secretsProperties.getProperty(key).orEmpty()}\""
 
+// Visibility of the existing onboarding "Connect step history" suggestion only.
+// Default off for the initial seven-class beta in every variant. This does not
+// enable Health Connect integration, permissions, or sync. Pass
+// -Phealthconnect.onboardingSuggestion.enabled=true to restore the suggestion
+// in a local build. Keep the suggestion code.
+fun healthConnectOnboardingSuggestionEnabledField(default: Boolean = false): String {
+    val raw =
+        (project.findProperty("healthconnect.onboardingSuggestion.enabled") as String?)
+            ?.trim()
+            ?.lowercase()
+    val enabled =
+        when (raw) {
+            "true", "1", "yes" -> true
+            "false", "0", "no" -> false
+            else -> default
+        }
+    return enabled.toString()
+}
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -42,18 +61,33 @@ android {
         // Google Web (server) OAuth client id for the Credential Manager ID-token flow. Empty disables
         // the Google button gracefully; email/password still works.
         buildConfigField("String", "GOOGLE_WEB_CLIENT_ID", secretConfigValue("GOOGLE_WEB_CLIENT_ID"))
+        buildConfigField(
+            "boolean",
+            "HEALTH_CONNECT_ONBOARDING_SUGGESTION_ENABLED",
+            healthConnectOnboardingSuggestionEnabledField(default = false),
+        )
     }
 
     buildTypes {
         debug {
             applicationIdSuffix = ".debug"
             isMinifyEnabled = false
+            buildConfigField(
+                "boolean",
+                "HEALTH_CONNECT_ONBOARDING_SUGGESTION_ENABLED",
+                healthConnectOnboardingSuggestionEnabledField(default = false),
+            )
         }
         release {
             isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
+            )
+            buildConfigField(
+                "boolean",
+                "HEALTH_CONNECT_ONBOARDING_SUGGESTION_ENABLED",
+                healthConnectOnboardingSuggestionEnabledField(default = false),
             )
         }
     }

@@ -18,8 +18,10 @@ import com.ascend.core.domain.onboarding.InitialQuestPlanGenerator
 import com.ascend.core.domain.progression.LevelCalculator
 import com.ascend.core.domain.quest.CreateQuestFromTemplateUseCase
 import com.ascend.core.domain.quest.QuestTargetValidator
+import com.ascend.core.model.onboarding.ActivityDomain
 import com.ascend.core.model.onboarding.AgeRange
 import com.ascend.core.model.onboarding.AgeSafetyCategory
+import com.ascend.core.model.onboarding.AssessmentQuestSuggestion
 import com.ascend.core.model.onboarding.Equipment
 import com.ascend.core.model.onboarding.OnboardingState
 import com.ascend.core.model.onboarding.OnboardingStep
@@ -97,7 +99,7 @@ class OnboardingViewModelTest {
 
     private fun idle() = mainRule.dispatcher.scheduler.advanceUntilIdle()
 
-    private fun newViewModel() =
+    private fun newViewModel(assessmentSuggester: AssessmentQuestSuggester = AssessmentQuestSuggester()) =
         OnboardingViewModel(
             onboardingRepo,
             playerRepo,
@@ -106,7 +108,7 @@ class OnboardingViewModelTest {
             AgeSafetyClassifier(),
             ClassAffinityAssessor(ClassRecommendationEngine()),
             InitialQuestPlanGenerator(),
-            AssessmentQuestSuggester(),
+            assessmentSuggester,
             CreateInitialQuestScheduleUseCase(
                 CreateQuestFromTemplateUseCase(questRepo, templateRepo, QuestTargetValidator()),
                 questRepo,
@@ -287,5 +289,56 @@ class OnboardingViewModelTest {
         assertEquals(OnboardingStep.GOALS, vm.uiState.value.currentStep)
         assertEquals(PrimaryGoal.ENDURANCE, vm.uiState.value.draft.primaryGoal)
         assertTrue(Equipment.DUMBBELLS in vm.uiState.value.draft.equipment)
+    }
+
+    @Test
+    fun `plan review hides assess-steps and Health Connect when the flag is off`() {
+        val vm = newViewModel(AssessmentQuestSuggester(onboardingSuggestionEnabled = false))
+        idle()
+        vm.walkTo(OnboardingStep.PLAN_REVIEW)
+        idle()
+        val suggestions = vm.uiState.value.plan?.assessmentSuggestions
+        assertNotNull(suggestions)
+        assertHealthConnectSuggestionAbsent(suggestions!!)
+        assertTrue(suggestions.any { it.id == "assess-strength" })
+        assertTrue(suggestions.any { it.id == "assess-bodyweight" })
+        assertTrue(suggestions.any { it.id == "assess-cardio" })
+    }
+
+    @Test
+    fun `plan review restores assess-steps when the flag is on`() {
+        val vm = newViewModel(AssessmentQuestSuggester(onboardingSuggestionEnabled = true))
+        idle()
+        vm.walkTo(OnboardingStep.PLAN_REVIEW)
+        idle()
+        val suggestions = vm.uiState.value.plan?.assessmentSuggestions
+        assertNotNull(suggestions)
+        assertAssessStepsRestored(suggestions!!)
+        assertTrue(suggestions.any { it.id == "assess-strength" })
+        assertTrue(suggestions.any { it.id == "assess-cardio" })
+    }
+
+    private fun assertHealthConnectSuggestionAbsent(suggestions: List<AssessmentQuestSuggestion>) {
+        assertTrue(suggestions.none { it.id == "assess-steps" })
+        assertTrue(suggestions.none { it.title == "Connect step history" })
+        assertTrue(
+            suggestions.none { suggestion ->
+                listOf(suggestion.id, suggestion.title, suggestion.description, suggestion.establishes)
+                    .any { field -> field.contains("Health Connect", ignoreCase = true) }
+            },
+        )
+    }
+
+    private fun assertAssessStepsRestored(suggestions: List<AssessmentQuestSuggestion>) {
+        val steps = suggestions.filter { it.id == "assess-steps" }
+        assertEquals(1, steps.size)
+        val item = steps.single()
+        assertEquals("Connect step history", item.title)
+        assertEquals(
+            "Optionally connect Health Connect so step history can personalize your plan.",
+            item.description,
+        )
+        assertEquals("Recent daily step activity (once connected).", item.establishes)
+        assertEquals(ActivityDomain.CARDIO, item.relatedDomain)
     }
 }

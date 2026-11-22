@@ -1,4 +1,4 @@
-package com.ascend.feature.dashboard.prototype
+package com.ascend.core.designsystem.sigil
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -17,7 +17,8 @@ import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import com.ascend.core.designsystem.sigil.ClassSigilCatalog
+import com.ascend.core.designsystem.theme.AttributeAccent
+import com.ascend.core.designsystem.theme.StatusPalette
 import kotlin.math.min
 import kotlin.math.sin
 

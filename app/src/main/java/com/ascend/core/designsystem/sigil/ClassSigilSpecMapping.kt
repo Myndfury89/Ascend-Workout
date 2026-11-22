@@ -1,8 +1,4 @@
-package com.ascend.feature.dashboard.prototype
-
-import com.ascend.core.designsystem.sigil.ClassKey
-import com.ascend.core.designsystem.sigil.ClassSigilCatalog
-import com.ascend.core.designsystem.sigil.ClassSigilSpec
+package com.ascend.core.designsystem.sigil
 
 /** The class key for a prototype variant (same names; Neutral = no class). */
 fun StatusClassVariant.classKey(): ClassKey =

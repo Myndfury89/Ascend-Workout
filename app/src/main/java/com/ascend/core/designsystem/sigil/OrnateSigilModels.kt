@@ -1,4 +1,4 @@
-package com.ascend.feature.dashboard.prototype
+package com.ascend.core.designsystem.sigil
 
 /*
  * Data model for the Original Ornate Sigil System. Everything is driven by explicit,

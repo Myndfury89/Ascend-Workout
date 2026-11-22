@@ -434,6 +434,11 @@
     <ID>MagicNumber:AttributeProgressCalculator.kt$AttributeConfig$0.8</ID>
     <ID>MagicNumber:AttributeProgressCalculator.kt$AttributeConfig$1.3</ID>
     <ID>MagicNumber:AttributeProgressCalculator.kt$AttributeConfig$1.6</ID>
+    <ID>MagicNumber:AttributeAccent.kt$0xFF3FD9C7</ID>
+    <ID>MagicNumber:AttributeAccent.kt$0xFF62B6E8</ID>
+    <ID>MagicNumber:AttributeAccent.kt$0xFF7EC46B</ID>
+    <ID>MagicNumber:AttributeAccent.kt$0xFF9B8CFF</ID>
+    <ID>MagicNumber:AttributeAccent.kt$0xFFE8735A</ID>
     <ID>MagicNumber:AttributeWave.kt$AttributeWaveCatalog$3</ID>
     <ID>MagicNumber:AttributeWave.kt$AttributeWaveCatalog$420</ID>
     <ID>MagicNumber:AttributeWave.kt$AttributeWaveCatalog$460</ID>
@@ -863,12 +868,7 @@
     <ID>MagicNumber:StatusPrototypeControls.kt$3</ID>
     <ID>MagicNumber:StatusPrototypeControls.kt$4</ID>
     <ID>MagicNumber:StatusPrototypeMotion.kt$StatusPrototypeMotion$0.7f</ID>
-    <ID>MagicNumber:StatusPrototypePanelContent.kt$0xFF3FD9C7</ID>
-    <ID>MagicNumber:StatusPrototypePanelContent.kt$0xFF62B6E8</ID>
-    <ID>MagicNumber:StatusPrototypePanelContent.kt$0xFF7EC46B</ID>
     <ID>MagicNumber:StatusPrototypePanelContent.kt$0xFF8AA0B8</ID>
-    <ID>MagicNumber:StatusPrototypePanelContent.kt$0xFF9B8CFF</ID>
-    <ID>MagicNumber:StatusPrototypePanelContent.kt$0xFFE8735A</ID>
     <ID>MagicNumber:StatusPrototypePreviews.kt$0.98f</ID>
     <ID>MagicNumber:StatusPrototypePreviews.kt$5</ID>
     <ID>MagicNumber:StatusScreen.kt$0.001f</ID>
@@ -1603,7 +1603,7 @@
     <ID>TooManyFunctions:OnboardingRepositoryImpl.kt$OnboardingRepositoryImpl : OnboardingRepository</ID>
     <ID>TooManyFunctions:OnboardingSteps.kt$com.ascend.feature.onboarding.OnboardingSteps.kt</ID>
     <ID>TooManyFunctions:OnboardingViewModel.kt$OnboardingViewModel : ViewModel</ID>
-    <ID>TooManyFunctions:OrnateSigilGeometry.kt$com.ascend.feature.dashboard.prototype.OrnateSigilGeometry.kt</ID>
+    <ID>TooManyFunctions:OrnateSigilGeometry.kt$com.ascend.core.designsystem.sigil.OrnateSigilGeometry.kt</ID>
     <ID>TooManyFunctions:PlayerDao.kt$PlayerDao</ID>
     <ID>TooManyFunctions:ProgressionRecommendationRepository.kt$ProgressionRecommendationRepository</ID>
     <ID>TooManyFunctions:ProgressionRecommendationRepositoryImpl.kt$ProgressionRecommendationRepositoryImpl : ProgressionRecommendationRepository</ID>

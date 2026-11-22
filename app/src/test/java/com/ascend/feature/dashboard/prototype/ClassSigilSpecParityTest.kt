@@ -2,6 +2,11 @@ package com.ascend.feature.dashboard.prototype
 
 import com.ascend.core.designsystem.sigil.ClassKey
 import com.ascend.core.designsystem.sigil.ClassSigilCatalog
+import com.ascend.core.designsystem.sigil.StatusClassVariant
+import com.ascend.core.designsystem.sigil.classKey
+import com.ascend.core.designsystem.sigil.prototypeVariantOrNull
+import com.ascend.core.designsystem.sigil.statusVariant
+import com.ascend.core.designsystem.theme.StatusPalette
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

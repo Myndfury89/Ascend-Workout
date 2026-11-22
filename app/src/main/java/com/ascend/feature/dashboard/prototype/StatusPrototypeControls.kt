@@ -26,6 +26,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ascend.core.designsystem.sigil.RankTier
+import com.ascend.core.designsystem.sigil.StatusClassVariant
 
 /** The transient event overlay pill raised over the panel; animated by [reveal] and [flash]. */
 @Composable

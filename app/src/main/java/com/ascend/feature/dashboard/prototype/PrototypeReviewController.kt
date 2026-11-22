@@ -7,6 +7,11 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import com.ascend.core.designsystem.sigil.OrnateSigilState
+import com.ascend.core.designsystem.sigil.RankTier
+import com.ascend.core.designsystem.sigil.SigilOpacityProfile
+import com.ascend.core.designsystem.sigil.SigilRotationProfile
+import com.ascend.core.designsystem.sigil.StatusClassVariant
 
 /**
  * Holds every debug-only review knob and the looped-review state machine for the prototype.

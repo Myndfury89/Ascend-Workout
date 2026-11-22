@@ -2,6 +2,16 @@ package com.ascend.feature.dashboard.prototype
 
 import androidx.compose.ui.geometry.Offset
 import com.ascend.core.designsystem.sigil.ClassKey
+import com.ascend.core.designsystem.sigil.OrnateSigilState
+import com.ascend.core.designsystem.sigil.RankTier
+import com.ascend.core.designsystem.sigil.SigilClassStyleCatalog
+import com.ascend.core.designsystem.sigil.SigilGeometryKey
+import com.ascend.core.designsystem.sigil.StatusClassVariant
+import com.ascend.core.designsystem.sigil.buildOrnateGeometry
+import com.ascend.core.designsystem.sigil.chevronPoints
+import com.ascend.core.designsystem.sigil.classKey
+import com.ascend.core.designsystem.sigil.shieldPoints
+import com.ascend.core.designsystem.sigil.statusVariant
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue

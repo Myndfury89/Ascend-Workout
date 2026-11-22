@@ -25,12 +25,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ascend.core.designsystem.theme.StatusPalette
 import com.ascend.feature.ascended.model.AscendedClass
 import com.ascend.feature.ascended.model.BodyBase
 import com.ascend.feature.ascended.model.EvolutionStage
 import com.ascend.feature.ascended.presentation.AscendedStatusField
 import com.ascend.feature.ascended.prototype.controls.AscendedControls
-import com.ascend.feature.dashboard.prototype.StatusPalette
 
 /**
  * Debug-only prototype for the "Your Ascended" DARK-FIELD integration — the imported figure on the

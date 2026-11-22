@@ -1,5 +1,13 @@
 package com.ascend.feature.dashboard.prototype
 
+import com.ascend.core.designsystem.sigil.MedallionGlyph
+import com.ascend.core.designsystem.sigil.MedallionRole
+import com.ascend.core.designsystem.sigil.RankTier
+import com.ascend.core.designsystem.sigil.SigilGeometryKey
+import com.ascend.core.designsystem.sigil.SigilLayout
+import com.ascend.core.designsystem.sigil.SigilRingRole
+import com.ascend.core.designsystem.sigil.StatusClassVariant
+import com.ascend.core.designsystem.sigil.buildOrnateGeometry
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull

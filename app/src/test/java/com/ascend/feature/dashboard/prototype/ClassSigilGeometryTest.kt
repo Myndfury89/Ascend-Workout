@@ -1,6 +1,11 @@
 package com.ascend.feature.dashboard.prototype
 
+import com.ascend.core.designsystem.sigil.RankTier
+import com.ascend.core.designsystem.sigil.SigilGeometryKey
 import com.ascend.core.designsystem.sigil.SigilShape
+import com.ascend.core.designsystem.sigil.StatusClassVariant
+import com.ascend.core.designsystem.sigil.buildOrnateGeometry
+import com.ascend.core.designsystem.sigil.sigilSpec
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNotNull

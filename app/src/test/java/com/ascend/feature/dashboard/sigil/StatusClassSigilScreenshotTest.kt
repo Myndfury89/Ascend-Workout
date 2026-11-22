@@ -10,10 +10,10 @@ import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.unit.dp
 import com.ascend.core.designsystem.motion.MotionSpec
 import com.ascend.core.designsystem.sigil.ClassKey
+import com.ascend.core.designsystem.sigil.MedallionGlyph
+import com.ascend.core.designsystem.sigil.RankTier
 import com.ascend.core.designsystem.sigil.SigilState
 import com.ascend.core.designsystem.theme.AscendTheme
-import com.ascend.feature.dashboard.prototype.MedallionGlyph
-import com.ascend.feature.dashboard.prototype.RankTier
 import com.github.takahirom.roborazzi.captureRoboImage
 import org.junit.Rule
 import org.junit.Test

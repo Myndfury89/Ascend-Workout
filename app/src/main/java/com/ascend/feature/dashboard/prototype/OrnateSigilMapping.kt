@@ -1,5 +1,6 @@
 package com.ascend.feature.dashboard.prototype
 
+import com.ascend.core.designsystem.sigil.RankTier
 import kotlin.math.roundToInt
 
 /*

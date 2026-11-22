@@ -1,6 +1,7 @@
-package com.ascend.feature.dashboard.prototype
+package com.ascend.core.designsystem.sigil
 
 import androidx.compose.ui.graphics.Color
+import com.ascend.core.designsystem.theme.StatusPalette
 
 /*
  * The class accent identity. The old simple sigil composable was superseded by the Original

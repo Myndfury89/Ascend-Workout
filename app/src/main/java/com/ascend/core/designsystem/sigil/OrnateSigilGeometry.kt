@@ -1,4 +1,4 @@
-package com.ascend.feature.dashboard.prototype
+package com.ascend.core.designsystem.sigil
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
@@ -9,9 +9,6 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.translate
-import com.ascend.core.designsystem.sigil.ClassSigilCatalog
-import com.ascend.core.designsystem.sigil.ContourSegment
-import com.ascend.core.designsystem.sigil.SigilShape
 import kotlin.math.cos
 import kotlin.math.roundToInt
 import kotlin.math.sin

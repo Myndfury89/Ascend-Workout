@@ -1,5 +1,9 @@
 package com.ascend.feature.dashboard.prototype
 
+import com.ascend.core.designsystem.sigil.StatusClassVariant
+import com.ascend.core.designsystem.sigil.StatusSigilVariant
+import com.ascend.core.designsystem.sigil.classAccent
+import com.ascend.core.designsystem.theme.StatusPalette
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

@@ -26,7 +26,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.ascend.feature.dashboard.prototype.StatusPalette
+import com.ascend.core.designsystem.theme.StatusPalette
 import java.util.Locale
 
 /*

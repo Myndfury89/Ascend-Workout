@@ -1,6 +1,8 @@
 package com.ascend.feature.dashboard.prototype
 
 import com.ascend.core.designsystem.motion.AscendVerbEasing
+import com.ascend.core.designsystem.sigil.AttributeWaveCatalog
+import com.ascend.core.designsystem.sigil.MedallionRole
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test

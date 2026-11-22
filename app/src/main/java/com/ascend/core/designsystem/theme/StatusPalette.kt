@@ -1,4 +1,4 @@
-package com.ascend.feature.dashboard.prototype
+package com.ascend.core.designsystem.theme
 
 import androidx.compose.ui.graphics.Color
 

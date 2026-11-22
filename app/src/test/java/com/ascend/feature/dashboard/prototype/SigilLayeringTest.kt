@@ -1,5 +1,8 @@
 package com.ascend.feature.dashboard.prototype
 
+import com.ascend.core.designsystem.sigil.SigilOpacityProfile
+import com.ascend.core.designsystem.sigil.SigilOpacityWeights
+import com.ascend.core.designsystem.sigil.SigilRotationProfile
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test

@@ -1,5 +1,7 @@
 package com.ascend.feature.dashboard
 
+import com.ascend.core.designsystem.sigil.RankTier
+import com.ascend.core.designsystem.sigil.StatusClassVariant
 import com.ascend.core.model.AttributeType
 import com.ascend.core.model.ProgressionEvent
 import com.ascend.core.model.ProgressionEventType
@@ -8,8 +10,6 @@ import com.ascend.core.model.XpSourceType
 import com.ascend.feature.dashboard.prototype.AttributeLine
 import com.ascend.feature.dashboard.prototype.AttributeReward
 import com.ascend.feature.dashboard.prototype.QuestCompletionSummary
-import com.ascend.feature.dashboard.prototype.RankTier
-import com.ascend.feature.dashboard.prototype.StatusClassVariant
 import com.ascend.feature.dashboard.prototype.StatusEventOverlay
 import com.ascend.feature.dashboard.prototype.StatusOverlayKind
 import com.ascend.feature.dashboard.prototype.StatusPresentationPlan

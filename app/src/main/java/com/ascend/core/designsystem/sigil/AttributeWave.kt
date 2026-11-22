@@ -1,4 +1,4 @@
-package com.ascend.feature.dashboard.prototype
+package com.ascend.core.designsystem.sigil
 
 import androidx.compose.animation.core.Easing
 import com.ascend.core.designsystem.motion.AscendVerbEasing

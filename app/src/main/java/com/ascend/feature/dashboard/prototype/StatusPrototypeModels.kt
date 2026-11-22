@@ -1,22 +1,13 @@
 package com.ascend.feature.dashboard.prototype
 
+import com.ascend.core.designsystem.sigil.RankTier
+import com.ascend.core.designsystem.sigil.StatusClassVariant
+
 /*
  * Fake, in-memory state for the REVISED Status motion prototype. Nothing here touches the
  * ProgressionEventQueue, repositories, or real reward logic — every value is simulated so
  * the composition and motion can be reviewed in isolation before any production wiring.
  */
-
-/** The four sigil identities the prototype can render. */
-enum class StatusClassVariant(
-    val displayName: String,
-    val classTitle: String,
-    val proficiencyName: String,
-) {
-    NEUTRAL("Unbound", "The Unawakened", "Potential"),
-    BERSERKER("Berserker", "Breaker of Limits", "Force"),
-    MONK("Monk", "Master of the Vessel", "Body Mastery"),
-    MAGE("Mage", "Channeler of Vitality", "Energy Control"),
-}
 
 /** The reviewable prototype states from the spec's debug selector. */
 enum class StatusPrototypeStateId(val label: String) {

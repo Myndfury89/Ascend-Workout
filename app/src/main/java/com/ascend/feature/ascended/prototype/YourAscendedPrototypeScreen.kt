@@ -36,7 +36,7 @@ import com.ascend.feature.ascended.prototype.controls.AscendedControls
  * per-class artwork (per body base, optional per-stage), with the aura + Perception effects layered
  * on top and evolution-stage / Skill controls below. Clean light review surface so the grayscale art
  * reads. Deterministic — no repositories, no navigation, no physiology, no schema. Until the figure
- * images are dropped into `app/src/debug/res/drawable/`, each figure shows a placeholder naming the
+ * images are dropped into `app/src/main/res/drawable/`, each figure shows a placeholder naming the
  * exact file to add.
  */
 private val REVIEW_BG = Color(0xFFEDEBE6)

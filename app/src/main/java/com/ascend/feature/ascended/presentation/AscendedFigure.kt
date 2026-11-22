@@ -95,7 +95,7 @@ private fun FigurePlaceholder(
             Spacer(Modifier.height(4.dp))
             Text("or base body: $bodyResourceName.png", color = MUTED, fontSize = 11.sp)
             Spacer(Modifier.height(6.dp))
-            Text("app/src/debug/res/drawable/", color = MUTED, fontSize = 10.sp)
+            Text("app/src/main/res/drawable/", color = MUTED, fontSize = 10.sp)
         }
     }
 }

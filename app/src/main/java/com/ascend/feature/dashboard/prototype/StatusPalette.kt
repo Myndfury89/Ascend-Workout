@@ -17,6 +17,9 @@ object StatusPalette {
     // Outer-frame energy.
     val violet = Color(0xFF7C5CFF)
     val violetBright = Color(0xFFA88BFF)
+
+    /** Assassin accent (approved 11/21). Distinct from Mage violet and from violetBright. */
+    val nightshade = Color(color = 0xFFD10D8B)
     val indigo = Color(0xFF3B2E8C)
     val indigoDeep = Color(0xFF1C1740)
 

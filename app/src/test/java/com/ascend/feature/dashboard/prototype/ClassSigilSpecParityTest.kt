@@ -17,7 +17,7 @@ class ClassSigilSpecParityTest {
     @Test
     fun `classes without a prototype variant ride on neutral but keep their own key`() {
         val withoutVariant = ClassKey.entries.filter { it.prototypeVariantOrNull() == null }
-        assertEquals(listOf(ClassKey.FIGHTER, ClassKey.RANGER, ClassKey.GUARDIAN), withoutVariant)
+        assertEquals(listOf(ClassKey.ASSASSIN, ClassKey.FIGHTER, ClassKey.RANGER, ClassKey.GUARDIAN), withoutVariant)
         withoutVariant.forEach { assertEquals(StatusClassVariant.NEUTRAL, it.statusVariant()) }
     }
 
@@ -32,5 +32,7 @@ class ClassSigilSpecParityTest {
         assertEquals(StatusPalette.violet, c.Mage.palette.accentFor(warm = false))
         assertEquals(StatusPalette.infoLine, c.Neutral.palette.accentFor(warm = true))
         assertEquals(StatusPalette.infoLine, c.Neutral.palette.accentFor(warm = false))
+        assertEquals(StatusPalette.nightshade, c.Assassin.palette.accentFor(warm = true))
+        assertEquals(StatusPalette.nightshade, c.Assassin.palette.accentFor(warm = false))
     }
 }

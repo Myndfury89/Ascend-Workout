@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.translate
 import com.ascend.core.designsystem.sigil.ClassSigilCatalog
+import com.ascend.core.designsystem.sigil.ContourSegment
 import com.ascend.core.designsystem.sigil.SigilShape
 import kotlin.math.cos
 import kotlin.math.roundToInt
@@ -80,10 +81,10 @@ private fun classCentralPaths(
 
 /** The small static core anchor per class (CP2), from [SigilGeometrySpec.coreAnchor]. */
 private fun coreAnchorPath(
-    anchor: SigilShape,
+    anchor: SigilShape?,
     r: Float,
     sides: Int,
-): Path = sigilShapePaths(anchor, r, sides).single()
+): Path? = anchor?.let { sigilShapePaths(it, r, sides).single() }
 
 /** Converts one radius-relative [SigilShape] into absolute paths for a sigil of radius [r]. */
 private fun sigilShapePaths(
@@ -107,7 +108,34 @@ private fun sigilShapePaths(
         is SigilShape.Chevron ->
             listOf(openPath(chevronPoints(r * shape.width, r * shape.depth, r * shape.tipRadius, shape.rotationDeg)))
         is SigilShape.Shield -> listOf(closedPath(shieldPoints(r * shape.width, r * shape.height)))
+        is SigilShape.Contour -> listOf(contourPath(shape, r))
     }
+
+/** A closed [SigilShape.Contour] scaled to radius [r]; arcs follow `Path.arcTo` angle conventions. */
+private fun contourPath(
+    contour: SigilShape.Contour,
+    r: Float,
+): Path =
+    Path().apply {
+        moveTo(contour.start.x * r, contour.start.y * r)
+        contour.segments.forEach { addContourSegment(it, r) }
+        close()
+    }
+
+private fun Path.addContourSegment(
+    seg: ContourSegment,
+    r: Float,
+) {
+    when (seg) {
+        is ContourSegment.Line -> lineTo(seg.to.x * r, seg.to.y * r)
+        is ContourSegment.Arc -> {
+            val cx = seg.center.x * r
+            val cy = seg.center.y * r
+            val cr = seg.radius * r
+            arcTo(Rect(cx - cr, cy - cr, cx + cr, cy + cr), seg.startDeg, seg.sweepDeg, forceMoveTo = false)
+        }
+    }
+}
 
 /**
  * The three points of an open chevron (arm end, tip, arm end) in absolute units around the origin.

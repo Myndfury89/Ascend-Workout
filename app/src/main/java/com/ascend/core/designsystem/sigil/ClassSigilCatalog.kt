@@ -15,6 +15,34 @@ object ClassSigilCatalog {
     private val CYAN_SOFT = Color(color = 0xFF7FE9FF)
     private val INFO_LINE = Color(color = 0xFFD9E4FF)
 
+    private val NIGHTSHADE = Color(color = 0xFFD10D8B)
+
+    /**
+     * The Assassin mark was drawn in a 24-unit art box centred on (12, 12) with the shared catalog
+     * radius at 20.5 units (assassin-sigil/GEOMETRY.md). [art] converts those art-box numbers to the
+     * radius-relative space every [SigilShape] uses, so the catalog keeps the approved values verbatim.
+     */
+    private const val ART_CENTRE = 12f
+    private const val ART_RADIUS = 20.5f
+
+    private fun art(
+        x: Float,
+        y: Float,
+    ) = ContourPoint((x - ART_CENTRE) / ART_RADIUS, (y - ART_CENTRE) / ART_RADIUS)
+
+    private fun line(
+        x: Float,
+        y: Float,
+    ) = ContourSegment.Line(art(x, y))
+
+    private fun arc(
+        cx: Float,
+        cy: Float,
+        radius: Float,
+        startDeg: Float,
+        sweepDeg: Float,
+    ) = ContourSegment.Arc(art(cx, cy), radius / ART_RADIUS, startDeg, sweepDeg)
+
     // Accents approved by Matt 11/21 (steel / jade / gold).
     private val STEEL = Color(color = 0xFFB7C5D8)
     private val JADE = Color(color = 0xFF5ECF9A)
@@ -89,6 +117,68 @@ object ClassSigilCatalog {
             motion = ClassMotionProfile(rotationFactor = -1.18f, strokeScale = 0.85f),
         )
 
+    /**
+     * Assassin — candidate A "Contained" (approved 11/21): a downward dagger entirely inside the
+     * hollow of a horns-up crescent. Stroke-only, no core anchor. Accent Nightshade #D10D8B (approved).
+     * No ambient drift (rotationFactor 0) so the dagger always points down; strokeScale 1.05 is the
+     * value the approved review renders used.
+     */
+    val Assassin =
+        ClassSigilSpec(
+            key = ClassKey.ASSASSIN,
+            geometry =
+                SigilGeometrySpec(
+                    central =
+                        listOf(
+                            // Crescent: outer circle (12, 12.85) r 8.70 CCW, inner circle (12, 10.60) r 7.60 CW.
+                            SigilShape.Contour(
+                                start = art(x = 4.9584f, y = 7.7406f),
+                                segments =
+                                    listOf(
+                                        arc(
+                                            cx = 12f,
+                                            cy = 12.85f,
+                                            radius = 8.70f,
+                                            startDeg = -144.0349f,
+                                            sweepDeg = -251.9302f,
+                                        ),
+                                        arc(
+                                            cx = 12f,
+                                            cy = 10.60f,
+                                            radius = 7.60f,
+                                            startDeg = -22.1011f,
+                                            sweepDeg = 224.2023f,
+                                        ),
+                                    ),
+                            ),
+                            // Dagger: tip, shoulders, guard, grip, semicircular pommel.
+                            SigilShape.Contour(
+                                start = art(x = 12.0000f, y = 16.0500f),
+                                segments =
+                                    listOf(
+                                        line(x = 13.2000f, y = 12.2500f),
+                                        line(x = 12.6800f, y = 11.1000f),
+                                        line(x = 14.0500f, y = 11.1000f),
+                                        line(x = 14.0500f, y = 10.3000f),
+                                        line(x = 12.5200f, y = 10.3000f),
+                                        line(x = 12.5200f, y = 7.4500f),
+                                        line(x = 13.0500f, y = 7.4500f),
+                                        arc(cx = 12f, cy = 7.45f, radius = 1.05f, startDeg = 0f, sweepDeg = -180f),
+                                        line(x = 11.4800f, y = 7.4500f),
+                                        line(x = 11.4800f, y = 10.3000f),
+                                        line(x = 9.9500f, y = 10.3000f),
+                                        line(x = 9.9500f, y = 11.1000f),
+                                        line(x = 11.3200f, y = 11.1000f),
+                                        line(x = 10.8000f, y = 12.2500f),
+                                    ),
+                            ),
+                        ),
+                    coreAnchor = null,
+                ),
+            palette = SigilPalette(accent = NIGHTSHADE),
+            motion = ClassMotionProfile(rotationFactor = 0f, strokeScale = 1.05f),
+        )
+
     // Fighter / Ranger / Guardian: approved "A" geometry (the 10/29 draft table). rotationFactor is the
     // 10/29 draft value; strokeScale is 1.0 as on the approved icons. Both are tuning values.
 
@@ -145,7 +235,7 @@ object ClassSigilCatalog {
             motion = ClassMotionProfile(rotationFactor = 0.4f, strokeScale = 1.0f),
         )
 
-    val all: List<ClassSigilSpec> = listOf(Neutral, Berserker, Monk, Mage, Fighter, Ranger, Guardian)
+    val all: List<ClassSigilSpec> = listOf(Neutral, Berserker, Monk, Mage, Assassin, Fighter, Ranger, Guardian)
 
     fun of(key: ClassKey): ClassSigilSpec = all.first { it.key == key }
 }

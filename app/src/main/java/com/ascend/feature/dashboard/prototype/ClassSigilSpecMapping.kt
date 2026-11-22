@@ -18,7 +18,7 @@ fun StatusClassVariant.sigilSpec(): ClassSigilSpec = ClassSigilCatalog.of(classK
 
 /**
  * The prototype variant with the same name as a [ClassKey], or null for classes that have no Status
- * prototype variant yet (Fighter, Ranger, Guardian).
+ * prototype variant yet (Assassin, Fighter, Ranger, Guardian).
  */
 fun ClassKey.prototypeVariantOrNull(): StatusClassVariant? =
     when (this) {
@@ -26,7 +26,7 @@ fun ClassKey.prototypeVariantOrNull(): StatusClassVariant? =
         ClassKey.BERSERKER -> StatusClassVariant.BERSERKER
         ClassKey.MONK -> StatusClassVariant.MONK
         ClassKey.MAGE -> StatusClassVariant.MAGE
-        ClassKey.FIGHTER, ClassKey.RANGER, ClassKey.GUARDIAN -> null
+        ClassKey.ASSASSIN, ClassKey.FIGHTER, ClassKey.RANGER, ClassKey.GUARDIAN -> null
     }
 
 /**

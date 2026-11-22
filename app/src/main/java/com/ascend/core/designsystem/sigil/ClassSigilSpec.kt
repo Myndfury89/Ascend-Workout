@@ -11,6 +11,7 @@ enum class ClassKey {
     BERSERKER,
     MONK,
     MAGE,
+    ASSASSIN,
     FIGHTER,
     RANGER,
     GUARDIAN,
@@ -68,12 +69,50 @@ sealed interface SigilShape {
         val width: Float,
         val height: Float,
     ) : SigilShape
+
+    /**
+     * A closed freeform outline: starts at [start] and follows [segments], then closes. Points and
+     * radii are radius-relative with the sigil centre at (0, 0) and +y down, like the other shapes.
+     * Used where the regular primitives cannot express the mark (Assassin crescent and dagger).
+     */
+    data class Contour(
+        val start: ContourPoint,
+        val segments: List<ContourSegment>,
+    ) : SigilShape
 }
 
-/** The class-distinct geometry: the rotating central structure and the small static core anchor. */
+/** A radius-relative point; (0, 0) is the sigil centre, +y is down. */
+data class ContourPoint(
+    val x: Float,
+    val y: Float,
+)
+
+/** One step of a [SigilShape.Contour]. */
+sealed interface ContourSegment {
+    /** Straight line to [to]. */
+    data class Line(
+        val to: ContourPoint,
+    ) : ContourSegment
+
+    /**
+     * Circular arc on the circle at [center] with [radius], from [startDeg] sweeping [sweepDeg]
+     * (0° = +x, positive = clockwise on screen, negative = counter-clockwise), as `Path.arcTo`.
+     */
+    data class Arc(
+        val center: ContourPoint,
+        val radius: Float,
+        val startDeg: Float,
+        val sweepDeg: Float,
+    ) : ContourSegment
+}
+
+/**
+ * The class-distinct geometry: the rotating central structure and the small static core anchor.
+ * [coreAnchor] is null for a class whose approved mark has no separate core (Assassin).
+ */
 data class SigilGeometrySpec(
     val central: List<SigilShape>,
-    val coreAnchor: SigilShape,
+    val coreAnchor: SigilShape?,
 )
 
 /** Class colours. [warmAccent], when set, replaces [accent] under the warm-accent treatment. */

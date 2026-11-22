@@ -153,7 +153,7 @@ object SigilClassStyleCatalog {
         }
 
     /**
-     * The style for a [ClassKey]. Classes without a prototype variant (Fighter, Ranger, Guardian) use
+     * The style for a [ClassKey]. Classes without a prototype variant (Assassin, Fighter, Ranger, Guardian) use
      * the shared Neutral line style and have no proficiency glyph until one is designed and approved.
      */
     fun styleFor(key: com.ascend.core.designsystem.sigil.ClassKey): SigilClassStyle =
@@ -278,7 +278,7 @@ data class OrnateSigilState(
     val newRankLayer: Boolean = false,
     /**
      * The class whose geometry, accent, style and motion are drawn. Defaults to [variant]'s class;
-     * set it for classes without a prototype [StatusClassVariant] (Fighter, Ranger, Guardian).
+     * set it for classes without a prototype [StatusClassVariant] (Assassin, Fighter, Ranger, Guardian).
      */
     val classKey: com.ascend.core.designsystem.sigil.ClassKey = variant.classKey(),
 ) {

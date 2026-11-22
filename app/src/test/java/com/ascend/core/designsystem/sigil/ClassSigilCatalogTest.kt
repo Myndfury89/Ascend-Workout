@@ -4,6 +4,20 @@ import androidx.compose.ui.graphics.Color
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import kotlin.math.hypot
+
+private fun ContourPoint.inUnitDisc() = hypot(x, y) <= 1f
+
+private fun ContourSegment.inUnitDisc() =
+    when (this) {
+        is ContourSegment.Line -> to.inUnitDisc()
+        is ContourSegment.Arc -> radius > 0f && hypot(center.x, center.y) + radius <= 1f
+    }
+
+private fun SigilShape.Contour.isInsideUnitDisc(): Boolean {
+    val segmentsInside = segments.all { it.inUnitDisc() }
+    return segments.isNotEmpty() && start.inUnitDisc() && segmentsInside
+}
 
 class ClassSigilCatalogTest {
     @Test
@@ -15,7 +29,9 @@ class ClassSigilCatalogTest {
 
     @Test
     fun `every shape stays inside the sigil radius and is well formed`() {
-        ClassSigilCatalog.all.flatMap { it.geometry.central + it.geometry.coreAnchor }.forEach(::assertWellFormed)
+        ClassSigilCatalog.all
+            .flatMap { it.geometry.central + listOfNotNull(it.geometry.coreAnchor) }
+            .forEach(::assertWellFormed)
     }
 
     private fun assertWellFormed(shape: SigilShape) {
@@ -27,6 +43,7 @@ class ClassSigilCatalogTest {
             is SigilShape.Rosette -> assertTrue(shape.petals > 0 && shape.offset + shape.petal <= 1f)
             is SigilShape.Chevron -> assertChevronWellFormed(shape)
             is SigilShape.Shield -> assertShieldWellFormed(shape)
+            is SigilShape.Contour -> assertTrue(shape.isInsideUnitDisc())
         }
     }
 
@@ -41,7 +58,7 @@ class ClassSigilCatalogTest {
     fun `core anchors are small and every class has a central structure`() {
         ClassSigilCatalog.all.forEach { spec ->
             assertTrue(spec.geometry.central.isNotEmpty())
-            val anchor = spec.geometry.coreAnchor
+            val anchor = spec.geometry.coreAnchor ?: return@forEach // Assassin: approved mark has no core.
             val size =
                 when (anchor) {
                     is SigilShape.Polygon -> anchor.radius
@@ -50,6 +67,7 @@ class ClassSigilCatalogTest {
                     is SigilShape.Rosette -> anchor.offset + anchor.petal
                     is SigilShape.Chevron -> anchor.tipRadius
                     is SigilShape.Shield -> maxOf(anchor.width, anchor.height) / 2f
+                    is SigilShape.Contour -> error("${spec.key}: a contour is not a core anchor")
                 }
             assertTrue("${spec.key} anchor too large", size <= 0.12f)
         }

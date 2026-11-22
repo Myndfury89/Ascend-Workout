@@ -16,11 +16,21 @@ fun StatusClassVariant.classKey(): ClassKey =
 /** The data-driven sigil spec (geometry + palette) for a prototype variant. */
 fun StatusClassVariant.sigilSpec(): ClassSigilSpec = ClassSigilCatalog.of(classKey())
 
-/** The prototype variant that renders a [ClassKey]. */
-fun ClassKey.statusVariant(): StatusClassVariant =
+/**
+ * The prototype variant with the same name as a [ClassKey], or null for classes that have no Status
+ * prototype variant yet (Fighter, Ranger, Guardian).
+ */
+fun ClassKey.prototypeVariantOrNull(): StatusClassVariant? =
     when (this) {
         ClassKey.NEUTRAL -> StatusClassVariant.NEUTRAL
         ClassKey.BERSERKER -> StatusClassVariant.BERSERKER
         ClassKey.MONK -> StatusClassVariant.MONK
         ClassKey.MAGE -> StatusClassVariant.MAGE
+        ClassKey.FIGHTER, ClassKey.RANGER, ClassKey.GUARDIAN -> null
     }
+
+/**
+ * The prototype variant that carries a [ClassKey] through [OrnateSigilState]. Classes without one
+ * ride on NEUTRAL; the renderer reads [OrnateSigilState.classKey] for all class-specific drawing.
+ */
+fun ClassKey.statusVariant(): StatusClassVariant = prototypeVariantOrNull() ?: StatusClassVariant.NEUTRAL

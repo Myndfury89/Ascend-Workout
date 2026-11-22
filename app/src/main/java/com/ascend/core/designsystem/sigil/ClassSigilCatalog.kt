@@ -15,6 +15,11 @@ object ClassSigilCatalog {
     private val CYAN_SOFT = Color(color = 0xFF7FE9FF)
     private val INFO_LINE = Color(color = 0xFFD9E4FF)
 
+    // Accents approved by Matt 11/21 (steel / jade / gold).
+    private val STEEL = Color(color = 0xFFB7C5D8)
+    private val JADE = Color(color = 0xFF5ECF9A)
+    private val GOLD = Color(color = 0xFFE0C36A)
+
     /** Neutral — rank polygon + star, understated until a class is chosen. */
     val Neutral =
         ClassSigilSpec(
@@ -84,7 +89,63 @@ object ClassSigilCatalog {
             motion = ClassMotionProfile(rotationFactor = -1.18f, strokeScale = 0.85f),
         )
 
-    val all: List<ClassSigilSpec> = listOf(Neutral, Berserker, Monk, Mage)
+    // Fighter / Ranger / Guardian: approved "A" geometry (the 10/29 draft table). rotationFactor is the
+    // 10/29 draft value; strokeScale is 1.0 as on the approved icons. Both are tuning values.
+
+    /** Fighter — octagon with a slightly larger eight-point star (octagram); octagon core. */
+    val Fighter =
+        ClassSigilSpec(
+            key = ClassKey.FIGHTER,
+            geometry =
+                SigilGeometrySpec(
+                    central =
+                        listOf(
+                            SigilShape.Polygon(sides = 8, radius = 0.30f),
+                            SigilShape.Star(points = 8, outer = 0.34f, inner = 0.24f),
+                        ),
+                    coreAnchor = SigilShape.Polygon(sides = 8, radius = 0.08f),
+                ),
+            palette = SigilPalette(accent = STEEL),
+            motion = ClassMotionProfile(rotationFactor = 0.85f, strokeScale = 1.0f),
+        )
+
+    /** Ranger — three open chevrons at 120° around an upward triangle; small upward chevron core. */
+    val Ranger =
+        ClassSigilSpec(
+            key = ClassKey.RANGER,
+            geometry =
+                SigilGeometrySpec(
+                    central =
+                        listOf(
+                            SigilShape.Chevron(width = 0.30f, depth = 0.18f, tipRadius = 0.34f, rotationDeg = -90f),
+                            SigilShape.Chevron(width = 0.30f, depth = 0.18f, tipRadius = 0.34f, rotationDeg = 30f),
+                            SigilShape.Chevron(width = 0.30f, depth = 0.18f, tipRadius = 0.34f, rotationDeg = 150f),
+                            SigilShape.Polygon(sides = 3, radius = 0.12f),
+                        ),
+                    coreAnchor = SigilShape.Chevron(width = 0.08f, depth = 0.05f, tipRadius = 0.055f),
+                ),
+            palette = SigilPalette(accent = JADE),
+            motion = ClassMotionProfile(rotationFactor = 1.1f, strokeScale = 1.0f),
+        )
+
+    /** Guardian — heater shield enclosing a hexagon; circle core. */
+    val Guardian =
+        ClassSigilSpec(
+            key = ClassKey.GUARDIAN,
+            geometry =
+                SigilGeometrySpec(
+                    central =
+                        listOf(
+                            SigilShape.Shield(width = 0.42f, height = 0.50f),
+                            SigilShape.Polygon(sides = 6, radius = 0.20f),
+                        ),
+                    coreAnchor = SigilShape.Circle(radius = 0.07f),
+                ),
+            palette = SigilPalette(accent = GOLD),
+            motion = ClassMotionProfile(rotationFactor = 0.4f, strokeScale = 1.0f),
+        )
+
+    val all: List<ClassSigilSpec> = listOf(Neutral, Berserker, Monk, Mage, Fighter, Ranger, Guardian)
 
     fun of(key: ClassKey): ClassSigilSpec = all.first { it.key == key }
 }

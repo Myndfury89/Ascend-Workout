@@ -10,7 +10,15 @@ class ClassSigilSpecParityTest {
     @Test
     fun `every variant maps to the class key of the same name`() {
         StatusClassVariant.entries.forEach { assertEquals(it.name, it.classKey().name) }
-        assertEquals(ClassKey.entries.size, StatusClassVariant.entries.map { it.classKey() }.toSet().size)
+        assertEquals(StatusClassVariant.entries.size, StatusClassVariant.entries.map { it.classKey() }.toSet().size)
+        StatusClassVariant.entries.forEach { assertEquals(it, it.classKey().prototypeVariantOrNull()) }
+    }
+
+    @Test
+    fun `classes without a prototype variant ride on neutral but keep their own key`() {
+        val withoutVariant = ClassKey.entries.filter { it.prototypeVariantOrNull() == null }
+        assertEquals(listOf(ClassKey.FIGHTER, ClassKey.RANGER, ClassKey.GUARDIAN), withoutVariant)
+        withoutVariant.forEach { assertEquals(StatusClassVariant.NEUTRAL, it.statusVariant()) }
     }
 
     @Test

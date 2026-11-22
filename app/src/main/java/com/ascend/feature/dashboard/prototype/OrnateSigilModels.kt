@@ -149,9 +149,24 @@ object SigilClassStyleCatalog {
                     assemblyRhythm = 1.15f,
                     proficiencyGlyph = MedallionGlyph.ENERGY_FLOW,
                 )
-            StatusClassVariant.NEUTRAL ->
-                SigilClassStyle(lineWeight = 1.9f, useArcs = false, pointEmphasis = 1.0f, assemblyRhythm = 1.0f, proficiencyGlyph = null)
+            StatusClassVariant.NEUTRAL -> SharedStyle
         }
+
+    /**
+     * The style for a [ClassKey]. Classes without a prototype variant (Fighter, Ranger, Guardian) use
+     * the shared Neutral line style and have no proficiency glyph until one is designed and approved.
+     */
+    fun styleFor(key: com.ascend.core.designsystem.sigil.ClassKey): SigilClassStyle =
+        key.prototypeVariantOrNull()?.let(::styleFor) ?: SharedStyle
+
+    private val SharedStyle =
+        SigilClassStyle(
+            lineWeight = 1.9f,
+            useArcs = false,
+            pointEmphasis = 1.0f,
+            assemblyRhythm = 1.0f,
+            proficiencyGlyph = null,
+        )
 }
 
 /**
@@ -241,6 +256,8 @@ data class SigilGeometryKey(
     val simplified: Boolean,
     val minimal: Boolean,
     val classDistinct: Boolean = false,
+    /** The class whose geometry/style is drawn. Defaults to [variant]'s class. */
+    val classKey: com.ascend.core.designsystem.sigil.ClassKey = variant.classKey(),
 )
 
 /**
@@ -259,6 +276,11 @@ data class OrnateSigilState(
     val showProficiency: Boolean,
     val settledOpacity: Float = DEFAULT_SETTLED_OPACITY,
     val newRankLayer: Boolean = false,
+    /**
+     * The class whose geometry, accent, style and motion are drawn. Defaults to [variant]'s class;
+     * set it for classes without a prototype [StatusClassVariant] (Fighter, Ranger, Guardian).
+     */
+    val classKey: com.ascend.core.designsystem.sigil.ClassKey = variant.classKey(),
 ) {
     val medallionCount: Int get() = MedallionGlyph.attributeGlyphs.size + if (showProficiency) 1 else 0
 
@@ -266,7 +288,9 @@ data class OrnateSigilState(
         simplified: Boolean,
         minimal: Boolean,
         classDistinct: Boolean = false,
-    ): SigilGeometryKey = SigilGeometryKey(rankTier, variant, medallionCount, simplified, minimal, classDistinct)
+    ): SigilGeometryKey {
+        return SigilGeometryKey(rankTier, variant, medallionCount, simplified, minimal, classDistinct, classKey)
+    }
 
     companion object {
         const val DEFAULT_SETTLED_OPACITY = 0.16f

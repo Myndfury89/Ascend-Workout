@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.translate
+import com.ascend.core.designsystem.sigil.ClassSigilCatalog
 import com.ascend.core.designsystem.sigil.SigilShape
 import kotlin.math.cos
 import kotlin.math.roundToInt
@@ -103,7 +104,60 @@ private fun sigilShapePaths(
                 circlePath(Offset((cos(a) * off).toFloat(), (sin(a) * off).toFloat()), cr)
             }
         }
+        is SigilShape.Chevron ->
+            listOf(openPath(chevronPoints(r * shape.width, r * shape.depth, r * shape.tipRadius, shape.rotationDeg)))
+        is SigilShape.Shield -> listOf(closedPath(shieldPoints(r * shape.width, r * shape.height)))
     }
+
+/**
+ * The three points of an open chevron (arm end, tip, arm end) in absolute units around the origin.
+ * The tip sits at [tipRadius] along [rotationDeg]; the arm ends sit [depth] back toward the centre,
+ * [width] apart. -90 points the tip straight up.
+ */
+internal fun chevronPoints(
+    width: Float,
+    depth: Float,
+    tipRadius: Float,
+    rotationDeg: Float,
+): List<Offset> {
+    val rot = Math.toRadians(rotationDeg.toDouble())
+    val u = Offset(cos(rot).toFloat(), sin(rot).toFloat())
+    val perp = Offset(-u.y, u.x)
+    val tip = u * tipRadius
+    val base = u * (tipRadius - depth)
+    return listOf(base + perp * (width / 2f), tip, base - perp * (width / 2f))
+}
+
+/**
+ * The five corners of a heater shield in absolute units around the origin: top-left and top-right
+ * (inset to 92% of the half width), the right waist (full half width, 55% down), the bottom point,
+ * and the left waist.
+ */
+internal fun shieldPoints(
+    width: Float,
+    height: Float,
+): List<Offset> {
+    val hw = width / 2f
+    val hh = height / 2f
+    val waistY = -hh + height * SHIELD_WAIST
+    return listOf(
+        Offset(-hw * SHIELD_TOP_INSET, -hh),
+        Offset(hw * SHIELD_TOP_INSET, -hh),
+        Offset(hw, waistY),
+        Offset(0f, hh),
+        Offset(-hw, waistY),
+    )
+}
+
+private const val SHIELD_TOP_INSET = 0.92f
+private const val SHIELD_WAIST = 0.55f
+
+private fun openPath(points: List<Offset>): Path =
+    Path().apply {
+        points.forEachIndexed { i, p -> if (i == 0) moveTo(p.x, p.y) else lineTo(p.x, p.y) }
+    }
+
+private fun closedPath(points: List<Offset>): Path = openPath(points).apply { close() }
 
 private fun polygonPath(
     sides: Int,
@@ -144,8 +198,8 @@ fun buildOrnateGeometry(
     radiusPx: Float,
 ): OrnateSigilGeometry {
     val cfg = RankGeometryCatalog.configFor(key.rankTier)
-    val style = SigilClassStyleCatalog.styleFor(key.variant)
-    val classSpec = key.variant.sigilSpec()
+    val style = SigilClassStyleCatalog.styleFor(key.classKey)
+    val classSpec = ClassSigilCatalog.of(key.classKey)
     val r = radiusPx
     val innerPaths = mutableListOf<Path>()
     var middleGroup: SigilMiddleGroup? = null

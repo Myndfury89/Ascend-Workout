@@ -15,15 +15,26 @@ class ClassSigilCatalogTest {
 
     @Test
     fun `every shape stays inside the sigil radius and is well formed`() {
-        ClassSigilCatalog.all.flatMap { it.geometry.central + it.geometry.coreAnchor }.forEach { shape ->
-            when (shape) {
-                is SigilShape.Polygon -> assertTrue(shape.radius in 0f..1f && (shape.sides ?: 3) >= 3)
-                is SigilShape.Star ->
-                    assertTrue(shape.inner < shape.outer && shape.outer <= 1f && (shape.points ?: 3) >= 3)
-                is SigilShape.Circle -> assertTrue(shape.radius in 0f..1f)
-                is SigilShape.Rosette -> assertTrue(shape.petals > 0 && shape.offset + shape.petal <= 1f)
-            }
+        ClassSigilCatalog.all.flatMap { it.geometry.central + it.geometry.coreAnchor }.forEach(::assertWellFormed)
+    }
+
+    private fun assertWellFormed(shape: SigilShape) {
+        when (shape) {
+            is SigilShape.Polygon -> assertTrue(shape.radius in 0f..1f && (shape.sides ?: 3) >= 3)
+            is SigilShape.Star ->
+                assertTrue(shape.inner < shape.outer && shape.outer <= 1f && (shape.points ?: 3) >= 3)
+            is SigilShape.Circle -> assertTrue(shape.radius in 0f..1f)
+            is SigilShape.Rosette -> assertTrue(shape.petals > 0 && shape.offset + shape.petal <= 1f)
+            is SigilShape.Chevron -> assertChevronWellFormed(shape)
+            is SigilShape.Shield -> assertShieldWellFormed(shape)
         }
+    }
+
+    private fun assertChevronWellFormed(shape: SigilShape.Chevron) =
+        assertTrue(shape.width > 0f && shape.depth in 0f..shape.tipRadius && shape.tipRadius <= 1f)
+
+    private fun assertShieldWellFormed(shape: SigilShape.Shield) {
+        assertTrue(shape.width in 0f..1f && shape.height in 0f..1f)
     }
 
     @Test
@@ -37,6 +48,8 @@ class ClassSigilCatalogTest {
                     is SigilShape.Star -> anchor.outer
                     is SigilShape.Circle -> anchor.radius
                     is SigilShape.Rosette -> anchor.offset + anchor.petal
+                    is SigilShape.Chevron -> anchor.tipRadius
+                    is SigilShape.Shield -> maxOf(anchor.width, anchor.height) / 2f
                 }
             assertTrue("${spec.key} anchor too large", size <= 0.12f)
         }
@@ -56,6 +69,35 @@ class ClassSigilCatalogTest {
         assertEquals(SigilShape.Rosette(6, 0.17f, 0.17f), ClassSigilCatalog.Mage.geometry.central[0])
         assertEquals(SigilShape.Circle(0.075f), ClassSigilCatalog.Mage.geometry.coreAnchor)
         assertEquals(SigilShape.Circle(0.05f), ClassSigilCatalog.Neutral.geometry.coreAnchor)
+    }
+
+    @Test
+    fun `fighter ranger guardian match the approved A geometry`() {
+        assertEquals(
+            listOf(SigilShape.Polygon(8, 0.30f), SigilShape.Star(8, 0.34f, 0.24f)),
+            ClassSigilCatalog.Fighter.geometry.central,
+        )
+        assertEquals(SigilShape.Polygon(8, 0.08f), ClassSigilCatalog.Fighter.geometry.coreAnchor)
+        assertEquals(
+            listOf(-90f, 30f, 150f).map { SigilShape.Chevron(0.30f, 0.18f, 0.34f, it) } + SigilShape.Polygon(3, 0.12f),
+            ClassSigilCatalog.Ranger.geometry.central,
+        )
+        assertEquals(SigilShape.Chevron(0.08f, 0.05f, 0.055f), ClassSigilCatalog.Ranger.geometry.coreAnchor)
+        assertEquals(
+            listOf(SigilShape.Shield(0.42f, 0.50f), SigilShape.Polygon(6, 0.20f)),
+            ClassSigilCatalog.Guardian.geometry.central,
+        )
+        assertEquals(SigilShape.Circle(0.07f), ClassSigilCatalog.Guardian.geometry.coreAnchor)
+    }
+
+    @Test
+    fun `fighter ranger guardian use the approved accents with no warm variant`() {
+        assertEquals(Color(0xFFB7C5D8), ClassSigilCatalog.Fighter.palette.accent)
+        assertEquals(Color(0xFF5ECF9A), ClassSigilCatalog.Ranger.palette.accent)
+        assertEquals(Color(0xFFE0C36A), ClassSigilCatalog.Guardian.palette.accent)
+        listOf(ClassSigilCatalog.Fighter, ClassSigilCatalog.Ranger, ClassSigilCatalog.Guardian).forEach {
+            assertEquals(it.palette.accent, it.palette.accentFor(warm = true))
+        }
     }
 
     @Test

@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import com.ascend.core.designsystem.sigil.ClassSigilCatalog
 import kotlin.math.min
 import kotlin.math.sin
 
@@ -83,12 +84,13 @@ private fun DrawScope.drawOrnateSigil(
     val bump = sin(assembly * Math.PI.toFloat()).coerceIn(0f, 1f)
     val op = state.settledOpacity + (OrnateSigilState.ASSEMBLY_PEAK_OPACITY - state.settledOpacity) * bump
     val a = op * assembly
-    val classCat = state.variant.sigilSpec().motion
+    val classSpec = ClassSigilCatalog.of(state.classKey)
+    val classCat = classSpec.motion
     // Per-class rotation feel (CP2): signed factor sets speed + direction (Mage reverses).
     val baseRot0 = if (frameMotion) anim.rotation else 0f
     val baseRot = if (classGeometry) baseRot0 * classCat.rotationFactor else baseRot0
     val w = opacityProfile.weights
-    val style = SigilClassStyleCatalog.styleFor(state.variant)
+    val style = SigilClassStyleCatalog.styleFor(state.classKey)
     val weight = style.lineWeight
     // Class-distinct central strokes carry the per-class weight emphasis (Berserker heaviest).
     val centralWeight = if (classGeometry) weight * classCat.strokeScale else weight
@@ -96,8 +98,8 @@ private fun DrawScope.drawOrnateSigil(
     // areas never bloom out. Rendered as WIDE FAINT under-strokes beneath the crisp lines, so line
     // quality and shape are always preserved inside the glow. Concentrated on rings + central geometry.
     val glowE = if (internalGlow) (op * 0.7f + anim.glow * 0.6f).coerceAtMost(0.34f) else 0f
-    val accent = accentBlend(state.variant, warmAccents)
-    val proficiencyColor = classAccent(state.variant, warmAccents)
+    val accent = classSpec.palette.accentFor(warmAccents)
+    val proficiencyColor = state.classKey.prototypeVariantOrNull()?.let { classAccent(it, warmAccents) } ?: accent
 
     translate(center.x, center.y) {
         // Layer 1 — background ornament (faintest): a soft aura.
@@ -282,11 +284,6 @@ private fun DrawScope.ringArc(
             ),
     )
 }
-
-private fun accentBlend(
-    variant: StatusClassVariant,
-    warm: Boolean,
-): Color = variant.sigilSpec().palette.accentFor(warm)
 
 private fun medallionColor(
     index: Int,

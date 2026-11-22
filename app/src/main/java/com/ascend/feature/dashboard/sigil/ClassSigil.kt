@@ -32,6 +32,7 @@ import com.ascend.feature.dashboard.prototype.OrnateSigil
 import com.ascend.feature.dashboard.prototype.OrnateSigilAnimation
 import com.ascend.feature.dashboard.prototype.OrnateSigilState
 import com.ascend.feature.dashboard.prototype.RankTier
+import com.ascend.feature.dashboard.prototype.SigilClassStyleCatalog
 import com.ascend.feature.dashboard.prototype.SigilOpacityProfile
 import com.ascend.feature.dashboard.prototype.SigilRotationProfile
 import com.ascend.feature.dashboard.prototype.statusVariant
@@ -104,8 +105,10 @@ fun ClassSigil(
             playerRing = readouts.playerRing,
             classRing = if (hasClass) readouts.classRing else null,
             activeMedallion = readouts.activeMedallion,
-            showProficiency = hasClass && readouts.showProficiency,
+            // No proficiency medallion for classes whose proficiency glyph is not designed yet.
+            showProficiency = hasClass && readouts.showProficiency && classKey.hasProficiencyGlyph(),
             newRankLayer = state.settledFrame().newRankLayer,
+            classKey = classKey,
         )
     val animation =
         OrnateSigilAnimation(
@@ -134,6 +137,8 @@ fun ClassSigil(
         warmAccents = true,
     )
 }
+
+private fun ClassKey.hasProficiencyGlyph(): Boolean = SigilClassStyleCatalog.styleFor(this).proficiencyGlyph != null
 
 private val RestBeat = SigilBeat(assembly = 1f, glow = 0f, wave = 0f)
 

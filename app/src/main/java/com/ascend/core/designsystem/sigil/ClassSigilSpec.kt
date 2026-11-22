@@ -11,6 +11,9 @@ enum class ClassKey {
     BERSERKER,
     MONK,
     MAGE,
+    FIGHTER,
+    RANGER,
+    GUARDIAN,
 }
 
 /**
@@ -43,6 +46,27 @@ sealed interface SigilShape {
         val petals: Int,
         val offset: Float,
         val petal: Float,
+    ) : SigilShape
+
+    /**
+     * Open arrowhead (two strokes, never closed). The tip sits [tipRadius] out from the centre along
+     * [rotationDeg]; the two arms run back toward the centre by [depth] and spread to a total [width].
+     */
+    data class Chevron(
+        val width: Float,
+        val depth: Float,
+        val tipRadius: Float,
+        val rotationDeg: Float = POINT_UP_DEG,
+    ) : SigilShape
+
+    /**
+     * Closed heater shield centred on the sigil centre: flat top (corners inset to 92% of the half
+     * width), sides widest at 55% of the height, point at the bottom. [width] and [height] are full
+     * extents.
+     */
+    data class Shield(
+        val width: Float,
+        val height: Float,
     ) : SigilShape
 }
 

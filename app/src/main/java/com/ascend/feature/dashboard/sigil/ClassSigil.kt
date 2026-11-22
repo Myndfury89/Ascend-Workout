@@ -79,7 +79,7 @@ data class SigilHostLayers(
 /**
  * A class sigil driven by [state]. Built on [ClassSigilCatalog] data and the motion verbs; draws
  * through the existing [OrnateSigil] renderer with the production flags. Under reduced motion
- * ([MotionSpec.reducedMotion], which screens feed from the PR 2 reduced-motion controller) there is
+ * ([MotionSpec.reducedMotion], read from the app-root [LocalMotionSpec] by default) there is
  * no drift and every verb cross-fades straight to its settled frame.
  */
 @Suppress("FunctionNaming", "LongParameterList") // Compose convention: modifier/motion/host are optional.

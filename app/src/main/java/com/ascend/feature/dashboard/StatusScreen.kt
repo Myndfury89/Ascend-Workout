@@ -285,7 +285,7 @@ private fun StatusPanelContent(
     Box(Modifier.fillMaxWidth().clipToBounds()) {
         // The ornate seal sits BEHIND the readable content at low opacity — atmospheric.
         // Production ClassSigil: class-distinct geometry, only the ceremonial middle rotates, and
-        // reduced motion (fed through MotionSpec) stops every loop and settles to the end frame.
+        // reduced motion (read from the app-root LocalMotionSpec) stops every loop and settles to the end frame.
         ClassSigil(
             classKey = data.variant.classKey(),
             state = sigilState,
@@ -296,7 +296,6 @@ private fun StatusPanelContent(
                     .fillMaxWidth(0.98f)
                     .aspectRatio(1f)
                     .offset(y = (-28).dp),
-            motion = MotionSpec(reducedMotion = !ambient),
             host = statusSigilLayers(data, motion),
         )
         // Level-up breakthrough burst — radiates from the sigil centre during a major-unlock flash and

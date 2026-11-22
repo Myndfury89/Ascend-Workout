@@ -873,6 +873,53 @@ object AscendMigrations {
             }
         }
 
+    /**
+     * v17 -> v18: class awakening. Adds `class_definition.startsAwake` (existing rows default to 0,
+     * then berserker, monk, and mage are set to 1) and the insert-only `class_awakening` table.
+     * Selections already stored on `player_class` are backfilled as LEGACY_SELECTION so a player
+     * keeps every class they chose. When both slots name the same class, the primary timestamp is
+     * kept. Class XP, proficiency, and workout rows are not touched.
+     */
+    @Suppress("MagicNumber") // Schema versions, same as the earlier migrations in this file.
+    val MIGRATION_17_18 =
+        object : Migration(17, 18) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    "ALTER TABLE `class_definition` ADD COLUMN `startsAwake` INTEGER NOT NULL DEFAULT 0",
+                )
+                db.execSQL(
+                    "UPDATE `class_definition` SET `startsAwake` = 1 WHERE `id` IN ('berserker', 'monk', 'mage')",
+                )
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `class_awakening` (
+                        `userId` TEXT NOT NULL,
+                        `classId` TEXT NOT NULL,
+                        `awakenedAt` INTEGER NOT NULL,
+                        `source` TEXT NOT NULL,
+                        `evidenceJson` TEXT,
+                        PRIMARY KEY(`userId`, `classId`),
+                        FOREIGN KEY(`userId`) REFERENCES `user_profile`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE
+                    )
+                    """.trimIndent(),
+                )
+                db.execSQL(
+                    "INSERT OR IGNORE INTO `class_awakening` " +
+                        "(`userId`, `classId`, `awakenedAt`, `source`, `evidenceJson`) " +
+                        "SELECT `userId`, `primaryClassId`, COALESCE(`primaryStartedAt`, `updatedAt`), " +
+                        "'LEGACY_SELECTION', NULL FROM `player_class` " +
+                        "WHERE `primaryClassId` IS NOT NULL AND `primaryClassId` != ''",
+                )
+                db.execSQL(
+                    "INSERT OR IGNORE INTO `class_awakening` " +
+                        "(`userId`, `classId`, `awakenedAt`, `source`, `evidenceJson`) " +
+                        "SELECT `userId`, `secondaryClassId`, COALESCE(`secondaryStartedAt`, `updatedAt`), " +
+                        "'LEGACY_SELECTION', NULL FROM `player_class` " +
+                        "WHERE `secondaryClassId` IS NOT NULL AND `secondaryClassId` != ''",
+                )
+            }
+        }
+
     /** All migrations, wired into the Room builder. */
     val ALL: Array<Migration> =
         arrayOf(
@@ -892,5 +939,6 @@ object AscendMigrations {
             MIGRATION_14_15,
             MIGRATION_15_16,
             MIGRATION_16_17,
+            MIGRATION_17_18,
         )
 }

@@ -10,8 +10,9 @@ import com.ascend.core.model.ClassPresentation
  * source of balancing defaults, kept out of the calculators. Rows whose ids are
  * absent are inserted into `class_definition`; existing rows are never overwritten.
  * The engine reads definitions from the repository and never branches on the class
- * id. Three starter classes; further classes (Assassin, Fighter, Tidewalker, Ranger,
- * Guardian) can be added here (or as DB rows) without touching calculation logic.
+ * id. Berserker, Monk, and Mage start awake (`startsAwake`); further classes can be
+ * added here (or as DB rows) and stay asleep until a permanent per-user awakening
+ * is recorded.
  */
 object ClassCatalog {
     val BERSERKER =
@@ -46,6 +47,7 @@ object ClassCatalog {
                     idleEffectKey = "forceful_pulse",
                     progressionEffectKey = "impact_slow",
                 ),
+            startsAwake = true,
         )
 
     val MONK =
@@ -80,6 +82,7 @@ object ClassCatalog {
                     idleEffectKey = "circular_calm",
                     progressionEffectKey = "sequential_controlled",
                 ),
+            startsAwake = true,
         )
 
     val MAGE =
@@ -122,6 +125,7 @@ object ClassCatalog {
                     idleEffectKey = "energy_shimmer",
                     progressionEffectKey = "soft_continuous",
                 ),
+            startsAwake = true,
         )
 
     val ALL: List<ClassDefinition> = listOf(BERSERKER, MONK, MAGE)

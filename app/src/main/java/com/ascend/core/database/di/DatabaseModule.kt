@@ -7,6 +7,7 @@ import com.ascend.core.database.AscendMigrations
 import com.ascend.core.database.dao.AdaptiveTrainingDao
 import com.ascend.core.database.dao.AttributeDao
 import com.ascend.core.database.dao.BuildProfileDao
+import com.ascend.core.database.dao.ClassAwakeningDao
 import com.ascend.core.database.dao.ClassDao
 import com.ascend.core.database.dao.ExerciseDao
 import com.ascend.core.database.dao.ExerciseVariationDao
@@ -83,4 +84,7 @@ object DatabaseModule {
 
     @Provides
     fun provideBuildProfileDao(db: AscendDatabase): BuildProfileDao = db.buildProfileDao()
+
+    @Provides
+    fun provideClassAwakeningDao(db: AscendDatabase): ClassAwakeningDao = db.classAwakeningDao()
 }

@@ -1,5 +1,6 @@
 package com.ascend.core.database.entity
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
@@ -39,6 +40,8 @@ data class ClassDefinitionEntity(
     val enabled: Boolean,
     val createdAt: Long,
     val updatedAt: Long,
+    // Schema v18. DEFAULT 0 fills existing rows; the migration then marks the three starters.
+    @ColumnInfo(defaultValue = "0") val startsAwake: Boolean = false,
 )
 
 /** A player's class selection (one row per user). */

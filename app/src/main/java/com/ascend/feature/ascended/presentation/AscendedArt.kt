@@ -7,7 +7,7 @@ import com.ascend.feature.ascended.model.EvolutionStage
 
 /*
  * The figure-art naming contract. Class figures are imported grayscale images dropped into
- * `app/src/debug/res/drawable/` following a fixed naming convention, so new art appears with no code
+ * `app/src/main/res/drawable/` following a fixed naming convention, so new art appears with no code
  * change. Resolution is by name at runtime (missing art → 0 → the on-screen placeholder), which lets
  * the system exist and be reviewed before every image is supplied, and lets a stage-specific variant
  * fall back to the class's base figure.

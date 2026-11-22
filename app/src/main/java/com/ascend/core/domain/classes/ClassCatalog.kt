@@ -7,11 +7,11 @@ import com.ascend.core.model.ClassPresentation
 
 /**
  * The initial class definitions as **configurable seed data** — the single tunable
- * source of balancing defaults, kept out of the calculators. Seeded into the
- * `class_definition` table on first run; the engine reads definitions from the
- * repository and never branches on the class id. Three starter classes; further
- * classes (Assassin, Fighter, Tidewalker, Ranger, Guardian) can be added here (or
- * as DB rows) without touching calculation logic.
+ * source of balancing defaults, kept out of the calculators. Rows whose ids are
+ * absent are inserted into `class_definition`; existing rows are never overwritten.
+ * The engine reads definitions from the repository and never branches on the class
+ * id. Three starter classes; further classes (Assassin, Fighter, Tidewalker, Ranger,
+ * Guardian) can be added here (or as DB rows) without touching calculation logic.
  */
 object ClassCatalog {
     val BERSERKER =

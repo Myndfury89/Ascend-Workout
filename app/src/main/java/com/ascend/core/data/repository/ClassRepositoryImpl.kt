@@ -38,9 +38,10 @@ class ClassRepositoryImpl
         private fun now() = System.currentTimeMillis()
 
         override suspend fun seedDefinitions() {
-            if (classDao.countDefinitions() > 0) return
-            val ts = now()
-            classDao.upsertDefinitions(ClassCatalog.ALL.map { it.toEntity(ts) })
+            val existingIds = classDao.definitionIds().toSet()
+            val missing = ClassCatalog.ALL.filter { it.id !in existingIds }
+            if (missing.isEmpty()) return
+            classDao.upsertDefinitions(missing.map { it.toEntity(now()) })
         }
 
         override suspend fun definitions(): List<ClassDefinition> =

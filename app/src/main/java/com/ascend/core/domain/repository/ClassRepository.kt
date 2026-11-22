@@ -24,7 +24,10 @@ data class ClassXpAward(
  * sourceId, rewardType). Switching classes never deletes earned Class XP/proficiency.
  */
 interface ClassRepository {
-    /** Idempotently seed the built‑in class definitions (safe to call repeatedly). */
+    /**
+     * Inserts built-in class definitions whose ids are not already stored.
+     * Existing rows, selections, and ledgers are left unchanged. Safe to call repeatedly.
+     */
     suspend fun seedDefinitions()
 
     suspend fun definitions(): List<ClassDefinition>

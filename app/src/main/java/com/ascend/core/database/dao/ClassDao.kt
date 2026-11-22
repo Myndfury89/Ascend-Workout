@@ -30,6 +30,10 @@ interface ClassDao {
     @Query("SELECT COUNT(*) FROM class_definition")
     suspend fun countDefinitions(): Int
 
+    /** Every stored definition id, including disabled and non-catalog rows. */
+    @Query("SELECT id FROM class_definition")
+    suspend fun definitionIds(): List<String>
+
     // ---- Selection ----
     @Upsert
     suspend fun upsertSelection(entity: PlayerClassEntity)

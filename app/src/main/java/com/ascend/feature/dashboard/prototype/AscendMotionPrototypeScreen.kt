@@ -47,6 +47,12 @@ import com.ascend.core.designsystem.motion.AscendVerb
 import com.ascend.core.designsystem.motion.MotionSpec
 import com.ascend.core.designsystem.motion.MotionTier
 import com.ascend.core.designsystem.motion.MotionVerb
+import com.ascend.core.designsystem.sigil.OrnateSigil
+import com.ascend.core.designsystem.sigil.OrnateSigilAnimation
+import com.ascend.core.designsystem.sigil.OrnateSigilState
+import com.ascend.core.designsystem.sigil.StatusClassVariant
+import com.ascend.core.designsystem.sigil.classAccent
+import com.ascend.core.designsystem.theme.StatusPalette
 import kotlinx.coroutines.delay
 
 private const val VIEWPORT_MAX_WIDTH_DP = 412

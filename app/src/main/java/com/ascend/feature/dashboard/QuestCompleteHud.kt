@@ -25,9 +25,9 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ascend.core.designsystem.theme.StatusPalette
 import com.ascend.feature.dashboard.prototype.HudPanel
 import com.ascend.feature.dashboard.prototype.QuestCompletionSummary
-import com.ascend.feature.dashboard.prototype.StatusPalette
 import kotlin.math.cos
 import kotlin.math.sin
 

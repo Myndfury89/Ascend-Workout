@@ -14,6 +14,13 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
+import com.ascend.core.designsystem.sigil.OrnateSigil
+import com.ascend.core.designsystem.sigil.OrnateSigilAnimation
+import com.ascend.core.designsystem.sigil.OrnateSigilState
+import com.ascend.core.designsystem.sigil.RankTier
+import com.ascend.core.designsystem.sigil.SigilOpacityProfile
+import com.ascend.core.designsystem.sigil.SigilRotationProfile
+import com.ascend.core.designsystem.sigil.StatusClassVariant
 import com.ascend.core.designsystem.theme.AscendTheme
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue

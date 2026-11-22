@@ -41,6 +41,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ascend.core.designsystem.motion.MotionSpec
 import com.ascend.core.designsystem.sigil.SigilState
+import com.ascend.core.designsystem.sigil.StatusClassVariant
+import com.ascend.core.designsystem.sigil.classAccent
+import com.ascend.core.designsystem.sigil.classKey
+import com.ascend.core.designsystem.theme.StatusPalette
 import com.ascend.feature.dashboard.prototype.AttributeMeters
 import com.ascend.feature.dashboard.prototype.BreakthroughBurst
 import com.ascend.feature.dashboard.prototype.BurstMode
@@ -51,15 +55,11 @@ import com.ascend.feature.dashboard.prototype.IdentityBlock
 import com.ascend.feature.dashboard.prototype.ProficiencyBlock
 import com.ascend.feature.dashboard.prototype.ProgressionBars
 import com.ascend.feature.dashboard.prototype.StatusAtmosphere
-import com.ascend.feature.dashboard.prototype.StatusClassVariant
 import com.ascend.feature.dashboard.prototype.StatusFog
 import com.ascend.feature.dashboard.prototype.StatusOverlayKind
-import com.ascend.feature.dashboard.prototype.StatusPalette
 import com.ascend.feature.dashboard.prototype.StatusParticleField
 import com.ascend.feature.dashboard.prototype.StatusPrototypeData
 import com.ascend.feature.dashboard.prototype.StatusPrototypeMotion
-import com.ascend.feature.dashboard.prototype.classAccent
-import com.ascend.feature.dashboard.prototype.classKey
 import com.ascend.feature.dashboard.prototype.sigilDescription
 import com.ascend.feature.dashboard.sigil.ClassSigil
 import com.ascend.feature.dashboard.sigil.SigilBeat

@@ -1,12 +1,12 @@
 package com.ascend.feature.dashboard
 
+import com.ascend.core.designsystem.sigil.RankTier
+import com.ascend.core.designsystem.sigil.StatusClassVariant
 import com.ascend.core.model.AttributeType
 import com.ascend.core.model.ProgressionEvent
 import com.ascend.core.model.ProgressionEventType
 import com.ascend.core.model.Rank
 import com.ascend.core.model.XpSourceType
-import com.ascend.feature.dashboard.prototype.RankTier
-import com.ascend.feature.dashboard.prototype.StatusClassVariant
 import com.ascend.feature.dashboard.prototype.StatusOverlayKind
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse

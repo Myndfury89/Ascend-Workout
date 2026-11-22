@@ -14,7 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.ascend.core.designsystem.sigil.OrnateSigil
+import com.ascend.core.designsystem.sigil.OrnateSigilAnimation
+import com.ascend.core.designsystem.sigil.OrnateSigilState
+import com.ascend.core.designsystem.sigil.StatusClassVariant
+import com.ascend.core.designsystem.sigil.StatusSigilVariant
 import com.ascend.core.designsystem.theme.AscendTheme
+import com.ascend.core.designsystem.theme.StatusPalette
 
 /*
  * Static, settled previews of the revised composition for Android Studio — screenshot-friendly:

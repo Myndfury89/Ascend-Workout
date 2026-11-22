@@ -1,5 +1,8 @@
 package com.ascend.feature.dashboard.prototype
 
+import com.ascend.core.designsystem.sigil.RankTier
+import com.ascend.core.designsystem.sigil.StatusClassVariant
+
 /**
  * Builds the fake [StatusPrototypeData] for any (state, class, reduced-motion) combination.
  * This is the *only* source of truth for the prototype — deliberately hand-authored so the

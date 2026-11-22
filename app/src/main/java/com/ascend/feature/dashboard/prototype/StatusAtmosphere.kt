@@ -16,6 +16,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import com.ascend.core.designsystem.theme.StatusPalette
 import kotlin.math.sin
 import kotlin.random.Random
 

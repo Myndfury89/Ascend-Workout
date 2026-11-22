@@ -23,16 +23,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ascend.core.designsystem.theme.AttributeAccent
+import com.ascend.core.designsystem.theme.StatusPalette
 import kotlin.math.roundToInt
-
-internal val AttributeAccent: Map<String, Color> =
-    mapOf(
-        "Strength" to Color(0xFFE8735A),
-        "Endurance" to Color(0xFF3FD9C7),
-        "Agility" to Color(0xFF7EC46B),
-        "Discipline" to Color(0xFF9B8CFF),
-        "Recovery" to Color(0xFF62B6E8),
-    )
 
 private const val ATTRIBUTE_CEILING = 120f
 

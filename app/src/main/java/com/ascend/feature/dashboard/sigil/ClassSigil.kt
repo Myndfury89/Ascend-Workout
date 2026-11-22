@@ -23,19 +23,19 @@ import com.ascend.core.designsystem.motion.MotionSpec
 import com.ascend.core.designsystem.motion.MotionVerb
 import com.ascend.core.designsystem.motion.verbTween
 import com.ascend.core.designsystem.sigil.ClassKey
+import com.ascend.core.designsystem.sigil.MedallionGlyph
+import com.ascend.core.designsystem.sigil.OrnateSigil
+import com.ascend.core.designsystem.sigil.OrnateSigilAnimation
+import com.ascend.core.designsystem.sigil.OrnateSigilState
+import com.ascend.core.designsystem.sigil.RankTier
+import com.ascend.core.designsystem.sigil.SigilClassStyleCatalog
+import com.ascend.core.designsystem.sigil.SigilOpacityProfile
+import com.ascend.core.designsystem.sigil.SigilRotationProfile
 import com.ascend.core.designsystem.sigil.SigilState
 import com.ascend.core.designsystem.sigil.drifts
 import com.ascend.core.designsystem.sigil.entryFrame
 import com.ascend.core.designsystem.sigil.settledFrame
-import com.ascend.feature.dashboard.prototype.MedallionGlyph
-import com.ascend.feature.dashboard.prototype.OrnateSigil
-import com.ascend.feature.dashboard.prototype.OrnateSigilAnimation
-import com.ascend.feature.dashboard.prototype.OrnateSigilState
-import com.ascend.feature.dashboard.prototype.RankTier
-import com.ascend.feature.dashboard.prototype.SigilClassStyleCatalog
-import com.ascend.feature.dashboard.prototype.SigilOpacityProfile
-import com.ascend.feature.dashboard.prototype.SigilRotationProfile
-import com.ascend.feature.dashboard.prototype.statusVariant
+import com.ascend.core.designsystem.sigil.statusVariant
 import kotlinx.coroutines.launch
 
 /** One full ambient revolution of the base layer; the class rotationFactor scales it. */

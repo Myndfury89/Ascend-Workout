@@ -26,7 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.ascend.feature.dashboard.prototype.StatusPalette
+import com.ascend.core.designsystem.theme.StatusPalette
 
 /**
  * Debug-only prototype for the HP/MP/XP daily-resource HUD. A scenario switcher drives the REAL

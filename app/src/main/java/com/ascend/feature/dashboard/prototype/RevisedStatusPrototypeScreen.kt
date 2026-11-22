@@ -32,6 +32,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ascend.core.designsystem.motion.AscendMotionTokens
 import com.ascend.core.designsystem.motion.MotionSpec
+import com.ascend.core.designsystem.sigil.OrnateSigil
+import com.ascend.core.designsystem.sigil.OrnateSigilAnimation
+import com.ascend.core.designsystem.sigil.OrnateSigilState
+import com.ascend.core.designsystem.sigil.StatusClassVariant
+import com.ascend.core.designsystem.sigil.StatusSigilVariant
+import com.ascend.core.designsystem.theme.StatusPalette
 import kotlinx.coroutines.delay
 
 private const val ATTRIBUTE_COUNT = 5

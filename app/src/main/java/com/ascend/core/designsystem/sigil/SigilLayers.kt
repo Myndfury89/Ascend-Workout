@@ -1,4 +1,4 @@
-package com.ascend.feature.dashboard.prototype
+package com.ascend.core.designsystem.sigil
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Path

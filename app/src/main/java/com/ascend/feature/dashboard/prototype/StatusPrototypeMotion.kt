@@ -8,6 +8,7 @@ import com.ascend.core.designsystem.motion.AscendEasing
 import com.ascend.core.designsystem.motion.AscendMotionTokens
 import com.ascend.core.designsystem.motion.AscendVerb
 import com.ascend.core.designsystem.motion.MotionSpec
+import com.ascend.core.designsystem.sigil.AttributeWaveCatalog
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

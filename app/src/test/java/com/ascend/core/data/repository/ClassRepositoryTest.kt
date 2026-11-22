@@ -57,6 +57,9 @@ class ClassRepositoryTest {
             assertTrue(berserker.favoredTags.contains("HEAVY_STRENGTH"))
             assertEquals(1.30, berserker.favoredClassXpMultiplier, 1e-9)
             assertEquals("berserker", berserker.presentation.statusThemeKey)
+            assertTrue(berserker.startsAwake)
+            assertTrue(classes.definition("monk")!!.startsAwake)
+            assertTrue(classes.definition("mage")!!.startsAwake)
         }
 
     @Test

@@ -1,5 +1,6 @@
 package com.ascend.core.domain.classes
 
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -47,6 +48,12 @@ class ClassCatalogCompletenessTest {
             assertTrue("${it.id} attribute multipliers", it.attributeMultipliers.isNotEmpty())
             assertTrue("${it.id} primary attributes", it.primaryAttributes.isNotEmpty())
         }
+    }
+
+    @Test
+    fun `the three starter classes start awake`() {
+        val awake = selectable.filter { it.startsAwake }.map { it.id }.toSet()
+        assertEquals(setOf("berserker", "monk", "mage"), awake)
     }
 
     @Test

@@ -2,6 +2,7 @@ package com.ascend.core.data.di
 
 import com.ascend.core.data.repository.AscendBuildEvidenceProvider
 import com.ascend.core.data.repository.BuildProfileRepositoryImpl
+import com.ascend.core.data.repository.ClassAwakeningRepositoryImpl
 import com.ascend.core.data.repository.ClassRepositoryImpl
 import com.ascend.core.data.repository.ExerciseVariationGraphRepositoryImpl
 import com.ascend.core.data.repository.OnboardingRepositoryImpl
@@ -15,6 +16,7 @@ import com.ascend.core.data.repository.SkillRepositoryImpl
 import com.ascend.core.data.repository.WorkoutRepositoryImpl
 import com.ascend.core.domain.build.BuildEvidenceProvider
 import com.ascend.core.domain.build.BuildProfileRepository
+import com.ascend.core.domain.classes.ClassAwakeningRepository
 import com.ascend.core.domain.repository.ClassRepository
 import com.ascend.core.domain.repository.ExerciseVariationGraphRepository
 import com.ascend.core.domain.repository.OnboardingRepository
@@ -51,6 +53,9 @@ abstract class DataModule {
 
     @Binds
     abstract fun bindClassRepository(impl: ClassRepositoryImpl): ClassRepository
+
+    @Binds
+    abstract fun bindClassAwakeningRepository(impl: ClassAwakeningRepositoryImpl): ClassAwakeningRepository
 
     @Binds
     abstract fun bindQuestTemplateRepository(impl: QuestTemplateRepositoryImpl): QuestTemplateRepository

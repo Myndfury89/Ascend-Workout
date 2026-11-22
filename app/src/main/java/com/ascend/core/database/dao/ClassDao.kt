@@ -34,6 +34,15 @@ interface ClassDao {
     @Query("SELECT id FROM class_definition")
     suspend fun definitionIds(): List<String>
 
+    @Query("SELECT COUNT(*) FROM class_definition")
+    fun observeDefinitionCount(): Flow<Int>
+
+    @Query("SELECT id FROM class_definition WHERE startsAwake = 1")
+    fun observeStartsAwakeIds(): Flow<List<String>>
+
+    @Query("SELECT id FROM class_definition WHERE startsAwake = 1")
+    suspend fun startsAwakeIds(): List<String>
+
     // ---- Selection ----
     @Upsert
     suspend fun upsertSelection(entity: PlayerClassEntity)

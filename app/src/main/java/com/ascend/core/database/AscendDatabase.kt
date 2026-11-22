@@ -5,6 +5,7 @@ import androidx.room.RoomDatabase
 import com.ascend.core.database.dao.AdaptiveTrainingDao
 import com.ascend.core.database.dao.AttributeDao
 import com.ascend.core.database.dao.BuildProfileDao
+import com.ascend.core.database.dao.ClassAwakeningDao
 import com.ascend.core.database.dao.ClassDao
 import com.ascend.core.database.dao.ExerciseDao
 import com.ascend.core.database.dao.ExerciseVariationDao
@@ -21,6 +22,7 @@ import com.ascend.core.database.entity.AttributeTransactionEntity
 import com.ascend.core.database.entity.BuildProfileSnapshotEntity
 import com.ascend.core.database.entity.CardioPrescriptionEntity
 import com.ascend.core.database.entity.ClassAffinityResultEntity
+import com.ascend.core.database.entity.ClassAwakeningEntity
 import com.ascend.core.database.entity.ClassDefinitionEntity
 import com.ascend.core.database.entity.ClassHistoryEntity
 import com.ascend.core.database.entity.ClassProficiencyTransactionEntity
@@ -96,8 +98,9 @@ import com.ascend.core.database.entity.XpTransactionEntity
         InitialQuestPlanEntity::class,
         InitialQuestPlanItemEntity::class,
         BuildProfileSnapshotEntity::class,
+        ClassAwakeningEntity::class,
     ],
-    version = 17,
+    version = 18,
     exportSchema = true,
 )
 abstract class AscendDatabase : RoomDatabase() {
@@ -130,6 +133,8 @@ abstract class AscendDatabase : RoomDatabase() {
     abstract fun onboardingDao(): OnboardingDao
 
     abstract fun buildProfileDao(): BuildProfileDao
+
+    abstract fun classAwakeningDao(): ClassAwakeningDao
 
     companion object {
         const val NAME = "ascend.db"

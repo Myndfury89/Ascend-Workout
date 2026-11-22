@@ -71,6 +71,8 @@ data class ClassDefinition(
     val achievementPathIds: List<String> = emptyList(),
     val titleIds: List<String> = emptyList(),
     val enabled: Boolean = true,
+    // Starters are awake for every player with no awakening row. Later classes stay false until awakened.
+    val startsAwake: Boolean = false,
     val createdAt: Long = 0,
     val updatedAt: Long = 0,
 ) {

@@ -58,6 +58,7 @@ fun ClassDefinition.toEntity(now: Long): ClassDefinitionEntity =
         enabled = enabled,
         createdAt = if (createdAt == 0L) now else createdAt,
         updatedAt = now,
+        startsAwake = startsAwake,
     )
 
 fun ClassDefinitionEntity.toDomain(): ClassDefinition =
@@ -90,6 +91,7 @@ fun ClassDefinitionEntity.toDomain(): ClassDefinition =
         achievementPathIds = splitStrings(achievementPathIds),
         titleIds = splitStrings(titleIds),
         enabled = enabled,
+        startsAwake = startsAwake,
         createdAt = createdAt,
         updatedAt = updatedAt,
     )

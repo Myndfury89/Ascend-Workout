@@ -9,8 +9,9 @@ import javax.inject.Inject
 /**
  * Maps plain‑language goals + preferred training style onto a ranked class
  * suggestion, scoring each definition by tag and keyword overlap — data‑driven, no
- * per‑class conditionals. It only **recommends**: the caller (onboarding) still makes
- * the user choose explicitly.
+ * per‑class conditionals. Score ties rank starters (`startsAwake`) first, then display
+ * name A to Z, then id, so the order does not depend on the input list. It only
+ * **recommends**: the caller (onboarding) still makes the user choose explicitly.
  */
 class ClassRecommendationEngine
     @Inject
@@ -22,8 +23,14 @@ class ClassRecommendationEngine
             val ranked =
                 definitions
                     .filter { it.enabled }
-                    .map { score(input, it) }
-                    .sortedByDescending { it.score }
+                    .map { def -> def to score(input, def) }
+                    .sortedWith(
+                        compareByDescending<Pair<ClassDefinition, ClassRecommendationOption>> { it.second.score }
+                            .thenByDescending { it.first.startsAwake }
+                            .thenBy { it.first.name }
+                            .thenBy { it.first.id },
+                    )
+                    .map { it.second }
             val top = ranked.firstOrNull() ?: return null
             return ClassRecommendation(recommended = top, alternatives = ranked.drop(1))
         }

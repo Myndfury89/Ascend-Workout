@@ -100,7 +100,9 @@ Maps plain‑language goals + preferred training style (from the Awakening onboa
 passed in as signals) onto a ranked, **explainable** suggestion — scored by tag +
 keyword overlap against the class definitions, never per‑class conditionals. It only
 recommends: it returns the top class, its score and reasons, plus ranked alternatives,
-and the actual selection stays an explicit user action.
+and the actual selection stays an explicit user action. On a score tie, classes that
+start awake (`startsAwake`) rank ahead of the others, then display name A to Z, then
+id, so the ranking does not depend on the order of the input list.
 
 ## Persistence (schema v6)
 

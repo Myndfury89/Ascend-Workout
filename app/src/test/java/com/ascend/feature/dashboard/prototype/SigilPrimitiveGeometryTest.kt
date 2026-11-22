@@ -2,6 +2,7 @@ package com.ascend.feature.dashboard.prototype
 
 import androidx.compose.ui.geometry.Offset
 import com.ascend.core.designsystem.sigil.ClassKey
+import com.ascend.core.designsystem.sigil.MedallionGlyph
 import com.ascend.core.designsystem.sigil.OrnateSigilState
 import com.ascend.core.designsystem.sigil.RankTier
 import com.ascend.core.designsystem.sigil.SigilClassStyleCatalog
@@ -115,12 +116,18 @@ class SigilPrimitiveGeometryTest {
     }
 
     @Test
-    fun `new classes use the shared line style and no proficiency glyph yet`() {
-        listOf(ClassKey.FIGHTER, ClassKey.RANGER, ClassKey.GUARDIAN).forEach {
-            val style = SigilClassStyleCatalog.styleFor(it)
-            assertEquals(SigilClassStyleCatalog.styleFor(StatusClassVariant.NEUTRAL), style)
-            assertNull(style.proficiencyGlyph)
+    fun `new classes use the shared line style with their own proficiency glyph`() {
+        val shared = SigilClassStyleCatalog.styleFor(StatusClassVariant.NEUTRAL)
+        mapOf(
+            ClassKey.ASSASSIN to MedallionGlyph.PRECISION_BRACKETS,
+            ClassKey.FIGHTER to MedallionGlyph.COMBAT_PULSE,
+            ClassKey.RANGER to MedallionGlyph.PURSUIT_TRAJECTORY,
+            ClassKey.GUARDIAN to MedallionGlyph.FORTITUDE_RAMPART,
+        ).forEach { (key, glyph) ->
+            val style = SigilClassStyleCatalog.styleFor(key)
+            assertEquals("$key keeps the shared line style", shared.copy(proficiencyGlyph = glyph), style)
         }
+        assertNull(shared.proficiencyGlyph)
     }
 
     @Test

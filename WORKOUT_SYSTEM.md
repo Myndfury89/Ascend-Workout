@@ -15,8 +15,9 @@ A seeded, offline library of movements. Each entry declares:
 - `isWeighted` — whether the movement is normally loaded with external weight.
 
 `SeedExerciseCatalogUseCase` seeds the built‑in list with **stable ids**
-(`ex‑pushup`, `ex‑plank`, …) and is idempotent — it only seeds when the catalog is
-empty, so it never duplicates rows or clobbers later edits.
+(`ex‑pushup`, `ex‑plank`, …) and is idempotent — it inserts only catalog rows whose
+ids are absent, so it never duplicates rows or clobbers later edits or user‑created
+exercises.
 
 ## Logging a session
 

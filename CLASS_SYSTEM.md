@@ -21,8 +21,9 @@ behavior (the 200‑push‑up acceptance test still passes unchanged).
 ## Data‑driven, seed‑configured
 
 - **Classes** are seeded from `ClassCatalog` (Berserker, Monk, Magician — the single
-  tunable source of balancing defaults) into a DB `class_definition` table, so they
-  can be updated independently of player progression. The engine reads a
+  tunable source of balancing defaults) into a DB `class_definition` table. Seeding
+  inserts catalog ids that are missing and leaves existing rows — including edits —
+  untouched, so definitions stay independent of player progression. The engine reads a
   `ClassDefinition`; it never branches on a class id. Further classes (Assassin,
   Fighter, Tidewalker, Ranger, Guardian) can be added as seed rows without touching
   calculation logic.

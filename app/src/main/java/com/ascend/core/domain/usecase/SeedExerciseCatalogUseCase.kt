@@ -7,9 +7,10 @@ import com.ascend.core.model.ObjectiveType
 import javax.inject.Inject
 
 /**
- * Seeds the built-in exercise library (idempotent). Uses stable ids so an upsert
- * refreshes definitions without duplicating rows; runs only when the catalog is
- * empty to avoid clobbering user edits later.
+ * Seeds the built-in exercise library (idempotent). Uses stable ids so each catalog
+ * row is inserted only when that id is absent. Existing rows — including edits to
+ * built-in exercises and user-created exercises — are never overwritten or duplicated.
+ * Re-running once every catalog id is present is a no-op.
  */
 class SeedExerciseCatalogUseCase
     @Inject
@@ -17,9 +18,11 @@ class SeedExerciseCatalogUseCase
         private val exerciseDao: ExerciseDao,
     ) {
         suspend operator fun invoke() {
-            if (exerciseDao.count() > 0) return
+            val existingIds = exerciseDao.ids().toSet()
+            val missing = CATALOG.filter { it.id !in existingIds }
+            if (missing.isEmpty()) return
             val ts = System.currentTimeMillis()
-            exerciseDao.upsertAll(CATALOG.map { it.toEntity(ts) })
+            exerciseDao.upsertAll(missing.map { it.toEntity(ts) })
         }
 
         private data class Seed(

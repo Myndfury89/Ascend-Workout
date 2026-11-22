@@ -25,4 +25,8 @@ interface ExerciseDao {
 
     @Query("SELECT COUNT(*) FROM exercise")
     suspend fun count(): Int
+
+    /** Every stored exercise id, including user-created rows. */
+    @Query("SELECT id FROM exercise")
+    suspend fun ids(): List<String>
 }

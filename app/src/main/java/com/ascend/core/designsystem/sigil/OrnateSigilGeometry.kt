@@ -342,6 +342,7 @@ fun radiusBucket(radiusPx: Float): Int = (radiusPx / 16f).roundToInt() * 16
  * Draws one original medallion glyph from basic geometry (lines / arcs / polygons / dots). No
  * character, letterform, rune, or symbol is ever produced.
  */
+@Suppress("LongMethod", "CyclomaticComplexMethod") // one exhaustive dispatch over the closed glyph set.
 fun DrawScope.drawMedallionGlyph(
     glyph: MedallionGlyph,
     center: Offset,
@@ -398,6 +399,11 @@ fun DrawScope.drawMedallionGlyph(
             drawArc(color, 200f, 160f, false, topLeft = center + Offset(-u * 0.5f, -u * 0.5f), size = Size(u, u), style = s)
             drawArc(color, 20f, 160f, false, topLeft = center + Offset(-u * 0.3f, -u * 0.3f), size = Size(u * 0.6f, u * 0.6f), style = s)
         }
+        MedallionGlyph.PRECISION_BRACKETS,
+        MedallionGlyph.COMBAT_PULSE,
+        MedallionGlyph.PURSUIT_TRAJECTORY,
+        MedallionGlyph.FORTITUDE_RAMPART,
+        -> drawGlyphStrokes(ProficiencyGlyphGeometry.strokesFor(glyph), center, u, color, weight)
     }
 }
 

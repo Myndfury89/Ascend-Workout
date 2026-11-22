@@ -90,6 +90,10 @@ enum class MedallionGlyph {
     FORCE_BURST, // three short thick radial spokes — Berserker Force
     BODY_RINGLET, // balanced ring flanked by two dots — Monk Body Mastery
     ENERGY_FLOW, // nested double arc — Mage Energy Control
+    PRECISION_BRACKETS, // two opposed corner brackets framing a dot — Assassin Precision
+    COMBAT_PULSE, // one pulse line: flat lead, spike up, spike down, flat tail — Fighter Combat Rhythm
+    PURSUIT_TRAJECTORY, // rising open arc with a lead dot ahead — Ranger Pursuit
+    FORTITUDE_RAMPART, // battlement outline, three merlons over an open base — Guardian Fortitude
     ;
 
     companion object {
@@ -154,10 +158,21 @@ object SigilClassStyleCatalog {
 
     /**
      * The style for a [ClassKey]. Classes without a prototype variant (Assassin, Fighter, Ranger, Guardian) use
-     * the shared Neutral line style and have no proficiency glyph until one is designed and approved.
+     * the shared Neutral line style plus their own proficiency glyph (approved by Matt 11/21).
      */
     fun styleFor(key: com.ascend.core.designsystem.sigil.ClassKey): SigilClassStyle =
-        key.prototypeVariantOrNull()?.let(::styleFor) ?: SharedStyle
+        key.prototypeVariantOrNull()?.let(::styleFor)
+            ?: SharedStyle.copy(proficiencyGlyph = sharedStyleProficiencyGlyph(key))
+
+    /** Proficiency glyphs for the [SharedStyle] classes (Matt 11/21: Assassin B, Fighter B, Ranger A, Guardian A). */
+    private fun sharedStyleProficiencyGlyph(key: ClassKey): MedallionGlyph? =
+        when (key) {
+            ClassKey.ASSASSIN -> MedallionGlyph.PRECISION_BRACKETS
+            ClassKey.FIGHTER -> MedallionGlyph.COMBAT_PULSE
+            ClassKey.RANGER -> MedallionGlyph.PURSUIT_TRAJECTORY
+            ClassKey.GUARDIAN -> MedallionGlyph.FORTITUDE_RAMPART
+            else -> null
+        }
 
     private val SharedStyle =
         SigilClassStyle(

@@ -31,7 +31,7 @@ Run everything:
 
 **Class system (pure + Robolectric):**
 - `ClassProgressionCalculatorTest` — tag affinity, class‑XP interpolation, attribute reshaping (no invented attributes, zero stays zero), unique proficiency (favored vs zero)
-- `ClassRecommendationEngineTest` — plain‑language goals → explainable, non‑locking recommendation (Berserker / Monk / Magician)
+- `ClassRecommendationEngineTest` — plain‑language goals → explainable, non‑locking recommendation (Berserker / Monk / Magician); score ties break by the starter flag, then name, then id
 - `ClassRepositoryTest` — DB seed loads + round‑trips, class switch records history and **preserves earned Class XP**, class progress derivation
 - `ClassSeedInsertMissingTest` — an existing install keeps edited and custom class rows, gains only missing catalog classes, leaves selection and Class XP / proficiency untouched, and treats a repeat seed as a no‑op
 - `ExerciseSeedInsertMissingTest` — missing catalog exercises are inserted; edited built‑ins and user‑created exercises stay as stored; a repeat seed does not duplicate rows

@@ -152,4 +152,25 @@ class ClassAffinityAssessorTest {
         assertEquals("sex/age/weight/limitations must not change the class", a.recommendedClassId, b.recommendedClassId)
         assertEquals("scores must be identical", a.classScores, b.classScores)
     }
+
+    @Test
+    fun `mobility plus walking tie recommends mage on every definition order`() {
+        val assessment =
+            InitialAssessment(
+                userId = "u1",
+                primaryGoal = null,
+                activityPreferences = setOf(ActivityPreference.MOBILITY, ActivityPreference.WALKING),
+            )
+        val orders =
+            listOf(
+                ClassCatalog.ALL,
+                ClassCatalog.ALL.sortedBy { it.name },
+                ClassCatalog.ALL.reversed(),
+            )
+        orders.forEach { defs ->
+            val result = assessor.assess(assessment, defs)
+            assertEquals("mage", result.recommendedClassId)
+            assertEquals(result.classScores["monk"], result.classScores["mage"])
+        }
+    }
 }

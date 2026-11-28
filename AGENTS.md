@@ -5,13 +5,15 @@ collisions, each actor stays in its own lane. Read this before pushing anything.
 
 ## 1. Lanes
 
-- **Matt (human)** — owns decisions, **all merges**, accounts and secrets, and
-  device testing. Nothing merges to `main` except by Matt.
+- **Matt (human)** — owns decisions, merges, accounts and secrets, and device
+  testing. **Merge rule: only Matt merges, or an agent merges a specific PR when
+  Matt names that PR number in an explicit instruction.**
 - **Grok** — watches GitHub and is the **sole writer of the Mission Control
   sheet**. Writes plan files on `grok/*` branches. Never pushes to `claude/*`,
-  and never merges.
+  and never merges (except a specific PR Matt names by number).
 - **Claude Code** — does implementation on `claude/*` branches. Never writes the
-  Mission Control sheet, never touches `grok/*` branches, and never merges.
+  Mission Control sheet, never touches `grok/*` branches, and never merges
+  (except a specific PR Matt names by number).
 
 ## 2. Claiming a branch
 

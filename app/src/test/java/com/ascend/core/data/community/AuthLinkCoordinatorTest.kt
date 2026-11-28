@@ -8,6 +8,7 @@ import com.ascend.core.domain.community.SessionStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -41,7 +42,7 @@ class AuthLinkCoordinatorTest {
 
     @Test
     fun `start observes auth state when Community is enabled`() =
-        runTest {
+        runTest(UnconfinedTestDispatcher()) {
             val auth = RecordingAuthGateway()
             val store = RecordingSessionStore()
             val coordinator = AuthLinkCoordinator(auth, store, backgroundScope)

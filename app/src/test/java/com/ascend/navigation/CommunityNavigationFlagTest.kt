@@ -98,7 +98,7 @@ class CommunityNavigationFlagTest {
                 fail("Expected navigation to Account to be rejected when Community is disabled")
             }
             assertTrue(error is IllegalArgumentException)
-            val message = error.message.orEmpty()
+            val message = error!!.message.orEmpty()
             assertTrue(
                 "Expected unregistered Account route, got: $message",
                 "Account" in message || "account" in message.lowercase() || "destination" in message.lowercase(),

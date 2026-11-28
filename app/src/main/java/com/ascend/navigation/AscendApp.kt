@@ -17,13 +17,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.toRoute
+import com.ascend.core.common.CommunityAccess
+import com.ascend.core.common.CommunityFeatures
 import com.ascend.feature.build.BuildIdentityScreen
 import com.ascend.feature.calendar.CalendarScreen
-import com.ascend.feature.community.AuthScreen
-import com.ascend.feature.community.FriendProfileScreen
-import com.ascend.feature.community.FriendsScreen
-import com.ascend.feature.community.ShareSettingsScreen
 import com.ascend.feature.dashboard.StatusScreen
 import com.ascend.feature.progress.ProgressScreen
 import com.ascend.feature.quests.ActiveQuestScreen
@@ -72,7 +69,11 @@ fun AscendApp() {
             composable<Status> {
                 StatusScreen(
                     onViewBuild = { navController.navigate(BuildAnalysis) },
-                    onAccount = { navController.navigate(Account) },
+                    onAccount = {
+                        if (CommunityAccess.accountEntryVisible(CommunityFeatures.isEnabled)) {
+                            navController.navigate(Account)
+                        }
+                    },
                 )
             }
             composable<Quests> {
@@ -92,28 +93,10 @@ fun AscendApp() {
             composable<BuildAnalysis> {
                 BuildIdentityScreen(onBack = { navController.popBackStack() })
             }
-            composable<Account> {
-                AuthScreen(
-                    onBack = { navController.popBackStack() },
-                    onOpenFriends = { navController.navigate(Friends) },
-                    onOpenShareSettings = { navController.navigate(ShareSettings) },
-                )
-            }
-            composable<Friends> {
-                FriendsScreen(
-                    onBack = { navController.popBackStack() },
-                    onOpenProfile = { userId -> navController.navigate(FriendProfile(userId)) },
-                )
-            }
-            composable<FriendProfile> { entry ->
-                FriendProfileScreen(
-                    userId = entry.toRoute<FriendProfile>().userId,
-                    onBack = { navController.popBackStack() },
-                )
-            }
-            composable<ShareSettings> {
-                ShareSettingsScreen(onBack = { navController.popBackStack() })
-            }
+            communityDestinations(
+                navController = navController,
+                communityEnabled = CommunityFeatures.isEnabled,
+            )
         }
     }
 }

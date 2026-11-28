@@ -1,6 +1,7 @@
 package com.ascend
 
 import android.app.Application
+import com.ascend.core.common.CommunityFeatures
 import com.ascend.core.data.community.AuthLinkCoordinator
 import com.ascend.core.data.repository.BuildProfileRefresher
 import dagger.hilt.android.HiltAndroidApp
@@ -22,8 +23,9 @@ class AscendApplication : Application() {
             buildProfileRefresher.start()
         }
         // Restore/track the remote identity link from the live auth session (never touches Room).
+        // Skipped while Community is flagged off so boot does not observe or sync a remote session.
         if (::authLinkCoordinator.isInitialized) {
-            authLinkCoordinator.start()
+            authLinkCoordinator.start(communityEnabled = CommunityFeatures.isEnabled)
         }
     }
 }

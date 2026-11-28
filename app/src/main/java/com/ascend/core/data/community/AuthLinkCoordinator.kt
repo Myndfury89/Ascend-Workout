@@ -1,5 +1,7 @@
 package com.ascend.core.data.community
 
+import com.ascend.core.common.CommunityAccess
+import com.ascend.core.common.CommunityFeatures
 import com.ascend.core.common.di.ApplicationScope
 import com.ascend.core.domain.community.AuthGateway
 import com.ascend.core.domain.community.AuthState
@@ -33,8 +35,9 @@ class AuthLinkCoordinator
     ) {
         private val started = AtomicBoolean(false)
 
-        /** Idempotent; safe to call once at app start. */
-        fun start() {
+        /** Idempotent; safe to call once at app start. No-op when Community is flagged off. */
+        fun start(communityEnabled: Boolean = CommunityFeatures.isEnabled) {
+            if (!CommunityAccess.shouldStartAuthLinkCoordinator(communityEnabled)) return
             if (!started.compareAndSet(false, true)) return
             scope.launch {
                 authGateway.authState()

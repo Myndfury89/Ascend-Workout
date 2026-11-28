@@ -39,6 +39,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.ascend.core.common.CommunityAccess
+import com.ascend.core.common.CommunityFeatures
 import com.ascend.core.designsystem.motion.MotionSpec
 import com.ascend.core.designsystem.sigil.SigilState
 import com.ascend.core.designsystem.sigil.StatusClassVariant
@@ -162,13 +164,11 @@ fun StatusScreen(
                 onReducedMotionChange = viewModel::setReducedMotion,
             )
             Spacer(Modifier.height(12.dp))
-            OutlinedButton(onClick = onViewBuild, modifier = Modifier.fillMaxWidth()) {
-                Text("View your build")
-            }
-            Spacer(Modifier.height(10.dp))
-            OutlinedButton(onClick = onAccount, modifier = Modifier.fillMaxWidth()) {
-                Text("Account")
-            }
+            StatusUtilityActions(
+                communityEnabled = CommunityFeatures.isEnabled,
+                onViewBuild = onViewBuild,
+                onAccount = onAccount,
+            )
             Spacer(Modifier.height(28.dp))
         }
 
@@ -356,6 +356,32 @@ private fun StatusControls(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Switch(checked = reducedMotion, onCheckedChange = onReducedMotionChange)
                 Text("  Reduced motion", color = StatusPalette.infoLine)
+            }
+        }
+    }
+}
+
+/**
+ * Status chrome actions below the framed panel. "View your build" is part of the core loop.
+ * "Account" is the only in-app path into Community (sign-in, friends, share settings) and is
+ * omitted when [communityEnabled] is false.
+ */
+@Suppress("FunctionNaming")
+@Composable
+internal fun StatusUtilityActions(
+    communityEnabled: Boolean,
+    onViewBuild: () -> Unit,
+    onAccount: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Column(modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+        OutlinedButton(onClick = onViewBuild, modifier = Modifier.fillMaxWidth()) {
+            Text("View your build")
+        }
+        if (CommunityAccess.accountEntryVisible(communityEnabled)) {
+            Spacer(Modifier.height(10.dp))
+            OutlinedButton(onClick = onAccount, modifier = Modifier.fillMaxWidth()) {
+                Text("Account")
             }
         }
     }
